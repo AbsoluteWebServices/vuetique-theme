@@ -2,12 +2,13 @@
   <div id="app">
     <overlay v-if="overlayActive"/>
     <loader/>
-    <div id="viewport" class="w-100 relative">
+    <div id="viewport" class="w-full relative">
       <microcart/>
-      <search-panel/>
       <wishlist/>
       <sidebar-menu/>
+      <announcement/>
       <main-header/>
+      <header-menu/>
       <router-view/>
       <main-footer/>
       <notification/>
@@ -29,10 +30,12 @@ import EventBus from '@vue-storefront/core/compatibility/plugins/event-bus'
 import MainHeader from 'theme/components/core/blocks/Header/Header.vue'
 import MainFooter from 'theme/components/core/blocks/Footer/Footer.vue'
 
+import HeaderMenu from 'theme/components/core/blocks/HeaderMenu/HeaderMenu.vue'
 import Wishlist from 'theme/components/core/blocks/Wishlist/Wishlist.vue'
 import Microcart from 'theme/components/core/blocks/Microcart/Microcart.vue'
 import SidebarMenu from 'theme/components/core/blocks/SidebarMenu/SidebarMenu.vue'
 import SearchPanel from 'theme/components/core/blocks/SearchPanel/SearchPanel.vue'
+import Announcement from 'theme/components/core/blocks/Header/Announcement.vue'
 
 import Overlay from 'theme/components/core/Overlay.vue'
 import Loader from 'theme/components/core/Loader.vue'
@@ -83,6 +86,7 @@ export default {
   components: {
     MainHeader,
     MainFooter,
+    HeaderMenu,
     Microcart,
     Wishlist,
     SearchPanel,
@@ -96,7 +100,8 @@ export default {
     CookieNotification,
     OfflineBadge,
     ModalSwitcher,
-    OrderConfirmation
+    OrderConfirmation,
+    Announcement
   }
 }
 </script>

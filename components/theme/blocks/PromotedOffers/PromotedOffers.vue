@@ -1,63 +1,65 @@
 <template>
-  <section v-if="!singleBanner" class="offers container my30 px15">
-    <div class="row">
+  <section v-if="!singleBanner" class="offers container mx-auto my-8 px-4">
+    <div class="row gutter-md">
       <div
-        class="offer-container col-xs-12 col-sm-6 pb15"
+        class="offer-container col-12 sm:col-6 pb-5 relative"
         v-for="(banner, index) in banners.mainBanners"
         :key="index"
       >
         <router-link :to="localizedRoute(banner.link)">
           <div
-            class="offer border-box p5 flex center-xs middle-xs cl-white bg-cl-th-accent"
+            class="offer p-1 flex justify-center items-center text-white bg-white"
             v-lazy:background-image="banner.image"
           >
-            <p class="subtitle m0 serif h3 uppercase">
-              {{ banner.subtitle }}
-            </p>
-            <h2 class="title m0 h1">
+            <h2 class="title">
               {{ banner.title }}
             </h2>
+            <div class="w-24 absolute pin-b mx-auto mb-16">
+              <button-full class="bg-primary" :link="banner.link">{{ $t('Shop') }}</button-full>
+            </div>
           </div>
         </router-link>
       </div>
 
-      <div class="col-xs-12 col-sm-6">
+      <div class="col-12 sm:col-6 flex-col">
         <div
-          class="offer-container pb15"
+          class="offer-container pb-5"
           v-for="(banner, index) in banners.smallBanners"
           :key="index"
         >
           <router-link :to="localizedRoute(banner.link)">
             <div
-              class="offer offer-small border-box p5 flex center-xs middle-xs cl-white bg-cl-th-accent"
+              class="offer offer-small border-box p-1 flex justify-center items-center text-white bg-white relative"
               v-lazy:background-image="banner.image"
             >
-              <p class="subtitle m0 serif h3 uppercase">{{ banner.subtitle }}</p>
-              <h2 class="title m0 h1">{{ banner.title }}</h2>
+              <h2 class="title">{{ banner.title }}</h2>
+              <div class="w-24 absolute pin-b mx-auto mb-10">
+                <button-full class="bg-primary" :link="banner.link">{{ $t('Shop') }}</button-full>
+              </div>
             </div>
           </router-link>
         </div>
       </div>
     </div>
   </section>
-  <section v-else class="container my30 px15">
-    <div class="row">
+  <section v-else class="container mx-auto my-8 px-4">
+    <div class="flex">
       <div
-        class="col-xs-12"
+        class="w-full"
         v-for="(banner, index) in banners.productBanners"
         :key="index"
       >
         <router-link :to="localizedRoute(banner.link)">
           <div
-            class="offer offer-product border-box p5 flex center-xs middle-xs cl-white bg-cl-th-accent"
+            class="offer offer-product border-box p-1 flex justify-center items-center text-white bg-white relative"
             v-lazy:background-image="banner.image"
           >
-            <p class="subtitle m0 serif h3 uppercase">
-              {{ banner.subtitle }}
-            </p>
-            <h2 class="title m0 h1">
+            <h2 class="title">
               {{ banner.title }}
             </h2>
+            <div class="w-24 absolute pin-b mx-auto mb-10">
+              <button-full class="bg-primary" :link="banner.link">{{ $t('Shop') }}</button-full>
+            </div>
           </div>
         </router-link>
       </div>
@@ -69,6 +71,8 @@
 import { mapGetters, mapActions } from 'vuex'
 import promotedOffers from 'theme/resource/promoted_offers.json'
 
+import ButtonFull from 'theme/components/theme/ButtonFull'
+
 export default {
   name: 'PromotedOffers',
   props: {
@@ -77,6 +81,9 @@ export default {
       required: false,
       default: false
     }
+  },
+  components: {
+    ButtonFull
   },
   computed: {
     ...mapGetters({
@@ -101,7 +108,7 @@ export default {
     }
   }
   .offer {
-    height: 735px;
+    height: 780px;
     flex-direction: column;
     background-position: center;
     background-size: cover;
@@ -118,7 +125,7 @@ export default {
     }
   }
   .offer-small {
-    height: 360px;
+    height: 380px;
 
     @media (max-width: 767px) {
       height: 200px;
@@ -130,16 +137,6 @@ export default {
 
     @media (max-width: 767px) {
       height: 330px;
-    }
-  }
-  .title {
-    @media (max-width: 767px) {
-      font-size: 36px;
-    }
-  }
-  .subtitle {
-    @media (max-width: 767px) {
-      font-size: 18px;
     }
   }
 </style>

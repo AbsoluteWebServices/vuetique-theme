@@ -1,5 +1,5 @@
 <template>
-  <div class="overlay fixed w-100" @click="close" v-if="isVisible" />
+  <div class="overlay fixed w-full h-screen pin-t pin-l bg-black opacity-75" @click="close" v-if="isVisible" />
 </template>
 
 <script>
@@ -7,6 +7,11 @@ import Overlay from '@vue-storefront/core/compatibility/components/Overlay'
 
 export default {
   mixins: [Overlay],
+  watch: {
+    isVisible (oldVar, newVar) {
+      console.log(oldVar, newVar)
+    }
+  },
   beforeCreate () {
     document.documentElement.classList.add('no-scroll')
   },
@@ -26,17 +31,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~theme/css/variables/colors';
-@import '~theme/css/helpers/functions/color';
-@import '~theme/css/base/global_vars';
-$color-bg: color(black);
-$z-index-overlay: map-get($z-index, overlay);
+@import '~theme/css/variables/zindex';
 
 .overlay {
-  height: 100vh;
-  top: 0;
-  left: 0;
-  background-color: rgba($color-bg, 0.4);
   z-index: $z-index-overlay;
 }
 </style>

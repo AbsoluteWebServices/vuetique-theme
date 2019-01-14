@@ -1,104 +1,104 @@
 <template>
-  <footer :class="{ 'brdr-top-1 brdr-cl-secondary': isCheckoutPage }">
-    <newsletter class=" flex brdr-bottom-1 brdr-cl-secondary" v-if="!isCheckoutPage"/>
+  <footer :class="{ 'border-top border-secondary': isCheckoutPage }">
+    <newsletter class=" flex border-bottom border-secondary" v-if="!isCheckoutPage"/>
     <div
-      class="footer-links flex pt30 pb60 px40 bg-cl-secondary"
+      class="footer-links flex pt-8 pb-16 px-10 bg-secondary"
       v-if="!isCheckoutPage"
     >
-      <div class="container">
-        <div class="row m0 center-xs between-md">
+      <div class="container mx-auto">
+        <div class="flex justify-center md:justify-between">
           <div
-            class="row m0 col-lg-7 col-md-8 col-xs-12 start-md between-md between-xs no-mobile"
+            class="flex w-full md:w-2/3 lg:w-3/5 start-md justify-between no-mobile"
           >
             <div class="start-md">
-              <h3 class="cl-accent weight-400">
+              <h3 class="text-primary font-normal">
                 {{ $t('Departments') }}
               </h3>
-              <div class="mt15">
-                <router-link class="cl-secondary" :to="localizedRoute('/c/women-20')" exact>
+              <div class="mt-4">
+                <router-link class="text-secondary" :to="localizedRoute('/c/women-20')" exact>
                   {{ $t('Women fashion') }}
                 </router-link>
               </div>
-              <div class="mt15">
-                <router-link class="cl-secondary" :to="localizedRoute('/c/men-11')" exact>
+              <div class="mt-4">
+                <router-link class="text-secondary" :to="localizedRoute('/c/men-11')" exact>
                   {{ $t("Men's fashion") }}
                 </router-link>
               </div>
-              <div class="mt15">
-                <router-link class="cl-secondary" :to="localizedRoute('/')" exact>
+              <div class="mt-4">
+                <router-link class="text-secondary" :to="localizedRoute('/')" exact>
                   {{ $t('Kidswear') }}
                 </router-link>
               </div>
-              <div class="mt15">
-                <router-link class="cl-secondary" :to="localizedRoute('/')" exact>
+              <div class="mt-4">
+                <router-link class="text-secondary" :to="localizedRoute('/')" exact>
                   {{ $t('Home') }}
                 </router-link>
               </div>
             </div>
             <div class="start-md">
-              <h3 class="cl-accent weight-400">
+              <h3 class="text-primary font-normal">
                 {{ $t('Orders') }}
               </h3>
-              <div class="mt15">
-                <router-link class="cl-secondary" :to="localizedRoute('/order-tracking')" exact>
+              <div class="mt-4">
+                <router-link class="text-secondary" :to="localizedRoute('/order-tracking')" exact>
                   {{ $t('Track my order') }}
                 </router-link>
               </div>
-              <div class="mt15">
-                <router-link class="cl-secondary" :to="localizedRoute('/my-account')" exact>
+              <div class="mt-4">
+                <router-link class="text-secondary" :to="localizedRoute('/my-account')" exact>
                   {{ $t('My account') }}
                 </router-link>
               </div>
-              <div class="mt15">
-                <router-link class="cl-secondary" :to="localizedRoute('/delivery')" exact>
+              <div class="mt-4">
+                <router-link class="text-secondary" :to="localizedRoute('/delivery')" exact>
                   {{ $t('Delivery') }}
                 </router-link>
               </div>
-              <div class="mt15">
-                <router-link class="cl-secondary" :to="localizedRoute('/returns')" exact>
+              <div class="mt-4">
+                <router-link class="text-secondary" :to="localizedRoute('/returns')" exact>
                   {{ $t('Return policy') }}
                 </router-link>
               </div>
             </div>
             <div class="start-md">
-              <h3 class="cl-accent weight-400">
+              <h3 class="text-primary font-normal">
                 {{ $t('Help') }}
               </h3>
-              <div class="mt15">
-                <router-link class="cl-secondary" :to="localizedRoute('/customer-service')" exact>
+              <div class="mt-4">
+                <router-link class="text-secondary" :to="localizedRoute('/customer-service')" exact>
                   {{ $t('Customer service') }}
                 </router-link>
               </div>
-              <div class="mt15">
-                <router-link class="cl-secondary" :to="localizedRoute('/size-guide')" exact>
+              <div class="mt-4">
+                <router-link class="text-secondary" :to="localizedRoute('/size-guide')" exact>
                   {{ $t('Size guide') }}
                 </router-link>
               </div>
-              <div class="mt15">
-                <router-link class="cl-secondary" :to="localizedRoute('/contact')" exact>
+              <div class="mt-4">
+                <router-link class="text-secondary" :to="localizedRoute('/contact')" exact>
                   {{ $t('Contact us') }}
                 </router-link>
               </div>
             </div>
             <div class="start-md">
-              <h3 class="cl-accent weight-400">
+              <h3 class="text-primary font-normal">
                 {{ $t('About us') }}
               </h3>
-              <div class="mt15">
-                <router-link class="cl-secondary" :to="localizedRoute('/i/about-us')" exact>
+              <div class="mt-4">
+                <router-link class="text-secondary" :to="localizedRoute('/i/about-us')" exact>
                   {{ $t('About us (Magento CMS)') }}
                 </router-link>
               </div>
-              <div class="mt15">
-                <router-link class="cl-secondary" :to="localizedRoute('/store-locator')" exact>
+              <div class="mt-4">
+                <router-link class="text-secondary" :to="localizedRoute('/store-locator')" exact>
                   {{ $t('Store locator') }}
                 </router-link>
               </div>
             </div>
           </div>
-          <div class="row social mt30">
+          <div class="flex social mt-8">
             <a
-              class="social-icon mx10 brdr-circle no-underline"
+              class="social-icon mx-3 brdr-circle no-underline"
               href="https://www.facebook.com/"
               :aria-label="$t('Go to Facebook')"
             >
@@ -107,7 +107,7 @@
               </svg>
             </a>
             <a
-              class="social-icon mx10 brdr-circle no-underline"
+              class="social-icon mx-3 brdr-circle no-underline"
               href="https://www.instagram.com"
               :aria-label="$t('Go to Instagram')"
             >
@@ -118,7 +118,7 @@
               </svg>
             </a>
             <a
-              class="social-icon mx10 brdr-circle no-underline"
+              class="social-icon mx-3 brdr-circle no-underline"
               href="https://www.pinterest.com"
               :aria-label="$t('Go to Pinterest')"
             >
@@ -127,7 +127,7 @@
               </svg>
             </a>
             <a
-              class="social-icon mx10 brdr-circle no-underline"
+              class="social-icon mx-3 brdr-circle no-underline"
               href="https://www.youtube.com"
               :aria-label="$t('Go to Youtube')"
             >
@@ -140,16 +140,16 @@
         </div>
       </div>
     </div>
-    <div class="container">
-      <div class="row middle-xs px15 bottom-links">
-        <div class="col-xs-5 col-sm-3 cl-tertiary">
+    <div class="container mx-auto">
+      <div class="flex items-center px-4 bottom-links">
+        <div class="w-2/5 sm:w-1/4 cl-tertiary">
           <language-switcher v-if="multistoreEnabled" />
         </div>
-        <div class="col-xs col-sm-9 end-xs">
-          <ul class="pl0 links" data-testid="bottomLinks">
+        <div class="w-auto sm:w-3/4 flex justify-end">
+          <ul class="pl-0 links" data-testid="bottomLinks">
             <li class="inline-flex">
               <router-link
-                class="cl-tertiary mr10 underline"
+                class="cl-tertiary mr-3 underline"
                 to="/legal"
                 exact
               >

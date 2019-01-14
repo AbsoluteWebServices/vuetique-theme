@@ -1,6 +1,6 @@
 <template>
   <div
-    class="product align-center w-100 pb20"
+    class="product w-full pb-5"
     v-observe-visibility="visibilityChanged"
   >
     <router-link
@@ -16,7 +16,7 @@
       data-testid="productLink"
     >
       <div
-        class="product-image relative bg-cl-secondary"
+        class="product-image w-full relative bg-grey-lightest"
         :class="[{ sale: labelsActive && isOnSale }, { new: labelsActive && isNew }]">
         <img
           :alt="product.name"
@@ -28,30 +28,31 @@
         >
       </div>
 
-      <p class="mb0 cl-accent mt10" v-if="!onlyImage">
+      <p class="mb-0 font-medium text-grey-dark hover:text-primary mt-3" v-if="!onlyImage">
         {{ product.name | htmlDecode }}
       </p>
 
-      <span
-        class="price-original mr5 lh30 cl-secondary"
-        v-if="product.special_price && parseFloat(product.originalPriceInclTax) > 0 && !onlyImage"
-      >
-        {{ product.originalPriceInclTax | price }}
-      </span>
+      <div class="mt-1 text-grey-dark font-medium">
+        <span
+          class="text-primary mr-2"
+          v-if="product.special_price && parseFloat(product.special_price) > 0 && !onlyImage"
+        >
+          {{ product.priceInclTax | price }}
+        </span>
 
-      <span
-        class="price-special lh30 cl-accent weight-700"
-        v-if="product.special_price && parseFloat(product.special_price) > 0 && !onlyImage"
-      >
-        {{ product.priceInclTax | price }}
-      </span>
+        <span
+          class="line-through"
+          v-if="product.special_price && parseFloat(product.originalPriceInclTax) > 0 && !onlyImage"
+        >
+          {{ product.originalPriceInclTax | price }}
+        </span>
 
-      <span
-        class="lh30 cl-secondary"
-        v-if="!product.special_price && parseFloat(product.priceInclTax) > 0 && !onlyImage"
-      >
-        {{ product.priceInclTax | price }}
-      </span>
+        <span
+          v-if="!product.special_price && parseFloat(product.priceInclTax) > 0 && !onlyImage"
+        >
+          {{ product.priceInclTax | price }}
+        </span>
+      </div>
     </router-link>
   </div>
 </template>
@@ -123,10 +124,6 @@ $color-white: color(white);
   }
 }
 
-.price-original {
-  text-decoration: line-through;
-}
-
 %label {
   position: absolute;
   top: 0;
@@ -143,7 +140,6 @@ $color-white: color(white);
 }
 
 .product-image {
-  width: 100%;
   overflow: hidden;
   max-height: 300px;
 

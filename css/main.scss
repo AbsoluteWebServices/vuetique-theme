@@ -1,23 +1,8 @@
-@import 'vendor/flexboxgrid2';
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif+SC|Roboto:300,400,500,700');
 
-@import 'variables/variables';
-@import 'helpers/mixins';
-@import 'helpers/functions';
+@tailwind preflight;
+@tailwind components;
+@tailwind utilities;
+
 @import 'base/base';
-@import 'base/global_vars';
 @import 'base/text';
-@import 'base/color';
-@import 'base/icons';
-
-@import 'layout/layout';
-@import 'layout/border';
-@import 'layout/margin';
-@import 'layout/padding';
-
-@import 'components/buttons';
-
-@import 'utilities/utilities';
-@import 'utilities/visibility';
-
-@import 'animations/animations';
-@import 'animations/transitions';

@@ -1,104 +1,85 @@
 <template>
   <div
-    class="microcart mw-100 fixed cl-accent"
-    :class="[productsInCart.length ? 'bg-cl-secondary' : 'bg-cl-primary', { active: isMicrocartOpen }]"
+    class="microcart max-w-full fixed bg-white p-8"
+    :class="{ active: isMicrocartOpen }"
     data-testid="microcart"
   >
-    <div class="row middle-xs bg-cl-primary top-sm">
-      <div class="col-xs-10">
-        <h2
-          v-if="productsInCart.length"
-          class="cl-accent mt60 mb35 ml40 heading"
-        >
-          {{ $t('Shopping cart') }}
-        </h2>
-      </div>
-      <div class="col-xs-2 end-xs">
-        <button
-          type="button"
-          class="p0 brdr-none bg-cl-transparent close"
-          @click="closeMicrocartExtend"
-          data-testid="closeMicrocart"
-        >
-          <i class="material-icons p15 cl-accent">
-            close
-          </i>
-        </button>
-      </div>
-    </div>
+    <button
+      type="button"
+      class="absolute pin-t pin-r m-3 outline-none"
+      @click="closeMicrocartExtend"
+      data-testid="closeMicrocart"
+    >
+      <i class="material-icons text-h4 text-grey-dark">
+        close
+      </i>
+    </button>
 
-    <h4 v-if="!productsInCart.length" class="cl-accent ml30">
+    <h2 v-if="productsInCart.length" class="text-black mb-8">
+      {{ $t('Your cart') }}:
+    </h2>
+
+    <h4 v-if="!productsInCart.length" class="text-black mb-2">
       {{ $t('Your shopping cart is empty.') }}
     </h4>
-    <div v-if="!productsInCart.length" class="ml30" @click="closeMicrocartExtend">
+    <div v-if="!productsInCart.length" @click="closeMicrocartExtend">
       {{ $t("Don't hesitate and") }}
       <router-link :to="localizedRoute('/')">
         {{ $t('browse our catalog') }}
       </router-link>
       {{ $t('to find something beautiful for You!') }}
     </div>
-    <ul v-if="productsInCart.length" class="bg-cl-primary m0 px40 pb40 products">
+    <ul v-if="productsInCart.length" class="products p-0 m-0">
       <product v-for="product in productsInCart" :key="product.sku" :product="product" />
     </ul>
-    <div v-if="productsInCart.length" class="summary px40 cl-accent serif">
-      <h3 class="m0 pt40 mb30 weight-400 summary-heading">
-        {{ $t('Shopping summary') }}
-      </h3>
-      <div v-for="(segment, index) in totals" :key="index" class="row py20" v-if="segment.code !== 'grand_total'">
-        <div class="col-xs">
+    <div v-if="productsInCart.length" class="summary pt-8">
+      <div v-for="(segment, index) in totals" :key="index" class="row justify-between py-2 text-grey-dark font-medium" v-if="segment.code !== 'grand_total'">
+        <div class="col-auto">
           {{ segment.title }}
-          <button v-if="appliedCoupon && segment.code === 'discount'" type="button" class="p0 brdr-none bg-cl-transparent close delete-button ml10" @click="clearCoupon">
-            <i class="material-icons cl-accent">
+          <button v-if="appliedCoupon && segment.code === 'discount'" type="button" class="close delete-button" @click="clearCoupon">
+            <i class="material-icons">
               close
             </i>
           </button>
         </div>
-        <div v-if="segment.value != null" class="col-xs align-right">
+        <div v-if="segment.value != null" class="col-auto" :class="{'text-primary': segment.code === 'discount'}">
           {{ segment.value | price }}
         </div>
       </div>
-      <div class="row py20">
-        <div v-if="OnlineOnly && !addCouponPressed" class="col-xs-12">
-          <button
-            class="p0 brdr-none serif fs-medium-small cl-accent bg-cl-transparent"
-            type="button"
-            @click="addDiscountCoupon"
-          >
-            {{ $t('Add a discount code') }}
-          </button>
+
+      <div v-if="OnlineOnly" class="py-3 row">
+        <div class="mr-3 col-grow">
+          <base-input type="text" id="couponinput" :placeholder="$t('Add discount code')" :autofocus="true" v-model.trim="couponCode" @keyup.enter="setCoupon"/>
         </div>
-        <div v-if="OnlineOnly && addCouponPressed" class="col-xs-12 pt30 coupon-wrapper">
-          <div class="coupon-input">
-            <label class="h6 cl-secondary">{{ $t('Discount code') }}</label>
-            <base-input type="text" id="couponinput" :autofocus="true" v-model.trim="couponCode" @keyup.enter="setCoupon"/>
-          </div>
-          <button-outline color="dark" :disabled="!couponCode" @click.native="setCoupon">{{ $t('Add discount code') }}</button-outline>
+        <div class="col-auto">
+          <button-full :disabled="!couponCode" @click.native="setCoupon">{{ $t('Apply') }}</button-full>
         </div>
       </div>
 
-      <div class="row pt30 pb20 weight-700 middle-xs" v-for="(segment, index) in totals" :key="index" v-if="segment.code === 'grand_total'">
-        <div class="col-xs h4 total-price-label">
+      <div class="row justify-between py-3 font-serif text-h2 font-bold" v-for="(segment, index) in totals" :key="index" v-if="segment.code === 'grand_total'">
+        <div class="col-auto total-price-label">
           {{ segment.title }}
         </div>
-        <div class="col-xs align-right h2 total-price-value">
+        <div class="col-auto total-price-value">
           {{ segment.value | price }}
         </div>
       </div>
     </div>
 
     <div
-      class="row py20 px40 middle-xs actions"
+      class="row justify-between items-center py-4 actions"
       v-if="productsInCart.length && !isCheckoutMode"
     >
-      <div class="col-xs-12 col-sm first-sm">
-        <router-link :to="localizedRoute('/')" class="no-underline cl-secondary link">
+      <div class="col-auto">
+        <router-link :to="localizedRoute('/')" class="no-underline text-grey link">
           <span @click="closeMicrocartExtend">
-            {{ $t('Return to shopping') }}
+            &lt;&nbsp;{{ $t('Return to shopping') }}
           </span>
         </router-link>
       </div>
-      <div class="col-xs-12 first-xs col-sm-4 end-sm">
+      <div class="col-auto">
         <button-full
+          class="bg-primary py-3 px-6"
           :link="{ name: 'checkout' }"
           @click.native="closeMicrocartExtend"
         >
@@ -185,7 +166,7 @@ export default {
     right: 0;
     z-index: 3;
     height: 100%;
-    width: 800px;
+    width: 480px;
     min-width: 320px;
     transform: translateX(100%);
     transition: transform 300ms $motion-main;
@@ -193,18 +174,6 @@ export default {
     overflow-x: hidden;
     &.active {
       transform: translateX(0)
-    }
-  }
-
-  .close {
-    i {
-      opacity: 0.6;
-    }
-    &:hover,
-    &:focus {
-      i {
-        opacity: 1;
-      }
     }
   }
 
@@ -265,19 +234,5 @@ export default {
 
   .delete-button {
     vertical-align: middle;
-  }
-
-  .coupon-wrapper {
-    display: flex;
-
-    .button-outline {
-      text-transform: inherit;
-      width: 50%;
-    }
-
-    .coupon-input {
-      margin-right: 20px;
-      width: 100%;
-    }
   }
 </style>

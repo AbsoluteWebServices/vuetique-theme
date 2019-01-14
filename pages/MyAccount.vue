@@ -80,7 +80,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~theme/css/base/text';
+//@import '~theme/css/base/text';
 @import '~theme/css/variables/colors';
 @import '~theme/css/helpers/functions/color';
 $color-tertiary: color(tertiary);

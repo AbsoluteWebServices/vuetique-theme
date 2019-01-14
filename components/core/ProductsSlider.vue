@@ -1,19 +1,19 @@
 <template>
   <div class="collection">
-    <div class="container">
-      <div class="row center-xs">
-        <header class="col-md-12">
-          <h2 class="align-center cl-accent">
+    <div class="container mx-auto">
+      <div class="flex justify-center">
+        <header class="w-full">
+          <h2 class="align-center text-primary">
             {{ title }}
           </h2>
         </header>
       </div>
     </div>
-    <div class="bg-cl-secondary collection-slider">
-      <div class="container px15">
-        <div class="row">
-          <div class="col-md-12">
-            <div class="center-xs cool-stuff-collection">
+    <div class="bg-secondary collection-slider">
+      <div class="container mx-auto px-4">
+        <div class="flex">
+          <div class="w-full">
+            <div class="justify-center cool-stuff-collection">
               <no-ssr>
                 <carousel v-bind="config" @pageChange="setMuted">
                   <slide

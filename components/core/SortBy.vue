@@ -18,10 +18,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-    @import '~theme/css/base/text';
-    @import '~theme/css/variables/colors';
-    @import '~theme/css/helpers/functions/color';
-    $color-tertiary: color(tertiary);
+    //@import '~theme/css/base/text';
+    //@import '~theme/css/variables/colors';
+    //@import '~theme/css/helpers/functions/color';
+    /*$color-tertiary: color(tertiary);
     .sort-by {
         display: inline-flex;
         position: relative;
@@ -51,5 +51,5 @@ export default {
       .sort-by {
         width: 100%;
       }
-    }
+    }*/
 </style>

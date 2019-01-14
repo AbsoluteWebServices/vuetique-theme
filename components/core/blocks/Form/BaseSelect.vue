@@ -81,7 +81,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '~theme/css/variables/colors';
+  /*@import '~theme/css/variables/colors';
   @import '~theme/css/helpers/functions/color';
   @import '~theme/css/base/text';
   $color-tertiary: color(tertiary);
@@ -145,5 +145,5 @@ export default {
     font-size: 14px;
     color: $color-puerto-rico;
   }
-}
+}*/
 </style>

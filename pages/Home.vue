@@ -2,12 +2,12 @@
   <div id="home">
     <main-slider />
 
-    <promoted-offers/>
+    <promoted-offers />
 
-    <section class="new-collection container px15">
+    <section class="new-collection container">
       <div>
-        <header class="col-md-12">
-          <h2 class="align-center cl-accent">{{ $t('Everything new') }}</h2>
+        <header class="mb-6">
+          <h2 class="text-center text-black">{{ $t('Shop new arrivals') }}</h2>
         </header>
       </div>
       <div class="row center-xs">
@@ -15,7 +15,7 @@
       </div>
     </section>
 
-    <collection :title="$t('New Luma Yoga Collection')" cover-image="/assets/collection.jpg" category="Women"/>
+    <collection :title="$t('New Luma Yoga Collection')" cover-image="/assets/collection.jpg" category="Men"/>
 
     <section class="container pb60 px15">
       <div class="row center-xs">
