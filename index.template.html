@@ -18,15 +18,15 @@
 				wf.async = 'true';
 				var s = document.getElementsByTagName('script')[0];
 				s.parentNode.insertBefore(wf, s);
-			})(); 
+			})();
 		</script>
 		{{{ renderResourceHints() }}}
 		{{{ renderStyles() }}}
-		{{{ output.appendHead() }}}		
+		{{{ output.appendHead() }}}
 	</head>
   <body>
 		<!--vue-ssr-outlet-->
     {{{ renderState() }}}
-    {{{ renderScripts() }}}		
+    {{{ renderScripts() }}}
   </body>
 </html>
