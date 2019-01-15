@@ -47,3 +47,17 @@ button,
   -webkit-tap-highlight-color: rgba(0,0,0,0);
   -webkit-tap-highlight-color: transparent;
 }
+
+
+.btn-primary {
+  @apply bg-primary px-4 py-2;
+  color: #fff;
+
+  &:hover {
+    @apply bg-primary2;
+  }
+
+}
+
+
+

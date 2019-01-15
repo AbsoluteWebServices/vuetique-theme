@@ -3,18 +3,18 @@
     <div class="container">
       <div class="newsletter-content m0 row middle-sm start-md">
         <div class="col-md-9 col-xs-12">
-          <h3 class="h3 cl-accent weight-400 m0">
+          <h4 class="h3 cl-accent leading-normal weight-400 m0">
             {{ $t('Subscribe to the newsletter and receive a coupon for 10% off') }}
-          </h3>
+          </h4>
         </div>
         <div class="newsletter-button col-md-3 col-xs-12 end-md">
-          <button-outline
+          <button
             @click.native="$bus.$emit('modal-show', 'modal-newsletter')"
-            color="dark"
+            class="btn btn-primary newsletter-btn uppercase mt-3"
             data-testid="openNewsletterButton"
           >
             {{ $t('Subscribe') }}
-          </button-outline>
+          </button>
         </div>
       </div>
     </div>
@@ -45,6 +45,12 @@ export default {
 </script>
 
 <style scoped>
+
+  .newsletter-btn {
+    padding-left: 52px;
+    padding-right: 52px;
+  }
+
   @media (max-width: 1023px) {
     .newsletter-button {
       padding-top: 25px;

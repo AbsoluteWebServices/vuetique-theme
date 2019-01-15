@@ -59,8 +59,6 @@
 
 <script>
 import { mapState } from 'vuex'
-import ClickOutside from 'vue-click-outside'
-
 import SubCategory from 'theme/components/core/blocks/HeaderMenu/SubCategory'
 
 export default {
@@ -69,7 +67,6 @@ export default {
     SubCategory
   },
   directives: {
-    ClickOutside
   },
   data () {
     return {
