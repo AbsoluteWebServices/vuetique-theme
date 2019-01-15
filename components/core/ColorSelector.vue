@@ -1,11 +1,12 @@
 <template>
   <button
-    :class="[':brdr-cl-bg-primary border border-grey-light hover:border-grey rounded-full relative inline-flex pointer color mr-3 mb-3', active ? 'active' : '']"
+    :class="['border border-transparent opacity-50 hover:opacity-100 rounded-full relative inline-flex pointer color mr-3 mb-3', active ? 'active' : '']"
     @click="switchFilter(id, label)"
     :aria-label="$t('Select color ') + label"
   >
     <div
       class="absolute rounded-full color-inside"
+      :class="{'border border-grey': label === 'White'}"
       :style="colorFrom(label)"
     />
   </button>
@@ -29,22 +30,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '~theme/css/variables/colors';
-  @import '~theme/css/helpers/functions/color';
-  $color-active: color(primary);
-
   .color {
-    width: 48px;
-    height: 48px;
+    width: 40px;
+    height: 40px;
 
     &.active {
-      border-color: $color-active;
+      @apply border-black opacity-100;
     }
   }
 
   .color-inside {
-    width: 38px;
-    height: 38px;
+    width: 30px;
+    height: 30px;
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%)

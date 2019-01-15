@@ -8,7 +8,7 @@
       </div>
       <div class="col-grow flex-col justify-start sm:justify-between">
         <div>
-          <div class="text-black font-medium leading-6">
+          <div class="font-medium leading-6">
             {{ product.name | htmlDecode }}
           </div>
           <div class="text-sm text-grey leading-normal mb-2" data-testid="productSku">

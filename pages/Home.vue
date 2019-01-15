@@ -7,7 +7,7 @@
     <section class="new-collection container mb-16">
       <div>
         <header class="mb-6">
-          <h2 class="text-center text-black">{{ $t('Shop new arrivals') }}</h2>
+          <h2 class="text-center">{{ $t('Shop new arrivals') }}</h2>
         </header>
       </div>
       <div class="row center-xs">
@@ -22,7 +22,7 @@
     <section class="container mb-16">
       <div class="justify-center">
         <header class="mb-6">
-          <h2 class="text-center text-black">{{ $t('Get inspired') }}</h2>
+          <h2 class="text-center">{{ $t('Get inspired') }}</h2>
         </header>
       </div>
       <tile-links />

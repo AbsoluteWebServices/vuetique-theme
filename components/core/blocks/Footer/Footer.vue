@@ -49,7 +49,7 @@
             class="flex w-full md:w-2/3 lg:w-3/5 start-md justify-between no-mobile"
           >
             <div class="start-md">
-              <h4 class="text-black">
+              <h4>
                 {{ $t('Shop') }}
               </h4>
               <div class="my-6">
@@ -74,7 +74,7 @@
               </div>
             </div>
             <div class="start-md">
-              <h4 class="text-black">
+              <h4>
                 {{ $t('Orders') }}
               </h4>
               <div class="my-6">
@@ -99,7 +99,7 @@
               </div>
             </div>
             <div class="start-md">
-              <h4 class="text-black">
+              <h4>
                 {{ $t('Help') }}
               </h4>
               <div class="my-6">
@@ -119,7 +119,7 @@
               </div>
             </div>
             <div class="start-md">
-              <h4 class="text-black">
+              <h4>
                 {{ $t('About us') }}
               </h4>
               <div class="my-6">

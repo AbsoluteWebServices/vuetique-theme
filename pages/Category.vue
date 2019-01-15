@@ -1,41 +1,40 @@
 <template>
   <div id="category">
-    <header class="bg-cl-secondary py35 pl20">
+    <breadcrumbs :routes="breadcrumbs.routes" :active-route="category.name" />
+    <header class="pb-16">
       <div class="container">
-        <breadcrumbs :routes="breadcrumbs.routes" :active-route="category.name" />
-        <div class="row middle-sm">
-          <h1 class="col-sm-9 category-title mb10"> {{ category.name }} </h1>
-          <div class="sorting col-sm-3 align-right"><sort-by /></div>
+        <div class="row items-center mt-2">
+          <h1 class="col-10 category-title"> {{ category.name }} </h1>
+          <div class="sorting col-2"><sort-by /></div>
         </div>
       </div>
       <div class="container">
-        <div class="row m0">
+        <div class="row">
           <button
-            class="col-xs-5 mt25 p15 mobile-filters-button bg-cl-th-accent brdr-none cl-white h5 sans-serif fs-medium-small"
+            class="col-5 mt-6 p-4 mobile-filters-button"
             @click="openFilters"
           >
             {{ $t('Filters') }}
           </button>
-          <div class="mobile-sorting col-xs-6 mt25"><sort-by /></div>
+          <div class="mobile-sorting col-6 mt-6"><sort-by /></div>
         </div>
       </div>
     </header>
-    <div class="container pb60">
-      <div class="row m0 pt15">
-        <div class="col-md-3 start-xs category-filters">
+    <div class="container pb-16">
+      <div class="row gutter-md">
+        <div class="col-3 category-filters">
           <sidebar :filters="filters.available"/>
         </div>
-        <div class="col-md-3 start-xs mobile-filters" v-show="mobileFilters">
-          <div class="close-container absolute w-100">
-            <i class="material-icons p15 close cl-accent" @click="closeFilters">close</i>
+        <div class="col-3 mobile-filters" v-show="mobileFilters">
+          <div class="close-container absolute w-full">
+            <i class="material-icons p-4 close" @click="closeFilters">close</i>
           </div>
           <sidebar class="mobile-filters-body" :filters="filters.available"/>
         </div>
-        <p class="col-xs-12 hidden-md m0 px20 cl-secondary">{{ productsCounter }} items</p>
-        <div class="col-md-9 pt20 px10 border-box products-list">
+        <div class="col-9 products-list">
           <div v-if="isCategoryEmpty" class="hidden-xs">
-            <h4 data-testid="noProductsInfo">{{ $t('No products found!') }}</h4>
-            <p>{{ $t('Please change Your search criteria and try again. If still not finding anything relevant, please visit the Home page and try out some of our bestsellers!') }}</p>
+            <h3 data-testid="noProductsInfo" class="mb-2">{{ $t('No products found!') }}</h3>
+            <p class="text-grey-dark">{{ $t('Please change Your search criteria and try again. If still not finding anything relevant, please visit the Home page and try out some of our bestsellers!') }}</p>
           </div>
           <product-listing columns="3" :products="products" />
         </div>
@@ -108,10 +107,6 @@ export default {
 
   .mobile-sorting {
     display: none;
-  }
-
-  .category-title {
-    line-height: 65px;
   }
 
   @media (max-width: 64em) {

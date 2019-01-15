@@ -1,8 +1,8 @@
 <template>
-  <div class="sort-by">
+  <div class="sort-by relative">
     <select
       name="sortby"
-      class="cl-secondary"
+      class="w-full px-3 h-10 bg-transparent border border-grey text-sm text-grey-dark font-medium outline-none"
       v-model="sortby"
       @change="changeOrder">
       <option selected="selected" disabled value="">{{ $t('Sort By') }}</option>
@@ -17,39 +17,3 @@ export default {
   mixins: [SortBy]
 }
 </script>
-<style lang="scss" scoped>
-    //@import '~theme/css/base/text';
-    //@import '~theme/css/variables/colors';
-    //@import '~theme/css/helpers/functions/color';
-    /*$color-tertiary: color(tertiary);
-    .sort-by {
-        display: inline-flex;
-        position: relative;
-        border-bottom: 1px solid $color-tertiary;
-        select {
-            @extend .h4;
-            padding: 10px 0;
-            font-size: 14px;
-            border: none;
-            width: 100%;
-            border-radius: 0;
-            background-color: transparent;
-            margin-right: 0;
-            &:focus {
-                outline: none;
-            }
-        }
-        &__icon {
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-        }
-    }
-    @media (max-width: 770px) {
-      .sort-by {
-        width: 100%;
-      }
-    }*/
-</style>

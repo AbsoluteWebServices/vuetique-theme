@@ -3,7 +3,7 @@
     <div class="container">
       <div class="flex justify-center">
         <header class="w-full mb-6">
-          <h2 class="text-center text-black">
+          <h2 class="text-center">
             {{ title }}
           </h2>
         </header>

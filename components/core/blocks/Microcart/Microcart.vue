@@ -6,7 +6,7 @@
   >
     <button
       type="button"
-      class="absolute pin-t pin-r m-3 outline-none"
+      class="absolute pin-t pin-r m-3"
       @click="closeMicrocartExtend"
       data-testid="closeMicrocart"
     >
@@ -15,11 +15,11 @@
       </i>
     </button>
 
-    <h2 v-if="productsInCart.length" class="text-black mb-8">
+    <h2 v-if="productsInCart.length" class="mb-8">
       {{ $t('Your cart') }}:
     </h2>
 
-    <h4 v-if="!productsInCart.length" class="text-black mb-2">
+    <h4 v-if="!productsInCart.length" class="mb-2">
       {{ $t('Your shopping cart is empty.') }}
     </h4>
     <div v-if="!productsInCart.length" @click="closeMicrocartExtend">

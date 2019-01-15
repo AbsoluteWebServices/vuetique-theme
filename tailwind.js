@@ -65,6 +65,8 @@ let colors = {
   'error': '#c24343',
   'error-lighter': '#f0d0d0',
   'error-lightest': '#fcf5f5',
+
+  'disabled': '#e0e0e0'
 }
 
 let backgroundColors = {
@@ -596,6 +598,7 @@ module.exports = {
   */
 
   maxHeight: {
+    '0': '0',
     'full': '100%',
     'screen': '100vh',
   },
@@ -880,7 +883,7 @@ module.exports = {
     negativeMargin: ['responsive'],
     objectFit: false,
     objectPosition: false,
-    opacity: ['responsive'],
+    opacity: ['responsive', 'hover'],
     outline: ['focus'],
     overflow: ['responsive'],
     padding: ['responsive'],

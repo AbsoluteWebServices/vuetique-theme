@@ -1,14 +1,14 @@
 <template>
-  <span @click="switchFilter(id, from, to)">
+  <div @click="switchFilter(id, from, to)" class="price-select flex items-center cursor-pointer">
     <button
-      class="relative brdr-cl-bg-tertiary brdr-1 bg-cl-transparent mr10 pointer price-selector"
+      class="relative border-grey border mr-3 pointer price-selector"
       :class="{ active: active }"
       :aria-label="$t('Price ') + content"
     >
-      <div class="bg-cl-transparent absolute block square"/>
+      <div class="absolute block square"/>
     </button>
     <span>{{ content }}</span>
-  </span>
+  </div>
 </template>
 
 <script>
@@ -20,26 +20,25 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '~theme/css/variables/colors';
-  @import '~theme/css/helpers/functions/color';
-  $color-event: color(tertiary);
-  $color-active: color(accent);
-
   .price-selector {
     width: 20px;
     height: 20px;
 
     &:hover {
       .square {
-        background-color: $color-event;
+        @apply bg-grey-light;
       }
     }
 
     &.active {
       .square {
-        background-color: $color-active;
+        @apply bg-grey-dark;
       }
     }
+  }
+
+  .price-select:hover {
+    @extend .price-selector:hover;
   }
 
   .square {

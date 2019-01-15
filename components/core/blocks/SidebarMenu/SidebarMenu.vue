@@ -3,7 +3,7 @@
     <button
       type="button"
       :aria-label="$t('Close')"
-      class="absolute pin-t pin-l m-3 outline-none"
+      class="absolute pin-t pin-l m-3"
       @click="closeMenu"
     >
       <i class="material-icons text-h4 text-grey-dark">close</i>
