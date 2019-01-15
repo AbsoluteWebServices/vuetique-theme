@@ -15,7 +15,7 @@
               {{ banner.title }}
             </h2>
             <div class="w-24 absolute pin-b mx-auto mb-16">
-              <button-full class="bg-primary" :link="banner.link">{{ $t('Shop') }}</button-full>
+              <button-full class="bg-primary" :link="{ path: banner.link }">{{ $t('Shop') }}</button-full>
             </div>
           </div>
         </router-link>
@@ -34,7 +34,7 @@
             >
               <h2 class="title">{{ banner.title }}</h2>
               <div class="w-24 absolute pin-b mx-auto mb-10">
-                <button-full class="bg-primary" :link="banner.link">{{ $t('Shop') }}</button-full>
+                <button-full class="bg-primary" :link="{ path: banner.link }">{{ $t('Shop') }}</button-full>
               </div>
             </div>
           </router-link>
@@ -58,7 +58,7 @@
               {{ banner.title }}
             </h2>
             <div class="w-24 absolute pin-b mx-auto mb-10">
-              <button-full class="bg-primary" :link="banner.link">{{ $t('Shop') }}</button-full>
+              <button-full class="bg-primary" :link="{ path: banner.link }">{{ $t('Shop') }}</button-full>
             </div>
           </div>
         </router-link>

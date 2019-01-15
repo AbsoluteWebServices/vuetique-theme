@@ -6,6 +6,7 @@
           class="relative"
           :key="category.slug"
           v-for="category in categories"
+          :class="{'with-submenu': category.children_data.length}"
         >
           <button
             v-if="category.children_data.length > 0"
@@ -123,6 +124,16 @@ export default {
       @apply text-primary bg-grey-lighter border-t-2 border-solid border-primary;
       padding-top: 13px;
     }
+  }
+}
+
+.with-submenu:hover {
+  > .menu-link {
+    @extend .menu-link.active;
+  }
+
+  > .submenu {
+    display: block !important;
   }
 }
 </style>

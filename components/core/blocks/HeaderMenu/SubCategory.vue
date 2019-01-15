@@ -18,6 +18,7 @@
       class="relative"
       :key="link.slug"
       v-for="link in categoryLinks"
+      :class="{'with-submenu': link.children_data.length}"
     >
       <button
         v-if="link.children_data.length"
@@ -104,6 +105,16 @@ export default {
       @apply text-primary border-l-2 border-solid border-primary;
       padding-left: 13px;
     }
+  }
+}
+
+.with-submenu:hover {
+  > .menu-link {
+    @extend .menu-link.active;
+  }
+
+  > .submenu {
+    display: block !important;
   }
 }
 </style>
