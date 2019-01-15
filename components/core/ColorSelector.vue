@@ -1,11 +1,11 @@
 <template>
   <button
-    :class="['mr10 mb5 bg-cl-transparent brdr-1 brdr-circle brdr-cl-transparent :brdr-cl-bg-primary relative inline-flex pointer color', active ? 'active' : '']"
+    :class="[':brdr-cl-bg-primary border border-grey-light hover:border-grey rounded-full relative inline-flex pointer color mr-3 mb-3', active ? 'active' : '']"
     @click="switchFilter(id, label)"
     :aria-label="$t('Select color ') + label"
   >
     <div
-      class="absolute brdr-circle brdr-1 brdr-cl-secondary block color-inside"
+      class="absolute rounded-full color-inside"
       :style="colorFrom(label)"
     />
   </button>
@@ -34,8 +34,8 @@ export default {
   $color-active: color(primary);
 
   .color {
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
 
     &.active {
       border-color: $color-active;
@@ -43,8 +43,8 @@ export default {
   }
 
   .color-inside {
-    width: 34px;
-    height: 34px;
+    width: 38px;
+    height: 38px;
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%)

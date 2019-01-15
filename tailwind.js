@@ -194,12 +194,13 @@ module.exports = {
     'xs': '0.6875rem',    // 11px
     'sm': '0.8125rem',    // 13px
     'base': '0.9375rem',  // 15px
-    'h1': '3rem',         // 48px
-    'h2': '2rem',         // 32px
-    'h3': '1.5rem',       // 24px
-    'h4': '1.125rem',     // 18px
+    'hero': '3rem',       // 48px
+    'h1': '1.5rem',       // 24px
+    'h2': '1.25rem',      // 20px
+    'h3': '1.125rem',     // 18px
+    'h4': '1rem',         // 16px
     'h5': '0.875rem',     // 14px
-    'h6': '0.75rem',     // 12px
+    'h6': '0.75rem',      // 12px
   },
 
 

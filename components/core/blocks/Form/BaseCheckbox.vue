@@ -21,7 +21,7 @@
     </div>
     <template v-if="validation">
       <span
-        class="block cl-error h6"
+        class="block text-error text-h6"
         v-if="validation.condition"
         data-testid="errorMessage"
       >

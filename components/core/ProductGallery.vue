@@ -95,7 +95,6 @@ export default {
 <style lang="scss" scoped>
 .media-gallery {
   text-align: center;
-  height: 100%;
   &.open {
     z-index: 3;
     top: 0;
@@ -147,11 +146,7 @@ img[lazy=loading] {
 <style lang="scss">
 .media-gallery {
   .VueCarousel-pagination {
-    position: absolute;
-    bottom: 15px;
-    @media (max-width: 767px) {
-      display: none;
-    }
+    @apply mt-2 mb-5 float-left;
   }
   .VueCarousel-navigation-button {
     margin: 0;

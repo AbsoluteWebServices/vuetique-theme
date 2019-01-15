@@ -2,10 +2,7 @@
   <div class="relative">
     <div class="relative">
       <textarea
-        class="
-          mt10 pb10 w-100 border-box brdr-none brdr-bottom-1
-          brdr-cl-primary h4 sans-serif
-        "
+        class="mt-2 pb-2 w-full border-b border-primary text-h4 font-sans"
         :class="{empty: value === ''}"
         :type="type"
         :name="name"
@@ -37,7 +34,7 @@
         v-for="(validation, index) in validations"
         :key="index"
         v-if="validation.condition"
-        class="block cl-error h6 mt5"
+        class="block text-error text-h6 mt-1"
       >
         {{ validation.text }}
       </span>
