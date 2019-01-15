@@ -54,11 +54,17 @@ let colors = {
   'white': '#ffffff',
 
   'primary': '#4fce76',
+  'primary-lighter': '#c6f3d8',
+  'primary-lightest': '#f3fdf7',
+
   'primary2': '#43c265',
   'secondary': '#808080',
   'success': '#43c265',
   'warning': '#755',
+
   'error': '#c24343',
+  'error-lighter': '#f0d0d0',
+  'error-lightest': '#fcf5f5',
 }
 
 let backgroundColors = {

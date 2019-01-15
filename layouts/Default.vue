@@ -34,7 +34,6 @@ import HeaderMenu from 'theme/components/core/blocks/HeaderMenu/HeaderMenu.vue'
 import Wishlist from 'theme/components/core/blocks/Wishlist/Wishlist.vue'
 import Microcart from 'theme/components/core/blocks/Microcart/Microcart.vue'
 import SidebarMenu from 'theme/components/core/blocks/SidebarMenu/SidebarMenu.vue'
-import SearchPanel from 'theme/components/core/blocks/SearchPanel/SearchPanel.vue'
 import Announcement from 'theme/components/core/blocks/Header/Announcement.vue'
 
 import Overlay from 'theme/components/core/Overlay.vue'
@@ -89,7 +88,6 @@ export default {
     HeaderMenu,
     Microcart,
     Wishlist,
-    SearchPanel,
     SidebarMenu,
     Overlay,
     Loader,

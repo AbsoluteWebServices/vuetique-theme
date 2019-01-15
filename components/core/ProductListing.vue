@@ -1,10 +1,10 @@
 <template>
-  <div class="product-listing flex flex-wrap justify-center md:justify-start -mx-4">
+  <div class="row gutter-md justify-center md:justify-start">
     <div
       v-for="(product, key) in products"
       :key="product.id"
-      class="sm:w-1/2 flex px-4"
-      :class="['md:w-1/' + columns, wide(product.sale, product.new, key)]"
+      class="sm:col-6"
+      :class="['md:col-' + (12/columns)%10, wide(product.sale, product.new, key)]"
     >
       <product-tile :product="product"/>
     </div>
@@ -37,7 +37,7 @@ export default {
       if (isHero) {
         lastHero = index
       }
-      return isHero ? 'w-full' : 'w-1/2'
+      return isHero ? 'col-12' : 'col-6'
     }
   }
 }

@@ -1,5 +1,5 @@
 <template>
-  <section v-if="!singleBanner" class="offers container mx-auto my-8 px-4">
+  <section v-if="!singleBanner" class="offers container mx-auto my-8">
     <div class="row gutter-md">
       <div
         class="offer-container col-12 sm:col-6 pb-5 relative"

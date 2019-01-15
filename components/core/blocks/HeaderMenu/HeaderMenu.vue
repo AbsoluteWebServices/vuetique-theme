@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full">
+  <div class="w-full bg-white border-b border-solid">
     <div class="container">
       <ul class="flex menu">
         <li

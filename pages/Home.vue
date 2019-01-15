@@ -2,25 +2,27 @@
   <div id="home">
     <main-slider />
 
-    <promoted-offers />
+    <promoted-offers class="mb-16" />
 
-    <section class="new-collection container">
+    <section class="new-collection container mb-16">
       <div>
         <header class="mb-6">
           <h2 class="text-center text-black">{{ $t('Shop new arrivals') }}</h2>
         </header>
       </div>
       <div class="row center-xs">
-        <product-listing columns="4" :products="everythingNewCollection" />
+        <product-listing columns="4" :products="newCollection" />
       </div>
     </section>
 
-    <collection :title="$t('New Luma Yoga Collection')" cover-image="/assets/collection.jpg" category="Men"/>
+    <promoted-offers class="mb-16" />
 
-    <section class="container pb60 px15">
-      <div class="row center-xs">
-        <header class="col-md-12 pt40">
-          <h2 class="align-center cl-accent">{{ $t('Get inspired') }}</h2>
+    <products-slider class="mb-16" :title="$t('Sale and discount')" :products="salesCollection" :config="sliderConfig" />
+
+    <section class="container mb-16">
+      <div class="justify-center">
+        <header class="mb-6">
+          <h2 class="text-center text-black">{{ $t('Get inspired') }}</h2>
         </header>
       </div>
       <tile-links />
@@ -39,10 +41,10 @@ import Home from '@vue-storefront/core/pages/Home'
 
 // Theme core components
 import ProductListing from 'theme/components/core/ProductListing'
+import ProductsSlider from 'theme/components/core/ProductsSlider'
 import MainSlider from 'theme/components/core/blocks/MainSlider/MainSlider'
 
 // Theme local components
-import Collection from 'theme/components/theme/blocks/Collection/Collection'
 import Onboard from 'theme/components/theme/blocks/Home/Onboard'
 import PromotedOffers from 'theme/components/theme/blocks/PromotedOffers/PromotedOffers'
 import TileLinks from 'theme/components/theme/blocks/TileLinks/TileLinks'
@@ -50,22 +52,32 @@ import { Logger } from '@vue-storefront/core/lib/logger'
 export default {
   mixins: [Home],
   components: {
-    Collection,
     MainSlider,
     Onboard,
     ProductListing,
+    ProductsSlider,
     PromotedOffers,
     TileLinks
+  },
+  data () {
+    return {
+      sliderConfig: {
+        perPage: 1,
+        perPageCustom: [[576, 2], [1024, 4]],
+        paginationEnabled: true,
+        loop: false
+      }
+    }
   },
   computed: {
     categories () {
       return this.$store.state.category.list
     },
-    everythingNewCollection () {
+    newCollection () {
       return this.$store.state.homepage.new_collection
     },
-    coolBagsCollection () {
-      return this.$store.state.homepage.coolbags_collection
+    salesCollection () {
+      return this.$store.state.homepage.sales_collection
     }
   },
   created () {
@@ -88,7 +100,7 @@ export default {
       Logger.info('Calling asyncData in Home (theme)')()
 
       let newProductsQuery = prepareQuery({ queryConfig: 'newProducts' })
-      let coolBagsQuery = prepareQuery({ queryConfig: 'coolBags' })
+      let salesQuery = prepareQuery({ queryConfig: 'inspirations' })
 
       store.dispatch('category/list', { includeFields: config.entities.optimize ? config.entities.category.includeFields : null }).then((categories) => {
         store.dispatch('product/list', {
@@ -104,13 +116,13 @@ export default {
           }
 
           store.dispatch('product/list', {
-            query: coolBagsQuery,
-            size: 4,
+            query: salesQuery,
+            size: 12,
             sort: 'created_at:desc',
             includeFields: config.entities.optimize ? (config.products.setFirstVarianAsDefaultInURL ? config.entities.productListWithChildren.includeFields : config.entities.productList.includeFields) : []
           }).then((res) => {
             if (res) {
-              store.state.homepage.coolbags_collection = res.items
+              store.state.homepage.sales_collection = res.items
             }
             return resolve()
           }).catch(err => {
@@ -128,9 +140,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .new-collection {
-    @media (max-width: 767px) {
-      padding-top: 0;
-    }
-  }
+
 </style>

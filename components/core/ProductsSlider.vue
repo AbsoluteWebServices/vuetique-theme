@@ -1,16 +1,16 @@
 <template>
   <div class="collection">
-    <div class="container mx-auto">
+    <div class="container">
       <div class="flex justify-center">
-        <header class="w-full">
-          <h2 class="align-center text-primary">
+        <header class="w-full mb-6">
+          <h2 class="text-center text-black">
             {{ title }}
           </h2>
         </header>
       </div>
     </div>
-    <div class="bg-secondary collection-slider">
-      <div class="container mx-auto px-4">
+    <div class="collection-slider">
+      <div class="container">
         <div class="flex">
           <div class="w-full">
             <div class="justify-center cool-stuff-collection">
@@ -24,7 +24,6 @@
                       class="collection-product"
                       :product="product"
                       :labels-active="false"
-                      :only-image="true"
                     />
                   </slide>
                 </carousel>
@@ -79,50 +78,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~theme/css/variables/colors';
-@import '~theme/css/helpers/functions/color';
-$color-product-bg: color(secondary, $colors-background);
-
-.collection-slider {
-  overflow: hidden;
-  .VueCarousel-wrapper {
-    overflow: visible!important;
-    &:before,
-    &:after {
-      content: "";
-      height: 100%;
-      position: absolute;
-      top: 0;
-      z-index: 1;
-      display: none;
-      @media only screen and (min-width: 576px) {
-        display: block;
-        width: calc((100vw - (560px - 30px)) / 2);
-      }
-
-      @media only screen and (min-width: 768px) {
-        width: calc((100vw - (752px - 30px)) / 2);
-      }
-
-      @media only screen and (min-width: 992px) {
-        width: calc((100vw - (976px - 30px)) / 2);
-      }
-
-      @media only screen and (min-width: 1200px) {
-        width: calc((100vw - (1184px - 30px)) / 2);
-      }
-    }
-    &:before {
-      right: 100%;
-      background: linear-gradient(to right, $color-product-bg 0%,$color-product-bg 40%,rgba($color-product-bg,0.2) 100%);
-    }
-    &:after {
-      left: 100%;
-      background: linear-gradient(to left, $color-product-bg 0%,$color-product-bg 40%,rgba($color-product-bg,0.2) 100%);
-    }
-  }
-}
-
 .product {
   &.collection-product {
     padding: 0;
@@ -131,8 +86,7 @@ $color-product-bg: color(secondary, $colors-background);
 
 .collection-product {
   .product-link {
-    display: block;
-    padding: 0 15px;
+    @apply px-sm;
   }
 
   .product-image {

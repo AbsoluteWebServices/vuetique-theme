@@ -10,7 +10,7 @@
                   {{ slide.title }}
                 </h1>
                 <div class="mx-auto w-48">
-                  <button-full :link="slide.link" class="bg-primary">
+                  <button-full :link="{path: slide.link}" class="bg-primary">
                     {{ slide.button_text }}
                   </button-full>
                 </div>

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="product w-full pb-5"
+    class="product w-full pb-2 md:pb-5"
     v-observe-visibility="visibilityChanged"
   >
     <router-link
@@ -16,7 +16,7 @@
       data-testid="productLink"
     >
       <div
-        class="product-image w-full relative bg-grey-lightest"
+        class="product-image w-full relative"
         :class="[{ sale: labelsActive && isOnSale }, { new: labelsActive && isNew }]">
         <img
           :alt="product.name"
@@ -28,7 +28,7 @@
         >
       </div>
 
-      <p class="mb-0 font-medium text-grey-dark hover:text-primary mt-3" v-if="!onlyImage">
+      <p class="product-name mb-0 font-medium text-grey-dark mt-3" v-if="!onlyImage">
         {{ product.name | htmlDecode }}
       </p>
 
@@ -111,32 +111,12 @@ export default {
 
 <style lang="scss" scoped>
 @import '~theme/css/animations/transitions';
-@import '~theme/css/variables/colors';
-@import '~theme/css/helpers/functions/color';
-
-$bg-secondary: color(secondary, $colors-background);
-$border-secondary: color(secondary, $colors-border);
-$color-white: color(white);
-
-.product {
-  @media (max-width: 767px) {
-    padding-bottom: 10px;
-  }
-}
 
 %label {
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  height: 40px;
-  background-color: $border-secondary;
-  text-transform: uppercase;
-  color: $color-white;
-  font-size: 12px;
+  @apply text-xs font-medium tracking-sm absolute pin-t pin-l flex justify-center items-center uppercase border border-solid;
+
+  padding: 7px 10px;
+  line-height: 8px;
 }
 
 .product-image {
@@ -184,6 +164,7 @@ $color-white: color(white);
   &.sale {
     &::after {
       @extend %label;
+      @apply text-error border-error-lighter bg-error-lightest;
       content: 'Sale';
     }
   }
@@ -191,8 +172,15 @@ $color-white: color(white);
   &.new {
     &::after {
       @extend %label;
+      @apply text-primary border-primary-lighter bg-primary-lightest;
       content: 'New';
     }
+  }
+}
+
+.product-link:hover {
+  .product-name {
+    @apply text-primary;
   }
 }
 </style>
