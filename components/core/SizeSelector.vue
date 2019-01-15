@@ -1,9 +1,6 @@
 <template>
   <button
-    class="
-      p0 bg-cl-primary brdr-1 brdr-cl-primary
-      brdr-square h5 cl-tertiary size-selector
-    "
+    class="mr-3 mb-3 text-xs size-selector"
     :class="{ active: active }"
     @click="switchFilter(id, label)"
     :aria-label="$t('Select size ') + label"
@@ -27,17 +24,19 @@ export default {
   $color-disabled: color(secondary, $colors-border);
 
   .size-selector {
-    width: 40px;
-    height: 40px;
+    @apply .border .border-grey;
+    width: 48px;
+    height: 48px;
 
     &:hover,
-    &:focus {
+    &:focus,
+    &.active {
       border-width: 2px;
     }
 
     &.active {
+      @apply .font-semibold;
       border-color: $color-active;
-      border-width: 2px;
       color: $color-active;
     }
 

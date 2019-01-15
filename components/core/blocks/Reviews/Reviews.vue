@@ -1,19 +1,19 @@
 <template>
-  <div class="brdr-top-1 brdr-cl-secondary">
-    <section class="container px15 pb50 cl-primary">
-      <div class="row between-xs">
-        <div class="col-xs-12 col-md-6 pt50">
-          <h2 class="h3 m0 mb10 serif lh20 weight-700">
+  <div class="border-top border-grey">
+    <section class="container px-15 pb-10">
+      <div class="md:flex">
+        <div class="md:w-1/2 md:px-4 md:-ml-4 pt-10">
+          <h2 class="text-h3 m-0 mb-10">
             {{ $t('Reviews') }}
           </h2>
           <reviews-list :per-page="4" :items="reviews ? reviews : []" />
         </div>
-        <div class="col-xs-12 col-md-5 pt50">
-          <h2 class="h3 m0 mb10 serif lh20 weight-700">
+        <div class="md:w-1/2 md:px-4 md:-mr-4 pt-50">
+          <h2 class="text-h3 m-0 mb-10 mt-10">
             {{ $t('Add review') }}
           </h2>
           <form action="#" @submit.prevent="outOfScope()">
-            <div class="mb25 pt50">
+            <div class="mb-3 pt50">
               <base-input
                 type="text"
                 :placeholder="$t('First name') + ' *'"
@@ -27,7 +27,7 @@
                 ]"
               />
             </div>
-            <div class="mb25">
+            <div class="mb-3">
               <base-input
                 type="email"
                 :placeholder="$t('Email address') + ' *'"
@@ -45,7 +45,7 @@
                 ]"
               />
             </div>
-            <div class="mb25">
+            <div class="mb-3">
               <base-input
                 type="text"
                 :placeholder="$t('Summary') + ' *'"
@@ -59,7 +59,7 @@
                 ]"
               />
             </div>
-            <div class="mb25">
+            <div class="mb-3">
               <base-textarea
                 type="text"
                 :placeholder="$t('Review') + ' *'"
@@ -73,7 +73,7 @@
                 ]"
               />
             </div>
-            <div class="row m0 middle-xs center-xs start-sm buttons">
+            <div class="m-0 buttons">
               <button-full
                 @click.native="validate()"
                 :class="{ 'w-auto': !currentUser }"
@@ -81,10 +81,10 @@
                 {{ $t('Add review') }}
               </button-full>
               <span
-                class="fs-medium ml20 cl-gray lh30 py5 block"
+                class="block text-center py-4"
                 v-if="!currentUser"
               >
-                {{ $t('or') }} <a href="#" class="cl-primary" @click.prevent="login()">{{ $t('login') }}</a> {{ $t('to account') }}
+                {{ $t('or') }} <a href="#" class="text-primary" @click.prevent="login()">{{ $t('login') }}</a> {{ $t('to account') }}
               </span>
             </div>
           </form>

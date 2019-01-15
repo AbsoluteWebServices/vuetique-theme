@@ -39,7 +39,7 @@
         v-for="(validation, index) in validations"
         :key="index"
         v-if="validation.condition"
-        class="block cl-error h6 mt8"
+        class="block text-error text-h6 mt-1"
         data-testid="errorMessage"
       >
         {{ validation.text }}

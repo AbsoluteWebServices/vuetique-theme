@@ -6,7 +6,7 @@
           <div class="slide w-full" v-lazy:background-image="slide.image">
             <div class="slide-content flex items-center justify-center">
               <div class="w-full px-10p">
-                <h1 class="text-h2 mt-0 mb-8 text-center" data-testid="mainSliderTitle">
+                <h1 class="text-hero mt-0 mb-8 text-center" data-testid="mainSliderTitle">
                   {{ slide.title }}
                 </h1>
                 <div class="mx-auto w-48">

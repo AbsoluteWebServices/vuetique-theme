@@ -1,16 +1,16 @@
 <template>
   <section
-    class="py20 new-collection container px15"
+    class="container py-8 px-6 new-collection"
     v-if="product.related[type] && product.related[type].length > 0"
   >
     <div>
-      <header class="col-md-12">
-        <h2 class="align-center cl-accent">
+      <header>
+        <h2 class="text-center py-8">
           {{ heading }}
         </h2>
       </header>
     </div>
-    <div class="row center-xs">
+    <div class="text-center">
       <product-listing columns="4" :products="product.related[type]" />
     </div>
   </section>

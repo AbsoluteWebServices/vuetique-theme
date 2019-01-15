@@ -32,6 +32,7 @@
               @input="makeSearch"
               class="search-panel-input"
               :placeholder="$t('Type what you are looking for...')"
+              :label="$t('Type what you are looking for...')"
               type="text"
             >
           </div>
