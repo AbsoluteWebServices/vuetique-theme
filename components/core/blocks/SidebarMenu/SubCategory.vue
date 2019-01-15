@@ -2,15 +2,15 @@
   <div>
     <ul
       v-if="categoryLinks"
-      class="sidebar-submenu absolute w-100 p0 bg-cl-primary"
+      class="sidebar-submenu list-reset absolute w-full bg-white"
       :style="styles"
     >
       <li
-        class="brdr-bottom-1 brdr-cl-bg-secondary bg-cl-primary flex"
+        class="border-b flex"
         v-if="parentSlug"
       >
         <router-link
-          class="px25 py20 cl-accent no-underline col-xs"
+          class="menu-link"
           :to="localizedRoute({ name: 'category', params: { id: id, slug: parentSlug }})"
           data-testid="categoryLink"
         >
@@ -18,19 +18,18 @@
         </router-link>
       </li>
       <li
-        class="brdr-bottom-1 brdr-cl-bg-secondary bg-cl-primary flex"
+        class="border-b flex"
         :key="link.slug"
         v-for="link in categoryLinks"
       >
         <sub-btn
-          class="bg-cl-transparent brdr-none fs-medium"
           :id="link.id"
           :name="link.name"
           v-if="link.children_data.length"
         />
         <router-link
           v-else
-          class="px25 py20 cl-accent no-underline col-xs"
+          class="menu-link"
           :to="localizedRoute({ name: 'category', params: { id: link.id, slug: link.slug }})"
         >
           {{ link.name }}
@@ -45,24 +44,24 @@
     </ul>
     <ul
       v-if="myAccountLinks"
-      class="sidebar-submenu fixed w-100 p0 bg-cl-primary"
+      class="sidebar-submenu list-reset fixed w-full"
       :style="styles"
     >
       <li
-        class="brdr-bottom-1 brdr-cl-bg-secondary bg-cl-primary flex"
+        class="border-b flex"
         :key="link.id"
         v-for="link in myAccountLinks"
         @click="notify(link.name)"
       >
         <router-link
-          class="px25 py20 cl-accent no-underline col-xs"
+          class="menu-link"
           :to="localizedRoute(link.url)"
         >
           {{ link.name }}
         </router-link>
       </li>
-      <li class="brdr-bottom-1 brdr-cl-bg-secondary bg-cl-primary flex">
-        <a href="#" class="px25 py20 cl-accent no-underline col-xs" @click.prevent="logout">
+      <li class="border-b flex">
+        <a href="#" class="menu-link" @click.prevent="logout">
           {{ $t('Logout') }}
         </a>
       </li>

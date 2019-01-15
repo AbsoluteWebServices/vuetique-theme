@@ -1,6 +1,6 @@
 <template>
   <button
-    class="inline-flex between-xs w-100 px25 py20 pr15 serif cl-accent"
+    class="inline-flex justify-between w-full px-6 py-6 pr-4 text-black font-medium focus:outline-none"
     v-if="type === 'next'"
     type="button"
     @click.stop="next()"
@@ -11,14 +11,14 @@
     <i class="material-icons">keyboard_arrow_right</i>
   </button>
   <button
-    class="inline-flex p15 between-xs"
+    class="inline-flex w-full px-6 py-6 pr-4 text-black font-medium focus:outline-none"
     v-else
     type="button"
     @click.stop="back()"
     :aria-label="$t('Back')"
   >
-    {{ name }}
     <i class="material-icons">keyboard_arrow_left</i>
+    {{ name }}
   </button>
 </template>
 <script>
@@ -60,21 +60,16 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-@import '~theme/css/variables/colors';
-@import '~theme/css/helpers/functions/color';
-$color-gray: color(gainsboro);
-$color-black: color(matterhorn);
-
 button {
   i {
-    color: $color-gray;
-    font-size: 28px;
-    line-height: 24px;
+    @apply text-grey;
+    font-size: 25px;
+    line-height: 17px;
   }
   &:hover,
   &:focus {
     i {
-      color: $color-black;
+      @apply text-black;
     }
   }
 }
