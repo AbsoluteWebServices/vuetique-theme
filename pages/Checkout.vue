@@ -1,9 +1,9 @@
 <template>
   <div id="checkout">
-    <div class="container">
-      <div class="row" v-show="!orderPlaced">
-        <div class="col-sm-7 col-xs-12 pb70">
-          <div class="checkout-title py5 px20">
+    <div class="container mx-auto">
+      <div class="flex flex-wrap justify-between w-full" v-show="!orderPlaced">
+        <div class="w-1/2 pb70">
+          <div class="checkout-title pb-5">
             <h1>
               {{ $t('Checkout') }}
             </h1>
@@ -18,7 +18,7 @@
           <order-review class="line relative" :is-active="activeSection.orderReview"/>
           <div id="custom-steps"/>
         </div>
-        <div class="hidden-xs col-sm-5 bg-cl-secondary">
+        <div class="w-2/5 px-8 py-8 bg-grey-lighter">
           <cart-summary />
         </div>
       </div>
@@ -102,6 +102,16 @@ export default {
     .number-circle {
       width: 35px;
       height: 35px;
+      border-radius: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      @apply .bg-grey;
+      color: #fff;
+
+      &.bg-cl-th-accent {
+        @apply .bg-primary;
+      }
 
       @media (max-width: 768px) {
         width: 25px;
@@ -162,7 +172,7 @@ export default {
       display: block;
       position: absolute;
       top: 0;
-      left: 37px;
+      left: 17px;
       z-index: -1;
       width: 1px;
       height: 100%;

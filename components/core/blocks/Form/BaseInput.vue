@@ -30,7 +30,7 @@
       {{ icon }}
     </button>
     <template v-if="validation">
-      <span class="block cl-error h6 mt8" v-if="validation.condition">
+      <span class="block text-error text-h6 mt-1" v-if="validation.condition">
         {{ validation.text }}
       </span>
     </template>

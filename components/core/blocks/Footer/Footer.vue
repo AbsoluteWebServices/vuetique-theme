@@ -5,7 +5,6 @@
       v-if="!isCheckoutPage"
     >
       <div class="container mx-auto">
-
         <div class="flex justify-center md:justify-between">
           <div class="flex flex-col w-1/4">
 
@@ -45,9 +44,7 @@
             </div>
 
           </div>
-          <div
-            class="flex w-full md:w-2/3 lg:w-3/5 start-md justify-between no-mobile"
-          >
+          <div class="flex w-full lg:w-3/4 justify-around no-mobile">
             <div class="start-md">
               <h4>
                 {{ $t('Shop') }}
@@ -134,7 +131,6 @@
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>

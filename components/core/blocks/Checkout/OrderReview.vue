@@ -1,7 +1,7 @@
 <template>
-  <div class="order-review pt20">
-    <div class="row pl20">
-      <div class="col-xs-1 col-sm-2 col-md-1">
+  <div class="order-review">
+    <div class="flex flex-wrap">
+      <div class="w-1/12">
         <div
           class="number-circle lh35 cl-white brdr-circle align-center weight-700"
           :class="{ 'bg-cl-th-accent' : isActive || isFilled, 'bg-cl-tertiary' : !isFilled && !isActive }"
@@ -9,33 +9,29 @@
           4
         </div>
       </div>
-      <div class="col-xs-11 col-sm-9 col-md-11">
-        <div class="row">
-          <div class="col-md-12" :class="{ 'cl-bg-tertiary' : !isFilled && !isActive }">
-            <h3 class="m0">
-              {{ $t('Review order') }}
-            </h3>
-          </div>
+      <div class="w-11/12">
+        <div class="" :class="{ 'cl-bg-tertiary' : !isFilled && !isActive }">
+          <h3 class="mt-2 mb-5">
+            {{ $t('Review order') }}
+          </h3>
         </div>
       </div>
     </div>
-    <div class="row pl20 pr20" v-show="isActive">
-      <div class="hidden-xs col-sm-2 col-md-1"/>
-      <div class="col-xs-12 col-sm-9 col-md-11">
+    <!-- HEADER END -->
+
+    <div class="flex flex-wrap justify-end" v-show="isActive">
+      <div class="w-11/12">
         <div id="checkout-order-review-additional-container">
           <div id="checkout-order-review-additional">&nbsp;</div>
         </div>
-        <div class="row mb15 mt20">
-          <div class="col-xs-12">
+        <div class="flex flex-wrap">
+          <div class="w-full">
             <p class="h4">
               {{ $t('Please check if all data are correct') }}
             </p>
             <div class="row">
-              <div class="cartsummary-wrapper">
-                <cart-summary />
-              </div>
               <base-checkbox
-                class="col-xs-11 col-sm-12 col-md-8 bg-cl-secondary p15 mb35 ml10"
+                class="w-full"
                 id="acceptTermsCheckbox"
                 @click="orderReview.terms = !orderReview.terms"
                 @blur="$v.orderReview.terms.$touch()"
@@ -58,11 +54,10 @@
         </div>
       </div>
     </div>
-    <div class="row" v-show="isActive">
-      <div class="hidden-xs col-sm-2 col-md-1"/>
-      <div class="col-xs-12 col-sm-9 col-md-11">
-        <div class="row">
-          <div class="col-xs-12 col-md-8 px20">
+    <div class="flex flex-wrap justify-end mt-5" v-show="isActive">
+      <div class="w-11/12">
+        <div class="flex flex-wrap -mx-3">
+          <div class="w-1/2 px-3">
             <slot name="placeOrderButton">
               <button-full
                 @click.native="placeOrder"
@@ -160,6 +155,14 @@ export default {
   .cartsummary-wrapper {
     @media (min-width: 767px) {
       display: none;
+    }
+  }
+
+  .order-review {
+    &.line {
+      &:after {
+        display: none;
+      }
     }
   }
 </style>

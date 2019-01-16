@@ -26,7 +26,7 @@ export default {
       default: 'button'
     },
     link: {
-      type: Object,
+      type: [Object, String],
       required: false,
       default: null
     },
