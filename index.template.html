@@ -8,7 +8,7 @@
 
 		<script type="text/javascript">
 			WebFontConfig = {
-				google: { families: [ 'Noto+Serif+SC:300,400,500,700', 'Roboto:400,700' ] }
+				google: { families: [ 'Noto+Serif+SC:300,400,500,700', 'Roboto:400,500,700' ] }
 			};
 			(function() {
 				var wf = document.createElement('script');
@@ -18,15 +18,15 @@
 				wf.async = 'true';
 				var s = document.getElementsByTagName('script')[0];
 				s.parentNode.insertBefore(wf, s);
-			})(); 
+			})();
 		</script>
 		{{{ renderResourceHints() }}}
 		{{{ renderStyles() }}}
-		{{{ output.appendHead() }}}		
+		{{{ output.appendHead() }}}
 	</head>
   <body>
 		<!--vue-ssr-outlet-->
     {{{ renderState() }}}
-    {{{ renderScripts() }}}		
+    {{{ renderScripts() }}}
   </body>
 </html>
