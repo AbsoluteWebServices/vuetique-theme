@@ -81,7 +81,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  /*@import '~theme/css/variables/colors';
+  @import '~theme/css/variables/colors';
   @import '~theme/css/helpers/functions/color';
   @import '~theme/css/base/text';
   $color-tertiary: color(tertiary);
@@ -96,7 +96,8 @@ export default {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    right: 10px;
+    right: 20px;
+    //margin-top: -7px;
     width: 0;
     height: 0;
     border-style: solid;
@@ -106,10 +107,8 @@ export default {
   }
 
   select {
-    @extend .h4;
-    padding: 10px 0;
-    border: none;
-    border-bottom: 1px solid $color-tertiary;
+    padding: 10px;
+    border: 1px solid $color-tertiary;
     width: 100%;
     -moz-appearance: none;
     -webkit-appearance: none;
@@ -134,8 +133,8 @@ export default {
     position: absolute;
     pointer-events: none;
     user-select: none;
-    left: 13px;
-    top: 10px;
+    left: 22px;
+    top: 13px;
     transition: 0.2s ease all;
     -moz-transition: 0.2s ease all;
     -webkit-transition: 0.2s ease all;
@@ -144,6 +143,7 @@ export default {
     top: -10px;
     font-size: 14px;
     color: $color-puerto-rico;
+    display: none;
   }
-}*/
+}
 </style>

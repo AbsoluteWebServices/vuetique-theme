@@ -1,7 +1,7 @@
 <template>
-  <div class="pt20">
-    <div class="row pl20">
-      <div class="col-xs-1 col-sm-2 col-md-1">
+  <div class="shipping">
+    <div class="flex flex-wrap">
+      <div class="w-1/12">
         <div
           class="number-circle lh35 cl-white brdr-circle align-center weight-700"
           :class="{ 'bg-cl-th-accent' : isActive || isFilled, 'bg-cl-tertiary' : !isFilled && !isActive }"
@@ -9,42 +9,38 @@
           2
         </div>
       </div>
-      <div class="col-xs-11 col-sm-9 col-md-11">
-        <div class="row mb15">
-          <div class="col-xs-12 col-md-7" :class="{ 'cl-bg-tertiary' : !isFilled && !isActive }">
-            <h3 class="m0 mb5">
-              {{ $t('Shipping') }}
-            </h3>
-          </div>
-          <div class="col-xs-12 col-md-5 pr30">
-            <div class="lh30 flex end-lg" v-if="isFilled && !isActive">
-              <a href="#" class="cl-tertiary flex" @click.prevent="edit">
-                <span class="pr5">
-                  {{ $t('Edit shipping') }}
-                </span>
-                <i class="material-icons cl-tertiary">edit</i>
-              </a>
-            </div>
-          </div>
+      <div class="w-11/12">
+        <div class="" :class="{ 'cl-bg-tertiary' : !isFilled && !isActive }">
+          <h3 class="mt-2 mb-5">
+            {{ $t('Shipping') }}
+          </h3>
+        </div>
+        <div class="lh30 flex end-lg" v-if="isFilled && !isActive">
+          <a href="#" class="cl-tertiary flex" @click.prevent="edit">
+            <span class="pr5">
+              {{ $t('Edit shipping') }}
+            </span>
+            <i class="material-icons cl-tertiary">edit</i>
+          </a>
         </div>
       </div>
     </div>
-    <div class="row pl20" v-if="isActive">
-      <div class="hidden-xs col-sm-2 col-md-1"/>
-      <div class="col-xs-11 col-sm-9 col-md-10">
-        <div class="row">
-          <base-checkbox
-            v-if="currentUser && hasShippingDetails()"
-            class="col-xs-12 mb25"
-            id="shipToMyAddressCheckbox"
-            @click="useMyAddress"
-            v-model="shipToMyAddress"
-          >
-            {{ $t('Ship to my default address') }}
-          </base-checkbox>
+    <!--Fields-->
+    <div class="flex flex-wrap justify-end mt-4" v-if="isActive">
+      <div class="w-11/12">
+        <base-checkbox
+          v-if="currentUser && hasShippingDetails()"
+          class="w-1/2 px-3"
+          id="shipToMyAddressCheckbox"
+          @click="useMyAddress"
+          v-model="shipToMyAddress"
+        >
+          {{ $t('Ship to my default address') }}
+        </base-checkbox>
 
+        <div class="flex flex-wrap -mx-3 mb-3">
           <base-input
-            class="col-xs-12 col-sm-6 mb25"
+            class="w-1/2 px-3"
             type="text"
             name="first-name"
             :placeholder="$t('First name *')"
@@ -64,7 +60,7 @@
           />
 
           <base-input
-            class="col-xs-12 col-sm-6 mb25"
+            class="w-1/2 px-3"
             type="text"
             name="last-name"
             :placeholder="$t('Last name *')"
@@ -76,9 +72,10 @@
               text: $t('Field is required')
             }"
           />
-
+        </div>
+        <div class="flex flex-wrap -mx-3 mb-3">
           <base-input
-            class="col-xs-12 mb25"
+            class="w-1/2 px-3"
             type="text"
             name="street-address"
             :placeholder="$t('Street name *')"
@@ -92,7 +89,7 @@
           />
 
           <base-input
-            class="col-xs-12 mb25"
+            class="w-1/2 px-3"
             type="text"
             name="apartment-number"
             :placeholder="$t('House/Apartment number *')"
@@ -104,9 +101,11 @@
               text: $t('Field is required')
             }"
           />
+        </div>
 
+        <div class="flex flex-wrap -mx-3 mb-3">
           <base-input
-            class="col-xs-12 col-sm-6 mb25"
+            class="w-1/2 px-3"
             type="text"
             name="city"
             :placeholder="$t('City *')"
@@ -120,16 +119,18 @@
           />
 
           <base-input
-            class="col-xs-12 col-sm-6 mb25"
+            class="w-1/2 px-3"
             type="text"
             name="state"
             :placeholder="$t('State / Province')"
             v-model.trim="shipping.state"
             autocomplete="address-level1"
           />
+        </div>
 
+        <div class="flex flex-wrap -mx-3 mb-3">
           <base-input
-            class="col-xs-12 col-sm-6 mb25"
+            class="w-1/2 px-3"
             type="text"
             name="zip-code"
             :placeholder="$t('Zip-code *')"
@@ -149,7 +150,7 @@
           />
 
           <base-select
-            class="col-xs-12 col-sm-6 mb25"
+            class="w-1/2 px-3"
             name="countries"
             :options="countryOptions"
             :selected="shipping.country"
@@ -167,40 +168,47 @@
           />
 
           <base-input
-            class="col-xs-12 mb25"
+            class="w-full mt-3 px-3"
             type="text"
             name="phone-number"
             :placeholder="$t('Phone Number')"
             v-model.trim="shipping.phoneNumber"
             autocomplete="tel"
           />
-
-          <h4 class="col-xs-12">
-            {{ $t('Shipping method') }}
-          </h4>
-          <div v-for="(method, index) in shippingMethods" :key="index" class="col-md-6">
-            <label class="radioStyled"> {{ method.method_title }} | {{ method.amount | price }}
-              <input
-                type="radio"
-                :value="method.method_code"
-                name="shipping-method"
-                v-model="shipping.shippingMethod"
-                @change="$v.shipping.shippingMethod.$touch(); changeShippingMethod();"
-              >
-              <span class="checkmark"/>
-            </label>
-          </div>
-          <span class="validation-error" v-if="$v.shipping.shippingMethod.$error && !$v.shipping.shippingMethod.required">
-            {{ $t('Field is required') }}
-          </span>
         </div>
+
+      </div>
+
+      <div class="w-11/12">
+        <h4 class="my-3">
+          {{ $t('Shipping method') }}
+        </h4>
+      </div>
+      <div class="w-11/12">
+        <div v-for="(method, index) in shippingMethods" :key="index" class="col-md-6">
+          <label class="radioStyled"> {{ method.method_title }} | {{ method.amount | price }}
+            <input
+              type="radio"
+              :value="method.method_code"
+              name="shipping-method"
+              v-model="shipping.shippingMethod"
+              @change="$v.shipping.shippingMethod.$touch(); changeShippingMethod();"
+            >
+            <span class="checkmark"/>
+          </label>
+        </div>
+        <span class="validation-error" v-if="$v.shipping.shippingMethod.$error && !$v.shipping.shippingMethod.required">
+          {{ $t('Field is required') }}
+        </span>
       </div>
     </div>
-    <div class="row" v-if="isActive">
-      <div class="hidden-xs col-sm-2 col-md-1"/>
-      <div class="col-xs-12 col-sm-9 col-md-11">
-        <div class="row">
-          <div class="col-xs-12 col-md-8 my30 px20">
+    <!--Fields end-->
+
+    <!--Continue to payment-->
+    <div class="flex flex-wrap justify-end pb-8" v-if="isActive">
+      <div class="w-11/12">
+        <div class="flex -mx-3">
+          <div class="w-1/2 px-3">
             <button-full
               data-testid="shippingSubmit"
               @click.native="sendDataToCheckout"
@@ -212,39 +220,38 @@
         </div>
       </div>
     </div>
-    <div class="row pl20" v-if="!isActive && isFilled">
-      <div class="hidden-xs col-sm-2 col-md-1"/>
-      <div class="col-xs-12 col-sm-9 col-md-11">
-        <div class="row fs16 mb35">
-          <div class="col-xs-12 h4" data-testid="shippingAddressSummary">
-            <p>
-              {{ shipping.firstName }} {{ shipping.lastName }}
-            </p>
-            <p>
-              {{ shipping.streetAddress }} {{ shipping.apartmentNumber }}
-            </p>
-            <p>
-              {{ shipping.city }} {{ shipping.zipCode }}
-            </p>
-            <p>
-              <span v-if="shipping.state">{{ shipping.state }}, </span>
-              <span>{{ getCountryName() }}</span>
-            </p>
-            <div v-if="shipping.phoneNumber">
-              <span class="pr15">{{ shipping.phoneNumber }}</span>
-              <tooltip>{{ $t('Phone number may be needed by carrier') }}</tooltip>
-            </div>
-            <div class="col-xs-12">
-              <h4>
-                {{ $t('Shipping method') }}
-              </h4>
-            </div>
-            <div class="col-md-6 mb15">
-              <label class="radioStyled"> {{ getShippingMethod().method_title }} | {{ getShippingMethod().amount | price }}
-                <input type="radio" value="" checked disabled name="chosen-shipping-method">
-                <span class="checkmark"/>
-              </label>
-            </div>
+    <!--Review shipping data-->
+    <div class="flex flex-wrap justify-end pb-8" v-if="!isActive && isFilled">
+      <div class="w-11/12">
+        <div data-testid="shippingAddressSummary">
+          <p>
+            {{ shipping.firstName }} {{ shipping.lastName }}
+          </p>
+          <p>
+            {{ shipping.streetAddress }} {{ shipping.apartmentNumber }}
+          </p>
+          <p>
+            {{ shipping.city }} {{ shipping.zipCode }}
+          </p>
+          <p>
+            <span v-if="shipping.state">{{ shipping.state }}, </span>
+            <span>{{ getCountryName() }}</span>
+          </p>
+          <div v-if="shipping.phoneNumber">
+            <span class="pr15">{{ shipping.phoneNumber }}</span>
+            <tooltip>{{ $t('Phone number may be needed by carrier') }}</tooltip>
+          </div>
+          <div class="w-full mt-3">
+            <h4>
+              {{ $t('Shipping method') }}
+            </h4>
+          </div>
+          <div class="v-full mt-3">
+            <label class="radioStyled">
+              {{ getShippingMethod().method_title }} | {{ getShippingMethod().amount | price }}
+              <input type="radio" value="" checked disabled name="chosen-shipping-method">
+              <span class="checkmark"/>
+            </label>
           </div>
         </div>
       </div>
@@ -253,8 +260,8 @@
 </template>
 
 <script>
-import { required, minLength } from 'vuelidate/lib/validators'
-import { Shipping } from '@vue-storefront/core/modules/checkout/components/Shipping'
+import {required, minLength} from 'vuelidate/lib/validators'
+import {Shipping} from '@vue-storefront/core/modules/checkout/components/Shipping'
 
 import BaseCheckbox from 'theme/components/core/blocks/Form/BaseCheckbox'
 import BaseInput from 'theme/components/core/blocks/Form/BaseInput'

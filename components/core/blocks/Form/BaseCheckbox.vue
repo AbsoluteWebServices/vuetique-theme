@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="relative">
+    <div class="relative my-3">
       <input
         class="m0 no-outline"
         type="checkbox"
@@ -13,7 +13,7 @@
         :disabled="disabled"
       >
       <label
-        class="pl35 lh30 h4 pointer"
+        class="pl-8 lh30 h4 pointer"
         :for="id"
       >
         <slot/>
@@ -69,10 +69,10 @@ export default {
     &:before {
       content: '';
       position: absolute;
-      top: 3px;
+      top: 0px;
       left: 0;
-      width: 22px;
-      height: 22px;
+      width: 20px;
+      height: 20px;
       background-color: $color-white;
       border: 1px solid $color-silver;
       cursor: pointer;
@@ -93,7 +93,7 @@ export default {
       &:after {
         content: '';
         position: absolute;
-        top: 9px;
+        top: 7px;
         left: 5px;
         width: 11px;
         height: 5px;
