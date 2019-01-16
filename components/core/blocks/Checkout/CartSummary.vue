@@ -1,31 +1,33 @@
 <template>
   <div>
     <div class="brdr-bottom-1 brdr-cl-primary pb60">
-      <h3 class="cl-accent ml30 mt50 summary-title">
+      <h3 class="cl-accent mb-6 summary-title">
         {{ $t('Order Summary') }}
       </h3>
       <product v-for="product in productsInCart" :key="product.sku" :product="product"/>
-      <div v-if="productsInCart && productsInCart.length" class="checkout bg-cl-secondary pt10 serif cl-accent">
 
-        <div v-for="(segment, index) in totals" :key="index" class="row pt15 pb20 pl30 pr55 " v-if="segment.code !== 'grand_total'">
-          <div class="col-xs cl-accent">
-            {{ segment.title }}
+      <div v-if="productsInCart && productsInCart.length" class="checkout mt-10">
+
+        <div v-for="(segment, index) in totals" :key="index" class="flex flex-wrap justify-between mb-3 text-grey-dark" v-if="segment.code !== 'grand_total'">
+          <div class="w-3/4">
+            {{ segment.title }}:
           </div>
-          <div v-if="segment.value != null" class="col-xs align-right cl-accent h4">
+          <div v-if="segment.value != null" class="w-1/4 text-right" :class="({ 'text-primary': (segment.code == 'discount') })">
             {{ segment.value | price }}
           </div>
         </div>
 
-        <div class="row pt20 pb20 pl30 pr55 weight-400 h3" v-for="(segment, index) in totals" :key="index" v-if="segment.code === 'grand_total'">
-          <div class="col-xs">
-            {{ segment.title }}
+        <div class="flex flex-wrap justify-between mb-3 text-grey-dark" v-for="(segment, index) in totals" :key="index" v-if="segment.code === 'grand_total'">
+          <div class="w-3/4 text-h1">
+            {{ segment.title }}:
           </div>
-          <div class="col-xs align-right">
+          <div class="w-1/4 text-right text-h1">
             {{ segment.value | price }}
           </div>
         </div>
       </div>
     </div>
+    <!--Toggler row-->
     <div class="py50 px25">
       <h4 class="h3 m0">
         {{ $t('Safety') }}

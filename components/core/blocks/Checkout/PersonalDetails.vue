@@ -1,7 +1,7 @@
 <template>
   <div class="personal-details">
-    <div class="row pl20">
-      <div class="col-xs-1 col-sm-2 col-md-1">
+    <div class="flex flex-wrap">
+      <div class="w-1/12">
         <div
           class="number-circle lh35 cl-white brdr-circle align-center weight-700"
           :class="{ 'bg-cl-th-accent' : isActive || isFilled, 'bg-cl-tertiary' : !isFilled && !isActive }"
@@ -9,32 +9,27 @@
           1
         </div>
       </div>
-      <div class="col-xs-11 col-sm-9 col-md-11">
-        <div class="row mb15">
-          <div class="col-xs-12 col-md-7" :class="{ 'cl-bg-tertiary' : !isFilled && !isActive }">
-            <h3 class="m0 mb5">
-              {{ $t('Personal Details') }}
-            </h3>
-          </div>
-          <div class="col-xs-12 col-md-5 pr30">
-            <div class="lh30 flex end-lg" v-if="isFilled && !isActive">
-              <a href="#" class="cl-tertiary flex" @click.prevent="edit">
-                <span class="pr5">
-                  {{ $t('Edit personal details') }}
-                </span>
-                <i class="material-icons cl-tertiary">edit</i>
-              </a>
-            </div>
-          </div>
+      <div class="w-11/12">
+        <div class="" :class="{ 'cl-bg-tertiary' : !isFilled && !isActive }">
+          <h3 class="mt-2 mb-5">
+            {{ $t('Personal Details') }}
+          </h3>
+        </div>
+        <div class="flex end-lg" v-if="isFilled && !isActive">
+          <a href="#" class="cl-tertiary flex" @click.prevent="edit">
+            <span class="pr5">
+              {{ $t('Edit personal details') }}
+            </span>
+            <i class="material-icons cl-tertiary">edit</i>
+          </a>
         </div>
       </div>
     </div>
-    <div class="row pl20" v-if="isActive">
-      <div class="hidden-xs col-sm-2 col-md-1"/>
-      <div class="col-xs-11 col-sm-9 col-md-10">
-        <div class="row">
+    <div class="flex flex-wrap justify-end" v-if="isActive">
+      <div class="w-11/12">
+        <div class="flex flex-wrap -mx-3">
           <base-input
-            class="col-xs-12 col-md-6 mb25"
+            class="w-1/2 px-3"
             type="text"
             :autofocus="true"
             name="first-name"
@@ -55,7 +50,7 @@
           />
 
           <base-input
-            class="col-xs-12 col-md-6 mb25"
+            class="w-1/2 px-3"
             type="text"
             name="last-name"
             :placeholder="$t('Last name *')"
@@ -69,7 +64,7 @@
           />
 
           <base-input
-            class="col-xs-12 mb25"
+            class="w-full mt-3 px-3"
             type="email"
             name="email-address"
             :placeholder="$t('Email address *')"
@@ -91,7 +86,7 @@
 
           <base-checkbox
             v-if="!currentUser"
-            class="col-xs-12 mb15"
+            class="w-full mt-2 px-3"
             id="createAccountCheckbox"
             @click="createAccount = !createAccount"
             v-model="createAccount"
@@ -100,42 +95,49 @@
           </base-checkbox>
 
           <template v-if="createAccount && !currentUser">
-            <base-input
-              class="col-xs-12 mb25 mt10"
-              type="password"
-              name="password"
-              ref="password"
-              :placeholder="$t('Password *')"
-              v-model="password"
-              @blur="$v.password.$touch()"
-              autocomplete="new-password"
-              :validation="{
-                condition: $v.password.$error && !$v.password.required,
-                text: $t('Field is required.')
-              }"
-            />
+            <div class="flex w-full flex-wrap mt-4">
+              <div class="px-3 w-1/2">
+                <base-input
+                  class="mb25 mt10"
+                  type="password"
+                  name="password"
+                  ref="password"
+                  :placeholder="$t('Password *')"
+                  v-model="password"
+                  @blur="$v.password.$touch()"
+                  autocomplete="new-password"
+                  :validation="{
+                    condition: $v.password.$error && !$v.password.required,
+                    text: $t('Field is required.')
+                  }"
+                />
+              </div>
 
-            <base-input
-              class="col-xs-12 mb25"
-              type="password"
-              name="password-confirm"
-              :placeholder="$t('Repeat password *')"
-              v-model="rPassword"
-              autocomplete="new-password"
-              :validations="[
-                {
-                  condition: $v.rPassword.$error && !$v.rPassword.required,
-                  text: $t('Field is required.')
-                },
-                {
-                  condition:!$v.rPassword.sameAsPassword,
-                  text: $t('Passwords must be identical.')
-                }
-              ]"
-            />
+              <div class="px-3 w-1/2">
+                <base-input
+                  class="mb25"
+                  type="password"
+                  name="password-confirm"
+                  :placeholder="$t('Repeat password *')"
+                  v-model="rPassword"
+                  autocomplete="new-password"
+                  :validations="[
+                    {
+                      condition: $v.rPassword.$error && !$v.rPassword.required,
+                      text: $t('Field is required.')
+                    },
+                    {
+                      condition:!$v.rPassword.sameAsPassword,
+                      text: $t('Passwords must be identical.')
+                    }
+                  ]"
+                />
+              </div>
+
+            </div>
 
             <base-checkbox
-              class="col-xs-12 mb15"
+              class="w-full mt-5 px-3"
               id="acceptConditions"
               @click="acceptConditions = !acceptConditions"
               @blur="$v.acceptConditions.$touch()"
@@ -157,11 +159,10 @@
         </div>
       </div>
     </div>
-    <div class="row" v-show="isActive">
-      <div class="hidden-xs col-sm-2 col-md-1"/>
-      <div class="col-xs-11 col-sm-9 col-md-10">
-        <div class="row my30">
-          <div class="col-xs-12 col-md-7 px20 button-container">
+    <div class="flex flex-wrap justify-end pb-8" v-show="isActive">
+      <div class="w-11/12">
+        <div class="mt-6 flex -mx-3 justify-between items-center">
+          <div class="w-1/2 px-3 button-container">
             <button-full
               data-testid="personalDetailsSubmit"
               @click.native="sendDataToCheckout"
@@ -171,13 +172,13 @@
             </button-full>
           </div>
           <div
-            class="col-xs-12 col-md-5 center-xs end-md"
+            class="w-1/2"
             v-if="!currentUser"
           >
-            <p class="h4 cl-accent">
+            <p class="h4 cl-accent text-center">
               {{ $t('or') }}
               <span
-                class="link pointer"
+                class="link pointer no-underline"
                 @click.prevent="gotoAccount"
               >
                 {{ $t('login to your account') }}
@@ -187,33 +188,28 @@
         </div>
       </div>
     </div>
-    <div class="row pl20" v-if="!isActive && isFilled">
-      <div class="hidden-xs col-sm-2 col-md-1"/>
-      <div class="col-xs-12 col-sm-9 col-md-11">
-        <div class="row fs16 mb35">
-          <div class="col-xs-12 h4">
-            <p>
-              {{ personalDetails.firstName }} {{ personalDetails.lastName }}
-            </p>
-            <div>
-              <span class="pr15">{{ personalDetails.emailAddress }}</span>
-              <tooltip>{{ $t('We will send you details regarding the order') }}</tooltip>
-            </div>
-            <template v-if="createAccount && !currentUser">
-              <base-checkbox
-                class="mt25"
-                id="createAccountCheckboxInfo"
-                v-model="createAccount"
-                disabled
-              >
-                {{ $t('Create a new account') }}
-              </base-checkbox>
-              <p class="h5 cl-tertiary">
-                {{ $t('The new account will be created with the purchase. You will receive details on e-mail.') }}
-              </p>
-            </template>
-          </div>
+    <div class="flex flex-wrap justify-end pb-8" v-if="!isActive && isFilled">
+      <div class="w-11/12">
+        <p>
+          {{ personalDetails.firstName }} {{ personalDetails.lastName }}
+        </p>
+        <div>
+          <span class="pr15">{{ personalDetails.emailAddress }}</span>
+          <tooltip>{{ $t('We will send you details regarding the order') }}</tooltip>
         </div>
+        <template v-if="createAccount && !currentUser">
+          <base-checkbox
+            class="mt25"
+            id="createAccountCheckboxInfo"
+            v-model="createAccount"
+            disabled
+          >
+            {{ $t('Create a new account') }}
+          </base-checkbox>
+          <p class="h5 cl-tertiary">
+            {{ $t('The new account will be created with the purchase. You will receive details on e-mail.') }}
+          </p>
+        </template>
       </div>
     </div>
   </div>
@@ -267,9 +263,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.link {
-  text-decoration: underline;
-}
 
 .login-prompt {
   @media (min-width: 1200px) {
