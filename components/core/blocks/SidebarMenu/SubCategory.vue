@@ -25,7 +25,7 @@
         <sub-btn
           :id="link.id"
           :name="link.name"
-          v-if="link.children_data.length"
+          v-if="link.children_data && link.children_data.length"
         />
         <router-link
           v-else
@@ -37,7 +37,7 @@
         <sub-category
           :category-links="link.children_data"
           :id="link.id"
-          v-if="link.children_data.length"
+          v-if="link.children_data && link.children_data.length"
           :parent-slug="link.slug"
         />
       </li>
