@@ -1,27 +1,19 @@
 <template>
-  <div class="sidebar-menu h-screen fixed max-w-full bg-white pt-10" :class="{ active: isOpen }">
+  <div class="sidebar-menu h-screen fixed max-w-full bg-white pt-12" :class="{ active: isOpen }">
     <button
       type="button"
       :aria-label="$t('Close')"
-      class="absolute pin-t pin-l m-3"
+      class="absolute pin-t pin-r m-4"
       @click="closeMenu"
     >
-      <i class="material-icons text-h4 text-grey-dark">close</i>
+      <i class="material-icons text-h3 text-grey-dark">close</i>
     </button>
 
-    <div v-if="submenu.depth" class="border-b">
-      <sub-btn type="back" :name="$t('Back')" />
+    <div v-if="submenu.depth" class="absolute pin-l pin-t">
+      <sub-btn type="back" />
     </div>
-    <ul class="list-reset relative sidebar-menu__list" :style="mainListStyles">
-      <li @click="closeMenu" class="border-b">
-        <router-link
-          class="menu-link"
-          :to="localizedRoute('/')"
-          exact
-        >
-          {{ $t('Home') }}
-        </router-link>
-      </li>
+
+    <ul class="list-reset relative border-t sidebar-menu__list" :style="mainListStyles">
       <li
         class="border-b flex"
         :key="category.slug"
@@ -37,7 +29,7 @@
         />
         <router-link
           v-else
-          class="menu-link"
+          class="category-link"
           :to="localizedRoute({ name: 'category', params: { id: category.id, slug: category.slug }})"
         >
           {{ category.name }}
@@ -208,8 +200,16 @@ export default {
     list-style-type: none;
   }
 
+  .category-link {
+    @apply block w-full px-5 py-4 text-black font-medium;
+  }
+
   .menu-link {
-    @apply block w-full px-6 py-5 text-black font-medium;
+    @apply block w-full px-5 py-4 text-grey-dark text-sm font-medium bg-grey-lighter;
+
+    &:hover, &:focus {
+      @apply text-black;
+    }
   }
 }
 </style>

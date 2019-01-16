@@ -68,7 +68,7 @@ import MicrocartIcon from 'theme/components/core/blocks/Header/MicrocartIcon'
 import ReturnIcon from 'theme/components/core/blocks/Header/ReturnIcon'
 import SearchIcon from 'theme/components/core/blocks/Header/SearchIcon'
 import WishlistIcon from 'theme/components/core/blocks/Header/WishlistIcon'
-import Search from 'theme/components/core/blocks/Header/Search'
+import Search from 'theme/components/core/blocks/Search/Search'
 
 export default {
   name: 'Header',

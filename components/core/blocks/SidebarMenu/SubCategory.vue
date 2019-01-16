@@ -2,7 +2,7 @@
   <div>
     <ul
       v-if="categoryLinks"
-      class="sidebar-submenu list-reset absolute w-full bg-white"
+      class="sidebar-submenu list-reset absolute w-full bg-white border-t"
       :style="styles"
     >
       <li
@@ -10,7 +10,7 @@
         v-if="parentSlug"
       >
         <router-link
-          class="menu-link"
+          class="category-link"
           :to="localizedRoute({ name: 'category', params: { id: id, slug: parentSlug }})"
           data-testid="categoryLink"
         >
@@ -29,7 +29,7 @@
         />
         <router-link
           v-else
-          class="menu-link"
+          class="category-link"
           :to="localizedRoute({ name: 'category', params: { id: link.id, slug: link.slug }})"
         >
           {{ link.name }}

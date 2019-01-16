@@ -1,6 +1,6 @@
 <template>
   <button
-    class="inline-flex justify-between w-full px-6 py-6 pr-4 font-medium"
+    class="inline-flex justify-between w-full px-5 py-4 pr-4 font-medium"
     v-if="type === 'next'"
     type="button"
     @click.stop="next()"
@@ -11,7 +11,7 @@
     <i class="material-icons">keyboard_arrow_right</i>
   </button>
   <button
-    class="inline-flex w-full px-6 py-6 pr-4 font-medium"
+    class="inline-flex w-full px-5 py-4 pr-4 font-medium"
     v-else
     type="button"
     @click.stop="back()"
