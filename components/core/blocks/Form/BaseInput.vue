@@ -137,9 +137,8 @@ export default {
   input {
     background: inherit;
 
-    &:hover,
     &:focus {
-      @apply outline-none border-success;
+      @apply outline-none border-grey-dark;
     }
 
     &:disabled {

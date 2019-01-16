@@ -79,7 +79,7 @@
       </div>
       <div class="col-auto">
         <button-full
-          class="bg-primary py-3 px-6"
+          class="btn-primary py-3 px-6"
           :link="{ name: 'checkout' }"
           @click.native="closeMicrocartExtend"
         >
