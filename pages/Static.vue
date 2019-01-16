@@ -1,24 +1,22 @@
 <template>
   <div>
-    <div class="bg-cl-secondary py35 pl20">
-      <div class="container">
-        <breadcrumbs :routes="[{name: 'Homepage', route_link: '/'}]" :active-route="$props.title" />
-        <h2 class="fs-big"> {{ $props.title }}</h2>
-      </div>
-    </div>
+    <breadcrumbs :routes="[{name: 'Homepage', route_link: '/'}]" :active-route="$props.title" />
+    <header class="container mt-2">
+      <h1>{{ $props.title }}</h1>
+    </header>
 
-    <div class="container pt45 pb70">
-      <div class="row pl20 pt0">
-        <div class="col-sm-3">
-          <nav class="static-menu serif h4 mb35">
-            <ul class="m0 p0">
-              <li class="mb10" v-for="page in navigation" :key="page.id">
-                <router-link :to="localizedRoute(page.link)" @click.native="setContent(page.component)" class="cl-accent relative">{{ page.title }}</router-link>
+    <div class="container pt-10 pb-16">
+      <div class="row justify-between">
+        <div class="sm:col-3 md:col-2">
+          <nav class="static-menu">
+            <ul class="list-reset border-t">
+              <li class="border-b py-2" v-for="page in navigation" :key="page.id">
+                <router-link :to="localizedRoute(page.link)" @click.native="setContent(page.component)" class="nav-link">{{ page.title }}</router-link>
               </li>
             </ul>
           </nav>
         </div>
-        <div class="static-content h4 lh35 col-sm-9">
+        <div class="static-content col-12 sm:col-9">
           <component :is="activeComponent" />
         </div>
       </div>
@@ -78,47 +76,28 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~theme/css/variables/colors';
-@import '~theme/css/helpers/functions/color';
-$border-primary: color(primary, $colors-border);
-
 .static-menu {
-  ul {
-    list-style: none;
-  }
+  .nav-link {
+    @apply block text-black font-medium py-1;
 
-  a::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background-color: $border-primary;
-  }
+    &:hover, &:focus {
+      @apply text-primary2;
+    }
 
-  a:hover::after,
-  .router-link-active::after {
-    opacity: 0;
+    &.router-link-exact-active {
+      @apply text-primary2;
+
+      &::before {
+        content: "\25B8";
+        margin-right: 10px;
+      }
+    }
   }
 }
 
 .static-content {
   *:first-of-type {
     margin-top: 0;
-  }
-}
-</style>
-
-<style lang="scss">
-.static-content {
-  h3 {
-    margin-top: 40px;
-    margin-bottom: 25px;
-    @media (max-width: 767px) {
-      margin-top: 35px;
-      margin-bottom: 10px;
-    }
   }
 }
 </style>

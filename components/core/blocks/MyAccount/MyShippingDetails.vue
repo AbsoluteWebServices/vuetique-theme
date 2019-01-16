@@ -1,29 +1,29 @@
 <template>
-  <div class="mb35">
+  <div class="mb-8">
     <!-- My shipping details header -->
-    <div class="row mb15">
-      <div class="col-xs-12 col-sm-6" :class="{ 'cl-accent' : !isEdited }">
-        <h3 class="m0 mb5">
+    <div class="row mb-4">
+      <div class="col-12 sm:col-6" :class="{ 'cl-accent' : !isEdited }">
+        <h2 class="mb-1">
           {{ $t('My shipping details') }}
-        </h3>
+        </h2>
       </div>
-      <div class="col-xs-12 col-sm-6">
-        <div class="lh30 flex end-md" v-if="!isEdited">
-          <a href="#" class="cl-tertiary flex" @click.prevent="edit">
+      <div class="col-12 sm:col-6">
+        <div class="leading-loose flex md:justify-end" v-if="!isEdited">
+          <a href="#" class="text-grey flex" @click.prevent="edit">
             <span class="pr5">
               {{ $t('Edit your shipping details') }}
             </span>
-            <i class="material-icons cl-tertiary">edit</i>
+            <i class="material-icons">edit</i>
           </a>
         </div>
       </div>
     </div>
 
     <!-- My shipping details body (edit mode) -->
-    <div class="row" v-if="isEdited">
+    <div class="row gutter-md" v-if="isEdited">
       <template>
         <base-input
-          class="col-xs-12 col-sm-6 mb25"
+          class="col-12 sm:col-6 mb-6"
           type="text"
           name="first-name"
           autocomplete="given-name"
@@ -43,7 +43,7 @@
         />
 
         <base-input
-          class="col-xs-12 col-sm-6 mb25"
+          class="col-12 sm:col-6 mb-6"
           type="text"
           name="last-name"
           autocomplete="family-name"
@@ -58,7 +58,7 @@
 
         <base-checkbox
           v-if="hasBillingAddress()"
-          class="col-xs-12 mb25"
+          class="col-12 mb-6"
           id="addCompanyFilled"
           v-model="useCompanyAddress"
           @click="fillCompanyAddress"
@@ -67,7 +67,7 @@
         </base-checkbox>
 
         <base-input
-          class="col-xs-12 col-sm-6 mb25"
+          class="col-12 sm:col-6 mb-6"
           type="text"
           name="street-address"
           autocomplete="address-line1"
@@ -81,7 +81,7 @@
         />
 
         <base-input
-          class="col-xs-12 col-sm-6 mb25"
+          class="col-12 sm:col-6 mb-6"
           type="text"
           name="apartment-number"
           autocomplete="address-line2"
@@ -95,7 +95,7 @@
         />
 
         <base-input
-          class="col-xs-12 col-sm-6 mb25"
+          class="col-12 sm:col-6 mb-6"
           type="text"
           name="city"
           autocomplete="address-level2"
@@ -109,7 +109,7 @@
         />
 
         <base-input
-          class="col-xs-12 col-sm-6 mb25"
+          class="col-12 sm:col-6 mb-6"
           type="text"
           name="state"
           autocomplete="address-level1"
@@ -118,7 +118,7 @@
         />
 
         <base-input
-          class="col-xs-12 col-sm-6 mb25"
+          class="col-12 sm:col-6 mb-6"
           type="text"
           name="zip-code"
           autocomplete="postal-code"
@@ -138,7 +138,7 @@
         />
 
         <base-select
-          class="col-xs-12 col-sm-6 mb25"
+          class="col-12 sm:col-6 mb-6"
           name="countries"
           :options="countryOptions"
           :selected="shippingDetails.country"
@@ -156,7 +156,7 @@
         />
 
         <base-input
-          class="col-xs-12 col-sm-6 mb25"
+          class="col-12 sm:col-6 mb-6"
           type="text"
           name="phone-number"
           autocomplete="tel"
@@ -164,9 +164,9 @@
           v-model.trim="shippingDetails.phone"
         />
 
-        <div class="hidden-xs col-sm-6 mb25"/>
+        <div class="hidden-xs sm:col-6 mb-6"/>
 
-        <div class="col-xs-12 col-sm-6">
+        <div class="col-12 sm:col-6">
           <button-full
             @click.native="updateDetails"
             :disabled="$v.$invalid"
@@ -174,8 +174,8 @@
             {{ $t('Update my shipping details') }}
           </button-full>
         </div>
-        <div class="col-xs-12 col-sm-6 flex middle-xs py10">
-          <a href="#" @click="exitSection" class="h4 cl-accent">
+        <div class="col-12 sm:col-6 flex justify-center py-2">
+          <a href="#" @click="exitSection" class="text-h4 text-grey-dark">
             {{ $t('Cancel') }}
           </a>
         </div>
@@ -183,35 +183,35 @@
     </div>
 
     <!-- My shipping details summary -->
-    <div class="row fs16 mb35" v-else>
-      <div class="col-xs-12 h4">
+    <div class="row mb-8" v-else>
+      <div class="col-12 text-h4">
         <p>
           {{ shippingDetails.firstName }} {{ shippingDetails.lastName }}
         </p>
         <base-checkbox
           v-if="useCompanyAddress"
-          class="col-xs-12 mb25"
+          class="col-12 mb-6"
           id="useCompanyAddressFilled"
           v-model="useCompanyAddress"
           disabled
         >
           {{ $t("Use my company's address details") }}
         </base-checkbox>
-        <p class="mb25">
+        <p class="mb-6">
           {{ shippingDetails.company }}
         </p>
-        <p class="mb25">
+        <p class="mb-6">
           {{ shippingDetails.street }}
           <span v-if="shippingDetails.house"> {{ shippingDetails.house }}</span>
         </p>
-        <p class="mb25">
+        <p class="mb-6">
           {{ shippingDetails.city }} {{ shippingDetails.postcode }}
         </p>
-        <p class="mb25">
+        <p class="mb-6">
           <span v-if="shippingDetails.region">{{ shippingDetails.region }}, </span>
           {{ getCountryName() }}
         </p>
-        <div class="mb25">
+        <div class="mb-6">
           {{ shippingDetails.phone }}
           <tooltip v-if="shippingDetails.phone">
             {{ $t('Phone number may be needed by carrier') }}

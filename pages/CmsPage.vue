@@ -1,19 +1,21 @@
 <template>
   <div id="cms-page">
-    <header class="bg-cl-secondary py35 pl20">
-      <div class="container">
-        <div class="row middle-sm">
-          <h1 class="col-sm-9 category-title mb10"> {{ cmsPageContent.title }} </h1>
-        </div>
-      </div>
+    <breadcrumbs :routes="[{name: 'Homepage', route_link: '/'}]" :active-route="cmsPageContent.title" />
+    <header class="container mt-2">
+      <h1> {{ cmsPageContent.title }}</h1>
     </header>
-    <div class="container pb60" v-html="cmsPageContent.content" />
+    <div class="container pt-10 pb-16" v-html="cmsPageContent.content" />
   </div>
 </template>
 
 <script>
 import CmsPage from '@vue-storefront/core/pages/CmsPage'
+import Breadcrumbs from 'theme/components/core/Breadcrumbs'
+
 export default {
+  components: {
+    Breadcrumbs
+  },
   computed: {
     cmsPageContent () {
       return this.$store.state.cmsPage.current

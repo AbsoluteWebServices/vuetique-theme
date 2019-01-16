@@ -9,8 +9,7 @@ module.exports = function ({ columns = _.range(1, 12), gutters = {md: '0.5rem'},
           flex: '0 1 auto',
           flexDirection: 'row',
           flexWrap: 'wrap',
-          '> [class^="col-"]': {
-            display: 'flex',
+          '> [class*="col-"]': {
             flexBasis: '100%',
             maxWidth: '100%'
           },
