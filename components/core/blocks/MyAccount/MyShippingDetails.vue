@@ -128,7 +128,6 @@
           v-model.trim="shippingDetails.region"
         />
 
-
         <base-select
           class="col-12 sm:col-6 mb-6"
           name="countries"
