@@ -44,9 +44,7 @@
                 </router-link>
               </div>
               <div class="mt15">
-                <router-link class="cl-secondary" :to="localizedRoute('/my-account')" exact>
-                  {{ $t('My account') }}
-                </router-link>
+                <a href="#" class="menu-link" @click.prevent="goToAccount">{{ $t('My account') }}</a>
               </div>
               <div class="mt15">
                 <router-link class="cl-secondary" :to="localizedRoute('/delivery')" exact>
@@ -181,6 +179,7 @@
 </template>
 
 <script>
+import { AccountButton } from '@vue-storefront/core/modules/user/components/AccountButton'
 import CurrentPage from 'theme/mixins/currentPage'
 
 export default {
@@ -190,7 +189,7 @@ export default {
       return this.$store.state.config.storeViews.multistore
     }
   },
-  mixins: [CurrentPage]
+  mixins: [CurrentPage, AccountButton]
 }
 </script>
 

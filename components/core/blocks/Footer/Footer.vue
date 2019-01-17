@@ -101,9 +101,7 @@
                 </router-link>
               </div>
               <div class="my-6">
-                <router-link class="menu-link" :to="localizedRoute('/my-account')" exact>
-                  {{ $t('My account') }}
-                </router-link>
+                <a href="#" class="menu-link" @click.prevent="goToAccount">{{ $t('My account') }}</a>
               </div>
               <div class="my-6">
                 <router-link class="menu-link" :to="localizedRoute('/delivery')" exact>
@@ -123,9 +121,7 @@
                 </router-link>
               </div>
               <div class="my-3">
-                <router-link class="menu-link" :to="localizedRoute('/my-account')" exact>
-                  {{ $t('My account') }}
-                </router-link>
+                <a href="#" class="menu-link" @click.prevent="goToAccount">{{ $t('My account') }}</a>
               </div>
               <div class="my-3">
                 <router-link class="menu-link" :to="localizedRoute('/delivery')" exact>
@@ -278,6 +274,8 @@
 </template>
 
 <script>
+import { AccountButton } from '@vue-storefront/core/modules/user/components/AccountButton'
+
 import CurrentPage from 'theme/mixins/currentPage'
 import LanguageSwitcher from '../../LanguageSwitcher.vue'
 import Newsletter from 'theme/components/core/blocks/Footer/Newsletter'
@@ -285,7 +283,7 @@ import Newsletter from 'theme/components/core/blocks/Footer/Newsletter'
 import Accordion from 'theme/components/theme/Accordion'
 
 export default {
-  mixins: [CurrentPage],
+  mixins: [CurrentPage, AccountButton],
   name: 'MainFooter',
   computed: {
     multistoreEnabled () {
