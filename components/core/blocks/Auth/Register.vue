@@ -1,7 +1,7 @@
 <template>
   <div>
     <header class="modal-header py25 px65 h1 serif weight-700 bg-cl-secondary">
-      <svg viewBox="0 0 25 25" class="vt-icon modal-close p-15" slot="close" @click="close">
+      <svg viewBox="0 0 25 25" class="vt-icon modal-close p-1" slot="close" @click="close">
         <use xlink:href="#close"/>
       </svg>
       <h2>{{ $t('Register') }}</h2>
@@ -113,9 +113,11 @@
         >
           {{ $t('I accept terms and conditions') }} *
         </base-checkbox>
-        <button-full class="mb-2" type="submit">
+
+        <button-full class="mb-2 w-full" type="submit">
           {{ $t('Register an account') }}
         </button-full>
+
         <div class="text-center">
           <span>
             {{ $t('or') }}
