@@ -18,7 +18,7 @@
         <p class="mt-8"><a href="#" class="underline" @click.prevent="remakeOrder(skipGrouped(order.items))">{{ $t('Remake order') }}</a></p>
       </div>
     </div>
-    <div class="row fs16 mb-8">
+    <div class="row mb-8">
       <div class="col-12 text-h4">
         <h4>{{ $t('Items ordered') }}</h4>
         <table>
@@ -66,10 +66,10 @@
       </div>
     </div>
     <div class="row mb-8">
-      <div class="col-12 text-h4">
+      <div class="col-12 text-h4 mb-2">
         <h4>{{ $t('Order informations') }}</h4>
         <div class="row">
-          <div class="sm:col-6 md:col-3">
+          <div class="sm:col-6 md:col-3 mb-3">
             <h5>{{ $t('Shipping address') }}</h5>
             <address>
               <p>{{ shippingAddress.firstname }} {{ shippingAddress.lastname }}</p>
@@ -78,11 +78,11 @@
               <p>{{ shippingAddress.country }}</p>
             </address>
           </div>
-          <div class="sm:col-6 md:col-3">
+          <div class="sm:col-6 md:col-3 mb-3">
             <h5>{{ $t('Shipping method') }}</h5>
             <p>{{ order.shipping_description }}</p>
           </div>
-          <div class="sm:col-6 md:col-3">
+          <div class="sm:col-6 md:col-3 mb-3">
             <h5>{{ $t('Billing address') }}</h5>
             <address>
               <p>{{ billingAddress.firstname }} {{ billingAddress.lastname }}</p>
@@ -91,7 +91,7 @@
               <p>{{ billingAddress.country }}</p>
             </address>
           </div>
-          <div class="sm:col-6 md:col-3">
+          <div class="sm:col-6 md:col-3 mb-3">
             <h5>{{ $t('Payment method') }}</h5>
             <p>{{ paymentMethod }}</p>
           </div>
