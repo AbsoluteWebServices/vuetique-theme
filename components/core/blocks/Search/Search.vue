@@ -24,7 +24,9 @@
               to="/"
             >
               {{ $t('View all') }}
-              <i class="material-icons font-medium text-grey text-h3">keyboard_arrow_right</i>
+              <svg viewBox="0 0 25 25" class="vt-icon--sm">
+                <use xlink:href="#right"/>
+              </svg>
             </router-link>
           </div>
         </transition>

@@ -6,7 +6,9 @@
       class="absolute pin-t pin-r m-4"
       @click="closeMenu"
     >
-      <i class="material-icons text-h3 text-grey-dark">close</i>
+      <svg viewBox="0 0 25 25" class="vt-icon--sm">
+        <use xlink:href="#close"/>
+      </svg>
     </button>
 
     <div v-if="submenu.depth" class="absolute pin-l pin-t">
