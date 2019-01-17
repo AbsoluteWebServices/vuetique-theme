@@ -6,7 +6,7 @@
       </div>
       <div class="col-grow flex-col justify-start sm:justify-between">
         <div>
-          <div class="font-medium leading-6">
+          <div class="font-medium leading-6 product-title">
             {{ product.name | htmlDecode }}
           </div>
           <div class="text-sm text-grey leading-normal mb-2" data-testid="productSku">
@@ -97,14 +97,3 @@ export default {
   mixins: [Product]
 }
 </script>
-
-<style lang="scss" scoped>
-  .image {
-    mix-blend-mode: multiply;
-    vertical-align: top;
-    width: 80px;
-    @media (max-width: 767px) {
-      width: 60px;
-    }
-  }
-</style>
