@@ -3,8 +3,8 @@
     :is="link ? 'router-link' : 'button'"
     :type="!link ? type : false"
     :to="localizedRoute(link)"
-    class="button-full block border-none bg-grey-dark w-full px-4 py-2 ripple tracking-md text-sm text-white font-medium leading-6 uppercase"
-    :class="{ 'no-underline pointer text-center': link, 'disabled': disabled, 'button-disabled': disabled }"
+    class="block border-none rounded-none bg-grey-dark w-full px-4 py-2 ripple tracking-md text-sm text-white font-medium leading-base uppercase"
+    :class="{ 'no-underline cursor-pointer text-center': link, 'disabled': disabled }"
     data-testid="subscribeSubmit"
     :disabled="disabled"
   >
@@ -41,6 +41,6 @@ export default {
 
 <style lang="scss" scoped>
   .disabled {
-    background-color: gray
+    @apply text-grey bg-grey-light cursor-default;
   }
 </style>

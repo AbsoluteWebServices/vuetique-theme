@@ -69,6 +69,17 @@
         <base-input
           class="col-12 sm:col-6 mb-6"
           type="text"
+          name="phone-number"
+          autocomplete="tel"
+          :placeholder="$t('Phone Number')"
+          v-model.trim="shippingDetails.phone"
+        />
+
+        <div class="col-12" />
+
+        <base-input
+          class="col-12 sm:col-6 mb-6"
+          type="text"
           name="street-address"
           autocomplete="address-line1"
           :placeholder="`${$t('Street name')} *`"
@@ -117,26 +128,6 @@
           v-model.trim="shippingDetails.region"
         />
 
-        <base-input
-          class="col-12 sm:col-6 mb-6"
-          type="text"
-          name="zip-code"
-          autocomplete="postal-code"
-          :placeholder="`${$t('Zip-code')} *`"
-          v-model.trim="shippingDetails.postcode"
-          @input="$v.shippingDetails.postcode.$touch()"
-          :validations="[
-            {
-              condition: !$v.shippingDetails.postcode.required && $v.shippingDetails.postcode.$error,
-              text: $t('Field is required')
-            },
-            {
-              condition: !$v.shippingDetails.postcode.minLength,
-              text: $t('Zip-code must have at least 3 letters.')
-            }
-          ]"
-        />
-
         <base-select
           class="col-12 sm:col-6 mb-6"
           name="countries"
@@ -158,24 +149,37 @@
         <base-input
           class="col-12 sm:col-6 mb-6"
           type="text"
-          name="phone-number"
-          autocomplete="tel"
-          :placeholder="$t('Phone Number')"
-          v-model.trim="shippingDetails.phone"
+          name="zip-code"
+          autocomplete="postal-code"
+          :placeholder="`${$t('Zip-code')} *`"
+          v-model.trim="shippingDetails.postcode"
+          @input="$v.shippingDetails.postcode.$touch()"
+          :validations="[
+            {
+              condition: !$v.shippingDetails.postcode.required && $v.shippingDetails.postcode.$error,
+              text: $t('Field is required')
+            },
+            {
+              condition: !$v.shippingDetails.postcode.minLength,
+              text: $t('Zip-code must have at least 3 letters.')
+            }
+          ]"
         />
 
-        <div class="hidden-xs sm:col-6 mb-6"/>
-
-        <div class="col-12 sm:col-6">
-          <button-full
-            @click.native="updateDetails"
-            :disabled="$v.$invalid"
-          >
-            {{ $t('Update my shipping details') }}
-          </button-full>
+        <div class="col-12">
+          <hr class="border-t mt-4 mb-10">
         </div>
-        <div class="col-12 sm:col-6 flex justify-center py-2">
-          <a href="#" @click="exitSection" class="text-h4 text-grey-dark">
+
+        <div class="col-12">
+          <div class="inline-block mr-5">
+            <button-full
+              @click.native="updateDetails"
+              :disabled="$v.$invalid"
+            >
+              {{ $t('Update my shipping details') }}
+            </button-full>
+          </div>
+          <a href="#" @click="exitSection" class="inline-block text-grey-dark bg-grey-lighter py-2 px-3">
             {{ $t('Cancel') }}
           </a>
         </div>
