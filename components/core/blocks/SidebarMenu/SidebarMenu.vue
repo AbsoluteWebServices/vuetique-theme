@@ -109,6 +109,7 @@ import { mapState } from 'vuex'
 import i18n from '@vue-storefront/i18n'
 
 import SidebarMenu from '@vue-storefront/core/compatibility/components/blocks/SidebarMenu/SidebarMenu'
+import { AccountButton } from '@vue-storefront/core/modules/user/components/AccountButton'
 import SubBtn from 'theme/components/core/blocks/SidebarMenu/SubBtn'
 import SubCategory from 'theme/components/core/blocks/SidebarMenu/SubCategory'
 
@@ -117,7 +118,7 @@ export default {
     SubCategory,
     SubBtn
   },
-  mixins: [SidebarMenu],
+  mixins: [SidebarMenu, AccountButton],
   data () {
     return {
       activeSubMenu: null,
@@ -166,8 +167,9 @@ export default {
   },
   methods: {
     login () {
-      this.$bus.$emit('modal-show', 'modal-signup')
-      this.$router.push({ name: 'my-account' })
+      this.$nextTick(() => {
+        this.goToAccount()
+      })
     }
   }
 }
