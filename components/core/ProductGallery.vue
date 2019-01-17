@@ -18,7 +18,7 @@
             <img
               :src="defaultImage.src"
               v-lazy="defaultImage"
-              class="mw-100 pointer"
+              class="cursor-pointer"
               ref="defaultImage"
               :alt="product.name | htmlDecode"
               itemprop="image"
@@ -40,9 +40,9 @@
               <slide
                 v-for="images in gallery"
                 :key="images.src">
-                <div class="bg-cl-secondary">
+                <div>
                   <img
-                    class="product-image inline-flex pointer mw-100"
+                    class="product-image inline-flex cursor-pointer"
                     v-lazy="images"
                     ref="images"
                     @dblclick="toggleZoom"
@@ -55,7 +55,7 @@
             </carousel>
           </no-ssr>
           <i
-            class="zoom-in material-icons p15 cl-bgs-tertiary pointer"
+            class="zoom-in material-icons p-4 cursor-pointer"
             @click="toggleZoom"
           >zoom_in</i>
         </div>
@@ -130,11 +130,20 @@ img {
     opacity: 1;
   }
 }
-img[lazy=error] {
-  width: 100%;
-}
-img[lazy=loading] {
-  width: 100%;
+img[lazy=error], img[lazy=loading] {
+  min-width: 100%;
+
+  @screen sm {
+    min-width: 500px;
+  }
+
+  @screen md {
+    min-width: 400px;
+  }
+
+  @screen lg {
+    min-width: 580px;
+  }
 }
 
 .thumbnails {
