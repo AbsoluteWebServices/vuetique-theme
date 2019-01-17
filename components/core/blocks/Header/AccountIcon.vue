@@ -1,5 +1,5 @@
 <template>
-  <div class="inline-flex relative dropdown"
+  <div class="relative dropdown"
        data-testid="accountButton"
        @click.self="goToAccount">
     <button
