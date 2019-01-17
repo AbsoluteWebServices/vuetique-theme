@@ -18,10 +18,10 @@
       class="relative"
       :key="link.slug"
       v-for="link in categoryLinks"
-      :class="{'with-submenu': link.children_data.length}"
+      :class="{'with-submenu': (link.children_data && link.children_data.length)}"
     >
       <button
-        v-if="link.children_data.length"
+        v-if="link.children_data && link.children_data.length"
         class="menu-link"
         :class="{active: activeSubMenu == link.id}"
         type="button"
@@ -42,7 +42,7 @@
         v-show="activeSubMenu === link.id"
         :category-links="link.children_data"
         :id="link.id"
-        v-if="link.children_data.length"
+        v-if="link.children_data && link.children_data.length"
         :parent-slug="link.slug"
         class="pin-t left-100"
       />

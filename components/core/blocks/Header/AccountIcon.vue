@@ -7,7 +7,9 @@
       class="bg-cl-transparent brdr-none p0"
       :aria-label="$t('Open my account')"
     >
-      <i class="material-icons block">account_circle</i>
+      <svg viewBox="0 0 25 25" class="vt-icon">
+        <use xlink:href="#user"/>
+      </svg>
     </button>
     <div v-if="currentUser" class="dropdown-content bg-cl-primary align-left sans-serif lh20 weight-400">
       <div class="py5">

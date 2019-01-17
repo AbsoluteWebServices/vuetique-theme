@@ -33,8 +33,8 @@
               :navigation-enabled="true"
               pagination-active-color="#828282"
               pagination-color="transparent"
-              navigation-next-label="<i class='material-icons p15 cl-bg-tertiary pointer'>keyboard_arrow_right</i>"
-              navigation-prev-label="<i class='material-icons p15 cl-bg-tertiary pointer'>keyboard_arrow_left</i>"
+              navigation-next-label="<svg viewBox='0 0 25 25' class='vt-icon'><use xlink:href='#right'/></svg>"
+              navigation-prev-label="<svg viewBox='0 0 25 25' class='vt-icon'><use xlink:href='#left'/></svg>"
               ref="carousel"
             >
               <slide

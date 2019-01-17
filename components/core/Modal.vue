@@ -105,6 +105,8 @@ export default {
 
 <style lang="scss">
 @import '~theme/css/base/global_vars';
+@import '~theme/css/variables/colors';
+@import '~theme/css/helpers/functions/color';
 $z-index-modal: map-get($z-index, modal);
 
 .modal {
@@ -137,6 +139,7 @@ $z-index-modal: map-get($z-index, modal);
     max-height: 100%;
     z-index: $z-index-modal+1;
     pointer-events: auto;
+    background-color: #fff;
 
     @media (max-width: 600px) {
       min-height: 100%;
@@ -147,6 +150,7 @@ $z-index-modal: map-get($z-index, modal);
 
   .modal-header {
     position: relative;
+    padding: 25px 50px;
 
     > * {
         margin: 0;
@@ -158,8 +162,14 @@ $z-index-modal: map-get($z-index, modal);
   }
 
   .modal-content {
+    padding: 50px;
+
     @media (max-width: 600px) {
       padding: 30px 20px;
+    }
+
+    a {
+      color: color(grey);
     }
   }
 

@@ -1,25 +1,25 @@
 // Global styles for text
 body {
-  @apply text-black text-base font-sans font-normal;
+  @apply text-black text-base font-sans font-normal leading-base;
 }
 
-h1, h2, h3, h4, h5 {
+h1, h2, h3 {
   @apply font-serif;
 }
 
+h4, h5, h6 {
+  @apply font-sans;
+}
+
 h1 {
-  @apply text-h1;
+  @apply text-h1 leading-h1;
 }
 
 h2 {
-  @apply text-h2;
-
-  @media (max-width: 767px) {
-    @apply text-h3;
-  }
+  @apply text-h2 leading-h2;
 }
 h3 {
-  @apply text-h3;
+  @apply text-h3 leading-h3;
 }
 h4 {
   @apply text-h4;
