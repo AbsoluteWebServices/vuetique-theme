@@ -1,6 +1,6 @@
 <template>
   <div
-    class="microcart max-w-full fixed bg-white p-8"
+    class="right-sidebar microcart max-w-full fixed p-8"
     :class="{ active: isMicrocartOpen }"
     data-testid="microcart"
   >
@@ -70,14 +70,14 @@
       class="row justify-between items-center py-4 actions"
       v-if="productsInCart.length && !isCheckoutMode"
     >
-      <div class="col-auto">
+      <div class="col-12 md:col-auto">
         <router-link :to="localizedRoute('/')" class="no-underline text-grey link">
           <span @click="closeMicrocartExtend">
             &lt;&nbsp;{{ $t('Return to shopping') }}
           </span>
         </router-link>
       </div>
-      <div class="col-auto">
+      <div class="col-12 md:col-auto">
         <button-full
           class="btn-primary py-3 px-6"
           :link="{ name: 'checkout' }"
@@ -159,80 +159,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import "~theme/css/animations/transitions";
-
-  .microcart {
-    top: 0;
-    right: 0;
-    z-index: 3;
-    height: 100%;
-    width: 480px;
-    min-width: 320px;
-    transform: translateX(100%);
-    transition: transform 300ms $motion-main;
-    overflow-y: auto;
-    overflow-x: hidden;
-    &.active {
-      transform: translateX(0)
-    }
-  }
-
   .heading {
     @media (max-width: 767px) {
       margin: 12px 0 12px 15px;
       font-size: 24px;
     }
-  }
-
-  .products {
-    @media (max-width: 767px) {
-      padding: 30px 15px;
-    }
-  }
-
-  .actions {
-    @media (max-width: 767px) {
-      padding: 0 15px;
-    }
-    .link {
-      @media (max-width: 767px) {
-        display: flex;
-        justify-content: center;
-        padding: 20px 70px;
-        &.checkout {
-          margin-top: 55px;
-          padding: 0;
-        }
-      }
-    }
-  }
-
-  .summary {
-    @media (max-width: 767px) {
-      padding:  0 15px;
-      font-size: 12px;
-    }
-  }
-
-  .summary-heading {
-    @media (max-width: 767px) {
-      font-size: 18px;
-    }
-  }
-
-  .total-price-label {
-    @media (max-width: 767px) {
-      font-size: 18px;
-    }
-  }
-
-  .total-price-value {
-    @media (max-width: 767px) {
-      font-size: 24px;
-    }
-  }
-
-  .delete-button {
-    vertical-align: middle;
   }
 </style>

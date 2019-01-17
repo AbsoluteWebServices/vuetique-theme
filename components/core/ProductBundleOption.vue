@@ -1,24 +1,26 @@
 <template>
   <div class="custom-option mb15">
-    <h4> {{ option.title }} </h4>
+    <h4 class="mb-2"> {{ option.title }} </h4>
     <div class="m5 relative" v-for="opval in option.product_links" :key="opval.id">
-      <input
-        type="radio"
-        class="m0 no-outline"
-        :name="bundleOptionName + opval.id"
-        :id="bundleOptionName + opval.id"
-        focus
-        :value="opval.id"
-        v-model="productOptionId"
-      >
-      <label v-if="opval.product" class="pl10 lh20 h4 pointer" :for="bundleOptionName + opval.id" v-html="opval.product.name" />
+      <div class="checkbox-wrap">
+        <input
+          type="radio"
+          class=""
+          :name="bundleOptionName + opval.id"
+          :id="bundleOptionName + opval.id"
+          focus
+          :value="opval.id"
+          v-model="productOptionId"
+        >
+        <label v-if="opval.product" class="" :for="bundleOptionName + opval.id" v-html="opval.product.name" />
+      </div>
     </div>
-    <div>
+    <div class="mb-2">
       <label class="qty-label flex" :for="quantityName">{{ $t('Quantity') }}</label>
       <input
         type="number"
         min="0"
-        class="m0 no-outline qty-input py10 brdr-cl-primary bg-cl-transparent h4"
+        class="border border-solid border-grey text-sm text-grey px-3 h-10 bg-transparent outline-none focus:text-grey-dark"
         :name="quantityName"
         :id="quantityName"
         focus
@@ -72,22 +74,9 @@ export default {
   }
 
   .relative label {
-    padding-left: 35px;
-    margin-bottom: 12px;
     cursor: pointer;
     font-size: 16px;
     line-height: 30px;
-    &:before {
-      content: '';
-      position: absolute;
-      top: 3px;
-      left: 0;
-      width: 22px;
-      height: 22px;
-      background-color: $color-white;
-      border: 1px solid $color-silver;
-      cursor: pointer;
-    }
   }
   input[type='text'] {
     transition: 0.3s all;
@@ -103,50 +92,6 @@ export default {
       border-color: $color-black;
     }
     background: inherit;
-  }
-  input[type='radio'], input[type='checkbox']  {
-    position: absolute;
-    top: 3px;
-    left: 0;
-    opacity: 0;
-    &:checked + label {
-      &:before {
-        background-color: $color-silver;
-        border-color: $color-silver;
-        cursor: pointer;
-      }
-      &:after {
-        content: '';
-        position: absolute;
-        top: 9px;
-        left: 5px;
-        width: 11px;
-        height: 5px;
-        border: 3px solid $color-white;
-        border-top: none;
-        border-right: none;
-        background-color: $color-silver;
-        transform: rotate(-45deg);
-      }
-    }
-    &:hover,
-    &:focus {
-      + label {
-        &:before {
-          border-color: $color-active;
-        }
-      }
-    }
-    &:disabled + label {
-      cursor: not-allowed;
-      &:hover,
-      &:focus {
-        &:before {
-          border-color: $color-silver;
-          cursor: not-allowed;
-        }
-      }
-    }
   }
   .qty-label {
     font-size: 12px !important;

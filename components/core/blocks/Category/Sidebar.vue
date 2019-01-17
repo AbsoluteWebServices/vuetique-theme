@@ -1,26 +1,13 @@
 <template>
   <div class="sidebar">
-    <button
-      class="sm:hidden py-4 px-10 ripple bg-primary text-white"
-      @click="resetAllFilters"
-      :class="{'button-disabled': Object.keys(activeFilters).length === 0}"
-      :disabled="Object.keys(activeFilters).length === 0"
-    >
-      {{ $t('Clear') }}
-    </button>
-    <div
-      v-for="(filter, filterIndex) in filters"
-      :key="filterIndex"
-      v-if="filter.length"
-      class="border-t py-2"
-    >
-      <h5 class="py-3 flex justify-between items-center cursor-pointer font-sans text-base" @click="toggleFilters(filterIndex)">
-        {{ $t(filterIndex + '_filter') }}
-        <i class="material-icons">{{ openedFilters.indexOf(filterIndex) === -1 ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</i>
-      </h5>
-
-      <div v-if="filterIndex==='color'" class="filters" :class="{'opened': openedFilters.indexOf(filterIndex) !== -1}">
-        <div class="pt-2 pb-3">
+    <div>
+      <Accordion
+        v-for="(filter, filterIndex) in filters"
+        :key="filterIndex"
+        v-if="filter.length"
+        :title="$t(filterIndex + '_filter')"
+      >
+        <template v-if="filterIndex==='color'">
           <color-selector
             context="category"
             :attribute_code="color"
@@ -30,10 +17,8 @@
             :id="color.id"
             :label="color.label"
           />
-        </div>
-      </div>
-      <div v-else-if="filterIndex==='size'" class="filters" :class="{'opened': openedFilters.indexOf(filterIndex) !== -1}">
-        <div class="pt-2 pb-3">
+        </template>
+        <template v-else-if="filterIndex==='size'">
           <size-selector
             context="category"
             :attribute_code="size"
@@ -43,10 +28,8 @@
             :id="size.id"
             :label="size.label"
           />
-        </div>
-      </div>
-      <div v-else-if="filterIndex==='price'" class="filters" :class="{'opened': openedFilters.indexOf(filterIndex) !== -1}">
-        <div class="pt-2 pb-3">
+        </template>
+        <template v-else-if="filterIndex==='price'">
           <price-selector
             context="category"
             :attribute_code="price"
@@ -60,10 +43,8 @@
             :content="price.label"
             :label="price.label"
           />
-        </div>
-      </div>
-      <div v-else class="filters" :class="{'opened': openedFilters.indexOf(filterIndex) !== -1}">
-        <div class="pt-2 pb-3">
+        </template>
+        <template v-else>
           <generic-selector
             context="category"
             :attribute_code="filter.attribute_code"
@@ -74,8 +55,18 @@
             :id="option.id"
             :label="option.label"
           />
-        </div>
-      </div>
+        </template>
+      </Accordion>
+    </div>
+
+    <div class="mt-8 lg:hidden">
+      <button-full
+        class="w-full"
+        @click.native="resetAllFilters"
+        :disabled="Object.keys(activeFilters).length === 0"
+      >
+        {{ $t('Clear') }}
+      </button-full>
     </div>
   </div>
 </template>
@@ -87,13 +78,18 @@ import ColorSelector from 'theme/components/core/ColorSelector'
 import SizeSelector from 'theme/components/core/SizeSelector'
 import PriceSelector from 'theme/components/core/PriceSelector'
 import GenericSelector from 'theme/components/core/GenericSelector'
+import Accordion from 'theme/components/theme/Accordion'
+
+import ButtonFull from 'theme/components/theme/ButtonFull.vue'
 
 export default {
   components: {
     ColorSelector,
     SizeSelector,
     PriceSelector,
-    GenericSelector
+    GenericSelector,
+    Accordion,
+    ButtonFull
   },
   mixins: [Sidebar],
   data () {
@@ -113,16 +109,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-@import "~theme/css/animations/transitions";
-
-.filters {
-  @apply overflow-hidden max-h-0;
-  transition: max-height $duration-main $motion-main;
-
-  &.opened {
-    @apply max-h-screen;
-  }
-}
-</style>

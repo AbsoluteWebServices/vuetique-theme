@@ -8,7 +8,9 @@
     data-testid="categoryButton"
   >
     {{ name }}
-    <i class="material-icons">keyboard_arrow_right</i>
+    <svg viewBox="0 0 25 25" class="vt-icon--sm">
+      <use xlink:href="#right"/>
+    </svg>
   </button>
   <button
     class="inline-flex w-full px-5 py-4 pr-4 font-medium"
@@ -17,7 +19,9 @@
     @click.stop="back()"
     :aria-label="$t('Back')"
   >
-    <i class="material-icons">keyboard_arrow_left</i>
+    <svg viewBox="0 0 25 25" class="vt-icon--sm">
+      <use xlink:href="#left"/>
+    </svg>
     {{ name }}
   </button>
 </template>

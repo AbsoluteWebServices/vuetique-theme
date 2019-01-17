@@ -26,7 +26,7 @@
               <meta itemprop="priceCurrency" :content="currentStore.i18n.currencyCode">
               <meta itemprop="price" :content="parseFloat(product.priceInclTax).toFixed(2)">
               <div
-                class="font-serif text-h1 pb-2 mb-2 price"
+                class="font-serif font-bold text-h1 pb-5 price"
                 v-if="product.type_id !== 'grouped'"
               >
                 <div
@@ -139,18 +139,20 @@
                   <input
                     type="number"
                     min="0"
-                    class="text-center h-full w-full qty-input"
+                    class="text-center h-full w-full qty-input py-3 px-2"
                     id="quantity"
                     focus
                     v-model="product.qty"
                   >
                 </div>
-                <div class="px-2 w-2/3">
-                  <add-to-cart
-                    :product="product"
-                    class="bg-primary py-3 text-sm"
-                  />
-                </div>
+              </div>
+            </div>
+            <div class="flex mb-3">
+              <div class="w-full">
+                <add-to-cart
+                  :product="product"
+                  class="bg-primary py-3 text-sm"
+                />
               </div>
             </div>
             <div class="flex text-sm md:py-5 text-center add-to-buttons">
@@ -161,7 +163,9 @@
                   type="button"
                   data-testid="addToWishlist"
                 >
-                  <i class="pr-1 material-icons">{{ favoriteIcon }}</i>
+                  <svg viewBox="0 0 25 25" class="vt-icon pr-1">
+                    <use xlink:href="#wishlist"/>
+                  </svg>
                   <template v-if="!isOnWishlist">
                     {{ $t('Add to favorite') }}
                   </template>
@@ -281,6 +285,10 @@ export default {
   computed: {
     favoriteIcon () {
       return this.isOnWishlist ? 'favorite' : 'favorite_border'
+    },
+
+    isOnWishlist () {
+      return !!this.$store.state.wishlist.items.find(p => p.sku === this.product.sku) || false
     }
   },
   methods: {
@@ -323,6 +331,7 @@ $bg-secondary: color(secondary, $colors-background);
 
 .price {
   @apply .border-solid .border-b;
+  -webkit-font-smoothing: antialiased;
 }
 
 .variants-wrapper {

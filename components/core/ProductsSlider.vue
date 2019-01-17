@@ -101,4 +101,10 @@ export default {
     }
   }
 }
+
+.VueCarousel {
+  .VueCarousel-dot {
+    line-height: 1;
+  }
+}
 </style>

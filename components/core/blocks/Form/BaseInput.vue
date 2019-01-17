@@ -3,7 +3,7 @@
     <div class="relative">
       <input
         class="w-full border border-solid border-grey w-full text-sm text-grey px-3 h-10 bg-transparent outline-none focus:text-grey-dark"
-        :class="{'pr-7': type === 'password', empty: value === ''}"
+        :class="{'pr-7': type === 'password', empty: value === '', 'has-error' : (isValid === false)}"
         :type="type === 'password' ? passType : type"
         :name="name"
         :autocomplete="autocomplete"
@@ -11,12 +11,19 @@
         :autofocus="autofocus"
         :ref="name"
         :placeholder="placeholder"
-        @input="$emit('input', $event.target.value)"
+        @input="inputEvent"
         @focus="$emit('focus')"
         @blur="$emit('blur')"
-        @keyup.enter="$emit('keyup.enter', $event.target.value)"
-        @keyup="$emit('keyup', $event)"
+        @keyup.enter="keyupEnter"
+        @keyup="keyup"
       >
+      <svg viewBox="0 0 17.313 17.311" class="vt-icon--sm _icon-error" v-if="isValid === false && hasValidator === true">
+        <use xlink:href="#error"/>
+      </svg>
+
+      <svg viewBox="0 0 17.333 9.333" class="vt-icon--sm _icon-success" v-if="isValid && isDirty === true && hasValidator === true">
+        <use xlink:href="#success"/>
+      </svg>
     </div>
     <button
       v-if="iconActive"
@@ -56,7 +63,29 @@ export default {
     return {
       passType: 'password',
       iconActive: false,
-      icon: 'visibility'
+      icon: 'visibility',
+      isDirty: false
+    }
+  },
+  computed: {
+    isValid: function () {
+      // Single validation
+      if (typeof this.validation === 'object' && this.validation.condition === true) {
+        return false
+      }
+      // Multiple validation
+      if (this.validations.length > 0) {
+        let isValid = true
+        this.validations.forEach((item) => {
+          if (item.condition === true) isValid = false
+        })
+        return isValid
+      }
+
+      return true
+    },
+    hasValidator () {
+      return (typeof this.validation !== 'undefined' || this.validations.length > 0)
     }
   },
   props: {
@@ -119,6 +148,19 @@ export default {
       if (this.name === fieldName) {
         this.$refs[this.name].focus()
       }
+      console.log(this.condition, this.conditions)
+    },
+    keyup ($event) {
+      this.$emit('keyup', $event)
+      this.isDirty = true
+    },
+    keyupEnter ($event) {
+      this.$emit('keyup.enter', $event.target.value)
+      this.isDirty = true
+    },
+    inputEvent ($event) {
+      this.$emit('input', $event.target.value)
+      this.isDirty = true
     }
   },
   created () {
@@ -144,6 +186,27 @@ export default {
 
     &:disabled {
       @apply opacity-50 cursor-not-allowed pointer-events-none;
+    }
+
+    &.has-error {
+      @apply border-error;
+    }
+
+  }
+
+  .vt-icon--sm {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -8px;
+
+    &._icon-error {
+      @apply fill-error;
+    }
+
+    &._icon-success {
+      @apply fill-primary;
+      transform: rotate(180deg);
     }
   }
 

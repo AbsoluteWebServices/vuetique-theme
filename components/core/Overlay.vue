@@ -1,5 +1,5 @@
 <template>
-  <div class="overlay fixed w-full h-screen pin-t pin-l bg-black opacity-75" @click="close" v-if="isVisible" />
+  <div class="fixed z-overlay w-full h-screen pin-t pin-l bg-black opacity-75" @click="close" v-if="isVisible" />
 </template>
 
 <script>
@@ -29,11 +29,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-@import '~theme/css/variables/zindex';
-
-.overlay {
-  z-index: $z-index-overlay;
-}
-</style>

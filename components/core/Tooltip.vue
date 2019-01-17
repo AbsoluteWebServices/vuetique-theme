@@ -1,7 +1,7 @@
 <template>
   <span class="tooltip relative">
-    <i class="material-icons icon cl-accent">info</i>
-    <div class="text absolute p25 h5 bg-cl-th-accent cl-white">
+    <i class="material-icons icon cl-accent text-primary">info</i>
+    <div class="text absolute p25 h5 bg-cl-th-accent cl-white bg-white border">
       <slot />
     </div>
   </span>
@@ -40,7 +40,7 @@ $color-border: color(accent);
     height: 0;
     position: absolute;
     border: 10px solid transparent;
-    border-top: 10px solid $color-border;
+    border-top: 10px solid #eff0ef;
     left: 50%;
     transform: translateX(-50%);
     bottom: -20px;

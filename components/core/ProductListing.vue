@@ -42,3 +42,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.w-100 {
+  width: 100%;
+}
+</style>

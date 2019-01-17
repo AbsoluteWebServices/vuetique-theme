@@ -18,7 +18,7 @@
     </div>
     <div class="absolute z-20 w-full" @mouseenter="resultsHover = true" @mouseleave="resultsHover = false">
       <div v-show="showDrop" class="bg-white border border-grey border-t-0">
-        <product :key="product.id" v-for="product in results" :product="product"/>
+        <product :key="product.id" v-for="product in results" :product="product" @click.native="resultsHover = false"/>
         <transition name="fade">
           <div v-if="moreResults" class="w-full px-3 py-4 border-t border-grey-lighter">
             <router-link
@@ -26,7 +26,9 @@
               to="/"
             >
               {{ $t('View all') }}
-              <i class="material-icons font-medium text-grey text-h3">keyboard_arrow_right</i>
+              <svg viewBox="0 0 25 25" class="vt-icon--sm">
+                <use xlink:href="#right"/>
+              </svg>
             </router-link>
           </div>
         </transition>
@@ -65,10 +67,10 @@ export default {
       return (this.searchFocus && this.search !== '') || this.resultsHover
     },
     results () {
-      return this.products.slice(0, this.showResults)
+      return this.products // .slice(0, this.showResults)
     },
     moreResults () {
-      return this.products.length > this.showResults
+      return false // this.products.length > this.showResults
     }
   },
   mounted () {

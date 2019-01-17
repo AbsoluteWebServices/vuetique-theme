@@ -1,11 +1,13 @@
 <template>
   <button
     type="button"
-    class="inline-flex bg-cl-transparent brdr-none"
+    class="bg-cl-transparent brdr-none"
     @click="toggleWishlistPanel"
     :aria-label="$t('Open wishlist')"
   >
-    <i class="material-icons">favorite_border</i>
+    <svg viewBox="0 0 25 25" class="vt-icon">
+      <use xlink:href="#wishlist"/>
+    </svg>
   </button>
 </template>
 

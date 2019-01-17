@@ -1,5 +1,5 @@
 <template>
-  <div class="inline-flex relative dropdown"
+  <div class="relative dropdown"
        data-testid="accountButton"
        @click.self="goToAccount">
     <button
@@ -7,18 +7,20 @@
       class="bg-cl-transparent brdr-none p0"
       :aria-label="$t('Open my account')"
     >
-      <i class="material-icons block">account_circle</i>
+      <svg viewBox="0 0 25 25" class="vt-icon">
+        <use xlink:href="#user"/>
+      </svg>
     </button>
-    <div v-if="currentUser" class="dropdown-content bg-cl-primary align-left sans-serif lh20 weight-400">
+    <div v-if="currentUser" class="dropdown-content px-2 py-2 bg-cl-primary align-left sans-serif lh20 weight-400">
       <div class="py5">
         <div v-for="(page, index) in navigation" :key="index" @click="notify(page.title)">
-          <router-link class="no-underline block py10 px15" :to="localizedRoute(page.link)">
+          <router-link class="no-underline block dropdown-item-link" :to="localizedRoute(page.link)">
             {{ page.title }}
           </router-link>
         </div>
       </div>
-      <div class="py5 brdr-top-1 brdr-cl-bg-secondary">
-        <a href="#" class="no-underline block py10 px15" @click.prevent="logout">
+      <div class="border-t mt-1 pt-1">
+        <a href="#" class="no-underline block dropdown-item-link" @click.prevent="logout">
           {{ $t('Logout') }}
         </a>
       </div>
@@ -75,9 +77,30 @@ $color-icon-hover: color(secondary, $colors-background);
     position: absolute;
     right: 0;
     top: 100%;
-    width: 160px;
+    width: 200px;
     z-index: 1;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    background: #fff;
+    border: solid 1px #eff0ef;
+
+    .dropdown-item-link {
+      color: #000;
+      padding: 3px 5px;
+      font-weight: 500;
+    }
+
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      bottom: 100%;
+      right: 15px;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid #eff0ef;
+      border-left: 8px solid #b94b4b00;
+      border-right: 8px solid transparent;
+    }
+
   }
 
   a {

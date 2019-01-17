@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="relative my-3">
+    <div class="checkbox-wrap">
       <input
         class="m0 no-outline"
         type="checkbox"
@@ -12,10 +12,7 @@
         @change="$emit('change')"
         :disabled="disabled"
       >
-      <label
-        class="pl-8 lh30 h4 pointer"
-        :for="id"
-      >
+      <label :for="id">
         <slot/>
       </label>
     </div>
@@ -58,71 +55,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '~theme/css/variables/colors';
-  @import '~theme/css/helpers/functions/color';
-  $color-silver: color(silver);
-  $color-active: color(secondary);
-  $color-white: color(white);
-
-  label {
-    user-select: none;
-    &:before {
-      content: '';
-      position: absolute;
-      top: 0px;
-      left: 0;
-      width: 20px;
-      height: 20px;
-      background-color: $color-white;
-      border: 1px solid $color-silver;
-      cursor: pointer;
-    }
-  }
-
-  input {
-    position: absolute;
-    top: 3px;
-    left: 0;
-    opacity: 0;
-    &:checked + label {
-      &:before {
-        background-color: $color-silver;
-        border-color: $color-silver;
-        cursor: pointer;
-      }
-      &:after {
-        content: '';
-        position: absolute;
-        top: 7px;
-        left: 5px;
-        width: 11px;
-        height: 5px;
-        border: 3px solid $color-white;
-        border-top: none;
-        border-right: none;
-        background-color: $color-silver;
-        transform: rotate(-45deg);
-      }
-    }
-    &:hover,
-    &:focus {
-      + label {
-        &:before {
-          border-color: $color-active;
-        }
-      }
-    }
-    &:disabled + label {
-      cursor: not-allowed;
-      opacity: 0.5;
-      pointer-events: none;
-      &:hover,
-      &:focus {
-        &:before {
-          border-color: $color-silver;
-          cursor: not-allowed;
-        }
-      }
-    }
-  }
 </style>

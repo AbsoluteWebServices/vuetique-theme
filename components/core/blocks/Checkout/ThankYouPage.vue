@@ -1,70 +1,71 @@
 <template>
   <div>
-    <header class="thank-you-title bg-cl-secondary py35 pl20">
-      <div class="container">
-        <breadcrumbs
-          :routes="[{name: 'Homepage', route_link: '/'}]"
-          :active-route="this.$t('Order confirmation')"
-        />
-        <h2 class="category-title">
+    <header class="thank-you-title w-full">
+      <breadcrumbs
+        :routes="[{name: 'Homepage', route_link: '/'}]"
+        :active-route="this.$t('Order confirmation')"
+      />
+      <div class="container mx-auto">
+        <h2 class="category-title mb-12">
           {{ $t('Order confirmation') }}
         </h2>
       </div>
     </header>
-    <div class="thank-you-content align-justify py40 pl20">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6 pl20 pr20">
-            <h3 v-if="OnlineOnly" >
-              {{ $t('Your purchase') }}
-            </h3>
-            <p v-if="OnlineOnly" v-html="this.$t('You have successfuly placed the order. You can check status of your order by using our <b>delivery status</b> feature. You will receive an order confirmation e-mail with details of your order and a link to track its progress.')" />
-            <p v-if="OnlineOnly && lastOrderConfirmation" v-html="this.$t('The server order id has been set to ') + lastOrderConfirmation.backendOrderId"/>
-            <p v-if="OnlineOnly" v-html="this.$t('E-mail us at <b>demo@vuestorefront.io</b> with any questions, suggestions how we could improve products or shopping experience')"/>
+    <div class="container mx-auto">
+      <div class="flex flex-wrap justify-between">
+        <div class="w-3/5">
+          <h3 v-if="OnlineOnly" class="mb-3">
+            {{ $t('Your purchase') }}
+          </h3>
+          <p v-if="OnlineOnly" v-html="this.$t('You have successfuly placed the order. You can check status of your order by using our <b>delivery status</b> feature. You will receive an order confirmation e-mail with details of your order and a link to track its progress.')" />
+          <div class="bg-grey-lighter my-5 text-black px-5 text-h2 py-3 inline-block font-serif font-medium" v-if="OnlineOnly && lastOrderConfirmation" v-html="this.$t('The server order id has been set to: ') + lastOrderConfirmation.backendOrderId"/>
+          <p v-if="OnlineOnly" v-html="this.$t('E-mail us at <b>demo@vuestorefront.io</b> with any questions, suggestions how we could improve products or shopping experience')"/>
+          <h4 v-if="OfflineOnly" class="my-2">
+            {{ $t('You are offline') }}
+          </h4>
+          <p v-if="OfflineOnly && !isNotificationSupported" >
+            {{ $t('To finish the order just come back to our store while online. Your order will be sent to the server as soon as you come back here while online and then confirmed regarding the stock quantities of selected items') }}
+          </p>
+          <p v-if="OfflineOnly && isNotificationSupported && !isPermissionGranted" >
+            {{ $t("You can allow us to remind you about the order via push notification after coming back online. You'll only need to click on it to confirm.") }}
+          </p>
+          <p v-if="OfflineOnly && isNotificationSupported && isPermissionGranted" >
+            <strong>{{ $t('You will receive Push notification after coming back online. You can confirm the order by clicking on it') }}</strong>
+          </p>
+          <p v-if="!isPermissionGranted && isNotificationSupported">
+            <button class="btn-grey-dark mt-5" @click.native="requestNotificationPermission()" >
+              {{ $t('Allow notification about the order') }}
+            </button>
+          </p>
+          <div id="thank-you-extensions"/>
 
-            <h4 v-if="OfflineOnly">
-              {{ $t('You are offline') }}
-            </h4>
-            <p v-if="OfflineOnly && !isNotificationSupported" >
-              {{ $t('To finish the order just come back to our store while online. Your order will be sent to the server as soon as you come back here while online and then confirmed regarding the stock quantities of selected items') }}
-            </p>
-            <p v-if="OfflineOnly && isNotificationSupported && !isPermissionGranted" >
-              {{ $t("You can allow us to remind you about the order via push notification after coming back online. You'll only need to click on it to confirm.") }}
-            </p>
-            <p v-if="OfflineOnly && isNotificationSupported && isPermissionGranted" >
-              <strong>{{ $t('You will receive Push notification after coming back online. You can confirm the order by clicking on it') }}</strong>
-            </p>
-            <p v-if="!isPermissionGranted && isNotificationSupported">
-              <button-outline color="dark" @click.native="requestNotificationPermission()" >
-                {{ $t('Allow notification about the order') }}
-              </button-outline>
-            </p>
-            <div id="thank-you-extensions"/>
-            <h4>
+          <h3 class="border-t mt-10 pt-10 mb-5">
+            {{ $t('What we can improve?') }}
+          </h3>
+          <p class="mb-3">
+            {{ $t('Your feedback is important fo us. Let us know what we could improve.') }}
+          </p>
+          <form @submit.prevent="sendFeedback">
+            <base-textarea
+              class=""
+              type="text"
+              name="body"
+              v-model="feedback"
+              :placeholder="$t('Type your opinion')"
+              :autofocus="true"
+            />
+            <button class="btn btn-primary btn-md uppercase mt-3">
+              {{ $t('Give a feedback') }}
+            </button>
+          </form>
+
+        </div>
+        <div class="w-1/3">
+          <div class="p-10 bg-grey-lighter">
+            <h3 class="text-h3 mb-3">
               {{ $t('Your Account') }}
-            </h4>
-            <p v-html="this.$t('You can log to your account using e-mail and password defined earlier. On your account you can <b>edit your profile data,</b> check <b>history of transactions,</b> edit <b>subscription to newsletter.</b>')"/>
-          </div>
-          <div class="col-md-6 bg-cl-secondary thank-you-improvment">
-            <h3>
-              {{ $t('What we can improve?') }}
             </h3>
-            <p class="mb25">
-              {{ $t('Your feedback is important fo us. Let us know what we could improve.') }}
-            </p>
-            <form @submit.prevent="sendFeedback">
-              <base-textarea
-                class="mb25"
-                type="text"
-                name="body"
-                v-model="feedback"
-                :placeholder="$t('Type your opinion')"
-                :autofocus="true"
-              />
-              <button-outline color="dark">
-                {{ $t('Give a feedback') }}
-              </button-outline>
-            </form>
+            <p v-html="this.$t('You can log to your account using e-mail and password defined earlier. On your account you can <b>edit your profile data,</b> check <b>history of transactions,</b> edit <b>subscription to newsletter.</b>')"/>
           </div>
         </div>
       </div>

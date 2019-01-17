@@ -1,15 +1,15 @@
 <template>
-  <div class="w-full bg-white border-b border-solid">
+  <div v-if="!isCheckoutPage" class="hidden lg:block w-full bg-white border-b border-solid">
     <div class="container">
       <ul class="flex menu">
         <li
           class="relative"
           :key="category.slug"
           v-for="category in categories"
-          :class="{'with-submenu': category.children_data.length}"
+          :class="{'with-submenu': (category.children_data && category.children_data.length)}"
         >
           <button
-            v-if="category.children_data.length > 0"
+            v-if="category.children_data && category.children_data.length > 0"
             class="menu-link"
             :class="{active: activeSubMenu == category.id}"
             type="button"
@@ -63,14 +63,14 @@
 <script>
 import { mapState } from 'vuex'
 import SubCategory from 'theme/components/core/blocks/HeaderMenu/SubCategory'
+import CurrentPage from 'theme/mixins/currentPage'
 
 export default {
   name: 'HeaderMenu',
   components: {
     SubCategory
   },
-  directives: {
-  },
+  mixins: [CurrentPage],
   data () {
     return {
       activeSubMenu: null
@@ -81,7 +81,8 @@ export default {
       return this.$store.state.category.list.filter((op) => {
         return op.level === 2 && // display only the root level (level =1 => Default Category)
           (op.product_count > 0 ||
-            op.children_data.length > 0)
+            (op.children_data && op.children_data.length > 0)
+          )
       })
     },
     ...mapState({

@@ -6,7 +6,9 @@
       class="absolute pin-t pin-r m-4"
       @click="closeMenu"
     >
-      <i class="material-icons text-h3 text-grey-dark">close</i>
+      <svg viewBox="0 0 25 25" class="vt-icon--sm">
+        <use xlink:href="#close"/>
+      </svg>
     </button>
 
     <div v-if="submenu.depth" class="absolute pin-l pin-t">
@@ -19,12 +21,12 @@
         :key="category.slug"
         @click="closeMenu"
         v-for="category in categories"
-        v-if="category.product_count > 0 || category.children_data.length > 0"
+        v-if="category.product_count > 0 || (category.children_data && category.children_data.length > 0)"
       >
         <sub-btn
           :id="category.id"
           :name="category.name"
-          v-if="category.children_data.length > 0"
+          v-if="category.children_data && category.children_data.length > 0"
           @click.native="activeSubMenu = category.id"
         />
         <router-link
@@ -107,6 +109,7 @@ import { mapState } from 'vuex'
 import i18n from '@vue-storefront/i18n'
 
 import SidebarMenu from '@vue-storefront/core/compatibility/components/blocks/SidebarMenu/SidebarMenu'
+import { AccountButton } from '@vue-storefront/core/modules/user/components/AccountButton'
 import SubBtn from 'theme/components/core/blocks/SidebarMenu/SubBtn'
 import SubCategory from 'theme/components/core/blocks/SidebarMenu/SubCategory'
 
@@ -115,7 +118,7 @@ export default {
     SubCategory,
     SubBtn
   },
-  mixins: [SidebarMenu],
+  mixins: [SidebarMenu, AccountButton],
   data () {
     return {
       activeSubMenu: null,
@@ -164,8 +167,9 @@ export default {
   },
   methods: {
     login () {
-      this.$bus.$emit('modal-show', 'modal-signup')
-      this.$router.push({ name: 'my-account' })
+      this.$nextTick(() => {
+        this.goToAccount()
+      })
     }
   }
 }
@@ -175,8 +179,8 @@ export default {
 @import "~theme/css/animations/transitions";
 
 .sidebar-menu {
-  width: 350px;
-  top: 0;
+  width: 100vh;
+  top: 70px;
   left: 0;
   overflow: hidden;
   overflow-y: auto;
@@ -184,8 +188,12 @@ export default {
   z-index: 3;
   transition: transform $duration-main $motion-main;
 
-  @media (max-width: 767px) {
-    width: 100vh;
+  @screen md {
+    width: 350px;
+  }
+
+  @screen lg {
+    top: 0;
   }
 
   &.active {

@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @import 'base/base';
+@import 'base/icons';
 @import 'base/text';
+@import 'base/forms';
 @import 'components/buttons';
-
+@import 'components/sidebar';
+@import 'components/modal';
+@import 'components/inputs';

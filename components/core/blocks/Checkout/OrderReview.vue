@@ -1,17 +1,23 @@
 <template>
   <div class="order-review">
     <div class="flex flex-wrap">
-      <div class="w-1/12">
+      <div class="w-1/12 hidden md:block">
         <div
-          class="number-circle lh35 cl-white brdr-circle align-center weight-700"
+          class="number-circle lh35 cl-white brdr-circle flex items-center justify-center"
           :class="{ 'bg-cl-th-accent' : isActive || isFilled, 'bg-cl-tertiary' : !isFilled && !isActive }"
         >
           4
         </div>
       </div>
-      <div class="w-11/12">
-        <div class="" :class="{ 'cl-bg-tertiary' : !isFilled && !isActive }">
-          <h3 class="mt-2 mb-5">
+      <div class="w-full md:w-11/12">
+        <div class="flex items-center mb-3 md:mb-0" :class="{ 'cl-bg-tertiary' : !isFilled && !isActive }">
+          <div
+            class="number-circle cl-white brdr-circle flex items-center justify-center md:hidden"
+            :class="{ 'bg-cl-th-accent' : isActive || isFilled, 'bg-cl-tertiary' : !isFilled && !isActive }"
+          >
+            4
+          </div>
+          <h3 class="ml-3 mb-0 md:ml-0 md:mb-5">
             {{ $t('Review order') }}
           </h3>
         </div>
@@ -20,8 +26,8 @@
     <!-- HEADER END -->
 
     <div class="flex flex-wrap justify-end" v-show="isActive">
-      <div class="w-11/12">
-        <div id="checkout-order-review-additional-container">
+      <div class="w-full md:w-11/12">
+        <div id="checkout-order-review-additional-container" class="mb-2">
           <div id="checkout-order-review-additional">&nbsp;</div>
         </div>
         <div class="flex flex-wrap">
@@ -55,9 +61,9 @@
       </div>
     </div>
     <div class="flex flex-wrap justify-end mt-5" v-show="isActive">
-      <div class="w-11/12">
+      <div class="w-full lg:w-11/12">
         <div class="flex flex-wrap -mx-3">
-          <div class="w-1/2 px-3">
+          <div class="w-full lg:w-1/2 px-3">
             <slot name="placeOrderButton">
               <button-full
                 @click.native="placeOrder"
@@ -81,13 +87,13 @@
         <p>
           This website ("website") is operated by Luma Inc., which includes Luma stores, and Luma Private Sales. This privacy policy only covers information collected at this website, and does not cover any information collected offline by Luma. All Luma websites are covered by this privacy policy.
         </p>
-        <h2>
+        <h2 class="text-h2 mt-5 mb-2">
           Luma Security
         </h2>
         <p>
           Personal information provided on the website and online credit card transactions are transmitted through a secure server. We are committed to handling your personal information with high standards of information security. We take appropriate physical, electronic, and administrative steps to maintain the security and accuracy of personally identifiable information we collect, including limiting the number of people who have physical access to our database servers, as well as employing electronic security systems and password protections that guard against unauthorized access.
         </p>
-        <h2>
+        <h2 class="text-h2 mt-5 mb-2">
           Luma Privacy Policy
         </h2>
         <p>

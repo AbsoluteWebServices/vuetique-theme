@@ -15,22 +15,22 @@
           <thead>
             <tr>
               <th>{{ $t('Order ID') }}</th>
-              <th class="hide-on-xs">{{ $t('Date and time') }}</th>
-              <th class="hide-on-xs">{{ $t('Author') }}</th>
-              <th class="hide-on-xs">{{ $t('Type') }}</th>
-              <th class="hide-on-xs">{{ $t('Status') }}</th>
-              <th class="hide-on-xs">{{ $t('Value') }}</th>
+              <th class="hidden sm:table-cell">{{ $t('Date and time') }}</th>
+              <th class="hidden lg:table-cell">{{ $t('Author') }}</th>
+              <th class="hidden lg:table-cell">{{ $t('Type') }}</th>
+              <th class="hidden md:table-cell">{{ $t('Status') }}</th>
+              <th>{{ $t('Value') }}</th>
               <th>&nbsp;</th>
             </tr>
           </thead>
           <tbody>
             <tr class="border-t" v-for="order in ordersHistory" :key="order.entity_id">
               <td>{{ order.entity_id }}</td>
-              <td class="hide-on-xs">{{ order.created_at | date }}</td>
-              <td class="hide-on-xs">{{ order.customer_firstname }} {{ order.customer_lastname }}</td>
-              <td class="hide-on-xs">{{ $t('Purchase') }}</td>
-              <td class="hide-on-xs">{{ order.status | capitalize }}</td>
-              <td class="hide-on-xs">{{ order.grand_total | price }}</td>
+              <td class="hidden sm:table-cell">{{ order.created_at | date }}</td>
+              <td class="hidden lg:table-cell">{{ order.customer_firstname }} {{ order.customer_lastname }}</td>
+              <td class="hidden lg:table-cell">{{ $t('Purchase') }}</td>
+              <td class="hidden md:table-cell">{{ order.status | capitalize }}</td>
+              <td>{{ order.grand_total | price }}</td>
               <td>
                 <span class="relative dropdown">
                   <i class="material-icons text-grey leading-4 cursor-pointer">more_horiz</i>
@@ -73,12 +73,6 @@ table {
 
   td {
     @apply text-sm py-3 px-4 leading-4 text-left font-medium;
-  }
-
-  .hide-on-xs {
-    @media (max-width: 767px) {
-      display: none;
-    }
   }
 
   i {

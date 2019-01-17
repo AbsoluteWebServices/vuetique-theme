@@ -28,7 +28,7 @@
         v-for="(validation, index) in validations"
         :key="index"
         v-if="validation.condition"
-        class="block cl-error h6"
+        class="block text-error text-sm"
       >
         {{ validation.text }}
       </span>
@@ -94,8 +94,8 @@ export default {
     content: '';
     display: block;
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 18px;
+    //transform: translateY(-50%);
     right: 20px;
     //margin-top: -7px;
     width: 0;
@@ -134,7 +134,7 @@ export default {
     pointer-events: none;
     user-select: none;
     left: 22px;
-    top: 13px;
+    top: 9px;
     transition: 0.2s ease all;
     -moz-transition: 0.2s ease all;
     -webkit-transition: 0.2s ease all;

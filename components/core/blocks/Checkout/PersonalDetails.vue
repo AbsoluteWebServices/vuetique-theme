@@ -1,22 +1,28 @@
 <template>
   <div class="personal-details">
     <div class="flex flex-wrap">
-      <div class="w-1/12">
+      <div class="w-1/12 hidden md:block">
         <div
-          class="number-circle lh35 cl-white brdr-circle align-center weight-700"
+          class="number-circle cl-white brdr-circle flex items-center justify-center"
           :class="{ 'bg-cl-th-accent' : isActive || isFilled, 'bg-cl-tertiary' : !isFilled && !isActive }"
         >
           1
         </div>
       </div>
-      <div class="w-11/12">
-        <div class="" :class="{ 'cl-bg-tertiary' : !isFilled && !isActive }">
-          <h3 class="mt-2 mb-5">
+      <div class="w-full md:w-11/12">
+        <div class="flex items-center mb-3 md:mb-0" :class="{ 'cl-bg-tertiary' : !isFilled && !isActive }">
+          <div
+            class="number-circle cl-white brdr-circle flex items-center justify-center md:hidden"
+            :class="{ 'bg-cl-th-accent' : isActive || isFilled, 'bg-cl-tertiary' : !isFilled && !isActive }"
+          >
+            1
+          </div>
+          <h3 class="mb-0 ml-3 md:ml-0 md:mb-5">
             {{ $t('Personal Details') }}
           </h3>
         </div>
-        <div class="flex end-lg" v-if="isFilled && !isActive">
-          <a href="#" class="cl-tertiary flex" @click.prevent="edit">
+        <div class="flex mb-2" v-if="isFilled && !isActive">
+          <a href="#" class="btn btn-xs btn-primary flex" @click.prevent="edit">
             <span class="pr5">
               {{ $t('Edit personal details') }}
             </span>
@@ -26,7 +32,7 @@
       </div>
     </div>
     <div class="flex flex-wrap justify-end" v-if="isActive">
-      <div class="w-11/12">
+      <div class="w-full md:w-11/12">
         <div class="flex flex-wrap -mx-3">
           <base-input
             class="w-1/2 px-3"
@@ -159,10 +165,10 @@
         </div>
       </div>
     </div>
-    <div class="flex flex-wrap justify-end pb-8" v-show="isActive">
-      <div class="w-11/12">
+    <div class="flex flex-wrap justify-end pb-3 md:pb-8" v-show="isActive">
+      <div class="w-full md:w-11/12">
         <div class="mt-6 flex -mx-3 justify-between items-center">
-          <div class="w-1/2 px-3 button-container">
+          <div class="w-full lg:w-1/2 px-3 button-container">
             <button-full
               data-testid="personalDetailsSubmit"
               @click.native="sendDataToCheckout"
@@ -188,8 +194,8 @@
         </div>
       </div>
     </div>
-    <div class="flex flex-wrap justify-end pb-8" v-if="!isActive && isFilled">
-      <div class="w-11/12">
+    <div class="flex flex-wrap justify-end pb-3 md:pb-8" v-if="!isActive && isFilled">
+      <div class="w-full md:w-11/12">
         <p>
           {{ personalDetails.firstName }} {{ personalDetails.lastName }}
         </p>

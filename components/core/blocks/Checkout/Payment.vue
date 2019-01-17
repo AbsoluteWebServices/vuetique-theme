@@ -1,22 +1,28 @@
 <template>
   <div class="payment">
     <div class="flex flex-wrap">
-      <div class="w-1/12">
+      <div class="w-1/12 hidden md:block">
         <div
-          class="number-circle lh35 cl-white brdr-circle align-center weight-700"
+          class="number-circle lh35 cl-white brdr-circle flex items-center justify-center"
           :class="{ 'bg-cl-th-accent' : isActive || isFilled, 'bg-cl-tertiary' : !isFilled && !isActive }"
         >
           3
         </div>
       </div>
-      <div class="w-11/12">
-        <div class="" :class="{ 'cl-bg-tertiary' : !isFilled && !isActive }">
-          <h3 class="mt-2 mb-5">
+      <div class="w-full md:w-11/12">
+        <div class="flex items-center mb-3 md:mb-0" :class="{ 'cl-bg-tertiary' : !isFilled && !isActive }">
+          <div
+            class="number-circle md:hidden lh35 cl-white flex items-center justify-center md:hidden"
+            :class="{ 'bg-cl-th-accent' : isActive || isFilled, 'bg-cl-tertiary' : !isFilled && !isActive }"
+          >
+            3
+          </div>
+          <h3 class="ml-3 md:ml-0 mb-0 md:mb-5">
             {{ $t('Payment') }}
           </h3>
         </div>
-        <div class="lh30 flex end-lg" v-if="isFilled && !isActive">
-          <a href="#" class="cl-tertiary flex" @click.prevent="edit">
+        <div class="mb-2 flex end-lg" v-if="isFilled && !isActive">
+          <a href="#" class="btn btn-xs btn-primary flex" @click.prevent="edit">
             <span class="pr5">
               {{ $t('Edit payment') }}
             </span>
@@ -28,7 +34,7 @@
     <!--Fields-->
 
     <div class="flex flex-wrap justify-end mb-2" v-if="isActive">
-      <div class="w-11/12">
+      <div class="w-full md:w-11/12">
         <base-checkbox
           class="w-full"
           id="sendToShippingAddressCheckbox"
@@ -53,7 +59,7 @@
     </div>
 
     <div class="flex flex-wrap justify-end w-full">
-      <div class="w-11/12">
+      <div class="w-full md:w-11/12">
         <div class="flex flex-wrap -mx-3 mb-3" v-if="isActive">
           <base-input
             class="w-1/2 px-3"
@@ -93,7 +99,7 @@
     </div>
 
     <div class="flex flex-wrap justify-end w-full">
-      <div class="w-11/12">
+      <div class="w-full md:w-11/12">
         <div class="flex flex-wrap -mx-3 mb-3" v-if="isActive">
           <base-input
             class="w-1/2 px-3"
@@ -127,7 +133,7 @@
     </div>
 
     <div class="flex flex-wrap justify-end w-full">
-      <div class="w-11/12">
+      <div class="w-full md:w-11/12">
         <div class="flex flex-wrap -mx-3 mb-3" v-if="isActive">
           <base-input
             class="w-1/2 px-3"
@@ -156,7 +162,7 @@
     </div>
 
     <div class="flex flex-wrap justify-end w-full">
-      <div class="w-11/12">
+      <div class="w-full md:w-11/12">
         <div class="flex flex-wrap -mx-3 mb-3" v-if="isActive">
           <base-input
             class="w-1/2 px-3"
@@ -200,7 +206,7 @@
     </div>
 
     <div class="flex flex-wrap justify-end w-full">
-      <div class="w-11/12">
+      <div class="w-full md:w-11/12">
         <div class="flex flex-wrap -mx-3 mb-3" v-if="isActive">
           <base-input
             class="w-1/2 px-3"
@@ -215,7 +221,7 @@
     </div>
 
     <div class="flex flex-wrap justify-end w-full">
-      <div class="w-11/12">
+      <div class="w-full md:w-11/12">
         <base-checkbox
           v-if="isActive"
           class="w-full"
@@ -231,7 +237,7 @@
 
     <!--generateInvoice-->
     <div class="flex flex-wrap justify-end">
-      <div class="w-11/12">
+      <div class="w-full md:w-11/12">
         <template v-if="generateInvoice">
           <div class="flex flex-wrap -mx-3 mb-3 mt-3">
             <base-input
@@ -279,7 +285,7 @@
 
     <!--Payment method-->
     <div class="flex flex-wrap justify-end">
-      <div class="w-11/12">
+      <div class="w-full md:w-11/12">
         <div class="flex flex-wrap w-full" v-if="isActive">
           <h4 class="my-3 mb-5">
             {{ $t('Payment method') }}
@@ -306,9 +312,9 @@
 
     <!--Go to Review order-->
     <div class="flex flex-wrap w-full justify-end" v-if="isActive">
-      <div class="w-11/12">
+      <div class="w-full md:w-11/12">
         <div class="flex flex-wrap -mx-3 mb-3">
-          <div class="w-1/2 px-3">
+          <div class="w-full lg:w-1/2 px-3">
             <button-full
               @click.native="sendDataToCheckout"
               data-testid="paymentSubmit"
@@ -323,7 +329,7 @@
 
     <!--Review payment data-->
     <div class="flex flex-wrap justify-end" v-if="!isActive && isFilled">
-      <div class="w-11/12">
+      <div class="w-full md:w-11/12">
         <p>
           {{ payment.firstName }} {{ payment.lastName }}
         </p>

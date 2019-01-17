@@ -3,7 +3,7 @@
     :is="link ? 'router-link' : 'button'"
     :type="!link ? type : false"
     :to="localizedRoute(link)"
-    class="block border-none rounded-none bg-grey-dark w-full px-4 py-2 ripple tracking-md text-sm text-white font-medium leading-base uppercase"
+    class="block border-none rounded-none bg-grey-dark px-4 py-2 ripple tracking-md text-sm text-white font-medium leading-base uppercase"
     :class="{ 'no-underline cursor-pointer text-center': link, 'disabled': disabled }"
     data-testid="subscribeSubmit"
     :disabled="disabled"

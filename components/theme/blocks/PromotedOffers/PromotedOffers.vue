@@ -2,19 +2,19 @@
   <section v-if="!singleBanner" class="offers container mx-auto my-8">
     <div class="row gutter-md">
       <div
-        class="offer-container col-12 sm:col-6 pb-5 relative"
+        class="offer-container col-12 sm:col-6 pb-5"
         v-for="(banner, index) in banners.mainBanners"
         :key="index"
       >
         <router-link :to="localizedRoute(banner.link)">
           <div
-            class="offer p-1 flex justify-center items-center text-white bg-white"
+            class="offer p-1 flex justify-center items-center text-white bg-white relative"
             v-lazy:background-image="banner.image"
           >
-            <h2 class="title">
+            <h2 class="md:text-h1 text-center">
               {{ banner.title }}
             </h2>
-            <div class="w-24 absolute pin-b mx-auto mb-16">
+            <div class="w-24 absolute pin-b mx-auto mb-5 md:mb-16">
               <button-full class="btn-primary" :link="{ path: banner.link }">{{ $t('Shop') }}</button-full>
             </div>
           </div>
@@ -32,8 +32,8 @@
               class="offer offer-small border-box p-1 flex justify-center items-center text-white bg-white relative"
               v-lazy:background-image="banner.image"
             >
-              <h2 class="title">{{ banner.title }}</h2>
-              <div class="w-24 absolute pin-b mx-auto mb-10">
+              <h2 class="md:text-h1 text-center">{{ banner.title }}</h2>
+              <div class="w-24 absolute pin-b mx-auto mb-5 md:mb-10">
                 <button-full class="btn-primary" :link="{ path: banner.link }">{{ $t('Shop') }}</button-full>
               </div>
             </div>
@@ -54,10 +54,10 @@
             class="offer offer-product border-box p-1 flex justify-center items-center text-white bg-white relative"
             v-lazy:background-image="banner.image"
           >
-            <h2 class="title">
+            <h2 class="md:text-h1 text-center">
               {{ banner.title }}
             </h2>
-            <div class="w-24 absolute pin-b mx-auto mb-10">
+            <div class="w-24 absolute pin-b mx-auto mb-5 md:mb-10">
               <button-full class="btn-primary" :link="{ path: banner.link }">{{ $t('Shop') }}</button-full>
             </div>
           </div>

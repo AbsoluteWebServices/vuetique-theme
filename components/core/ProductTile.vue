@@ -25,6 +25,7 @@
           height="300"
           width="310"
           data-testid="productImage"
+          class="block"
         >
       </div>
 
@@ -120,14 +121,11 @@ export default {
 }
 
 .product-image {
+  @apply .bg-grey-lightest;
   overflow: hidden;
   max-height: 300px;
 
   &:hover {
-    img {
-      opacity: 1;
-      transform: scale(1.1);
-    }
 
     &.sale::after,
     &.new::after {
@@ -143,8 +141,6 @@ export default {
     margin: auto;
     mix-blend-mode: darken;
     opacity: 0.8;
-    transform: scale(1);
-    transition: 0.3s opacity $motion-main, 0.3s transform $motion-main;
 
     &[lazy="loaded"] {
       animation: products-loaded;
@@ -164,7 +160,7 @@ export default {
   &.sale {
     &::after {
       @extend %label;
-      @apply text-error border-error-lighter bg-error-lightest;
+      @apply m-1 text-error border-error-lighter bg-error-lightest;
       content: 'Sale';
     }
   }
@@ -172,7 +168,7 @@ export default {
   &.new {
     &::after {
       @extend %label;
-      @apply text-primary border-primary-lighter bg-primary-lightest;
+      @apply m-1 text-primary border-primary-lighter bg-primary-lightest;
       content: 'New';
     }
   }
