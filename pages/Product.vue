@@ -145,12 +145,14 @@
                     v-model="product.qty"
                   >
                 </div>
-                <div class="px-2 w-2/3">
-                  <add-to-cart
-                    :product="product"
-                    class="bg-primary py-3 text-sm"
-                  />
-                </div>
+              </div>
+            </div>
+            <div class="flex mb-3">
+              <div class="w-full">
+                <add-to-cart
+                  :product="product"
+                  class="bg-primary py-3 text-sm"
+                />
               </div>
             </div>
             <div class="flex text-sm md:py-5 text-center add-to-buttons">
