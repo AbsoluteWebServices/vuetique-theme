@@ -70,14 +70,14 @@
       class="row justify-between items-center py-4 actions"
       v-if="productsInCart.length && !isCheckoutMode"
     >
-      <div class="col-auto">
+      <div class="col-12 md:col-auto">
         <router-link :to="localizedRoute('/')" class="no-underline text-grey link">
           <span @click="closeMicrocartExtend">
             &lt;&nbsp;{{ $t('Return to shopping') }}
           </span>
         </router-link>
       </div>
-      <div class="col-auto">
+      <div class="col-12 md:col-auto">
         <button-full
           class="btn-primary py-3 px-6"
           :link="{ name: 'checkout' }"
@@ -162,7 +162,7 @@ export default {
   @import "~theme/css/animations/transitions";
 
   .microcart {
-    top: 0;
+    top: 70px;
     right: 0;
     z-index: 3;
     height: 100%;
@@ -175,60 +175,23 @@ export default {
     &.active {
       transform: translateX(0)
     }
-  }
 
-  .heading {
-    @media (max-width: 767px) {
-      margin: 12px 0 12px 15px;
-      font-size: 24px;
+    @screen lg {
+      top: 0;
     }
   }
 
-  .products {
-    @media (max-width: 767px) {
-      padding: 30px 15px;
-    }
-  }
-
-  .actions {
-    @media (max-width: 767px) {
-      padding: 0 15px;
-    }
-    .link {
-      @media (max-width: 767px) {
+  @media (max-width: 767px) {
+    .actions {
+      .link {
         display: flex;
         justify-content: center;
-        padding: 20px 70px;
-        &.checkout {
-          margin-top: 55px;
-          padding: 0;
-        }
+        padding: 8px 50px;
       }
-    }
-  }
 
-  .summary {
-    @media (max-width: 767px) {
-      padding:  0 15px;
-      font-size: 12px;
-    }
-  }
-
-  .summary-heading {
-    @media (max-width: 767px) {
-      font-size: 18px;
-    }
-  }
-
-  .total-price-label {
-    @media (max-width: 767px) {
-      font-size: 18px;
-    }
-  }
-
-  .total-price-value {
-    @media (max-width: 767px) {
-      font-size: 24px;
+      .btn-primary {
+        margin-top: 20px;
+      }
     }
   }
 

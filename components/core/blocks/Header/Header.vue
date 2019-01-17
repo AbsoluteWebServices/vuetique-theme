@@ -1,11 +1,11 @@
 <template>
   <div class="header">
     <header
-      class="w-full bg-white border-b border-solid"
+      class="fixed lg:static pin-t z-header w-full bg-white border-b border-solid"
     >
       <div class="container">
         <div class="row gutter-md items-center py-2" v-if="!isCheckoutPage">
-          <div class="col-auto">
+          <div class="col-3 lg:col-auto">
             <div>
               <template v-if="!canGoBack">
                 <hamburger-icon class="p-3"/>
@@ -15,17 +15,17 @@
               </template>
             </div>
           </div>
-          <div class="col-grow flex items-center pt-1">
-            <logo width="auto" height="41px"/>
-            <div class="brand-text ml-2">{{ 'Vuetique' }}</div>
+          <div class="col-grow sm:col-6 lg:col-grow flex items-center justify-center lg:justify-start pt-1">
+            <logo class="hidden sm:block mr-2" width="auto" height="41px"/>
+            <div class="text-h2 uppercase tracking-md">{{ 'Vuetique' }}</div>
           </div>
-          <div class="col-6">
+          <div class="col-6 hidden lg:block">
             <search/>
           </div>
-          <div class="col-grow justify-end">
-            <div class="right-icons">
-              <account-icon class="p-3"/>
-              <wishlist-icon class="p-3"/>
+          <div class="col-3 lg:col-grow justify-end">
+            <div class="right-icons flex">
+              <account-icon class="p-3 hidden sm:block"/>
+              <wishlist-icon class="p-3 hidden sm:block"/>
               <microcart-icon class="p-3"/>
             </div>
           </div>
@@ -54,6 +54,7 @@
         </div>
       </div>
     </header>
+    <div class="header-placeholder" />
   </div>
 </template>
 
@@ -99,6 +100,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.header-placeholder {
+  height: 73px;
+
+  @screen lg {
+    height: 0;
+  }
+}
+
 .right-icons {
   //for edge
   float: right;

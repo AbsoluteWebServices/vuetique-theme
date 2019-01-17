@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    class="relative inline-flex"
+    class="relative"
     @click="openMicrocart"
     data-testid="openMicrocart"
     :aria-label="$t('Open microcart')"
