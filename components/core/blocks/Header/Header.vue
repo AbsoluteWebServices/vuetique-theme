@@ -17,7 +17,7 @@
           </div>
           <div class="col-grow sm:col-6 lg:col-grow flex items-center justify-center lg:justify-start pt-1">
             <logo class="hidden sm:block mr-2" width="auto" height="41px"/>
-            <div class="text-h2 uppercase tracking-md">{{ 'Vuetique' }}</div>
+            <a href="/" class="text-h2 uppercase text-black tracking-md">{{ 'Vuetique' }}</a>
           </div>
           <div class="col-6 hidden lg:block">
             <search/>
