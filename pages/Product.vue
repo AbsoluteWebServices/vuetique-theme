@@ -139,7 +139,7 @@
                   <input
                     type="number"
                     min="0"
-                    class="text-center h-full w-full qty-input"
+                    class="text-center h-full w-full qty-input py-3 px-2"
                     id="quantity"
                     focus
                     v-model="product.qty"
