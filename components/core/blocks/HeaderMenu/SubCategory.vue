@@ -28,6 +28,8 @@
         :aria-label="$t('Show subcategories')"
         data-testid="categoryButton"
         @click="activeSubMenu == link.id ? activeSubMenu = null : activeSubMenu = link.id"
+        @mouseenter="activeSubMenu = link.id"
+        @mouseleave="activeSubMenu = null"
       >
         {{ link.name }}
       </button>

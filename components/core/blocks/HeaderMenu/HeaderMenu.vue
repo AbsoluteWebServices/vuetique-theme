@@ -16,6 +16,8 @@
             :aria-label="$t('Show subcategories')"
             data-testid="categoryButton"
             @click="toggleSubMenu(category.id)"
+            @mouseenter="activeSubMenu = category.id"
+            @mouseleave="activeSubMenu = null"
           >
             {{ category.name }}
           </button>
