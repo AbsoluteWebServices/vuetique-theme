@@ -28,7 +28,7 @@
           </div>
         </div>
         <div
-          class="col-grow flex-col justify-center self-stretch relative"
+          class="col-grow flex flex-col justify-center self-stretch relative"
           :class="[{ sale: isOnSale }, { new: isNew }]">
           <div class="font-medium text-grey-dark">
             {{ product.name | htmlDecode }}
