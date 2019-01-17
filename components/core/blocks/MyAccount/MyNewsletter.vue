@@ -37,14 +37,18 @@
         {{ $t('I want to receive a newsletter, and agree to its terms') }}
       </base-checkbox>
 
-      <div class="col-12 sm:col-6" v-if="isEdited">
-        <button-full @click.native="updateNewsletter">
-          {{ $t('Update my preferences') }}
-        </button-full>
+      <div class="col-12" v-if="isEdited">
+        <hr class="border-t mt-4 mb-10">
       </div>
 
-      <div class="col-12 sm:col-6 flex justify-center py-2" v-if="isEdited">
-        <a href="#" @click="exitSection" class="text-h4 text-grey-dark">
+      <div class="col-12" v-if="isEdited">
+        <div class="inline-block mr-5">
+          <button-full @click.native="updateNewsletter">
+            {{ $t('Update my preferences') }}
+          </button-full>
+        </div>
+
+        <a href="#" @click="exitSection" class="inline-block text-grey-dark bg-grey-lighter py-2 px-3">
           {{ $t('Cancel') }}
         </a>
       </div>

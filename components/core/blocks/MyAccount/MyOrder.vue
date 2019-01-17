@@ -3,12 +3,12 @@
     <!-- My order header -->
     <div class="row mb-4">
       <div class="col-12 sm:col-6">
-        <h3 class="mb-1">
+        <h2 class="mb-1">
           {{ $t('Order #') }}{{ order.entity_id }}
           <span class="border py-1 px-2 ml-5 text-sm leading-sm text-grey-dark">
             {{ order.status | capitalize }}
           </span>
-        </h3>
+        </h2>
       </div>
     </div>
     <!-- My order body -->
@@ -22,7 +22,7 @@
       <div class="col-12 text-h4">
         <h4>{{ $t('Items ordered') }}</h4>
         <table>
-          <thead>
+          <thead class="border">
             <tr>
               <th>{{ $t('Product Name') }}</th>
               <th>{{ $t('SKU') }}</th>
@@ -31,7 +31,7 @@
               <th>{{ $t('Subtotal') }}</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody class="border">
             <tr class="border-t" v-for="item in skipGrouped(order.items)" :key="item.item_id">
               <td :data-th="$t('Product Name')">{{ item.name }}</td>
               <td :data-th="$t('SKU')">{{ item.sku }}</td>
@@ -114,27 +114,22 @@ table {
   border-collapse: collapse;
   width: 100%;
 
-  @media (max-width: 767px) {
-    border-top: none;
+  th {
+    @apply text-xs text-grey-dark tracking-md uppercase py-3 px-4 leading-4 text-left font-medium;
+  }
+
+  td {
+    @apply text-sm py-3 px-4 leading-4 text-left font-medium;
   }
 
   th, td {
-    text-align: left;
-    padding: 20px;
-
     &.text-right {
-      text-align: right;
+      @apply text-right;
 
       @media (max-width: 767px) {
-        text-align: left;
+        @apply text-left;
       }
-
     }
-
-    @media (max-width: 1199px) {
-      padding: 10px;
-    }
-
   }
 
   thead {
