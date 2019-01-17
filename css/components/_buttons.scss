@@ -63,6 +63,11 @@ button,
   &:hover {
     @apply bg-primary2;
   }
+
+  &.btn-xs {
+    @apply py-1;
+  }
+
 }
 
 .btn-link {

@@ -18,10 +18,10 @@
         </div>
 
         <div class="flex flex-wrap justify-between mb-3" v-for="(segment, index) in totals" :key="index" v-if="segment.code === 'grand_total'">
-          <div class="w-3/4 text-h1 font-serif font-medium">
+          <div class="w-3/4 text-h2 font-serif font-medium">
             {{ segment.title }}:
           </div>
-          <div class="w-1/4 text-right text-h1 font-serif font-medium">
+          <div class="w-1/4 text-right text-h2 font-serif font-medium">
             {{ segment.value | price }}
           </div>
         </div>

@@ -11,11 +11,18 @@
         :autofocus="autofocus"
         :ref="name"
         :placeholder="placeholder"
-        @input="$emit('input', $event.target.value)"
+        @input="inputEvent"
         @blur="$emit('blur')"
-        @keyup.enter="$emit('keyup.enter', $event.target.value)"
-        @keyup="$emit('keyup', $event)"
+        @keyup.enter="keyupEnter"
+        @keyup="keyup"
       >
+      <svg viewBox="0 0 17.313 17.311" class="vt-icon--sm _icon-error" v-if="isValid === false">
+        <use xlink:href="#error"/>
+      </svg>
+
+      <svg viewBox="0 0 17.333 9.333" class="vt-icon--sm _icon-success" v-if="isValid && isDirty === true">
+        <use xlink:href="#success"/>
+      </svg>
     </div>
     <button
       v-if="iconActive"
@@ -55,7 +62,8 @@ export default {
     return {
       passType: 'password',
       iconActive: false,
-      icon: 'visibility'
+      icon: 'visibility',
+      isDirty: false
     }
   },
   computed: {
@@ -72,6 +80,8 @@ export default {
         })
         return isValid
       }
+
+      return true
     }
   },
   props: {
@@ -135,6 +145,18 @@ export default {
         this.$refs[this.name].focus()
       }
       console.log(this.condition, this.conditions)
+    },
+    keyup ($event) {
+      this.$emit('keyup', $event)
+      this.isDirty = true
+    },
+    keyupEnter ($event) {
+      this.$emit('keyup.enter', $event.target.value)
+      this.isDirty = true
+    },
+    inputEvent ($event) {
+      this.$emit('input', $event.target.value)
+      this.isDirty = true
     }
   },
   created () {
@@ -166,6 +188,22 @@ export default {
       @apply border-error;
     }
 
+  }
+
+  .vt-icon--sm {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin-top: -8px;
+
+    &._icon-error {
+      @apply fill-error;
+    }
+
+    &._icon-success {
+      @apply fill-primary;
+      transform: rotate(180deg);
+    }
   }
 
   .icon {
