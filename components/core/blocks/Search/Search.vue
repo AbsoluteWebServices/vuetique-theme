@@ -67,10 +67,10 @@ export default {
       return (this.searchFocus && this.search !== '') || this.resultsHover
     },
     results () {
-      return this.products.slice(0, this.showResults)
+      return this.products // .slice(0, this.showResults)
     },
     moreResults () {
-      return this.products.length > this.showResults
+      return false // this.products.length > this.showResults
     }
   },
   mounted () {
