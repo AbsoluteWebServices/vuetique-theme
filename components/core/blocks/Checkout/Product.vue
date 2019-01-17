@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-wrap checkout-product-item  pb-3 mb-3 border-b">
-    <div class="w-1/4">
+    <div class="w-1/4 px-2">
       <img class="blend" v-lazy="thumbnail">
     </div>
     <div class="w-3/4">
