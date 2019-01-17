@@ -326,7 +326,8 @@ export default {
 
 .footer-menu {
   .menu-link {
-    @apply text-sm font-medium text-grey-dark;
+    @apply text-base font-light text-grey-dark;
+    -webkit-font-smoothing: antialiased;
   }
 }
 

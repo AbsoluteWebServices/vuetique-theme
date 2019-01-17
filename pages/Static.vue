@@ -16,7 +16,7 @@
             </ul>
           </nav>
         </div>
-        <div class="static-content col-12 md:col-9">
+        <div class="col-12 md:col-9 leading-loose static-content">
           <component :is="activeComponent" />
         </div>
       </div>
