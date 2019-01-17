@@ -16,11 +16,11 @@
         @keyup.enter="keyupEnter"
         @keyup="keyup"
       >
-      <svg viewBox="0 0 17.313 17.311" class="vt-icon--sm _icon-error" v-if="isValid === false">
+      <svg viewBox="0 0 17.313 17.311" class="vt-icon--sm _icon-error" v-if="isValid === false && hasValidator === true">
         <use xlink:href="#error"/>
       </svg>
 
-      <svg viewBox="0 0 17.333 9.333" class="vt-icon--sm _icon-success" v-if="isValid && isDirty === true">
+      <svg viewBox="0 0 17.333 9.333" class="vt-icon--sm _icon-success" v-if="isValid && isDirty === true && hasValidator === true">
         <use xlink:href="#success"/>
       </svg>
     </div>
@@ -82,6 +82,9 @@ export default {
       }
 
       return true
+    },
+    hasValidator () {
+      return (typeof this.validation !== 'undefined' || this.validations.length > 0)
     }
   },
   props: {
