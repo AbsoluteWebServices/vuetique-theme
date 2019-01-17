@@ -1,3 +1,6 @@
+@import '~theme/css/variables/colors';
+@import '~theme/css/helpers/functions/color';
+
 .ripple {
   position: relative;
   overflow: hidden;
@@ -60,8 +63,9 @@ button,
   &:hover {
     @apply bg-primary2;
   }
-
 }
 
-
-
+.btn-link {
+  background: transparent;
+  color: color(grey);
+}
