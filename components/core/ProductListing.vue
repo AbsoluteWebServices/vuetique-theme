@@ -1,5 +1,5 @@
 <template>
-  <div class="row gutter-md justify-center md:justify-start w-100">
+  <div class="row gutter-md justify-center md:justify-start">
     <div
       v-for="(product, key) in products"
       :key="product.id"

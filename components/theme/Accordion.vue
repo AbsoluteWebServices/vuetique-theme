@@ -37,6 +37,10 @@ export default {
 .Accordion {
   @apply border-t py-2;
 
+  &:last-child {
+    @apply border-b;
+  }
+
   .Accordion__trigger {
     @apply py-3 flex justify-between items-center cursor-pointer font-sans text-base;
   }
