@@ -6,8 +6,8 @@
     </header>
 
     <div class="container pt-10 pb-16">
-      <div class="row justify-between">
-        <div class="sm:col-3 md:col-2">
+      <div class="row gutter-md justify-between">
+        <div class="md:col-3 lg:col-2 mb-8">
           <nav class="static-menu">
             <ul class="list-reset border-t">
               <li class="border-b py-2" v-for="page in navigation" :key="page.id">
@@ -16,7 +16,7 @@
             </ul>
           </nav>
         </div>
-        <div class="static-content col-12 sm:col-9">
+        <div class="static-content col-12 md:col-9">
           <component :is="activeComponent" />
         </div>
       </div>
