@@ -1,5 +1,5 @@
 <template>
-  <div class="row gutter-md justify-center md:justify-start">
+  <div class="row gutter-md justify-center md:justify-start w-100">
     <div
       v-for="(product, key) in products"
       :key="product.id"
@@ -42,3 +42,9 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.w-100 {
+  width: 100%;
+}
+</style>
