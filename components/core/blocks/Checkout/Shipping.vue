@@ -227,8 +227,7 @@
       </div>
     </div>
     <!--Review shipping data-->
-    <div class="flex flex-wrap justify-end pb-2 md:pb-8" v-if="!isActive && isFilled">
-      <div class="w-full md:w-11/12">
+
         <div data-testid="shippingAddressSummary">
           <p>
             {{ shipping.firstName }} {{ shipping.lastName }}

@@ -6,7 +6,6 @@
 
 // DEPRECIATED, will be removed in 1.7, use module.extend() instead
 import social from './social-tiles'
-// import notifications from './notifications'
 
 export default {
   social
