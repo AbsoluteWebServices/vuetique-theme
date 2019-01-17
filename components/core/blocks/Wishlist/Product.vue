@@ -1,38 +1,48 @@
 <template>
-  <li class="row pr55 py20">
-    <div @click="closeWishlist">
-      <router-link :to="localizedRoute({
-        name: product.type_id + '-product',
-        params: { parentSku: product.parentSku ? product.parentSku : product.sku, slug: product.slug, childSku: product.sku }
-      })">
-        <img v-lazy="thumbnail" >
-      </router-link>
-    </div>
-    <div class="col-xs between-xs flex pl40 py15">
+  <li class="row mb-3 pb-3 border-b border-grey-light relative">
+    <div class="col-auto mr-4">
       <div @click="closeWishlist">
         <router-link :to="localizedRoute({
           name: product.type_id + '-product',
           params: { parentSku: product.parentSku ? product.parentSku : product.sku, slug: product.slug, childSku: product.sku }
         })">
-          {{ product.name | htmlDecode }}
+          <img class="image" v-lazy="thumbnail" >
         </router-link>
-        <div class="h6 cl-bg-secondary pt5">{{ product.sku }}</div>
       </div>
     </div>
-    <div class="col-xs flex py15 align-right">
+    <div class="col-grow flex-col justify-start sm:justify-between">
       <div>
-        <span class="price-special" v-if="product.special_price">{{ product.priceInclTax | price }}</span>&nbsp;
-        <span class="price-original" v-if="product.special_price" >{{ product.originalPriceInclTax | price }}</span>
-
-        <span v-if="!product.special_price">
-          {{ product.priceInclTax | price }}
-        </span>
+        <div class="font-medium leading-6">
+          <div @click="closeWishlist">
+            <router-link :to="localizedRoute({
+              name: product.type_id + '-product',
+              params: { parentSku: product.parentSku ? product.parentSku : product.sku, slug: product.slug, childSku: product.sku }
+            })">
+              <div class="product-title">{{ product.name | htmlDecode }}</div>
+            </router-link>
+          </div>
+        </div>
+        <div class="text-sm text-grey leading-normal mb-2" data-testid="productSku">
+          {{ product.sku }}
+        </div>
       </div>
-      <div>
-        <div class="mt5"><span @click="removeFromWishlist(product)"><remove-button class="cl-accent" /></span></div>
+    </div>
+    <div class="col-auto font-bold text-right leading-6">
+      <div class="text-error" v-if="product.special_price">
+        {{ product.priceInclTax | price }}
       </div>
+      <div class="line-through text-sm text-grey-dark" v-if="product.special_price">
+        {{ product.originalPriceInclTax | price }}
+      </div>
+      <div class="text-grey-dark" v-if="!product.special_price" data-testid="productPrice">
+        {{ product.priceInclTax | price }}
+      </div>
+    </div>
+    <div class="absolute pin-b pin-r mb-3">
+      <span @click="removeFromWishlist(product)"><remove-button class="cl-accent" /></span>
     </div>
   </li>
+
 </template>
 
 <script>

@@ -18,7 +18,7 @@
             <img
               :src="defaultImage.src"
               v-lazy="defaultImage"
-              class="cursor-pointer"
+              class="mw-100 cursor-pointer"
               ref="defaultImage"
               :alt="product.name | htmlDecode"
               itemprop="image"
@@ -33,8 +33,8 @@
               :navigation-enabled="true"
               pagination-active-color="#828282"
               pagination-color="transparent"
-              navigation-next-label="<svg viewBox='0 0 25 25' class='vt-icon'><use xlink:href='#right'/></svg>"
-              navigation-prev-label="<svg viewBox='0 0 25 25' class='vt-icon'><use xlink:href='#left'/></svg>"
+              navigation-next-label="<svg viewBox='0 0 25 25' class='vt-icon cursor-pointer'><use xlink:href='#right'/></svg>"
+              navigation-prev-label="<svg viewBox='0 0 25 25' class='vt-icon cursor-pointer'><use xlink:href='#left'/></svg>"
               ref="carousel"
             >
               <slide
@@ -42,7 +42,7 @@
                 :key="images.src">
                 <div>
                   <img
-                    class="product-image inline-flex cursor-pointer"
+                    class="product-image inline-flex cursor-pointer mw-100"
                     v-lazy="images"
                     ref="images"
                     @dblclick="toggleZoom"
@@ -55,7 +55,7 @@
             </carousel>
           </no-ssr>
           <i
-            class="zoom-in material-icons p-4 cursor-pointer"
+            class="zoom-in material-icons p15 cl-bgs-tertiary cursor-pointer"
             @click="toggleZoom"
           >zoom_in</i>
         </div>
@@ -131,19 +131,7 @@ img {
   }
 }
 img[lazy=error], img[lazy=loading] {
-  min-width: 100%;
-
-  @screen sm {
-    min-width: 500px;
-  }
-
-  @screen md {
-    min-width: 400px;
-  }
-
-  @screen lg {
-    min-width: 580px;
-  }
+  width: 100%;
 }
 
 .thumbnails {

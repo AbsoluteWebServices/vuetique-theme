@@ -8,14 +8,14 @@
       >
         close
       </i>
-      {{ $t('Reset password') }}
+      <h2>{{ $t('Reset password') }}</h2>
     </header>
 
     <div class="modal-content pt30 pb60 px65 cl-secondary">
       <template v-if="!passwordSent">
         <form @submit.prevent="sendEmail" novalidate>
-          <div class="mb35">
-            <p class="mb45">
+          <div class="mb-5">
+            <p class="mb-5">
               {{ $t('Enter your email to receive instructions on how to reset your password.') }}
             </p>
             <base-input
@@ -36,10 +36,10 @@
               ]"
             />
           </div>
-          <button-full class="mb35" type="submit">
+          <button-full class="mb-5" type="submit">
             {{ $t('Reset password') }}
           </button-full>
-          <div class="center-xs">
+          <div class="text-center">
             {{ $t('or') }}
             <a href="#" @click.prevent="switchElem">
               {{ $t('return to log in') }}
@@ -48,11 +48,11 @@
         </form>
       </template>
       <template v-if="passwordSent">
-        <form class="py20">
+        <form class="py20 text-center">
           <p class="py30 mb80">
             {{ $t("We've sent password reset instructions to your email. Check your inbox and follow the link.") }}
           </p>
-          <button-full class="mb35" type="submit">
+          <button-full class="mb-5" type="submit">
             {{ $t('Back to login') }}
           </button-full>
         </form>
