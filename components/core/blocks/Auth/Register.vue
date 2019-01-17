@@ -4,13 +4,13 @@
       <svg viewBox="0 0 25 25" class="vt-icon modal-close p-15" slot="close" @click="close">
         <use xlink:href="#close"/>
       </svg>
-      {{ $t('Register') }}
+      <h2>{{ $t('Register') }}</h2>
     </header>
 
     <div class="modal-content pt30 pb60 px65 cl-secondary">
       <form @submit.prevent="register" novalidate>
         <base-input
-          class="mb35"
+          class="mb-5"
           type="email"
           name="email"
           autocomplete="email"
@@ -29,9 +29,9 @@
             }
           ]"
         />
-        <div class="row mb35">
+        <div class="row mb-5 -mx-2">
           <base-input
-            class="col-xs-6"
+            class="w-full sm:w-1/2 px-2"
             type="text"
             name="fist-name"
             autocomplete="given-name"
@@ -43,8 +43,11 @@
               text: $t('Field is required.')
             }"
           />
+
+          <div class="w-full sm:hidden md:hidden lg:hidden mb-5" />
+
           <base-input
-            class="col-xs-6"
+            class="w-full sm:w-1/2 px-2"
             type="text"
             name="last-name"
             autocomplete="last-name"
@@ -58,7 +61,7 @@
           />
         </div>
         <base-input
-          class="mb35"
+          class="mb-5"
           type="password"
           name="password"
           ref="password"
@@ -78,7 +81,7 @@
           ]"
         />
         <base-input
-          class="mb35"
+          class="mb-5"
           type="password"
           name="password-confirm"
           autocomplete="new-password"
@@ -97,7 +100,7 @@
           ]"
         />
         <base-checkbox
-          class="mb35"
+          class="mb-3 text-black"
           id="terms"
           v-model="conditions"
           @click="conditions = !conditions"
@@ -110,10 +113,10 @@
         >
           {{ $t('I accept terms and conditions') }} *
         </base-checkbox>
-        <button-full class="mb20" type="submit">
+        <button-full class="mb-2" type="submit">
           {{ $t('Register an account') }}
         </button-full>
-        <div class="center-xs">
+        <div class="text-center">
           <span>
             {{ $t('or') }}
             <a href="#" @click.prevent="switchElem">
@@ -192,12 +195,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  .modal-content {
-    @media (max-width: 400px) {
-      padding-left: 20px;
-      padding-right: 20px;
-    }
-  }
-</style>
