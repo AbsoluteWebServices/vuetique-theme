@@ -1,15 +1,14 @@
 <template>
   <div id="page_not_found">
-    <section class="bg-cl-secondary py35 px20">
+    <section class="bg-grey-lighter py-12 px-12">
       <div class="container">
-        <h2>
+        <div class="text-center mb-20">
+          <img src="/assets/icons/404.png" alt="404">
+        </div>
+        <h2 class="text-center">
           {{ $t("We can't find the page") }}
         </h2>
-      </div>
-    </section>
-    <section class="bg-cl-primary py35 px20">
-      <div class="container">
-        <div class="lh16 h5 weight-400">
+        <div class="text-center mt-10">
           <p>
             {{ $t("Unfortunately we can't find the page you are looking for.") }}
           </p>
@@ -31,6 +30,10 @@
             {{ $t('to find product you were looking for.') }}
           </p>
         </div>
+      </div>
+    </section>
+    <section class="bg-cl-primary py35 px20 hidden">
+      <div class="container">
         <section class="container">
           <header class="col-md-12 pt40">
             <h3 class="align-center">
@@ -72,8 +75,12 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   a {
-    text-decoration: underline;
+    @apply .font-medium .text-black;
+
+    &:hover {
+      @apply text-primary;
+    }
   }
 </style>
