@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="w-full md:w-11/12">
-        <div class="flex items-center" :class="{ 'cl-bg-tertiary' : !isFilled && !isActive }">
+        <div class="flex items-center mb-3 md:mb-0" :class="{ 'cl-bg-tertiary' : !isFilled && !isActive }">
           <div
             class="number-circle cl-white brdr-circle flex items-center justify-center md:hidden"
             :class="{ 'bg-cl-th-accent' : isActive || isFilled, 'bg-cl-tertiary' : !isFilled && !isActive }"
