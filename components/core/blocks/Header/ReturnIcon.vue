@@ -1,6 +1,8 @@
 <template>
   <button type="button" class="inline-flex brdr-none" @click="goBack" data-testid="returnButton">
-    <i class="material-icons">keyboard_backspace</i>
+    <svg viewBox="0 0 25 25" class="vt-icon">
+      <use xlink:href="#left"/>
+    </svg>
   </button>
 </template>
 

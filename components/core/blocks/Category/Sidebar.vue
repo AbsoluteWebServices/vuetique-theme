@@ -16,7 +16,9 @@
     >
       <h5 class="py-3 flex justify-between items-center cursor-pointer font-sans text-base" @click="toggleFilters(filterIndex)">
         {{ $t(filterIndex + '_filter') }}
-        <i class="material-icons">{{ openedFilters.indexOf(filterIndex) === -1 ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</i>
+        <svg viewBox="0 0 25 25" class="vt-icon">
+          <use :xlink:href="openedFilters.indexOf(filterIndex) === -1 ? '#down' : '#up'"/>
+        </svg>
       </h5>
 
       <div v-if="filterIndex==='color'" class="filters" :class="{'opened': openedFilters.indexOf(filterIndex) !== -1}">

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="relative my-3">
+    <div class="checkbox-wrap">
       <input
         class="m0 no-outline"
         type="checkbox"
@@ -12,10 +12,7 @@
         @change="$emit('change')"
         :disabled="disabled"
       >
-      <label
-        class="pl-8 lh30 h4 pointer"
-        :for="id"
-      >
+      <label :for="id">
         <slot/>
       </label>
     </div>
@@ -58,71 +55,92 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import '~theme/css/variables/colors';
-  @import '~theme/css/helpers/functions/color';
-  $color-silver: color(silver);
-  $color-active: color(secondary);
-  $color-white: color(white);
-
-  label {
-    user-select: none;
-    &:before {
-      content: '';
+  .checkbox-wrap {
+    input[type="radio"],
+    input[type="checkbox"] {
       position: absolute;
-      top: 0px;
       left: 0;
+      top: 0;
+      margin: 0;
+      padding: 0;
+      opacity: 0;
+      height: 0;
+      width: 0;
+      pointer-events: none;
+    }
+
+    input[type="radio"] + label,
+    input[type="checkbox"] + label {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    input[type="radio"] + label::before,
+    input[type="checkbox"] + label::before {
+      content: '';
+      display: inline-block;
+      flex-shrink: 0;
       width: 20px;
       height: 20px;
-      background-color: $color-white;
-      border: 1px solid $color-silver;
-      cursor: pointer;
+      background-color: #fff;
+      border: solid 1px;
+      @apply border-grey;
+      margin-right: 5px;
+      background-repeat: no-repeat;
+      background-position: center;
+      position: relative;
+      transition: transform 0.2s;
+    }
+
+    input[type="radio"] + label::before {
+      // radio button radius
+      border-radius: 50%;
+    }
+
+    input[type="checkbox"] + label::before {
+      border-radius: 0;
+    }
+
+    input[type="radio"]:checked + label::before,
+    input[type="checkbox"]:checked + label::before {
+      @apply bg-primary;
+    }
+
+    input[type="radio"]:active + label::before,
+    input[type="checkbox"]:active + label::before {
+      transform: scale(0.8);
+    }
+
+    input[type="radio"]:checked:active + label::before,
+    input[type="checkbox"]:checked:active + label::before {
+      transform: none;
+      transition: none;
+    }
+
+    input[type="radio"]:checked + label::before {
+      // radio button icon
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cg class='nc-icon-wrapper' fill='%23ffffff'%3E%3Ccircle cx='8' cy='8' r='8' fill='%23ffffff'%3E%3C/circle%3E%3C/g%3E%3C/svg%3E");
+      background-size: 8px;
+    }
+
+    input[type="checkbox"]:checked + label::before {
+      // checkbox button icon
+      background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cg class='nc-icon-wrapper' stroke-width='2' fill='%23ffffff' stroke='%23ffffff'%3E%3Cpolyline fill='none' stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-miterlimit='10' points='1,9 5,13 15,3 ' data-cap='butt'%3E%3C/polyline%3E%3C/g%3E%3C/svg%3E");
+      background-size: 12px;
+    }
+
+    input[type="radio"]:checked:active + label::before,
+    input[type="checkbox"]:checked:active + label::before,
+    input[type="radio"]:focus + label::before,
+    input[type="checkbox"]:focus + label::before {
+      @apply border-primary;
+    }
+
+    input[type="checkbox"] + label:hover {
+      &:before {
+        @apply border-grey-dark;
+      }
     }
   }
 
-  input {
-    position: absolute;
-    top: 3px;
-    left: 0;
-    opacity: 0;
-    &:checked + label {
-      &:before {
-        background-color: $color-silver;
-        border-color: $color-silver;
-        cursor: pointer;
-      }
-      &:after {
-        content: '';
-        position: absolute;
-        top: 7px;
-        left: 5px;
-        width: 11px;
-        height: 5px;
-        border: 3px solid $color-white;
-        border-top: none;
-        border-right: none;
-        background-color: $color-silver;
-        transform: rotate(-45deg);
-      }
-    }
-    &:hover,
-    &:focus {
-      + label {
-        &:before {
-          border-color: $color-active;
-        }
-      }
-    }
-    &:disabled + label {
-      cursor: not-allowed;
-      opacity: 0.5;
-      pointer-events: none;
-      &:hover,
-      &:focus {
-        &:before {
-          border-color: $color-silver;
-          cursor: not-allowed;
-        }
-      }
-    }
-  }
 </style>

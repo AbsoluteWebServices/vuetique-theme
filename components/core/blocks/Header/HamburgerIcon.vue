@@ -6,7 +6,9 @@
     :aria-label="$t('Open menu')"
     data-testid="menuButton"
   >
-    <i class="material-icons">dehaze</i>
+    <svg viewBox="0 0 25 25" class="vt-icon">
+      <use xlink:href="#sandwich"/>
+    </svg>
   </button>
 </template>
 

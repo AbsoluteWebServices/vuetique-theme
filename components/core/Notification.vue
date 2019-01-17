@@ -2,8 +2,8 @@
   <div class="notifications fixed">
     <transition-group name="fade-in-down">
       <div
-        class="notification mt30 border-box cl-white"
         v-for="(notification, index) in notifications"
+        class="notification mt30 border-box cl-white"
         :key="`${notification.type}_${index}`"
         :class="notification.type"
       >
@@ -14,25 +14,21 @@
         >
           {{ notification.message }}
         </div>
-        <div class="actions">
-          <div
-            class="py10 px20 pointer weight-400 action-border notification-action uppercase"
-            :class="`border-${notification.type}`"
-            id="notificationAction1"
-            data-testid="notificationAction1"
-            @click="execAction(notification.action1, index)"
-          >
-            {{ notification.action1.label }}
+        <div class="mt-2">
+          <div class="mb-1">
+            <div class="inline-block">
+              <button-full @click.native="execAction(notification.action1, index)" id="notificationAction1" data-testid="notificationAction1" class="bg-primary">
+                {{ notification.action1.label }}
+              </button-full>
+            </div>
           </div>
-          <div
-            class="py10 px20 pointer weight-400 notification-action uppercase"
-            id="notificationAction2"
-            data-testid="notificationAction2"
-            @click="execAction(notification.action2, index)"
-            v-if="notification.action2"
-          >
-            {{ notification.action2.label }}
+
+          <div class="inline-block">
+            <button-full @click.native="execAction(notification.action2, index)" id="notificationAction2" data-testid="notificationAction2" class="btn-link">
+              {{ notification.action2.label }}
+            </button-full>
           </div>
+
         </div>
       </div>
     </transition-group>
@@ -42,8 +38,11 @@
 <script>
 import { Notification } from '@vue-storefront/core/modules/notification/components/Notification'
 
+import ButtonFull from 'theme/components/theme/ButtonFull.vue'
+
 export default {
   mixins: [Notification],
+  components: { ButtonFull },
   methods: {
     execAction (action, index) {
       if (action.action) {
@@ -72,10 +71,12 @@ $color-info: color(accent);
 $color-action: color(black);
 
 .notifications {
-  top: 100px;
-  right: 5%;
-  width: 320px;
+  top: 160px;
+  left: 50%;
+  width: 360px;
+  margin-left: -160px;
   z-index: $z-index-notification;
+  background-color: #fff;
 
   @media (max-width: 64em) {
     width: auto;
@@ -90,12 +91,29 @@ $color-action: color(black);
     }
   }
 }
+
 .notification {
   box-shadow: 0px 0px 35px -5px rgba($color-action, .7);
+  padding: 25px 35px;
+  text-align: center;
+  background-color: #fff;
 
   &:first-child  {
     margin-top: 0;
   }
+}
+
+.success {
+  // background: $color-success;
+}
+.error {
+  // background: $color-error;
+}
+.warning {
+  // background: $color-warning;
+}
+.info {
+  // background: $color-info;
 }
 
 .actions {
@@ -110,18 +128,7 @@ $color-action: color(black);
     width: 100%;
   }
 }
-.success {
-  background: $color-success;
-}
-.error {
-  background: $color-error;
-}
-.warning {
-  background: $color-warning;
-}
-.info {
-  background: $color-info;
-}
+
 .action-border {
   border-right: 2px solid transparent;
   &.border-success {

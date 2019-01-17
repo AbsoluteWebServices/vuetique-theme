@@ -11,12 +11,12 @@
       </div>
       <div class="w-11/12">
         <div class="" :class="{ 'cl-bg-tertiary' : !isFilled && !isActive }">
-          <h3 class="mt-2 mb-5">
+          <h3 class="mb-5">
             {{ $t('Payment') }}
           </h3>
         </div>
-        <div class="lh30 flex end-lg" v-if="isFilled && !isActive">
-          <a href="#" class="cl-tertiary flex" @click.prevent="edit">
+        <div class="mb-2 flex end-lg" v-if="isFilled && !isActive">
+          <a href="#" class="btn btn-xs btn-primary flex" @click.prevent="edit">
             <span class="pr5">
               {{ $t('Edit payment') }}
             </span>

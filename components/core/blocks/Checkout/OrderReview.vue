@@ -11,7 +11,7 @@
       </div>
       <div class="w-11/12">
         <div class="" :class="{ 'cl-bg-tertiary' : !isFilled && !isActive }">
-          <h3 class="mt-2 mb-5">
+          <h3 class="mb-5">
             {{ $t('Review order') }}
           </h3>
         </div>

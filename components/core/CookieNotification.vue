@@ -1,26 +1,30 @@
 <template>
   <transition name="fade" appear>
-    <div class="cookie fixed w-100 bg-cl-th-accent cl-tertiary" v-if="isOpen">
+    <div class="cookie fixed w-100 bg-primary cl-tertiary" v-if="isOpen">
       <div class="container">
-        <div class="row between-xs middle-xs px15">
-          <div class="col-xs-10 start-xs">
-            <span class="pr5">
-              {{ message }}
-            </span>
-            <router-link :to="localizedRoute('detailsLink')" :title="detailsLinkText" class="cl-bg-tertiary">
-              {{ detailsLinkText }}
-            </router-link>
-          </div>
-          <div class="col-xs-2 end-xs">
+        <div class="p-2">
+          <b>
+            {{ message }}
+          </b>
+          <router-link :to="localizedRoute('detailsLink')" :title="detailsLinkText" class="ml-1 align-middle">
+            {{ detailsLinkText }}
             <i
-              class="material-icons icon p15 pointer"
+              class="material-icons icon cursor-pointer align-middle"
               @click="accept"
-              data-testid="closeCookieButton"
+              data-testid="moreInfoCookieButton"
             >
-              close
+              chevron_right
             </i>
-          </div>
+          </router-link>
         </div>
+
+        <i
+          class="material-icons icon p15 cursor-pointer close-cookie-button"
+          @click="accept"
+          data-testid="closeCookieButton"
+        >
+          close
+        </i>
       </div>
     </div>
   </transition>
@@ -79,6 +83,28 @@ $bg-icon: color(suva-gray);
 .cookie {
   z-index: 2;
   bottom: 0;
+  width: 100%;
+  color: #fff;
+  text-align: center;
+  font-weight: bold;
+  line-height: 35px;
+
+  a,
+  a:hover {
+    color: #fff;
+    font-weight: bold;
+  }
+
+  .icon:hover {
+    color: #fff;
+    background: transparent;
+  }
+
+  .close-cookie-button {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+  }
 }
 
 .icon:hover {

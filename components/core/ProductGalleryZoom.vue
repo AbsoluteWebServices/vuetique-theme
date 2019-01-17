@@ -1,9 +1,8 @@
 <template>
   <div class="media-zoom">
-    <i
-      class="media-zoom__close material-icons p15 cl-bg-tertiary pointer"
-      @click="$emit('close')"
-    >close</i>
+    <svg @click="$emit('close')" viewBox="0 0 25 25" class="vt-icon--lg p-3 media-zoom__close">
+      <use xlink:href="#close"/>
+    </svg>
     <div class="media-zoom__container row flex">
       <ul class="media-zoom__thumbs m0 p0">
         <li class="media-zoom__thumb" v-for="(images, key) in gallery" :key="images.src">
@@ -16,7 +15,7 @@
         <no-ssr>
           <carousel
             class="media-zoom__carousel"
-            :per-page="1" :mouse-drag="false" :navigation-enabled="true" pagination-active-color="#828282" pagination-color="transparent" navigation-next-label="<i class='material-icons p15 cl-bg-tertiary pointer'>keyboard_arrow_right</i>" navigation-prev-label="<i class='material-icons p15 cl-bg-tertiary pointer'>keyboard_arrow_left</i>" ref="carousel">
+            :per-page="1" :mouse-drag="false" :navigation-enabled="true" pagination-active-color="#828282" pagination-color="transparent" navigation-next-label="<svg viewBox='0 0 25 25' class='vt-icon--lg p-3 pointer'><use xlink:href='#right'/></svg>" navigation-prev-label="<svg viewBox='0 0 25 25' class='vt-icon--lg p-3 pointer'><use xlink:href='#left'/></svg>" ref="carousel">
             <slide v-for="images in gallery" :key="images.src">
               <div class="media-zoom__slide bg-cl-secondary">
                 <img class="product-image pointer mw-100" :src="images.src" ref="images" :alt="title | htmlDecode" data-testid="productGalleryImage" itemprop="image">

@@ -2,7 +2,7 @@
   <div class="wishlist fixed mw-100 bg-cl-primary cl-accent" :class="{ active: isWishlistOpen }">
     <div class="row">
       <div class="col-md-12 end-xs">
-        <i class="material-icons p15 pointer cl-accent" @click="closeWishlist">close</i>
+        <i class="material-icons p15 cursor-pointer cl-accent" @click="closeWishlist">close</i>
       </div>
     </div>
     <h2 v-if="productsInWishlist.length" class="cl-accent ml30">
@@ -55,6 +55,7 @@ export default {
     transition: transform 300ms $motion-main;
     overflow-y: auto;
     overflow-x: hidden;
+    background: #fff;
 
     &.active {
       transform: translateX(0)

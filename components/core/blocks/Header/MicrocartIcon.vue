@@ -6,7 +6,9 @@
     data-testid="openMicrocart"
     :aria-label="$t('Open microcart')"
   >
-    <i class="material-icons">shopping_cart</i>
+    <svg viewBox="0 0 25 25" class="vt-icon">
+      <use xlink:href="#cart"/>
+    </svg>
     <span
       class="minicart-count absolute flex justify-center items-center text-xs font-bold text-white bg-primary"
       v-cloak

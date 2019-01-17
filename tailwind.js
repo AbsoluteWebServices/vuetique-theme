@@ -645,6 +645,7 @@ module.exports = {
     'xs': '0.3125rem',      // 5px
     'sm': '0.625rem',       // 10px
     'md': '0.9375rem',       // 15px
+    '2xl': '1.875rem',       // 30px
   },
 
 
@@ -817,6 +818,8 @@ module.exports = {
 
   svgFill: {
     'current': 'currentColor',
+    'error': colors['error'],
+    'primary': colors['primary'],
   },
 
 

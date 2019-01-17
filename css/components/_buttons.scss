@@ -1,3 +1,6 @@
+@import '~theme/css/variables/colors';
+@import '~theme/css/helpers/functions/color';
+
 .ripple {
   position: relative;
   overflow: hidden;
@@ -61,7 +64,21 @@ button,
     @apply bg-primary2;
   }
 
+  &.btn-xs {
+    @apply py-1;
+  }
+
+  &.btn-md {
+    @apply py-3 px-2xl;
+  }
+
 }
 
+.btn-grey-dark {
+  @apply inline-block border-none bg-grey-dark px-8 py-3 ripple tracking-md text-sm text-white uppercase;
+}
 
-
+.btn-link {
+  background: transparent;
+  color: color(grey);
+}
