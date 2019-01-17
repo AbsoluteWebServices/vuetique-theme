@@ -1,6 +1,6 @@
 <template>
   <div
-    class="microcart max-w-full fixed bg-white p-8"
+    class="right-sidebar microcart max-w-full fixed p-8"
     :class="{ active: isMicrocartOpen }"
     data-testid="microcart"
   >
@@ -159,43 +159,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  @import "~theme/css/animations/transitions";
-
-  .microcart {
-    top: 70px;
-    right: 0;
-    z-index: 3;
-    height: 100%;
-    width: 480px;
-    min-width: 320px;
-    transform: translateX(100%);
-    transition: transform 300ms $motion-main;
-    overflow-y: auto;
-    overflow-x: hidden;
-    &.active {
-      transform: translateX(0)
+  .heading {
+    @media (max-width: 767px) {
+      margin: 12px 0 12px 15px;
+      font-size: 24px;
     }
-
-    @screen lg {
-      top: 0;
-    }
-  }
-
-  @media (max-width: 767px) {
-    .actions {
-      .link {
-        display: flex;
-        justify-content: center;
-        padding: 8px 50px;
-      }
-
-      .btn-primary {
-        margin-top: 20px;
-      }
-    }
-  }
-
-  .delete-button {
-    vertical-align: middle;
   }
 </style>

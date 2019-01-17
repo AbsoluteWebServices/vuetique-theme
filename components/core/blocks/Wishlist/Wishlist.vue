@@ -1,24 +1,32 @@
 <template>
-  <div class="wishlist fixed mw-100 bg-cl-primary cl-accent" :class="{ active: isWishlistOpen }">
-    <div class="row">
-      <div class="col-md-12 end-xs">
-        <i class="material-icons p15 cursor-pointer cl-accent" @click="closeWishlist">close</i>
-      </div>
-    </div>
-    <h2 v-if="productsInWishlist.length" class="cl-accent ml30">
+  <div class="wishlist right-sidebar max-w-full fixed p-8" :class="{ active: isWishlistOpen }">
+    <button
+      type="button"
+      class="absolute pin-t pin-r m-3"
+      @click="closeWishlist"
+      data-testid="closeWishlist"
+    >
+      <i class="material-icons text-h4 text-grey-dark">
+        close
+      </i>
+    </button>
+
+    <h2 v-if="productsInWishlist.length" class="mb-8">
       {{ $t('Wishlist') }}
     </h2>
-    <h4 v-if="!productsInWishlist.length" class="cl-accent ml30">
+
+    <h4 v-if="!productsInWishlist.length" class="mb-2">
       {{ $t('Your wishlist is empty.') }}
     </h4>
-    <div v-if="!productsInWishlist.length" class="ml30">
+
+    <div v-if="!productsInWishlist.length" class="mb-2">
       {{ $t("Don't hesitate and") }}
       <router-link :to="localizedRoute('/')">
         {{ $t('browse our catalog') }}
       </router-link>
       {{ $t('to find something beautiful for You!') }}
     </div>
-    <ul class="products">
+    <ul class="products p-0 m-0">
       <product v-for="product in productsInWishlist" :key="product.id" :product="product" />
     </ul>
   </div>
@@ -45,22 +53,7 @@ export default {
 
 <style lang="scss" scoped>
 @import "~theme/css/animations/transitions";
-  .wishlist {
-    height: 100vh;
-    width: 800px;
-    top: 0;
-    right: 0;
-    z-index: 3;
-    transform: translateX(100%);
-    transition: transform 300ms $motion-main;
-    overflow-y: auto;
-    overflow-x: hidden;
-    background: #fff;
 
-    &.active {
-      transform: translateX(0)
-    }
-  }
   i {
     opacity: 0.6;
     &:hover {
