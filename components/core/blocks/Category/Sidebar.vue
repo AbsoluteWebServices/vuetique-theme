@@ -8,77 +8,63 @@
     >
       {{ $t('Clear') }}
     </button>
-    <div
+
+    <Accordion
       v-for="(filter, filterIndex) in filters"
       :key="filterIndex"
       v-if="filter.length"
-      class="border-t py-2"
+      :title="$t(filterIndex + '_filter')"
     >
-      <h5 class="py-3 flex justify-between items-center cursor-pointer font-sans text-base" @click="toggleFilters(filterIndex)">
-        {{ $t(filterIndex + '_filter') }}
-        <svg viewBox="0 0 25 25" class="vt-icon">
-          <use :xlink:href="openedFilters.indexOf(filterIndex) === -1 ? '#down' : '#up'"/>
-        </svg>
-      </h5>
-
-      <div v-if="filterIndex==='color'" class="filters" :class="{'opened': openedFilters.indexOf(filterIndex) !== -1}">
-        <div class="pt-2 pb-3">
-          <color-selector
-            context="category"
-            :attribute_code="color"
-            code="color"
-            v-for="(color, index) in filter"
-            :key="index"
-            :id="color.id"
-            :label="color.label"
-          />
-        </div>
-      </div>
-      <div v-else-if="filterIndex==='size'" class="filters" :class="{'opened': openedFilters.indexOf(filterIndex) !== -1}">
-        <div class="pt-2 pb-3">
-          <size-selector
-            context="category"
-            :attribute_code="size"
-            code="size"
-            v-for="(size, index) in sortById(filter)"
-            :key="index"
-            :id="size.id"
-            :label="size.label"
-          />
-        </div>
-      </div>
-      <div v-else-if="filterIndex==='price'" class="filters" :class="{'opened': openedFilters.indexOf(filterIndex) !== -1}">
-        <div class="pt-2 pb-3">
-          <price-selector
-            context="category"
-            :attribute_code="price"
-            class="mb-3"
-            code="price"
-            v-for="(price, index) in filter"
-            :key="index"
-            :id="price.id"
-            :from="price.from"
-            :to="price.to"
-            :content="price.label"
-            :label="price.label"
-          />
-        </div>
-      </div>
-      <div v-else class="filters" :class="{'opened': openedFilters.indexOf(filterIndex) !== -1}">
-        <div class="pt-2 pb-3">
-          <generic-selector
-            context="category"
-            :attribute_code="filter.attribute_code"
-            class="generic-select mr-3 mb-3"
-            :code="filterIndex"
-            v-for="(option, index) in filter"
-            :key="index"
-            :id="option.id"
-            :label="option.label"
-          />
-        </div>
-      </div>
-    </div>
+      <template v-if="filterIndex==='color'">
+        <color-selector
+          context="category"
+          :attribute_code="color"
+          code="color"
+          v-for="(color, index) in filter"
+          :key="index"
+          :id="color.id"
+          :label="color.label"
+        />
+      </template>
+      <template v-else-if="filterIndex==='size'">
+        <size-selector
+          context="category"
+          :attribute_code="size"
+          code="size"
+          v-for="(size, index) in sortById(filter)"
+          :key="index"
+          :id="size.id"
+          :label="size.label"
+        />
+      </template>
+      <template v-else-if="filterIndex==='price'">
+        <price-selector
+          context="category"
+          :attribute_code="price"
+          class="mb-3"
+          code="price"
+          v-for="(price, index) in filter"
+          :key="index"
+          :id="price.id"
+          :from="price.from"
+          :to="price.to"
+          :content="price.label"
+          :label="price.label"
+        />
+      </template>
+      <template v-else>
+        <generic-selector
+          context="category"
+          :attribute_code="filter.attribute_code"
+          class="generic-select mr-3 mb-3"
+          :code="filterIndex"
+          v-for="(option, index) in filter"
+          :key="index"
+          :id="option.id"
+          :label="option.label"
+        />
+      </template>
+    </Accordion>
   </div>
 </template>
 
@@ -89,13 +75,15 @@ import ColorSelector from 'theme/components/core/ColorSelector'
 import SizeSelector from 'theme/components/core/SizeSelector'
 import PriceSelector from 'theme/components/core/PriceSelector'
 import GenericSelector from 'theme/components/core/GenericSelector'
+import Accordion from 'theme/components/theme/Accordion'
 
 export default {
   components: {
     ColorSelector,
     SizeSelector,
     PriceSelector,
-    GenericSelector
+    GenericSelector,
+    Accordion
   },
   mixins: [Sidebar],
   data () {
@@ -115,16 +103,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-@import "~theme/css/animations/transitions";
-
-.filters {
-  @apply overflow-hidden max-h-0;
-  transition: max-height $duration-main $motion-main;
-
-  &.opened {
-    @apply max-h-screen;
-  }
-}
-</style>
