@@ -25,7 +25,16 @@
           height="300"
           width="310"
           data-testid="productImage"
-          class="block"
+          class="default-image"
+        >
+        <img
+          :alt="product.name"
+          :src="hoverThumbnailObj.loading"
+          v-lazy="hoverThumbnailObj"
+          height="300"
+          width="310"
+          data-testid="productHoverImage"
+          class="hover-image"
         >
       </div>
 
@@ -76,6 +85,31 @@ export default {
       default: false
     }
   },
+  computed: {
+    hoverThumbnail () {
+      let thumbnail = this.product.image
+      if (this.product.media_gallery) {
+        let images = this.product.media_gallery.filter(item => item.typ === 'image')
+        if (images.length) {
+          thumbnail = images[images.length - 1].image
+          for (let i = 0; i < images.length; i++) {
+            if (images[i].lab === 'alternative') {
+              thumbnail = images[i].image
+              break
+            }
+          }
+        }
+      }
+      return this.getThumbnail(thumbnail, 310, 300)
+    },
+    hoverThumbnailObj () {
+      return {
+        src: this.hoverThumbnail,
+        loading: this.placeholder,
+        error: this.placeholder
+      }
+    }
+  },
   methods: {
     onProductPriceUpdate (product) {
       if (product.sku === this.product.sku) {
@@ -124,15 +158,32 @@ export default {
   @apply .bg-grey-lightest;
   overflow: hidden;
 
-  &:hover {
+  .hover-image {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
 
+  &:hover {
     &.sale::after,
     &.new::after {
       opacity: 0.8;
     }
+
+    .hover-image {
+      opacity: 1;
+    }
+
+    .default-image {
+      opacity: 0;
+    }
   }
 
   img {
+    display: block;
     max-height: 100%;
     max-width: 100%;
     width: auto;
