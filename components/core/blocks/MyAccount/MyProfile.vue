@@ -1,28 +1,28 @@
 <template>
-  <div class="mb35">
+  <div class="mb-8">
     <!-- My profile header -->
-    <div class="row mb15">
-      <div class="col-xs-12 col-sm-6" :class="{ 'cl-accent' : !isEdited }">
-        <h3 class="m0 mb5">
+    <div class="row mb-4">
+      <div class="col-12 sm:col-6">
+        <h2 class="mb-1">
           {{ $t('My profile') }}
-        </h3>
+        </h2>
       </div>
-      <div class="col-xs-12 col-sm-6">
-        <div class="lh30 flex end-md" v-if="!isEdited">
-          <a href="#" class="cl-tertiary flex" @click.prevent="edit">
-            <span class="pr5">
+      <div class="col-12 sm:col-6">
+        <div class="leading-loose flex md:justify-end" v-if="!isEdited">
+          <a href="#" class="text-grey flex" @click.prevent="edit">
+            <span class="pr-1">
               {{ $t('Edit your profile') }}
             </span>
-            <i class="material-icons cl-tertiary">edit</i>
+            <i class="material-icons">edit</i>
           </a>
         </div>
       </div>
     </div>
 
     <!-- My profile body (edit mode) -->
-    <div class="row" v-if="isEdited">
+    <div class="row gutter-md" v-if="isEdited">
       <base-input
-        class="col-xs-12 col-md-6 mb25"
+        class="col-12 md:col-6 mb-6"
         type="text"
         name="first-name"
         autocomplete="given-name"
@@ -42,7 +42,7 @@
       />
 
       <base-input
-        class="col-xs-12 col-md-6 mb25"
+        class="col-12 md:col-6 mb-6"
         type="text"
         name="last-name"
         autocomplete="family-name"
@@ -56,7 +56,7 @@
       />
 
       <base-input
-        class="col-xs-12 col-md-6 mb25"
+        class="col-12 md:col-6 mb-6"
         type="email"
         name="email-address"
         autocomplete="email"
@@ -76,7 +76,7 @@
 
       <!-- Change password (edit mode) -->
       <base-checkbox
-        class="col-xs-12 mb15"
+        class="col-12 mb-4"
         id="changePassword"
         v-model="changePassword"
         @click="changePassword = !changePassword"
@@ -86,7 +86,7 @@
 
       <template v-if="changePassword">
         <base-input
-          class="col-xs-12 col-md-6 mb15 mt10"
+          class="col-12 md:col-6 mb-4 mt-2"
           type="password"
           name="old-password"
           autocomplete="current-password"
@@ -99,10 +99,10 @@
           }"
         />
 
-        <div class="hidden-xs hidden-sm col-md-6 mb15 mt10"/>
+        <div class="hidden sm:hidden md:col-6 mb-4 mt-2"/>
 
         <base-input
-          class="col-xs-12 col-md-6 mb15 mt10"
+          class="col-12 md:col-6 mb-4 mt-2"
           type="password"
           name="password"
           autocomplete="new-password"
@@ -116,7 +116,7 @@
         />
 
         <base-input
-          class="col-xs-12 col-md-6 mb15 mt10"
+          class="col-12 md:col-6 mb-4 mt-2"
           type="password"
           name="password-confirm"
           autocomplete="new-password"
@@ -138,7 +138,7 @@
 
       <!-- Company information (edit mode) -->
       <base-checkbox
-        class="col-xs-12 mb15 mt10"
+        class="col-12 mb-4 mt-2"
         id="addCompany"
         v-model="addCompany"
         @click="addCompany = !addCompany"
@@ -148,7 +148,7 @@
 
       <template v-if="addCompany">
         <base-input
-          class="col-xs-12 mb25"
+          class="col-12 mb-6"
           type="text"
           name="company-name"
           autocomplete="organization"
@@ -162,7 +162,7 @@
         />
 
         <base-input
-          class="col-xs-12 col-sm-6 mb25"
+          class="col-12 sm:col-6 mb-6"
           type="text"
           name="street-address"
           autocomplete="address-line1"
@@ -176,7 +176,7 @@
         />
 
         <base-input
-          class="col-xs-12 col-sm-6 mb25"
+          class="col-12 sm:col-6 mb-6"
           type="text"
           name="apartment-number"
           autocomplete="address-line2"
@@ -190,7 +190,7 @@
         />
 
         <base-input
-          class="col-xs-12 col-sm-6 mb25"
+          class="col-12 sm:col-6 mb-6"
           type="text"
           name="city"
           autocomplete="address-level2"
@@ -204,7 +204,7 @@
         />
 
         <base-input
-          class="col-xs-12 col-sm-6 mb25"
+          class="col-12 sm:col-6 mb-6"
           type="text"
           name="state"
           autocomplete="address-level1"
@@ -213,7 +213,7 @@
         />
 
         <base-input
-          class="col-xs-12 col-sm-6 mb25"
+          class="col-12 sm:col-6 mb-6"
           type="text"
           name="zip-code"
           autocomplete="postal-code"
@@ -233,7 +233,7 @@
         />
 
         <base-select
-          class="col-xs-12 col-md-6 mb25"
+          class="col-12 md:col-6 mb-6"
           name="countries"
           :options="countryOptions"
           :selected="userCompany.country"
@@ -251,7 +251,7 @@
         />
 
         <base-input
-          class="col-xs-12 col-sm-6 mb25"
+          class="col-12 sm:col-6 mb-6"
           type="text"
           name="taxId"
           autocomplete="tax-id"
@@ -271,7 +271,7 @@
         />
 
         <base-input
-          class="col-xs-12 col-sm-6 mb25"
+          class="col-12 sm:col-6 mb-6"
           type="text"
           name="phone-number"
           autocomplete="tel"
@@ -281,24 +281,28 @@
 
       </template>
 
-      <div class="col-xs-12 col-sm-6">
-        <button-full
-          @click.native="updateProfile"
-          :disabled="checkValidation()"
-        >
-          {{ $t('Update my profile') }}
-        </button-full>
+      <div class="col-12" v-if="isEdited">
+        <hr class="border-t mt-4 mb-10">
       </div>
-      <div class="col-xs-12 col-sm-6 flex middle-xs py10">
-        <a href="#" @click="exitSection" class="h4 cl-accent">
+
+      <div class="col-12">
+        <div class="inline-block mr-5">
+          <button-full
+            @click.native="updateProfile"
+            :disabled="checkValidation()"
+          >
+            {{ $t('Update my profile') }}
+          </button-full>
+        </div>
+        <a href="#" @click="exitSection" class="inline-block text-grey-dark bg-grey-lighter py-2 px-3">
           {{ $t('Cancel') }}
         </a>
       </div>
     </div>
 
     <!-- My profile summary -->
-    <div class="row fs16 mb35" v-else>
-      <div class="col-xs-12 h4">
+    <div class="row mb-8" v-else>
+      <div class="col-12 text-h4">
         <p>
           {{ currentUser.firstname }} {{ currentUser.lastname }}
         </p>
@@ -307,7 +311,7 @@
         </p>
         <base-checkbox
           v-if="addCompany"
-          class="mb25"
+          class="mb-6"
           id="addCompanyFilled"
           v-model="addCompany"
           disabled
@@ -315,28 +319,28 @@
           {{ $t('I have a company and want to receive an invoice for every order') }}
         </base-checkbox>
         <template v-if="addCompany">
-          <p class="mb25">
+          <p class="mb-6">
             {{ userCompany.company }}
           </p>
-          <p class="mb25">
+          <p class="mb-6">
             {{ userCompany.street }}
             <span v-if="userCompany.house">
               {{ userCompany.house }}
             </span>
           </p>
-          <p class="mb25">
+          <p class="mb-6">
             {{ userCompany.city }} {{ userCompany.postcode }}
           </p>
-          <p class="mb25">
+          <p class="mb-6">
             <span v-if="userCompany.region">{{ userCompany.region }}, </span>
             <span>
               {{ getCountryName() }}
             </span>
           </p>
-          <p class="mb25" v-if="userCompany.taxId">
+          <p class="mb-6" v-if="userCompany.taxId">
             {{ userCompany.taxId }}
           </p>
-          <div class="mb25">
+          <div class="mb-6">
             {{ userCompany.phone }}
             <tooltip v-if="userCompany.phone">
               {{ $t('Phone number may be needed by carrier') }}

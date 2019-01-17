@@ -17,7 +17,8 @@
 				var s = document.getElementsByTagName('script')[0];
 				s.parentNode.insertBefore(wf, s);
 			})();
-		</script>
+    </script>
+    <script>document.getElementsByTagName("html")[0].className += " js";</script>
 		{{{ renderStyles() }}}
 		{{{ output.appendHead() }}}
 	</head>

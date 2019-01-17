@@ -1,29 +1,25 @@
 <template>
   <div id="my_account">
-    <div class="bg-cl-secondary py35 pl20">
-      <div class="container">
-        <breadcrumbs
-          :routes="[{name: 'Homepage', route_link: '/'}]"
-          active-route="My Account"
-        />
-        <h1>
-          {{ $t('My Account') }}
-        </h1>
-      </div>
-    </div>
+    <breadcrumbs
+      :routes="[{name: 'Homepage', route_link: '/'}]"
+      active-route="My Account"
+    />
+    <header class="container mt-2">
+      <h1>{{ $t('My Account') }}</h1>
+    </header>
 
-    <div class="container pt45 pb70">
-      <div class="row px20 pt0">
-        <div class="col-md-3 hidden-xs hidden-sm block">
+    <div class="container pt-10 pb-16">
+      <div class="row justify-between">
+        <div class="sm:col-3 md:col-2">
           <nav class="static-menu serif h4 mb35">
-            <ul class="m0 p0">
-              <li class="mb20" v-for="(page, index) in navigation" :key="index" @click="notify(page.title)">
-                <router-link :to="localizedRoute(page.link)" class="cl-accent">{{ page.title }}</router-link>
+            <ul class="list-reset border-t">
+              <li class="border-b py-2" v-for="(page, index) in navigation" :key="index" @click="notify(page.title)">
+                <router-link :to="localizedRoute(page.link)" class="nav-link">{{ page.title }}</router-link>
               </li>
             </ul>
           </nav>
         </div>
-        <div class="col-md-9">
+        <div class="col-12 sm:col-9">
           <component :is="this.$props.activeBlock" />
         </div>
       </div>
@@ -86,26 +82,19 @@ export default {
 $color-tertiary: color(tertiary);
 
 .static-menu {
-  ul {
-    list-style: none;
-  }
+  .nav-link {
+    @apply block text-black font-medium py-1;
 
-  a {
-    &:after {
-      content: "";
-      display: block;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 1px;
-      background-color: $color-tertiary;
+    &:hover, &:focus {
+      @apply text-primary2;
     }
 
-    &:hover,
     &.router-link-exact-active {
-      &:after {
-        opacity: 0;
+      @apply text-primary2;
+
+      &::before {
+        content: "\25B8";
+        margin-right: 10px;
       }
     }
   }

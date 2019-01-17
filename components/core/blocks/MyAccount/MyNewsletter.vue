@@ -1,19 +1,19 @@
 <template>
-  <div class="mb35">
+  <div class="mb-8">
     <!-- My newsletter header -->
-    <div class="row mb15">
-      <div class="col-xs-12 col-sm-6" :class="{ 'cl-accent' : !isEdited }">
-        <h3 class="m0 mb5">
+    <div class="row mb-4">
+      <div class="col-12 sm:col-6">
+        <h2 class="mb-1">
           {{ $t('My newsletter') }}
-        </h3>
+        </h2>
       </div>
-      <div class="col-xs-12 col-sm-6">
-        <div class="lh30 flex end-md" v-if="!isEdited">
-          <a href="#" class="cl-tertiary flex" @click.prevent="edit">
-            <span class="pr5">
+      <div class="col-12 sm:col-6">
+        <div class="leading-loose flex md:justify-end" v-if="!isEdited">
+          <a href="#" class="text-grey flex" @click.prevent="edit">
+            <span class="pr-1">
               {{ $t('Edit newsletter preferences') }}
             </span>
-            <i class="material-icons cl-tertiary">edit</i>
+            <i class="material-icons">edit</i>
           </a>
         </div>
       </div>
@@ -21,14 +21,14 @@
 
     <!-- My newsletter body (both modes) -->
     <div class="row">
-      <div class="col-xs-12">
+      <div class="col-12">
         <h4>
           {{ $t('General agreement') }}
         </h4>
       </div>
 
       <base-checkbox
-        class="col-xs-12 mb25"
+        class="col-12 mb-6"
         id="generalAgreement"
         v-model="user.isSubscribed"
         @click="isEdited ? user.isSubscribed = !user.isSubscribed : null"
@@ -37,14 +37,18 @@
         {{ $t('I want to receive a newsletter, and agree to its terms') }}
       </base-checkbox>
 
-      <div class="col-xs-12 col-sm-6" v-if="isEdited">
-        <button-full @click.native="updateNewsletter">
-          {{ $t('Update my preferences') }}
-        </button-full>
+      <div class="col-12" v-if="isEdited">
+        <hr class="border-t mt-4 mb-10">
       </div>
 
-      <div class="col-xs-12 col-sm-6 flex middle-xs py10" v-if="isEdited">
-        <a href="#" @click="exitSection" class="h4 cl-accent">
+      <div class="col-12" v-if="isEdited">
+        <div class="inline-block mr-5">
+          <button-full @click.native="updateNewsletter">
+            {{ $t('Update my preferences') }}
+          </button-full>
+        </div>
+
+        <a href="#" @click="exitSection" class="inline-block text-grey-dark bg-grey-lighter py-2 px-3">
           {{ $t('Cancel') }}
         </a>
       </div>
