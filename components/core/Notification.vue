@@ -84,6 +84,7 @@ $color-action: color(black);
     left: 0;
     right: 0;
     bottom: 0;
+    margin-left: 0;
 
     .fade-in-down-enter,
     .fade-in-down-leave-to {
