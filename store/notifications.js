@@ -1,5 +1,6 @@
 import rootStore from '@vue-storefront/core/modules/cart/store'
 import { extendStore } from '@vue-storefront/core/lib/themes'
+console.log(extendStore)
 
 const state = {
   // override state of core ui module...
