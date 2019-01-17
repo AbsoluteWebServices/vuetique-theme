@@ -18,7 +18,7 @@
     </div>
     <div class="absolute z-20 w-full" @mouseenter="resultsHover = true" @mouseleave="resultsHover = false">
       <div v-show="showDrop" class="bg-white border border-grey border-t-0">
-        <product :key="product.id" v-for="product in results" :product="product"/>
+        <product :key="product.id" v-for="product in results" :product="product" @click.native="resultsHover = false"/>
         <transition name="fade">
           <div v-if="moreResults" class="w-full px-3 py-4 border-t border-grey-lighter">
             <router-link
