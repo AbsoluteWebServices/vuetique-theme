@@ -63,10 +63,5 @@ export default {
 .tile-image {
   width: 100%;
   height: 100%;
-  transition: transform 0.3s $motion-main;
-  &:hover,
-  &:focus {
-    transform: scale(1.2);
-  }
 }
 </style>

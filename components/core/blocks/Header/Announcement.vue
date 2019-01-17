@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!isCheckoutPage" class="hidden lg:flex w-full justify-center items-center p-4 bg-grey-lighter">
+  <div v-if="!isCheckoutPage" class="hidden lg:flex w-full justify-center items-center py-2 bg-grey-lighter">
     <span class="uppercase text-xs tracking-md text-grey-dark font-medium">{{ announcement }}</span>
   </div>
 </template>

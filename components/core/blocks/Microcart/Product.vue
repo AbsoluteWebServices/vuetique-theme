@@ -1,7 +1,7 @@
 <template>
   <transition name="fade" appear>
     <li class="row mb-3 pb-3 border-b border-grey-light relative">
-      <div class="col-auto mr-4">
+      <div class="col-auto mr-4 bg-grey-lightest">
         <img class="image" v-lazy="thumbnail" alt="" >
       </div>
       <div class="col-grow flex-col justify-start sm:justify-between">

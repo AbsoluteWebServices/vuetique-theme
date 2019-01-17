@@ -26,7 +26,7 @@
               <meta itemprop="priceCurrency" :content="currentStore.i18n.currencyCode">
               <meta itemprop="price" :content="parseFloat(product.priceInclTax).toFixed(2)">
               <div
-                class="font-serif text-h1 pb-2 mb-2 price"
+                class="font-serif font-bold text-h1 pb-5 price"
                 v-if="product.type_id !== 'grouped'"
               >
                 <div
@@ -331,6 +331,7 @@ $bg-secondary: color(secondary, $colors-background);
 
 .price {
   @apply .border-solid .border-b;
+  -webkit-font-smoothing: antialiased;
 }
 
 .variants-wrapper {

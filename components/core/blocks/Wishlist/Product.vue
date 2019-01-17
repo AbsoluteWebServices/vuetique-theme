@@ -1,6 +1,6 @@
 <template>
   <li class="row mb-3 pb-3 border-b border-grey-light relative">
-    <div class="col-auto mr-4">
+    <div class="col-auto mr-4 bg-grey-lightest">
       <div @click="closeWishlist">
         <router-link :to="localizedRoute({
           name: product.type_id + '-product',

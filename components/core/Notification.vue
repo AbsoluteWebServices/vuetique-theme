@@ -94,7 +94,7 @@ $color-action: color(black);
 }
 
 .notification {
-  box-shadow: 0px 0px 35px -5px rgba($color-action, .7);
+  @apply border;
   padding: 25px 35px;
   text-align: center;
   background-color: #fff;

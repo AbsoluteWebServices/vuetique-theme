@@ -2,7 +2,7 @@
   <div class="Accordion">
     <h5 class="Accordion__trigger" @click="open=!open">
       {{ title }}
-      <svg viewBox="0 0 25 25" class="vt-icon">
+      <svg viewBox="0 0 25 25" class="vt-icon--sm">
         <use :xlink:href="open ? '#up' : '#down'"/>
       </svg>
     </h5>
