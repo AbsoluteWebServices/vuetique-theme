@@ -281,6 +281,10 @@ export default {
   computed: {
     favoriteIcon () {
       return this.isOnWishlist ? 'favorite' : 'favorite_border'
+    },
+
+    isOnWishlist () {
+      return !!this.$store.state.wishlist.items.find(p => p.sku === this.product.sku) || false
     }
   },
   methods: {
