@@ -15,7 +15,7 @@
           {{ notification.message }}
         </div>
         <div class="mt-2">
-          <div class="mb-1">
+          <div v-if="notification.action1" class="mb-1">
             <div class="inline-block">
               <button-full @click.native="execAction(notification.action1, index)" id="notificationAction1" data-testid="notificationAction1" class="bg-primary">
                 {{ notification.action1.label }}
@@ -23,7 +23,7 @@
             </div>
           </div>
 
-          <div class="inline-block">
+          <div v-if="notification.action2" class="inline-block">
             <button-full @click.native="execAction(notification.action2, index)" id="notificationAction2" data-testid="notificationAction2" class="btn-link">
               {{ notification.action2.label }}
             </button-full>

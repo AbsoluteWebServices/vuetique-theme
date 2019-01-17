@@ -282,7 +282,11 @@ export default {
   directives: { focusClean },
   computed: {
     favoriteIcon () {
-      return this.isOnWishlist ? 'favorite' : 'favorite'
+      return this.isOnWishlist ? 'favorite' : 'favorite_border'
+    },
+
+    isOnWishlist () {
+      return !!this.$store.state.wishlist.items.find(p => p.sku === this.product.sku) || false
     }
   },
   methods: {
