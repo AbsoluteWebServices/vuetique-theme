@@ -1,15 +1,15 @@
 <template>
-  <div class="row gutter-md justify-center">
+  <div class="row -mx-3">
     <div
-      class="col-4 pb-5"
+      class="sm:col-4 px-3 pb-5"
       v-for="(tile, index) in social_tiles"
       :key="index"
     >
       <div
-        class="flex w-full overflow-hidden justify-center items-center"
+        class="tile"
       >
         <img
-          class="tile-image w-full h-full"
+          class="tile-image"
           v-lazy="tile.image"
           :alt="tile.alt"
         >
@@ -19,33 +19,51 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
-import socialData from 'theme/resource/ig_feed.json'
-
 export default {
   name: 'TileLinks',
-  computed: {
-    ...mapGetters({
-      social_tiles: 'social/getSocialTiles'
-    })
-  },
-  created () {
-    this.updateSocialTiles(socialData)
-  },
-  methods: {
-    ...mapActions({
-      updateSocialTiles: 'social/updateSocialTiles'
-    })
+  data () {
+    return {
+      social_tiles: [
+        {
+          image: '/assets/ig/ig01.jpg',
+          alt: 'Woman practicing on the beach'
+        },
+        {
+          image: '/assets/ig/ig02.jpg',
+          alt: 'Man practicing on the beach'
+        },
+        {
+          image: '/assets/ig/ig03.jpg',
+          alt: 'Woman drinks water form the bottle on the beach'
+        },
+        {
+          image: '/assets/ig/ig04.jpg',
+          alt: 'Man rests on the beach'
+        },
+        {
+          image: '/assets/ig/ig05.jpg',
+          alt: 'Woman practicing on the beach'
+        },
+        {
+          image: '/assets/ig/ig06.jpg',
+          alt: 'Man is holding a watter bottle'
+        }
+      ]
+    }
   }
 }
 </script>
 
-<style lang="scss" scoped>
-@import "~theme/css/animations/transitions";
-
+<style lang='scss' scoped>
+@import '~theme/css/animations/transitions';
+.tile {
+  display: flex;
+  overflow: hidden;
+}
 .tile-image {
+  width: 100%;
+  height: 100%;
   transition: transform 0.3s $motion-main;
-
   &:hover,
   &:focus {
     transform: scale(1.2);
