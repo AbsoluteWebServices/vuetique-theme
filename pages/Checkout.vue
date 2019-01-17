@@ -2,8 +2,8 @@
   <div id="checkout">
     <div class="container mx-auto">
       <div class="flex flex-wrap justify-between w-full" v-show="!orderPlaced">
-        <div class="w-1/2 pb70">
-          <div class="checkout-title pb-5">
+        <div class="w-full md:w-3/5 lg:w-1/2 md:px-3">
+          <div class="checkout-title mt-5 md:mt-0 pb-5">
             <h1>
               {{ $t('Checkout') }}
             </h1>
@@ -18,7 +18,7 @@
           <order-review class="line relative" :is-active="activeSection.orderReview"/>
           <div id="custom-steps"/>
         </div>
-        <div class="w-2/5 px-8 py-8 bg-grey-lighter">
+        <div class="w-full md:w-2/5 mt-10 md:mt-0 md:px-4 px-8  md:py-8 py-8 bg-grey-lighter">
           <cart-summary />
         </div>
       </div>
@@ -103,9 +103,6 @@ export default {
       width: 35px;
       height: 35px;
       border-radius: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
       @apply .bg-grey;
       color: #fff;
 
@@ -186,9 +183,8 @@ export default {
 
   .checkout-title {
     @media (max-width: 767px) {
-      background-color: $bg-secondary;
       margin-bottom: 25px;
-
+      text-align: center;
       h1 {
         font-size: 36px;
       }

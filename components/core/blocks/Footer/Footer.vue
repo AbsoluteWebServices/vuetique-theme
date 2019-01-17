@@ -210,7 +210,7 @@
     <div class="container mx-auto">
       <div class="row items-center justify-between py-6">
         <div class="col-12 md:col-6 flex mb-8 md:mb-0">
-          <span class="menu-link text-sm">© {{ currentYear }} VueVetch</span>
+          <span class="menu-link text-sm">© {{ currentYear }} Vuetique</span>
 
           <router-link class="menu-link ml-8 text-sm text-grey-dark" :to="localizedRoute('/terms')" exact>
             {{ $t('Terms') }}

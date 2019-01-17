@@ -1,21 +1,27 @@
 <template>
   <div class="shipping">
     <div class="flex flex-wrap">
-      <div class="w-1/12">
+      <div class="w-1/12 hidden md:block">
         <div
-          class="number-circle lh35 cl-white brdr-circle align-center weight-700"
+          class="number-circle lh35 cl-white brdr-circle flex items-center justify-center"
           :class="{ 'bg-cl-th-accent' : isActive || isFilled, 'bg-cl-tertiary' : !isFilled && !isActive }"
         >
           2
         </div>
       </div>
-      <div class="w-11/12">
-        <div class="" :class="{ 'cl-bg-tertiary' : !isFilled && !isActive }">
-          <h3 class="mb-5">
+      <div class="w-full md:w-11/12">
+        <div class="flex items-center mb-3 md:mb-0" :class="{ 'cl-bg-tertiary' : !isFilled && !isActive }">
+          <div
+            class="number-circle cl-white brdr-circle flex items-center justify-center md:hidden"
+            :class="{ 'bg-cl-th-accent' : isActive || isFilled, 'bg-cl-tertiary' : !isFilled && !isActive }"
+          >
+            2
+          </div>
+          <h3 class="ml-3 md:ml-0 mb-0 md:mb-5">
             {{ $t('Shipping') }}
           </h3>
         </div>
-        <div class="mb-2 flex end-lg" v-if="isFilled && !isActive">
+        <div class="mt-3 md:mt-0 mb-2 flex end-lg" v-if="isFilled && !isActive">
           <a href="#" class="btn btn-xs btn-primary flex" @click.prevent="edit">
             <span class="pr5">
               {{ $t('Edit shipping') }}
@@ -27,10 +33,10 @@
     </div>
     <!--Fields-->
     <div class="flex flex-wrap justify-end mt-4" v-if="isActive">
-      <div class="w-11/12">
+      <div class="w-full md:w-11/12">
         <base-checkbox
           v-if="currentUser && hasShippingDetails()"
-          class="w-1/2 px-3"
+          class="w-full md:w-1/2 px-3"
           id="shipToMyAddressCheckbox"
           @click="useMyAddress"
           v-model="shipToMyAddress"
@@ -179,12 +185,12 @@
 
       </div>
 
-      <div class="w-11/12">
+      <div class="w-full md:w-11/12">
         <h4 class="my-3">
           {{ $t('Shipping method') }}
         </h4>
       </div>
-      <div class="w-11/12">
+      <div class="w-full md:w-11/12">
         <div v-for="(method, index) in shippingMethods" :key="index" class="col-md-6">
           <label class="radioStyled"> {{ method.method_title }} | {{ method.amount | price }}
             <input
@@ -206,9 +212,9 @@
 
     <!--Continue to payment-->
     <div class="flex flex-wrap justify-end pb-8" v-if="isActive">
-      <div class="w-11/12">
+      <div class="w-full md:w-11/12">
         <div class="flex -mx-3">
-          <div class="w-1/2 px-3">
+          <div class="w-full lg:w-1/2 px-3">
             <button-full
               data-testid="shippingSubmit"
               @click.native="sendDataToCheckout"
@@ -221,8 +227,8 @@
       </div>
     </div>
     <!--Review shipping data-->
-    <div class="flex flex-wrap justify-end pb-8" v-if="!isActive && isFilled">
-      <div class="w-11/12">
+    <div class="flex flex-wrap justify-end pb-2 md:pb-8" v-if="!isActive && isFilled">
+      <div class="w-full md:w-11/12">
         <div data-testid="shippingAddressSummary">
           <p>
             {{ shipping.firstName }} {{ shipping.lastName }}
