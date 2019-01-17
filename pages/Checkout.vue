@@ -18,7 +18,7 @@
           <order-review class="line relative" :is-active="activeSection.orderReview"/>
           <div id="custom-steps"/>
         </div>
-        <div class="w-full md:w-2/5 mt-10 md:mt-0 md:px-4 px-8  md:py-8 py-8 bg-grey-lighter">
+        <div class="w-full md:w-2/5 mt-10 md:mt-0 px-4 py-4 lg:px-8 lg:py-8 bg-grey-lighter">
           <cart-summary />
         </div>
       </div>
