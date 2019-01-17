@@ -3,7 +3,7 @@
     <div class="relative">
       <input
         class="w-full border border-solid border-grey w-full text-sm text-grey px-3 h-10 bg-transparent outline-none focus:text-grey-dark"
-        :class="{'pr-7': type === 'password', empty: value === ''}"
+        :class="{'pr-7': type === 'password', empty: value === '', 'has-error' : (isValid === false)}"
         :type="type === 'password' ? passType : type"
         :name="name"
         :autocomplete="autocomplete"
@@ -56,6 +56,22 @@ export default {
       passType: 'password',
       iconActive: false,
       icon: 'visibility'
+    }
+  },
+  computed: {
+    isValid: function () {
+      // Single validation
+      if (typeof this.validation === 'object' && this.validation.condition === true) {
+        return false
+      }
+      // Multiple validation
+      if (this.validations.length > 0) {
+        let isValid = true
+        this.validations.forEach((item) => {
+          if (item.condition === true) isValid = false
+        })
+        return isValid
+      }
     }
   },
   props: {
@@ -118,6 +134,7 @@ export default {
       if (this.name === fieldName) {
         this.$refs[this.name].focus()
       }
+      console.log(this.condition, this.conditions)
     }
   },
   created () {
@@ -145,6 +162,11 @@ export default {
     &:disabled {
       @apply opacity-50 cursor-not-allowed pointer-events-none;
     }
+
+    &.has-error {
+      @apply border-error;
+    }
+
   }
 
   .icon {
