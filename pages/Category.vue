@@ -4,34 +4,38 @@
     <header class="pb-16">
       <div class="container">
         <div class="row items-center mt-2">
-          <h1 class="col-10 category-title"> {{ category.name }} </h1>
-          <div class="sorting col-2"><sort-by /></div>
+          <h1 class="col-10"> {{ category.name }} </h1>
+          <div class="col-2 hidden lg:block"><sort-by /></div>
         </div>
       </div>
-      <div class="container">
-        <div class="row">
-          <button
-            class="col-5 mt-6 p-4 mobile-filters-button"
-            @click="openFilters"
-          >
-            {{ $t('Filters') }}
-          </button>
-          <div class="mobile-sorting col-6 mt-6"><sort-by /></div>
+      <div class="container lg:hidden">
+        <div class="row gutter-md mt-6">
+          <div class="col-6">
+            <button-full class="w-full" @click.native="openFilters">{{ $t('Filters') }}</button-full>
+          </div>
+          <div class="col-6"><sort-by /></div>
         </div>
       </div>
     </header>
+    <div class="mobile-filters lg:hidden" v-show="mobileFilters">
+      <button
+        type="button"
+        :aria-label="$t('Close')"
+        class="absolute pin-t pin-r m-4"
+        @click="closeFilters"
+      >
+        <svg viewBox="0 0 25 25" class="vt-icon--sm">
+          <use xlink:href="#close"/>
+        </svg>
+      </button>
+      <sidebar :filters="filters.available"/>
+    </div>
     <div class="container pb-16">
       <div class="row gutter-md">
-        <div class="col-3 category-filters">
+        <div class="col-3 hidden lg:block">
           <sidebar :filters="filters.available"/>
         </div>
-        <div class="col-3 mobile-filters" v-show="mobileFilters">
-          <div class="close-container absolute w-full">
-            <i class="material-icons p-4 close" @click="closeFilters">close</i>
-          </div>
-          <sidebar class="mobile-filters-body" :filters="filters.available"/>
-        </div>
-        <div class="col-9 products-list">
+        <div class="col-12 lg:col-9">
           <div v-if="isCategoryEmpty" class="hidden-xs">
             <h3 data-testid="noProductsInfo" class="mb-2">{{ $t('No products found!') }}</h3>
             <p class="text-grey-dark">{{ $t('Please change Your search criteria and try again. If still not finding anything relevant, please visit the Home page and try out some of our bestsellers!') }}</p>
@@ -51,12 +55,15 @@ import Breadcrumbs from '../components/core/Breadcrumbs.vue'
 import SortBy from '../components/core/SortBy.vue'
 // import builder from 'bodybuilder'
 
+import ButtonFull from '../components/theme/ButtonFull.vue'
+
 export default {
   components: {
     ProductListing,
     Breadcrumbs,
     Sidebar,
-    SortBy
+    SortBy,
+    ButtonFull
   },
   data () {
     return {
@@ -92,88 +99,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .category-filters {
-    width: 242px;
+.mobile-filters {
+  @apply fixed overflow-auto bg-white z-modal pin-l w-screen p-4;
+
+  padding-top: 52px;
+  top: 70px;
+  height: calc(100vh - 70px);
+
+  @screen md {
+    top: 73px;
   }
-
-  .mobile-filters {
-    display: none;
-    overflow: auto;
-  }
-
-  .mobile-filters-button {
-    display: none;
-  }
-
-  .mobile-sorting {
-    display: none;
-  }
-
-  @media (max-width: 64em) {
-    .products-list {
-      max-width: 530px;
-    }
-  }
-
-  @media (max-width: 770px) {
-    .category-title {
-      margin: 0;
-      font-size: 36px;
-      line-height: 40px;
-    }
-
-    .products-list {
-      width: 100%;
-      max-width: none;
-    }
-
-    .mobile-filters {
-      display: block;
-    }
-
-    .mobile-filters-button {
-      display: block;
-      height: 45px;
-    }
-
-    .sorting {
-      display: none;
-    }
-
-    .mobile-sorting {
-      display: block;
-    }
-
-    .category-filters {
-      display: none;
-    }
-
-    .product-listing {
-      justify-content: center;;
-    }
-
-    .mobile-filters {
-      position: fixed;
-      background-color: #F2F2F2;
-      z-index: 5;
-      padding: 0 40px;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      top: 0;
-      box-sizing: border-box;
-    }
-
-    .mobile-filters-body {
-      padding-top: 50px;
-    }
-  }
-
-  .close-container {
-    left: 0;
-  }
-
-  .close {
-    margin-left: auto;
-  }
+}
 </style>
