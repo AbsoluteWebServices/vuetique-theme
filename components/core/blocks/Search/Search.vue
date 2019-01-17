@@ -11,11 +11,13 @@
         :placeholder="$t('Type what you are looking for...')"
         class="w-full"
         v-model="search"
-        @input="makeSearch"/>
+        @input="makeSearch"
+        @focus="searchFocus = true"
+        @blur="searchFocus = false"/>
       <i class="material-icons absolute pin-r mr-2 w-6 h-6 text-grey">search</i>
     </div>
-    <div class="absolute z-20 w-full">
-      <div v-show="search !== ''" class="bg-white border border-grey border-t-0">
+    <div class="absolute z-20 w-full" @mouseenter="resultsHover = true" @mouseleave="resultsHover = false">
+      <div v-show="showDrop" class="bg-white border border-grey border-t-0">
         <product :key="product.id" v-for="product in results" :product="product"/>
         <transition name="fade">
           <div v-if="moreResults" class="w-full px-3 py-4 border-t border-grey-lighter">
@@ -55,10 +57,15 @@ export default {
   mixins: [SearchPanel, VueOfflineMixin],
   data () {
     return {
+      searchFocus: false,
+      resultsHover: false,
       showResults: 5
     }
   },
   computed: {
+    showDrop () {
+      return (this.searchFocus && this.search !== '') || this.resultsHover
+    },
     results () {
       return this.products.slice(0, this.showResults)
     },

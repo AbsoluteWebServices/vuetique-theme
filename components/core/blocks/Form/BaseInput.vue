@@ -12,6 +12,7 @@
         :ref="name"
         :placeholder="placeholder"
         @input="inputEvent"
+        @focus="$emit('focus')"
         @blur="$emit('blur')"
         @keyup.enter="keyupEnter"
         @keyup="keyup"
