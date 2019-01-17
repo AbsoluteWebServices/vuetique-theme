@@ -70,14 +70,14 @@
       class="row justify-between items-center py-4 actions"
       v-if="productsInCart.length && !isCheckoutMode"
     >
-      <div class="col-auto">
+      <div class="col-12 md:col-auto">
         <router-link :to="localizedRoute('/')" class="no-underline text-grey link">
           <span @click="closeMicrocartExtend">
             &lt;&nbsp;{{ $t('Return to shopping') }}
           </span>
         </router-link>
       </div>
-      <div class="col-auto">
+      <div class="col-12 md:col-auto">
         <button-full
           class="btn-primary py-3 px-6"
           :link="{ name: 'checkout' }"
@@ -157,12 +157,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-  .heading {
-    @media (max-width: 767px) {
-      margin: 12px 0 12px 15px;
-      font-size: 24px;
-    }
-  }
-</style>

@@ -15,8 +15,8 @@
             {{ $t('Personal Details') }}
           </h3>
         </div>
-        <div class="flex end-lg" v-if="isFilled && !isActive">
-          <a href="#" class="cl-tertiary flex" @click.prevent="edit">
+        <div class="flex mb-2" v-if="isFilled && !isActive">
+          <a href="#" class="btn btn-xs btn-primary flex" @click.prevent="edit">
             <span class="pr5">
               {{ $t('Edit personal details') }}
             </span>

@@ -1,13 +1,9 @@
 <template>
   <div>
     <header class="modal-header py25 px65 h1 serif weight-700 bg-cl-secondary">
-      <i
-        slot="close"
-        class="modal-close material-icons pin-t pin-r m-3"
-        @click="close"
-      >
-        close
-      </i>
+      <svg viewBox="0 0 25 25" class="vt-icon modal-close p-1" slot="close" @click="close">
+        <use xlink:href="#close"/>
+      </svg>
       <h2>{{ $t('Login') }}</h2>
     </header>
     <div class="modal-content pt30 pb60 px65 cl-secondary">
@@ -45,7 +41,7 @@
         />
         <div class="row">
           <base-checkbox
-            class="md:w-1/2 text-black"
+            class="md:w-1/2 text-black my-3"
             id="remember"
             v-model="remember"
             @click="remember = !remember"
@@ -58,9 +54,11 @@
             </a>
           </div>
         </div>
-        <button-full class="mb-2" type="submit" data-testid="loginSubmit">
+
+        <button-full class="mb-2 w-full" type="submit" data-testid="loginSubmit">
           {{ $t('Log in to your account') }}
         </button-full>
+
         <div class="text-center">
           {{ $t('or') }}
           <a href="#" @click.prevent="switchElem" data-testid="registerLink">

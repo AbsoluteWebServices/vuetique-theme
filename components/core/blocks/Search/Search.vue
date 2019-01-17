@@ -11,12 +11,14 @@
         :placeholder="$t('Type what you are looking for...')"
         class="w-full"
         v-model="search"
-        @input="makeSearch"/>
+        @input="makeSearch"
+        @focus="searchFocus = true"
+        @blur="searchFocus = false"/>
       <i class="material-icons absolute pin-r mr-2 w-6 h-6 text-grey">search</i>
     </div>
-    <div class="absolute z-20 w-full">
-      <div v-show="search !== ''" class="bg-white border border-grey border-t-0">
-        <product :key="product.id" v-for="product in results" :product="product"/>
+    <div class="absolute z-20 w-full" @mouseenter="resultsHover = true" @mouseleave="resultsHover = false">
+      <div v-show="showDrop" class="bg-white border border-grey border-t-0">
+        <product :key="product.id" v-for="product in results" :product="product" @click.native="resultsHover = false"/>
         <transition name="fade">
           <div v-if="moreResults" class="w-full px-3 py-4 border-t border-grey-lighter">
             <router-link
@@ -24,7 +26,9 @@
               to="/"
             >
               {{ $t('View all') }}
-              <i class="material-icons font-medium text-grey text-h3">keyboard_arrow_right</i>
+              <svg viewBox="0 0 25 25" class="vt-icon--sm">
+                <use xlink:href="#right"/>
+              </svg>
             </router-link>
           </div>
         </transition>
@@ -53,15 +57,20 @@ export default {
   mixins: [SearchPanel, VueOfflineMixin],
   data () {
     return {
+      searchFocus: false,
+      resultsHover: false,
       showResults: 5
     }
   },
   computed: {
+    showDrop () {
+      return (this.searchFocus && this.search !== '') || this.resultsHover
+    },
     results () {
-      return this.products.slice(0, this.showResults)
+      return this.products // .slice(0, this.showResults)
     },
     moreResults () {
-      return this.products.length > this.showResults
+      return false // this.products.length > this.showResults
     }
   },
   mounted () {

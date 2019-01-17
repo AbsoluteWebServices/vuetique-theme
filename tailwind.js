@@ -120,7 +120,7 @@ module.exports = {
     'sm': '576px',
     'md': '768px',
     'lg': '992px',
-    'xl': '1200px',
+    'xl': '1201px',
   },
 
 
@@ -645,6 +645,7 @@ module.exports = {
     'xs': '0.3125rem',      // 5px
     'sm': '0.625rem',       // 10px
     'md': '0.9375rem',       // 15px
+    '2xl': '1.875rem',       // 30px
   },
 
 
@@ -774,6 +775,11 @@ module.exports = {
     '30': 30,
     '40': 40,
     '50': 50,
+    'overlay': 3,
+    'modal': 10,
+    'header': 100,
+    'notification': 1000,
+    'loader': 1001
   },
 
 
@@ -817,6 +823,8 @@ module.exports = {
 
   svgFill: {
     'current': 'currentColor',
+    'error': colors['error'],
+    'primary': colors['primary'],
   },
 
 

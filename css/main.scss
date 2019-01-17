@@ -1,8 +1,10 @@
 @tailwind preflight;
 @tailwind components;
 @tailwind utilities;
+@tailwind screens;
 
 @import 'base/base';
+@import 'base/icons';
 @import 'base/text';
 @import 'base/forms';
 @import 'components/buttons';

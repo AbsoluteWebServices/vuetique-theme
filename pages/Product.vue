@@ -161,7 +161,9 @@
                   type="button"
                   data-testid="addToWishlist"
                 >
-                  <i class="pr-1 material-icons">{{ favoriteIcon }}</i>
+                  <svg viewBox="0 0 25 25" class="vt-icon pr-1">
+                    <use xlink:href="#wishlist"/>
+                  </svg>
                   <template v-if="!isOnWishlist">
                     {{ $t('Add to favorite') }}
                   </template>
@@ -280,7 +282,7 @@ export default {
   directives: { focusClean },
   computed: {
     favoriteIcon () {
-      return this.isOnWishlist ? 'favorite' : 'favorite_border'
+      return this.isOnWishlist ? 'favorite' : 'favorite'
     },
 
     isOnWishlist () {

@@ -2,7 +2,7 @@
   <div class="relative">
     <div class="relative">
       <textarea
-        class="mt-2 pb-2 w-full border-b border-primary text-h4 font-sans"
+        class="w-full border border-solid border-grey w-full text-sm text-grey px-3 py-3 h-10 bg-transparent outline-none focus:text-grey-dark"
         :class="{empty: value === ''}"
         :type="type"
         :name="name"
@@ -14,10 +14,8 @@
         @blur="$emit('blur')"
         @keyup.enter="$emit('keyup.enter', $event.target.value)"
         @keyup="$emit('keyup', $event)"
+        :placeholder="placeholder"
       />
-      <label>
-        {{ placeholder }}
-      </label>
     </div>
 
     <template v-if="validation">
@@ -114,14 +112,20 @@ export default {
   $color-hover: color(tertiary, $colors-background);
 
   textarea {
-    &:hover,
-    &:focus {
-      outline: none;
-      border-color: $color-puerto-rico;
-    }
-    resize: none;
     background: inherit;
     min-height: 100px;
+
+    &:focus {
+      @apply outline-none border-grey-dark;
+    }
+
+    &:disabled {
+      @apply opacity-50 cursor-not-allowed pointer-events-none;
+    }
+
+    &.has-error {
+      @apply border-error;
+    }
   }
 
   label {

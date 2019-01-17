@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full bg-white border-b border-solid">
+  <div v-if="!isCheckoutPage" class="hidden lg:block w-full bg-white border-b border-solid">
     <div class="container">
       <ul class="flex menu">
         <li
@@ -63,14 +63,14 @@
 <script>
 import { mapState } from 'vuex'
 import SubCategory from 'theme/components/core/blocks/HeaderMenu/SubCategory'
+import CurrentPage from 'theme/mixins/currentPage'
 
 export default {
   name: 'HeaderMenu',
   components: {
     SubCategory
   },
-  directives: {
-  },
+  mixins: [CurrentPage],
   data () {
     return {
       activeSubMenu: null

@@ -2,7 +2,7 @@
 
 .right-sidebar {
   background: #fff;
-  top: 0;
+  top: 70px;
   right: 0;
   z-index: 3;
   height: 100%;
@@ -17,6 +17,10 @@
     transform: translateX(0)
   }
 
+  @screen lg {
+    top: 0px;
+  }
+
   .products {
     @media (max-width: 767px) {
       padding: 30px 15px;
@@ -27,19 +31,23 @@
     }
   }
 
-  .actions {
-    @media (max-width: 767px) {
+  @media (max-width: 767px) {
+    .actions {
       padding: 0 15px;
-    }
-    .link {
-      @media (max-width: 767px) {
+
+      .link {
         display: flex;
         justify-content: center;
-        padding: 20px 70px;
+        padding: 8px 50px;
+
         &.checkout {
           margin-top: 55px;
           padding: 0;
         }
+      }
+
+      .btn-primary {
+        margin-top: 20px;
       }
     }
   }

@@ -25,6 +25,7 @@
           height="300"
           width="310"
           data-testid="productImage"
+          class="block"
         >
       </div>
 

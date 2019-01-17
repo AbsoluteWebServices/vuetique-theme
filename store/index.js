@@ -8,6 +8,11 @@
 import social from './social-tiles'
 // import notifications from './notifications'
 
+/*
+import notifications from './notifications'
+notifications
+*/
+
 export default {
   social
 }

@@ -6,7 +6,9 @@
       class="absolute pin-t pin-r m-4"
       @click="closeMenu"
     >
-      <i class="material-icons text-h3 text-grey-dark">close</i>
+      <svg viewBox="0 0 25 25" class="vt-icon--sm">
+        <use xlink:href="#close"/>
+      </svg>
     </button>
 
     <div v-if="submenu.depth" class="absolute pin-l pin-t">
@@ -175,8 +177,8 @@ export default {
 @import "~theme/css/animations/transitions";
 
 .sidebar-menu {
-  width: 350px;
-  top: 0;
+  width: 100vh;
+  top: 70px;
   left: 0;
   overflow: hidden;
   overflow-y: auto;
@@ -184,8 +186,12 @@ export default {
   z-index: 3;
   transition: transform $duration-main $motion-main;
 
-  @media (max-width: 767px) {
-    width: 100vh;
+  @screen md {
+    width: 350px;
+  }
+
+  @screen lg {
+    top: 0;
   }
 
   &.active {
