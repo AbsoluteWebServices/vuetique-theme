@@ -9,7 +9,7 @@
       >
         <div
           @click="execAction(notification.action1, index)"
-          class="message p20"
+          class="message py-5"
           data-testid="notificationMessage"
         >
           {{ notification.message }}
@@ -100,6 +100,11 @@ $color-action: color(black);
 
   &:first-child  {
     margin-top: 0;
+  }
+
+  .message {
+    color: #222222;
+    font-size: 18px;
   }
 }
 
