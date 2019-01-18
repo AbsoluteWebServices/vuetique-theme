@@ -25,7 +25,7 @@ export default {
     { rel: 'apple-touch-startup-image', href: '/assets/apple_splash_750.png', sizes: '750x1334' },
     { rel: 'apple-touch-startup-image', href: '/assets/apple_splash_640.png', sizes: '640x1136' },
     { rel: 'manifest', href: '/assets/manifest.json' },
-    { rel: 'stylesheet', href: 'https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css' }
+    { rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Material+Icons' }
   ],
   script: [
     {
