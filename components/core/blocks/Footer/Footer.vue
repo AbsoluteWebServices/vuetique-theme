@@ -13,6 +13,7 @@
 
             <div class="flex social-footer mt-12">
               <a
+                target="_blank"
                 class="social-icon mr-1 rounded-full"
                 href="https://www.facebook.com/"
                 :aria-label="$t('Go to Facebook')"
@@ -20,6 +21,7 @@
                 <img src="/assets/icons/social-f.svg" alt="">
               </a>
               <a
+                target="_blank"
                 class="social-icon mx-1 rounded-full"
                 href="https://www.instagram.com"
                 :aria-label="$t('Go to Instagram')"
@@ -27,6 +29,7 @@
                 <img src="/assets/icons/social-i.svg" alt="">
               </a>
               <a
+                target="_blank"
                 class="social-icon mx-1 rounded-full"
                 href="https://www.pinterest.com"
                 :aria-label="$t('Go to Pinterest')"
@@ -34,6 +37,7 @@
                 <img src="/assets/icons/social-p.svg" alt="">
               </a>
               <a
+                target="_blank"
                 class="social-icon mx-1 rounded-full"
                 href="https://www.youtube.com"
                 :aria-label="$t('Go to Youtube')"
