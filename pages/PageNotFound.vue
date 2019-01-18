@@ -13,11 +13,7 @@
             {{ $t("Unfortunately we can't find the page you are looking for.") }}
           </p>
           <p>
-            {{ $t('If you need an assistance you can drop us a line on') }}
-            <router-link :to="localizedRoute('/')" class="cl-secondary no-underline">
-              {{ $t('a chat') }}
-            </router-link>
-            {{ $t('or write to us through') }}
+            {{ $t('If you need an assistance you can drop us write to us through') }}
             <router-link :to="localizedRoute('/contact')" class="cl-secondary no-underline">
               {{ $t('a contact page') }}
             </router-link>.
@@ -44,7 +40,7 @@
             <div class="w-full">
               <div class="justify-center cool-stuff-collection">
                 <no-ssr>
-                  <carousel v-bind="config" @pageChange="setMuted">
+                  <carousel v-bind="config">
                     <slide
                       v-for="product in ourBestsellersCollection"
                       :key="product.id"
@@ -97,8 +93,7 @@ export default {
   },
   methods: {
     toggleSearchpanel () {
-      this.$bus.$emit('focusSearchInput')
-      this.$store.commit('ui/setSearchpanel', true)
+      document.querySelector('#search input[type="text"]').focus()
     }
   },
   mixins: [PageNotFound]
