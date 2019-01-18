@@ -21,15 +21,11 @@
         <product :key="product.id" v-for="product in results" :product="product" @click.native="resultsHover = false"/>
         <transition name="fade">
           <div v-if="moreResults" class="w-full px-3 py-4 border-t border-grey-lighter">
-            <router-link
+            <div
               class="text-black font-medium flex justify-between items-center"
-              to="/"
             >
-              {{ $t('View all') }}
-              <svg viewBox="0 0 25 25" class="vt-icon--sm">
-                <use xlink:href="#right"/>
-              </svg>
-            </router-link>
+              {{ $t('Please refine your search to view more results...') }}
+            </div>
           </div>
         </transition>
         <transition name="fade">
@@ -67,10 +63,10 @@ export default {
       return (this.searchFocus && this.search !== '') || this.resultsHover
     },
     results () {
-      return this.products // .slice(0, this.showResults)
+      return this.products.slice(0, this.showResults)
     },
     moreResults () {
-      return false // this.products.length > this.showResults
+      return this.products.length > this.showResults
     }
   },
   mounted () {
