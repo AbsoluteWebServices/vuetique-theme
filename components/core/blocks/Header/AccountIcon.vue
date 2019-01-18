@@ -1,5 +1,5 @@
 <template>
-  <div class="relative dropdown"
+  <div class="relative dropdown cursor-pointer"
        data-testid="accountButton"
        @click.self="goToAccount">
     <button

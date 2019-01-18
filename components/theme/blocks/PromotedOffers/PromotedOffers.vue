@@ -1,45 +1,21 @@
 <template>
-  <section v-if="!singleBanner" class="offers container mx-auto my-8">
-    <div class="row gutter-md">
-      <div
-        class="offer-container col-12 sm:col-6 pb-5"
-        v-for="(banner, index) in banners.mainBanners"
-        :key="index"
-      >
-        <router-link :to="localizedRoute(banner.link)">
-          <div
-            class="offer p-1 flex justify-center items-center text-white bg-white relative"
-            v-lazy:background-image="banner.image"
-          >
-            <h2 class="md:text-h1 text-center">
-              {{ banner.title }}
-            </h2>
-            <div class="w-24 absolute pin-b mx-auto mb-5 md:mb-16">
-              <button-full class="btn-primary" :link="{ path: banner.link }">{{ $t('Shop') }}</button-full>
-            </div>
-          </div>
-        </router-link>
-      </div>
-
-      <div class="col-12 sm:col-6 flex-col">
+  <section v-if="!singleBanner" class="offers container mx-auto my-8 row w-100">
+    <div
+      class="offer-container p-5 col-6"
+      v-for="(banner, index) in banners.smallBanners"
+      :key="index"
+    >
+      <router-link :to="localizedRoute(banner.link)">
         <div
-          class="offer-container pb-5"
-          v-for="(banner, index) in banners.smallBanners"
-          :key="index"
+          class="offer offer-small border-box p-1 flex justify-center items-center text-white bg-white relative"
+          v-lazy:background-image="banner.image"
         >
-          <router-link :to="localizedRoute(banner.link)">
-            <div
-              class="offer offer-small border-box p-1 flex justify-center items-center text-white bg-white relative"
-              v-lazy:background-image="banner.image"
-            >
-              <h2 class="md:text-h1 text-center">{{ banner.title }}</h2>
-              <div class="w-24 absolute pin-b mx-auto mb-5 md:mb-10">
-                <button-full class="btn-primary" :link="{ path: banner.link }">{{ $t('Shop') }}</button-full>
-              </div>
-            </div>
-          </router-link>
+          <h2 class="md:text-h1 text-center">{{ banner.title }}</h2>
+          <div class="w-24 absolute pin-b mx-auto mb-5 md:mb-10">
+            <button-full class="btn-primary" :link="{ path: banner.link }">{{ $t('Shop') }}</button-full>
+          </div>
         </div>
-      </div>
+      </router-link>
     </div>
   </section>
   <section v-else class="container mx-auto my-8 px-4">

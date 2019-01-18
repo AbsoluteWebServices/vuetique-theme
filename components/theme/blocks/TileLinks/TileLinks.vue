@@ -25,27 +25,27 @@ export default {
     return {
       social_tiles: [
         {
-          image: '/assets/ig/ig01.jpg',
+          image: '/assets/ig/1.jpg',
           alt: 'Woman practicing on the beach'
         },
         {
-          image: '/assets/ig/ig02.jpg',
+          image: '/assets/ig/2.jpg',
           alt: 'Man practicing on the beach'
         },
         {
-          image: '/assets/ig/ig03.jpg',
+          image: '/assets/ig/3.jpg',
           alt: 'Woman drinks water form the bottle on the beach'
         },
         {
-          image: '/assets/ig/ig04.jpg',
+          image: '/assets/ig/4.jpg',
           alt: 'Man rests on the beach'
         },
         {
-          image: '/assets/ig/ig05.jpg',
+          image: '/assets/ig/5.jpg',
           alt: 'Woman practicing on the beach'
         },
         {
-          image: '/assets/ig/ig06.jpg',
+          image: '/assets/ig/6.jpg',
           alt: 'Man is holding a watter bottle'
         }
       ]
