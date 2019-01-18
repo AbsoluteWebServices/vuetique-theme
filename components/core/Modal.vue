@@ -10,14 +10,9 @@
         <div class="modal-center">
           <div class="modal-container bg-cl-primary" ref="modal-content" :style="style">
             <header class="modal-header py25 px65 h1 serif weight-700 bg-cl-secondary" v-if="$slots.header">
-              <i
-                slot="close"
-                class="modal-close material-icons p15 cl-bg-tertiary"
-                @click="close"
-                data-testid="closeModalButton"
-              >
-                close
-              </i>
+              <svg viewBox="0 0 25 25" class="vt-icon modal-close p-1 m-2" slot="close" @click="close" data-testid="closeModalButton">
+                <use xlink:href="#close"/>
+              </svg>
               <h2>
                 <slot name="header"/>
               </h2>

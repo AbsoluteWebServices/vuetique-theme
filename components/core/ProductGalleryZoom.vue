@@ -1,10 +1,10 @@
 <template>
   <div class="media-zoom">
-    <svg @click="$emit('close')" viewBox="0 0 25 25" class="vt-icon--lg p-3 media-zoom__close">
+    <svg @click="$emit('close')" viewBox="0 0 25 25" class="vt-icon--lg p-3 cursor-pointer media-zoom__close">
       <use xlink:href="#close"/>
     </svg>
     <div class="media-zoom__container row flex">
-      <ul class="media-zoom__thumbs m0 p0">
+      <ul class="media-zoom__thumbs m-0 p-0">
         <li class="media-zoom__thumb" v-for="(images, key) in gallery" :key="images.src">
           <span class="bg-cl-secondary block">
             <img :src="images.src" ref="images" @click="$refs.carousel.goToPage(key)" :alt="title | htmlDecode">
