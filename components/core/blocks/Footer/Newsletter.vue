@@ -5,7 +5,7 @@
     </h3>
     <div class="newsletter-button">
       <button-full
-        class="btn-primary newsletter-btn w-auto"
+        class="btn-primary newsletter-btn w-full"
         @click.native="$bus.$emit('modal-show', 'modal-newsletter')"
         data-testid="openNewsletterButton"
       >

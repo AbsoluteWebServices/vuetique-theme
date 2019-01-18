@@ -150,6 +150,7 @@ img[lazy=error], img[lazy=loading] {
     transform: translateY(-50%) !important;
   }
   .VueCarousel-slide {
+    @apply bg-grey-lightest;
     backface-visibility: unset;
   }
   .VueCarousel-navigation {

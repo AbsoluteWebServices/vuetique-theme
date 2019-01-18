@@ -1,3 +1,7 @@
+html, body, #app, #viewport {
+  height: 100%; // Fix bug where search results clip on short pages
+}
+
 #app {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -5,6 +9,7 @@
 
 #viewport {
   overflow-x: hidden;
+  overflow-y: scroll; // Keep scrollbar visible to avoid page container width changing depending on page lengths
 }
 
 .no-scroll {
