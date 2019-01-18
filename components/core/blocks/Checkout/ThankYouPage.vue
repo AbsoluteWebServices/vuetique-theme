@@ -6,14 +6,14 @@
         :active-route="this.$t('Order confirmation')"
       />
       <div class="container mx-auto">
-        <h2 class="category-title mb-12">
+        <h2 class="category-title mb-12 text-center sm:text-center">
           {{ $t('Order confirmation') }}
         </h2>
       </div>
     </header>
     <div class="container mx-auto">
       <div class="flex flex-wrap justify-between">
-        <div class="w-3/5">
+        <div class="w-full md:w-2/3">
           <h3 v-if="OnlineOnly" class="mb-3">
             {{ $t('Your purchase') }}
           </h3>
@@ -45,7 +45,7 @@
           <p class="mb-3">
             {{ $t('Your feedback is important fo us. Let us know what we could improve.') }}
           </p>
-          <form @submit.prevent="sendFeedback">
+          <form @submit.prevent="sendFeedback" class="mb-5">
             <base-textarea
               class=""
               type="text"
@@ -60,12 +60,18 @@
           </form>
 
         </div>
-        <div class="w-1/3">
+        <div class="w-full md:w-1/3">
           <div class="p-10 bg-grey-lighter">
             <h3 class="text-h3 mb-3">
               {{ $t('Your Account') }}
             </h3>
-            <p v-html="this.$t('You can log to your account using e-mail and password defined earlier. On your account you can <b>edit your profile data,</b> check <b>history of transactions,</b> edit <b>subscription to newsletter.</b>')"/>
+
+            <p v-if="!isLoggedIn" v-html="this.$t('You can log to your account using e-mail and password defined earlier. On your account you can <b>edit your profile data,</b> check <b>history of transactions,</b> edit <b>subscription to newsletter.</b>')"/>
+            <p v-if="isLoggedIn" v-html="this.$t('On your account you can <b>edit your profile data,</b> check <b>history of transactions,</b> edit <b>subscription to newsletter.</b>')"/>
+
+            <button-full @click.native="goToAccount" class="btn-primary mt-5">
+              {{ $t('Login') }}
+            </button-full>
           </div>
         </div>
       </div>
@@ -81,10 +87,12 @@ import BaseTextarea from 'theme/components/core/blocks/Form/BaseTextarea'
 import ButtonOutline from 'theme/components/theme/ButtonOutline'
 import VueOfflineMixin from 'vue-offline/mixin'
 import { EmailForm } from '@vue-storefront/core/modules/mailer/components/EmailForm'
+import { AccountButton } from '@vue-storefront/core/modules/user/components/AccountButton'
+import ButtonFull from 'theme/components/theme/ButtonFull'
 
 export default {
   name: 'ThankYouPage',
-  mixins: [Composite, VueOfflineMixin, EmailForm],
+  mixins: [Composite, VueOfflineMixin, EmailForm, AccountButton],
   data () {
     return {
       feedback: ''
@@ -160,7 +168,8 @@ export default {
   components: {
     BaseTextarea,
     Breadcrumbs,
-    ButtonOutline
+    ButtonOutline,
+    ButtonFull
   }
 }
 </script>

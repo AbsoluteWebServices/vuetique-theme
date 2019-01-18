@@ -49,7 +49,7 @@
           </div>
           <div class="col-3 flex justify-end">
             <div>
-              <a v-if="!currentUser" href="#" @click.prevent="gotoAccount" class="text-grey">
+              <a v-if="!isLoggedIn" href="#" @click.prevent="goToAccount" class="text-grey">
                 <span class="hidden md:inline">
                   {{ $t('Login to your account') }}&nbsp;&gt;
                 </span>
@@ -58,7 +58,7 @@
                 </svg>
               </a>
               <span class="text-xs sm:text-sm md:text-base text-grey" v-else>
-                {{ $t('You are logged in as') }} {{ currentUser.firstname }}
+                {{ $t('You are logged in as') }} {{ user.firstname }}
               </span>
             </div>
           </div>
@@ -71,6 +71,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { AccountButton } from '@vue-storefront/core/modules/user/components/AccountButton'
 import CurrentPage from 'theme/mixins/currentPage'
 import AccountIcon from 'theme/components/core/blocks/Header/AccountIcon'
 import CompareIcon from 'theme/components/core/blocks/Header/CompareIcon'
@@ -95,17 +96,11 @@ export default {
     WishlistIcon,
     Search
   },
-  mixins: [CurrentPage],
+  mixins: [CurrentPage, AccountButton],
   computed: {
     ...mapState({
-      isOpenLogin: state => state.ui.signUp,
-      currentUser: state => state.user.current
+      isOpenLogin: state => state.ui.signUp
     })
-  },
-  methods: {
-    gotoAccount () {
-      this.$bus.$emit('modal-toggle', 'modal-signup')
-    }
   }
 }
 </script>

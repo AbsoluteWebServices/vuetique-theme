@@ -53,7 +53,7 @@ export default {
 @import '~theme/css/variables/colors';
 @import '~theme/css/helpers/functions/color';
 $color-container-bg: color(black);
-$color-message-bg: color(success);
+$color-message-bg: #fff;
 $z-index-loader: map-get($z-index, loader);
 
 .loader-container {
@@ -73,8 +73,9 @@ $z-index-loader: map-get($z-index, loader);
 
 .loader-message-container {
   background-color: rgba($color-message-bg, 0.75);
-  border-radius: 50px;
+  border-radius: 0px;
   letter-spacing: 0.5px;
+  padding: 25px 35px;
 }
 
 .spinner {

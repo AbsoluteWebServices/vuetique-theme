@@ -5,8 +5,8 @@
     </p>
     <div slot="content">
       <form @submit.prevent="submit(onSuccesfulSubmission)" novalidate>
-        <div class="mb35">
-          <p class="h4">
+        <div class="mb-5">
+          <p class="h4 mb-5">
             {{ $t('Sign up to our newsletter and receive a coupon for 10% off!') }}
           </p>
           <base-input
@@ -29,7 +29,7 @@
           />
         </div>
         <button-full
-          class="mb35"
+          class="mb-5 w-full"
           type="submit"
           :disabled="this.$v.$invalid"
           @click.native="$v.email.$touch"

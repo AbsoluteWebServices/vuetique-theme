@@ -5,13 +5,17 @@ $z-index-modal: map-get($z-index, modal);
 
 .modal {
   position: fixed;
-  top: 0;
+  top: 70px;
   right: 0;
   bottom: 0;
   left: 0;
   overflow: auto;
   z-index: $z-index-modal;
   text-align: inherit;
+
+  @screen lg {
+    top: 0;
+  }
 
   .modal-wrapper {
     display: table;
