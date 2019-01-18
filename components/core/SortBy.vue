@@ -31,8 +31,10 @@ export default {
   position: relative;
 
   select {
+    @apply bg-white;
     padding-right: calc(var(--select-icon-size) + var(--select-icon-right-margin) * 2);
     -webkit-appearance: none;
+    border-radius: 0;
   }
 
   .vt-icon--sm {

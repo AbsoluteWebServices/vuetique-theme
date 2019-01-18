@@ -1,7 +1,7 @@
 <template>
-  <section v-if="!singleBanner" class="offers container mx-auto my-8 row w-100">
+  <section v-if="!singleBanner" class="offers container mx-auto my-2 sm:my-8 row w-100">
     <div
-      class="offer-container p-5 col-6"
+      class="offer-container md:p-5 col-6"
       v-for="(banner, index) in banners.smallBanners"
       :key="index"
     >

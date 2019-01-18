@@ -3,7 +3,7 @@
     <button
       type="button"
       :aria-label="$t('Close')"
-      class="absolute pin-t pin-r m-4"
+      class="absolute pin-t pin-r m-4 h-4"
       @click="closeMenu"
     >
       <svg viewBox="0 0 25 25" class="vt-icon--sm">

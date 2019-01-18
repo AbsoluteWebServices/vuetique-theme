@@ -27,12 +27,9 @@
 
     <div class="flex flex-wrap justify-end" v-show="isActive">
       <div class="w-full md:w-11/12">
-        <div id="checkout-order-review-additional-container" class="mb-2">
-          <div id="checkout-order-review-additional">&nbsp;</div>
-        </div>
         <div class="flex flex-wrap">
           <div class="w-full">
-            <p class="h4">
+            <p class="text-h4 mb-2">
               {{ $t('Please verify that you have entered everything correctly') }}
             </p>
             <div class="row">
@@ -47,9 +44,9 @@
                   text: $t('Field is required')
                 }"
               >
-                {{ $t('I agree to') }}
+                {{ $t('I agree to the') }}
                 <span
-                  class="link pointer"
+                  class="text-primary cursor-pointer ml-1"
                   @click.prevent="$bus.$emit('modal-toggle', 'modal-terms')"
                 >
                   {{ $t('Terms and conditions') }}

@@ -1,7 +1,7 @@
 <template>
   <footer :class="{ 'border-top border-secondary': isCheckoutPage }">
     <div
-      class="flex pt-8 pb-8 lg:pb-16 bg-grey-lighter mt-5"
+      class="flex pt-8 pb-auto sm:pb-8 lg:pb-16 bg-grey-lighter mt-5"
       v-if="!isCheckoutPage"
     >
       <div class="container">

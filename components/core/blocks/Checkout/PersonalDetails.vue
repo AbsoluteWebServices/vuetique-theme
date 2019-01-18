@@ -22,11 +22,11 @@
           </h3>
         </div>
         <div class="flex mb-2" v-if="isFilled && !isActive">
-          <a href="#" class="btn btn-xs btn-primary flex" @click.prevent="edit">
-            <span class="pr5">
+          <a href="#" class="p-2 bg-grey-lightest text-black inline-flex items-center" @click.prevent="edit">
+            <span class="pr-2">
               {{ $t('Edit personal details') }}
             </span>
-            <i class="material-icons cl-tertiary">edit</i>
+            <i class="material-icons text-h3">edit</i>
           </a>
         </div>
       </div>
@@ -155,7 +155,7 @@
             >
               {{ $t('I accept ') }}
               <span
-                class="link pointer"
+                class="ml-1 text-primary cursor-pointer"
                 @click.prevent="$bus.$emit('modal-toggle', 'modal-terms')"
               >
                 {{ $t('Terms and conditions') }}
@@ -184,7 +184,7 @@
             <p class="h4 cl-accent text-center">
               {{ $t('or') }}
               <span
-                class="link pointer no-underline"
+                class="text-primary cursor-pointer no-underline"
                 @click.prevent="gotoAccount"
               >
                 {{ $t('login to your account') }}
