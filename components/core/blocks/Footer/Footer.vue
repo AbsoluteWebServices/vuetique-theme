@@ -14,6 +14,7 @@
             <div class="flex social-footer mt-12">
               <a
                 target="_blank"
+                rel="noopener"
                 class="social-icon mr-1 rounded-full"
                 href="https://www.facebook.com/"
                 :aria-label="$t('Go to Facebook')"
@@ -22,6 +23,7 @@
               </a>
               <a
                 target="_blank"
+                rel="noopener"
                 class="social-icon mx-1 rounded-full"
                 href="https://www.instagram.com"
                 :aria-label="$t('Go to Instagram')"
@@ -30,6 +32,7 @@
               </a>
               <a
                 target="_blank"
+                rel="noopener"
                 class="social-icon mx-1 rounded-full"
                 href="https://www.pinterest.com"
                 :aria-label="$t('Go to Pinterest')"
@@ -38,6 +41,7 @@
               </a>
               <a
                 target="_blank"
+                rel="noopener"
                 class="social-icon mx-1 rounded-full"
                 href="https://www.youtube.com"
                 :aria-label="$t('Go to Youtube')"
