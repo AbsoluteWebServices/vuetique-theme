@@ -3,7 +3,7 @@
     <section class="bg-grey-lighter py-12 px-12">
       <div class="container">
         <div class="text-center mb-20">
-          <img src="/assets/icons/404.png" alt="404">
+          <img src="/assets/icons/404.svg" alt="404">
         </div>
         <h2 class="text-center">
           {{ $t("We can't find the page") }}
@@ -32,17 +32,32 @@
         </div>
       </div>
     </section>
-    <section class="bg-cl-primary py35 px20 hidden">
+    <section class="mb-20">
       <div class="container">
         <section class="container">
-          <header class="col-md-12 pt40">
-            <h3 class="align-center">
+          <header class="col-md-12 py-4 mt-12 mb-6">
+            <h2 class="text-center text-h2">
               {{ $t('See our bestsellers') }}
-            </h3>
+            </h2>
           </header>
-          <div class="row center-xs">
-            <div v-for="product in ourBestsellersCollection" :key="product.id" class="col-md-3">
-              <product-tile :product="product"/>
+          <div class="flex mb-6">
+            <div class="w-full">
+              <div class="justify-center cool-stuff-collection">
+                <no-ssr>
+                  <carousel v-bind="config" @pageChange="setMuted">
+                    <slide
+                      v-for="product in ourBestsellersCollection"
+                      :key="product.id"
+                    >
+                      <product-tile
+                        class="collection-product"
+                        :product="product"
+                        :labels-active="false"
+                      />
+                    </slide>
+                  </carousel>
+                </no-ssr>
+              </div>
             </div>
           </div>
         </section>
@@ -54,16 +69,31 @@
 <script>
 import PageNotFound from '@vue-storefront/core/pages/PageNotFound'
 import ProductTile from '../components/core/ProductTile.vue'
+import { Carousel, Slide } from 'vue-carousel'
+import NoSSR from 'vue-no-ssr'
 
 export default {
   name: 'PageNotFound',
+  data () {
+    return {
+      config: {
+        perPageCustom: [[576, 2], [1024, 4]],
+        paginationEnabled: true,
+        loop: false,
+        paginationSize: 6
+      }
+    }
+  },
   computed: {
     ourBestsellersCollection () {
       return this.$store.state.homepage.bestsellers
     }
   },
   components: {
-    ProductTile
+    Slide,
+    Carousel,
+    ProductTile,
+    'no-ssr': NoSSR
   },
   methods: {
     toggleSearchpanel () {
