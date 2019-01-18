@@ -22,8 +22,8 @@
           </h3>
         </div>
         <div class="mb-2 flex end-lg" v-if="isFilled && !isActive">
-          <a href="#" class="btn btn-xs btn-primary flex" @click.prevent="edit">
-            <span class="pr5">
+          <a href="#" class="p-2 bg-grey-lightest text-black inline-flex items-center" @click.prevent="edit">
+            <span class="pr-1">
               {{ $t('Edit payment') }}
             </span>
             <i class="material-icons cl-tertiary">edit</i>
@@ -320,7 +320,7 @@
               data-testid="paymentSubmit"
               :disabled="$v.payment.$invalid"
             >
-              {{ $t('Go review the order') }}
+              {{ $t('Review order') }}
             </button-full>
           </div>
         </div>

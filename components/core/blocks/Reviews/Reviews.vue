@@ -80,12 +80,6 @@
               >
                 {{ $t('Add review') }}
               </button-full>
-              <span
-                class="block text-center py-4"
-                v-if="!currentUser"
-              >
-                {{ $t('or') }} <a href="#" class="text-primary" @click.prevent="login()">{{ $t('login') }}</a> {{ $t('to account') }}
-              </span>
             </div>
           </form>
         </div>

@@ -1,9 +1,9 @@
 <template>
-  <div class="sidebar-menu h-screen fixed max-w-full bg-white pt-12" :class="{ active: isOpen }">
+  <div class="sidebar-menu h-screen fixed max-w-full bg-white pt-12" :class="{ active: showMenu }">
     <button
       type="button"
       :aria-label="$t('Close')"
-      class="absolute pin-t pin-r m-4"
+      class="absolute pin-t pin-r m-4 h-4"
       @click="closeMenu"
     >
       <svg viewBox="0 0 25 25" class="vt-icon--sm">
@@ -20,31 +20,30 @@
         class="border-b flex"
         :key="category.slug"
         @click="closeMenu"
-        v-for="category in categories"
-        v-if="category.product_count > 0 || (category.children_data && category.children_data.length > 0)"
+        v-for="category in visibleCategories"
       >
-        <sub-btn
-          :id="category.id"
-          :name="category.name"
-          v-if="category.children_data && category.children_data.length > 0"
-          @click.native="activeSubMenu = category.id"
-        />
-        <router-link
-          v-else
-          class="category-link"
-          :to="localizedRoute({ name: 'category', params: { id: category.id, slug: category.slug }})"
-        >
-          {{ category.name }}
-        </router-link>
+        <div v-if="isCurrentMenuShowed" class="w-full">
+          <sub-btn
+            :id="category.id"
+            :name="category.name"
+            v-if="category.children_count > 0"
+          />
+          <router-link
+            v-else
+            class="category-link"
+            :to="localizedRoute({ name: 'category', params: { id: category.id, slug: category.slug }})"
+          >
+            {{ category.name }}
+          </router-link>
+        </div>
 
         <sub-category
-          v-show="activeSubMenu === category.id"
           :category-links="category.children_data"
           :id="category.id"
           :parent-slug="category.slug"
         />
       </li>
-      <li @click="closeMenu" class="border-b">
+      <li @click="closeMenu" v-if="isCurrentMenuShowed" class="border-b">
         <router-link
           class="menu-link"
           :to="localizedRoute('/sale')"
@@ -53,7 +52,7 @@
           {{ $t('Sale') }}
         </router-link>
       </li>
-      <li @click="closeMenu" class="border-b">
+      <li @click="closeMenu" v-if="isCurrentMenuShowed" class="border-b">
         <router-link
           class="menu-link"
           :to="localizedRoute('/magazine')"
@@ -62,7 +61,7 @@
           {{ $t('Magazine') }}
         </router-link>
       </li>
-      <li @click="closeMenu" v-if="compareIsActive" class="border-b">
+      <li @click="closeMenu" v-if="compareIsActive&& isCurrentMenuShowed" class="border-b">
         <router-link
           class="menu-link"
           :to="localizedRoute('/compare')"
@@ -71,7 +70,7 @@
           {{ $t('Compare products') }}
         </router-link>
       </li>
-      <li @click="closeMenu" class="border-b">
+      <li @click="closeMenu" v-if="isCurrentMenuShowed" class="border-b">
         <router-link
           class="menu-link"
           :to="localizedRoute('/order-tracking')"
@@ -92,7 +91,7 @@
           :id="'foo'"
         />
         <a
-          v-if="!currentUser"
+          v-if="!currentUser && isCurrentMenuShowed"
           href="#"
           @click.prevent="login"
           class="menu-link"
@@ -121,7 +120,6 @@ export default {
   mixins: [SidebarMenu, AccountButton],
   data () {
     return {
-      activeSubMenu: null,
       myAccountLinks: [
         {
           id: 1,
@@ -153,7 +151,8 @@ export default {
           name: i18n.t('My product reviews'),
           url: '#'
         }
-      ]
+      ],
+      componentLoaded: false
     }
   },
   computed: {
@@ -163,6 +162,25 @@ export default {
     ...mapState({
       submenu: state => state.ui.submenu,
       currentUser: state => state.user.current
+    }),
+    getSubmenu () {
+      return this.submenu
+    },
+    visibleCategories () {
+      return this.categories.filter(category => {
+        return category.product_count > 0 || category.children_count > 0
+      })
+    },
+    isCurrentMenuShowed () {
+      return !this.getSubmenu || !this.getSubmenu.depth
+    },
+    showMenu () {
+      return this.isOpen && this.componentLoaded
+    }
+  },
+  mounted () {
+    this.$nextTick(() => {
+      this.componentLoaded = true
     })
   },
   methods: {

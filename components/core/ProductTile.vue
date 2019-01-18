@@ -123,7 +123,8 @@ export default {
 .product-image {
   @apply .bg-grey-lightest;
   overflow: hidden;
-  max-height: 300px;
+  height: 300px;
+  display: flex;
 
   &:hover {
 

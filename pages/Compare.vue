@@ -1,8 +1,8 @@
 <template>
   <div class="compare">
+    <breadcrumbs :routes="[{name: 'Homepage', route_link: '/'}]" active-route="Compare"/>
     <div class="bg-cl-secondary py35 pl20">
       <div class="container">
-        <breadcrumbs :routes="[{name: 'Homepage', route_link: '/'}]" active-route="Compare"/>
         <h2>{{ title }}</h2>
       </div>
     </div>
@@ -104,7 +104,7 @@ export default {
 
 $color-white: color(white);
 $border: mix(#000, $color-white, 10%);
-$color-product-bg: color(secondary, $colors-background);
+$color-product-bg: #f5f5f5;
 
 $products-column-width-mobile: 140px;
 $products-column-width: 280px;
@@ -225,6 +225,7 @@ $screen-l: 1170px;
 
   &__features-item {
     @extend .compare__attributes;
+    @apply text-base;
     border-color: $border;
     border-style: solid;
     border-width: 1px 1px 0 0;

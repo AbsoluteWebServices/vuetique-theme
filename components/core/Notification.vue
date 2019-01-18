@@ -76,7 +76,8 @@ $color-action: color(black);
   width: 360px;
   margin-left: -160px;
   z-index: $z-index-notification;
-  background-color: #fff;
+  will-change: transform;
+  pointer-events: auto;
 
   @media (max-width: 64em) {
     width: auto;
@@ -98,6 +99,7 @@ $color-action: color(black);
   padding: 25px 35px;
   text-align: center;
   background-color: #fff;
+  box-shadow: 0 0 40px rgba(0,0,0,.3);
 
   &:first-child  {
     margin-top: 0;

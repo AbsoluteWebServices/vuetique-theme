@@ -1,7 +1,7 @@
 <template>
   <footer :class="{ 'border-top border-secondary': isCheckoutPage }">
     <div
-      class="flex pt-8 pb-8 lg:pb-16 bg-grey-lighter mt-5"
+      class="flex pt-8 pb-auto sm:pb-8 lg:pb-16 bg-grey-lighter mt-5"
       v-if="!isCheckoutPage"
     >
       <div class="container">
@@ -13,6 +13,8 @@
 
             <div class="flex social-footer mt-12">
               <a
+                target="_blank"
+                rel="noopener"
                 class="social-icon mr-1 rounded-full"
                 href="https://www.facebook.com/"
                 :aria-label="$t('Go to Facebook')"
@@ -20,6 +22,8 @@
                 <img src="/assets/icons/social-f.svg" alt="">
               </a>
               <a
+                target="_blank"
+                rel="noopener"
                 class="social-icon mx-1 rounded-full"
                 href="https://www.instagram.com"
                 :aria-label="$t('Go to Instagram')"
@@ -27,6 +31,8 @@
                 <img src="/assets/icons/social-i.svg" alt="">
               </a>
               <a
+                target="_blank"
+                rel="noopener"
                 class="social-icon mx-1 rounded-full"
                 href="https://www.pinterest.com"
                 :aria-label="$t('Go to Pinterest')"
@@ -34,6 +40,8 @@
                 <img src="/assets/icons/social-p.svg" alt="">
               </a>
               <a
+                target="_blank"
+                rel="noopener"
                 class="social-icon mx-1 rounded-full"
                 href="https://www.youtube.com"
                 :aria-label="$t('Go to Youtube')"
@@ -49,12 +57,12 @@
                 {{ $t('Shop') }}
               </h3>
               <div class="my-6">
-                <router-link class="menu-link" :to="localizedRoute('/c/women-20')" exact>
+                <router-link class="menu-link" :to="localizedRoute('/c/women')" exact>
                   {{ $t('Women fashion') }}
                 </router-link>
               </div>
               <div class="my-6">
-                <router-link class="menu-link" :to="localizedRoute('/c/men-11')" exact>
+                <router-link class="menu-link" :to="localizedRoute('/c/men')" exact>
                   {{ $t("Men's fashion") }}
                 </router-link>
               </div>
@@ -71,7 +79,7 @@
             </div>
             <Accordion class="md:hidden" :title="$t('Shop')">
               <div class="my-3">
-                <router-link class="menu-link" :to="localizedRoute('/c/women-20')" exact>
+                <router-link class="menu-link" :to="localizedRoute('/c/women')" exact>
                   {{ $t('Women fashion') }}
                 </router-link>
               </div>

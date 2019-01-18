@@ -62,10 +62,6 @@ export default {
 </script>
 <style lang="scss">
 .main-slider {
-  @media (max-width: 767px) {
-    display: none;
-  }
-
   .VueCarousel-pagination {
     position: absolute;
     bottom: 15px;

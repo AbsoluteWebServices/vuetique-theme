@@ -19,7 +19,7 @@ export default {
 
 <style lang="scss" scoped>
   .size-selector {
-    @apply border border-grey-light font-medium text-xs text-grey-dark;
+    @apply bg-white border border-grey-light font-medium text-xs text-grey-dark;
     height: 40px;
     min-width: 40px;
 

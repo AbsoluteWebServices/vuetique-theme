@@ -5,7 +5,7 @@
       v-observe-visibility="visibilityChanged"
     >
       <router-link
-        class="row items-center border-t border-grey-lighter relative px-3 py-4 pr-4"
+        class="row items-center border-t border-grey-lighter relative px-3 py-2 pr-4"
         :to="localizedRoute({
           name: product.type_id + '-product',
           params: {
@@ -16,7 +16,7 @@
         })"
         data-testid="productLink"
       >
-        <div class="col-auto mr-4">
+        <div class="col-auto mr-4 bg-grey-lightest">
           <div class="product-image w-full">
             <img
               :alt="product.name"
@@ -94,10 +94,7 @@ export default {
 .image {
   mix-blend-mode: multiply;
   vertical-align: top;
-  width: 80px;
-  @media (max-width: 767px) {
-    width: 60px;
-  }
+  width: 60px;
 }
 
 %label {

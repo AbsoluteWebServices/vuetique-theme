@@ -150,7 +150,9 @@ img[lazy=error], img[lazy=loading] {
     transform: translateY(-50%) !important;
   }
   .VueCarousel-slide {
+    @apply bg-grey-lightest;
     backface-visibility: unset;
+    max-height: 725px; // tmp until we can fix the image layout recompile on slider init
   }
   .VueCarousel-navigation {
     opacity: 0;

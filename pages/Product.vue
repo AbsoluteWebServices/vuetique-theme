@@ -4,7 +4,7 @@
       :routes="breadcrumbs.routes"
       :active-route="breadcrumbs.name"
     />
-    <section>
+    <section class="bg-grey-lightest">
       <div class="container">
         <section class="md:flex">
           <div class="w-full md:w-3/5">
@@ -81,6 +81,7 @@
                     <div class="sizes" v-else-if="option.label == 'Size'">
                       <router-link
                         to="/size-guide"
+                        target="_blank"
                         v-if="option.label == 'Size'"
                         class="text-sm text-grey-dark pt-4 absolute pin-t pin-r"
                       >
@@ -211,7 +212,7 @@
               v-html="product.description"
             />
           </div>
-          <div class="md:w-1/3">
+          <div class="md:px-5 md:w-1/3">
             <ul class="p-0 m-0 my-2 md:my-0 leading-normal attributes">
               <product-attribute
                 :key="attr.attribute_code"

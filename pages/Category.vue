@@ -1,7 +1,7 @@
 <template>
   <div id="category">
     <breadcrumbs :routes="breadcrumbs.routes" :active-route="category.name" />
-    <header class="pb-16">
+    <header class="pb-16 row bg-grey-lightest mb-6">
       <div class="container">
         <div class="row items-center mt-2">
           <h1 class="col-10"> {{ category.name }} </h1>
@@ -21,7 +21,7 @@
       <button
         type="button"
         :aria-label="$t('Close')"
-        class="absolute pin-t pin-r m-4"
+        class="block border border-grey-light rounded-none bg-white px-4 py-2 ripple text-md leading-base w-full text-left"
         @click="closeFilters"
       >
         <svg viewBox="0 0 25 25" class="vt-icon--sm">
@@ -38,7 +38,7 @@
         <div class="col-12 lg:col-9">
           <div v-if="isCategoryEmpty" class="hidden-xs">
             <h3 data-testid="noProductsInfo" class="mb-2">{{ $t('No products found!') }}</h3>
-            <p class="text-grey-dark">{{ $t('Please change Your search criteria and try again. If still not finding anything relevant, please visit the Home page and try out some of our bestsellers!') }}</p>
+            <p class="text-grey-dark">{{ $t('Please change Your search criteria and try again. If you still can\'t find what you\'re looking for, try visiting our homepage to check out our bestsellers!') }}</p>
           </div>
           <product-listing columns="3" :products="products" />
         </div>

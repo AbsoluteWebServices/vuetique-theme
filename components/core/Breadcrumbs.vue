@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <div class="breadcrumbs text-xs text-grey leading-normal truncate py-4">
+  <div class="bg-grey-lightest">
+    <div class="container text-xs text-grey leading-normal truncate py-4 breadcrumbs">
       <span v-for="link in routes" :key="link.route_link">
         <router-link :to="localizedRoute(link.route_link)" class="text-grey">
           {{ link.name | htmlDecode }}

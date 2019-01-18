@@ -22,11 +22,11 @@
           </h3>
         </div>
         <div class="mt-3 md:mt-0 mb-2 flex end-lg" v-if="isFilled && !isActive">
-          <a href="#" class="btn btn-xs btn-primary flex" @click.prevent="edit">
-            <span class="pr5">
+          <a href="#" class="p-2 bg-grey-lightest text-black inline-flex items-center" @click.prevent="edit">
+            <span class="pr-2">
               {{ $t('Edit shipping') }}
             </span>
-            <i class="material-icons cl-tertiary">edit</i>
+            <i class="material-icons text-h3">edit</i>
           </a>
         </div>
       </div>

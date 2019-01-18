@@ -5,11 +5,11 @@
         <li
           class="relative"
           :key="category.slug"
-          v-for="category in categories"
+          v-for="category in visibleCategories"
           :class="{'with-submenu': (category.children_data && category.children_data.length)}"
         >
           <button
-            v-if="category.children_data && category.children_data.length > 0"
+            v-if="category.children_count > 0"
             class="menu-link"
             :class="{active: activeSubMenu == category.id}"
             type="button"
@@ -61,7 +61,8 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapGetters, mapState } from 'vuex'
+import onEscapePress from '@vue-storefront/core/mixins/onEscapePress'
 import SubCategory from 'theme/components/core/blocks/HeaderMenu/SubCategory'
 import CurrentPage from 'theme/mixins/currentPage'
 
@@ -70,37 +71,45 @@ export default {
   components: {
     SubCategory
   },
-  mixins: [CurrentPage],
+  mixins: [CurrentPage, onEscapePress],
   data () {
     return {
       activeSubMenu: null
     }
   },
   computed: {
+    ...mapGetters('category', ['getCategories']),
     categories () {
-      return this.$store.state.category.list.filter((op) => {
-        return op.level === 2 && // display only the root level (level =1 => Default Category)
-          (op.product_count > 0 ||
-            (op.children_data && op.children_data.length > 0)
-          )
+      return this.getCategories.filter((op) => {
+        return op.level === (this.$store.state.config.entities.category.categoriesDynamicPrefetchLevel ? this.$store.state.config.entities.category.categoriesDynamicPrefetchLevel : 2) // display only the root level (level =1 => Default Category), categoriesDynamicPrefetchLevel = 2 by default
       })
     },
     ...mapState({
-      submenu: state => state.ui.submenu,
       currentUser: state => state.user.current
-    })
-  },
-  created () {
-    this.$store.dispatch('category/list', {})
+    }),
+    visibleCategories () {
+      return this.categories.filter(category => {
+        return category.product_count > 0 || category.children_count > 0
+      })
+    }
   },
   methods: {
+    onEscapePress () {
+      this.closeMenu()
+    },
+    openMenu (id) {
+      this.activeSubMenu = id
+      // this.$store.commit('ui/setOverlay', true)
+    },
+    closeMenu () {
+      this.activeSubMenu = null
+      // this.$store.commit('ui/setOverlay', false)
+    },
     toggleSubMenu (id) {
       if (this.activeSubMenu === id) {
-        this.activeSubMenu = null
-        // this.$store.commit('ui/setOverlay', false)
+        this.closeMenu()
       } else {
-        this.activeSubMenu = id
-        // this.$store.commit('ui/setOverlay', true)
+        this.openMenu(id)
       }
     }
   }

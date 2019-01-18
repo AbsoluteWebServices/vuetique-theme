@@ -15,7 +15,7 @@
               </template>
             </div>
           </div>
-          <div class="col-grow sm:col-6 lg:col-grow flex items-center justify-center lg:justify-start pt-1">
+          <div class="col-grow sm:col-6 lg:col-grow flex items-center justify-center lg:justify-start sm:pt-1">
             <logo class="hidden sm:block mr-2" width="auto" height="41px"/>
             <a href="/" class="text-h2 uppercase text-black tracking-md">{{ 'Vuetique' }}</a>
           </div>
@@ -33,7 +33,7 @@
         <div class="row gutter-md items-center justify-between py-2" v-if="isCheckoutPage">
           <div class="col-3 flex items-center">
             <div>
-              <router-link :to="localizedRoute('/')" class="text-grey">
+              <router-link :to="localizedRoute('/')" class="flex text-grey">
                 <span class="hidden md:inline">
                   &lt;&nbsp;{{ $t('Return to shopping') }}
                 </span>
@@ -49,7 +49,7 @@
           </div>
           <div class="col-3 flex justify-end">
             <div>
-              <a v-if="!currentUser" href="#" @click.prevent="gotoAccount" class="text-grey">
+              <a v-if="!currentUser" href="#" @click.prevent="gotoAccount" class="flex text-grey">
                 <span class="hidden md:inline">
                   {{ $t('Login to your account') }}&nbsp;&gt;
                 </span>
@@ -112,7 +112,7 @@ export default {
 
 <style lang="scss" scoped>
 .header-placeholder {
-  height: 73px;
+  height: 68px;
 
   @screen lg {
     height: 0;
