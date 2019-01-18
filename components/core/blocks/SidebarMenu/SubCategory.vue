@@ -1,7 +1,7 @@
 <template>
   <div>
     <ul
-      v-if="categoryLinks"
+      v-if="children"
       class="sidebar-submenu list-reset absolute w-full bg-white border-t"
       :style="styles"
     >
@@ -20,24 +20,26 @@
       <li
         class="border-b flex"
         :key="link.slug"
-        v-for="link in categoryLinks"
+        v-for="link in children"
       >
-        <sub-btn
-          :id="link.id"
-          :name="link.name"
-          v-if="link.children_data && link.children_data.length"
-        />
-        <router-link
-          v-else
-          class="category-link"
-          :to="localizedRoute({ name: 'category', params: { id: link.id, slug: link.slug }})"
-        >
-          {{ link.name }}
-        </router-link>
+        <div v-if="isCurrentMenuShowed" class="w-full">
+          <sub-btn
+            :id="link.id"
+            :name="link.name"
+            v-if="link.children_count > 0"
+          />
+          <router-link
+            v-else
+            class="category-link"
+            :to="localizedRoute({ name: 'category', params: { id: link.id, slug: link.slug }})"
+          >
+            {{ link.name }}
+          </router-link>
+        </div>
         <sub-category
           :category-links="link.children_data"
           :id="link.id"
-          v-if="link.children_data && link.children_data.length"
+          v-if="link.children_count > 0"
           :parent-slug="link.slug"
         />
       </li>
@@ -100,14 +102,27 @@ export default {
     }
   },
   computed: {
+    children () {
+      if (!this.$store.state.config.entities.category.categoriesDynamicPrefetch && (this.categoryLinks && this.categoryLinks.length > 0 && this.categoryLinks[0].name)) { // we're using dynamic prefetching and getting just category.children_data.id from 1.7
+        return this.categoryLinks
+      } else {
+        return this.$store.state.category.list.filter(c => { return c.parent_id === this.id }) // return my child categories
+      }
+    },
     ...mapState({
       submenu: state => state.ui.submenu
     }),
+    getSubmenu () {
+      return this.submenu
+    },
     styles () {
       const pos = this.submenu.path.indexOf(this.id)
       return pos !== -1 ? {
         zIndex: pos + 1
       } : false
+    },
+    isCurrentMenuShowed () {
+      return this.getSubmenu && this.getSubmenu.depth && this.getSubmenu.path[this.getSubmenu.depth - 1] === this.id
     }
   },
   methods: {

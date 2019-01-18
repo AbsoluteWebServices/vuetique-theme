@@ -1,6 +1,6 @@
 <template>
   <ul
-    v-if="categoryLinks"
+    v-if="children"
     class="submenu"
   >
     <li
@@ -17,11 +17,11 @@
     <li
       class="relative"
       :key="link.slug"
-      v-for="link in categoryLinks"
+      v-for="link in children"
       :class="{'with-submenu': (link.children_data && link.children_data.length)}"
     >
       <button
-        v-if="link.children_data && link.children_data.length"
+        v-if="link.children_count > 0"
         class="menu-link"
         :class="{active: activeSubMenu == link.id}"
         type="button"
@@ -44,7 +44,7 @@
         v-show="activeSubMenu === link.id"
         :category-links="link.children_data"
         :id="link.id"
-        v-if="link.children_data && link.children_data.length"
+        v-if="link.children_count > 0"
         :parent-slug="link.slug"
         class="pin-t left-100"
       />
@@ -73,6 +73,15 @@ export default {
   data () {
     return {
       activeSubMenu: null
+    }
+  },
+  computed: {
+    children () {
+      if (!this.$store.state.config.entities.category.categoriesDynamicPrefetch && (this.categoryLinks && this.categoryLinks.length > 0 && this.categoryLinks[0].name)) { // we're using dynamic prefetching and getting just category.children_data.id from 1.7
+        return this.categoryLinks
+      } else {
+        return this.$store.state.category.list.filter(c => { return c.parent_id === this.id }) // return my child categories
+      }
     }
   }
 }
