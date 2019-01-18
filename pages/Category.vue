@@ -38,7 +38,7 @@
         <div class="col-12 lg:col-9">
           <div v-if="isCategoryEmpty" class="hidden-xs">
             <h3 data-testid="noProductsInfo" class="mb-2">{{ $t('No products found!') }}</h3>
-            <p class="text-grey-dark">{{ $t('Please change Your search criteria and try again. If still not finding anything relevant, please visit the Home page and try out some of our bestsellers!') }}</p>
+            <p class="text-grey-dark">{{ $t('Please change Your search criteria and try again. If you still can\'t find what you\'re looking for, try visiting our homepage to check out our bestsellers!') }}</p>
           </div>
           <product-listing columns="3" :products="products" />
         </div>

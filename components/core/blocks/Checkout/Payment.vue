@@ -320,7 +320,7 @@
               data-testid="paymentSubmit"
               :disabled="$v.payment.$invalid"
             >
-              {{ $t('Go review the order') }}
+              {{ $t('Review order') }}
             </button-full>
           </div>
         </div>

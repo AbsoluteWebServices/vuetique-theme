@@ -33,7 +33,7 @@
         <div class="flex flex-wrap">
           <div class="w-full">
             <p class="h4">
-              {{ $t('Please check if all data are correct') }}
+              {{ $t('Please verify that you have entered everything correctly') }}
             </p>
             <div class="row">
               <base-checkbox
@@ -71,7 +71,7 @@
                 class="place-order-btn"
                 :disabled="$v.orderReview.$invalid"
               >
-                {{ $t('Place the order') }}
+                {{ $t('Place order') }}
               </button-full>
             </slot>
           </div>
