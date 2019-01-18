@@ -81,6 +81,7 @@
                     <div class="sizes" v-else-if="option.label == 'Size'">
                       <router-link
                         to="/size-guide"
+                        target="_blank"
                         v-if="option.label == 'Size'"
                         class="text-sm text-grey-dark pt-4 absolute pin-t pin-r"
                       >
