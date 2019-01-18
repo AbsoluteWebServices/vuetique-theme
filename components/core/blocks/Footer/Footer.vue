@@ -57,12 +57,12 @@
                 {{ $t('Shop') }}
               </h3>
               <div class="my-6">
-                <router-link class="menu-link" :to="localizedRoute('/c/women-20')" exact>
+                <router-link class="menu-link" :to="localizedRoute('/c/women')" exact>
                   {{ $t('Women fashion') }}
                 </router-link>
               </div>
               <div class="my-6">
-                <router-link class="menu-link" :to="localizedRoute('/c/men-11')" exact>
+                <router-link class="menu-link" :to="localizedRoute('/c/men')" exact>
                   {{ $t("Men's fashion") }}
                 </router-link>
               </div>
@@ -79,7 +79,7 @@
             </div>
             <Accordion class="md:hidden" :title="$t('Shop')">
               <div class="my-3">
-                <router-link class="menu-link" :to="localizedRoute('/c/women-20')" exact>
+                <router-link class="menu-link" :to="localizedRoute('/c/women')" exact>
                   {{ $t('Women fashion') }}
                 </router-link>
               </div>

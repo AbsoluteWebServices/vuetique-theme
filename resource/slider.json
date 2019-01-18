@@ -5,14 +5,14 @@
       "subtitle": "",
       "button_text": "Find your purpose",
       "image": "/assets/vuetique-homepage-slider-1.jpg",
-      "link": "/c/women-20"
+      "link": "/c/gear"
     },
     {
       "title": "Gains",
       "subtitle": "Collection",
       "button_text": "Fitness with style",
       "image": "/assets/vuetique-homepage-slider-2.jpg",
-      "link": "/c/fitness-equipment-5"
+      "link": "/c/training"
     }
   ],
   "total": "2"
