@@ -1,31 +1,24 @@
 <template>
   <router-link :to="localizedRoute('/')" :title="$t('Home Page')" class="no-underline">
     <img
-      :width="width"
-      :height="height"
+      class="logo hidden md:block"
       src="/assets/logo.svg"
-      alt="Vuestore logo"
+      alt="Vuetique logo"
+    >
+    <img
+      class="logo-text block md:hidden"
+      src="/assets/logo_text.svg"
+      alt="Vuetique"
     >
   </router-link>
 </template>
 
-<script>
-export default {
-  props: {
-    width: {
-      type: [String, Number],
-      required: true
-    },
-    height: {
-      type: [String, Number],
-      required: true
-    }
-  }
-}
-</script>
-
 <style lang="scss" scoped>
-  img {
-    height: 41px;
+  .logo {
+    height: 40px;
+  }
+
+  .logo-text {
+    height: 20px;
   }
 </style>

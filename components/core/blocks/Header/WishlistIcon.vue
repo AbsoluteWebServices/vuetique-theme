@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    class="bg-cl-transparent brdr-none"
+    class="bg-transparent border-0"
     @click="toggleWishlistPanel"
     :aria-label="$t('Open wishlist')"
   >

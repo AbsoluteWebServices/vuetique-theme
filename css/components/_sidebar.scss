@@ -2,7 +2,7 @@
 
 .right-sidebar {
   background: #fff;
-  top: 0;
+  top: 70px;
   right: 0;
   z-index: 3;
   height: 100%;
@@ -12,6 +12,12 @@
   transition: transform 300ms $motion-main;
   overflow-y: auto;
   overflow-x: hidden;
+  max-height: calc(100vh - 70px);
+
+  @screen lg {
+    top: 0;
+    max-height: 100vh;
+  }
 
   &.active {
     transform: translateX(0)
@@ -79,6 +85,9 @@
     width: 80px;
     @media (max-width: 767px) {
       width: 60px;
+    }
+    @media (max-width: 575px) {
+      width: 45px;
     }
   }
 }

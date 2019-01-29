@@ -1,18 +1,18 @@
 <template>
   <div
-    class="right-sidebar microcart max-w-full fixed p-8"
+    class="right-sidebar microcart max-w-full fixed p-8 pt-10"
     :class="{ active: isMicrocartOpen }"
     data-testid="microcart"
   >
     <button
       type="button"
-      class="absolute pin-t pin-r m-3"
+      class="absolute pin-t pin-r m-4 h-4"
       @click="closeMicrocartExtend"
       data-testid="closeMicrocart"
     >
-      <i class="material-icons text-h4 text-grey-dark">
-        close
-      </i>
+      <svg viewBox="0 0 25 25" class="vt-icon--sm">
+        <use xlink:href="#close"/>
+      </svg>
     </button>
 
     <h2 v-if="productsInCart.length" class="mb-8">

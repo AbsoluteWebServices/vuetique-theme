@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    class="bg-cl-transparent brdr-none inline-flex"
+    class="bg-transparent border-0 inline-flex"
     @click="openSidebarMenu"
     :aria-label="$t('Open menu')"
     data-testid="menuButton"
