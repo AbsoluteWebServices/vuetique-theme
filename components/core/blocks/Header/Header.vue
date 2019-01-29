@@ -25,6 +25,7 @@
             <div class="right-icons flex">
               <search-icon class="p-3 hidden md:block lg:hidden"/>
               <account-icon class="p-3 hidden sm:block"/>
+              <compare-icon class="p-3 hidden sm:block"/>
               <wishlist-icon class="p-3 hidden sm:block"/>
               <microcart-icon class="p-3"/>
             </div>

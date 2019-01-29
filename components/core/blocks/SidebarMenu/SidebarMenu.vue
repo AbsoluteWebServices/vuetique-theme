@@ -70,7 +70,7 @@
           {{ $t('Search') }}
         </button>
       </li>
-      <li @click="closeMenu" v-if="compareIsActive&& isCurrentMenuShowed" class="border-b">
+      <li @click="closeMenu" v-if="compareIsActive && isCurrentMenuShowed" class="border-b">
         <router-link
           class="menu-link"
           :to="localizedRoute('/compare')"

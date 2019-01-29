@@ -62,7 +62,7 @@
                   <div class="pt-4 pb-2" data-testid="variantsLabel">
                     <span class="font-bold">{{ option.label }}</span>:
                     <span>
-                      {{ configuration[option.attribute_code ? option.attribute_code : option.label.toLowerCase()].label }}
+                      {{ configuration[option.attribute_code ? option.attribute_code : option.label.toLowerCase()] ? configuration[option.attribute_code ? option.attribute_code : option.label.toLowerCase()].label : null }}
                     </span>
                   </div>
                   <div class="variants-wrapper">
@@ -289,7 +289,10 @@ export default {
     },
 
     isOnWishlist () {
-      return !!this.$store.state.wishlist.items.find(p => p.sku === this.product.sku) || false
+      return (
+        this.$store.state.wishlist.items &&
+        !!this.$store.state.wishlist.items.find(p => p.sku === this.product.sku)
+      )
     }
   },
   methods: {
