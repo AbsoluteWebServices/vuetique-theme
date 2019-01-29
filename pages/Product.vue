@@ -196,41 +196,67 @@
         </section>
       </div>
     </section>
-    <section class="container details">
-      <h2 class="py-4 details-title">
-        {{ $t('Product details') }}
-      </h2>
-      <div
-        class="details-wrapper"
-        :class="{'details-wrapper--open': detailsOpen}"
-      >
-        <div class="md:flex">
-          <div class="md:w-2/3">
+
+    <div class="container my-4">
+      <div class="border-b border-grey-light mt-5 pb-5" />
+
+      <div class="border-b border-grey-light mt-5 pb-5">
+        <h3 @click.prevent="detailsAccordion != 'details' ? detailsAccordion = 'details' : detailsAccordion = null" class="flex justify-between cursor-pointer font-normal">
+          <span>{{ $t('Product details') }}</span>
+          <svg viewBox="0 0 25 25" class="vt-icon">
+            <use v-if="detailsAccordion != 'details'" xlink:href="#down" />
+            <use v-else xlink:href="#up" />
+          </svg>
+        </h3>
+        <transition name="fade">
+          <section v-show="detailsAccordion == 'details'" class="details mt-10">
             <div
-              class="text-h5 leading-normal"
-              itemprop="description"
-              v-html="product.description"
-            />
-          </div>
-          <div class="md:px-5 md:w-1/3">
-            <ul class="p-0 m-0 my-2 md:my-0 leading-normal attributes">
-              <product-attribute
-                :key="attr.attribute_code"
-                v-for="attr in customAttributes"
-                :product="product"
-                :attribute="attr"
-                empty-placeholder="N/A"
-              />
-            </ul>
-          </div>
-          <div
-            class="details-overlay"
-            @click="showDetails"
-          />
-        </div>
+              class="details-wrapper"
+              :class="{'details-wrapper--open': detailsOpen}"
+            >
+              <div class="md:flex">
+                <div class="md:w-2/3">
+                  <div
+                    class="text-h5 leading-normal"
+                    itemprop="description"
+                    v-html="product.description"
+                  />
+                </div>
+                <div class="md:px-5 md:w-1/3">
+                  <ul class="p-0 m-0 my-2 md:my-0 leading-normal attributes">
+                    <product-attribute
+                      :key="attr.attribute_code"
+                      v-for="attr in customAttributes"
+                      :product="product"
+                      :attribute="attr"
+                      empty-placeholder="N/A"
+                    />
+                  </ul>
+                </div>
+                <div
+                  class="details-overlay"
+                  @click="showDetails"
+                />
+              </div>
+            </div>
+          </section>
+        </transition>
       </div>
-    </section>
-    <reviews v-show="OnlineOnly"/>
+
+      <div class="border-b border-grey-light mt-5 pb-5">
+        <h3 @click.prevent="detailsAccordion != 'reviews' ? detailsAccordion = 'reviews' : detailsAccordion = null" class="flex justify-between cursor-pointer font-normal">
+          <span>{{ $t('Reviews') }}</span>
+          <svg viewBox="0 0 25 25" class="vt-icon">
+            <use v-if="detailsAccordion != 'reviews'" xlink:href="#down" />
+            <use v-else xlink:href="#up" />
+          </svg>
+        </h3>
+        <transition name="fade">
+          <section v-show="detailsAccordion == 'reviews'" class="mt-10"><reviews v-show="OnlineOnly" /></section>
+        </transition>
+      </div>
+    </div>
+
     <related-products
       type="upsell"
       :heading="$t('We found other products you might like')"
@@ -243,6 +269,7 @@
 <script>
 import Product from '@vue-storefront/core/pages/Product'
 import VueOfflineMixin from 'vue-offline/mixin'
+
 import RelatedProducts from 'theme/components/core/blocks/Product/Related.vue'
 import Reviews from 'theme/components/core/blocks/Reviews/Reviews.vue'
 import AddToCart from 'theme/components/core/AddToCart.vue'
@@ -279,7 +306,8 @@ export default {
   mixins: [Product, VueOfflineMixin],
   data () {
     return {
-      detailsOpen: false
+      detailsOpen: false,
+      detailsAccordion: null
     }
   },
   directives: { focusClean },
