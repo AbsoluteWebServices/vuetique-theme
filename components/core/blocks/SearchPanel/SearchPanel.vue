@@ -1,75 +1,80 @@
 <template>
   <div
-    class="searchpanel fixed mw-100 bg-cl-primary cl-accent"
+    class="right-sidebar searchpanel max-w-full fixed p-8"
     :class="{ active: isOpen }"
     data-testid="searchPanel"
   >
-    <div class="close-icon-row">
-      <i
-        class="material-icons pointer cl-accent close-icon"
-        @click="closeSearchpanel"
-        data-testid="closeSearchPanel"
-      >
-        close
-      </i>
+    <button
+      type="button"
+      class="absolute pin-t pin-r m-4 h-4"
+      @click="closeSearchpanel"
+      data-testid="closeSearchPanel"
+    >
+      <svg viewBox="0 0 25 25" class="vt-icon--sm">
+        <use xlink:href="#close"/>
+      </svg>
+    </button>
+
+    <h2 class="mb-2">
+      {{ $t('Search') }}
+    </h2>
+
+    <div class="flex items-center relative mb-4">
+      <base-input
+        ref="search"
+        type="text"
+        id="search"
+        :placeholder="$t('Type what you are looking for...')"
+        class="w-full"
+        v-model="search"
+        @input="makeSearch"
+        @focus="searchFocus = true"
+        @blur="searchFocus = false"/>
+      <svg viewBox="0 0 25 25" class="vt-icon--sm absolute pin-r mr-2 w-6 h-6 text-grey-dark">
+        <use xlink:href="#search"/>
+      </svg>
     </div>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-12 end-xs">
-          <label for="search" class="visually-hidden">
-            {{ $t('Search') }}
-          </label>
-          <div class="search-input-group">
-            <i
-              class="material-icons search-icon"
-            >
-              search
-            </i>
-            <input
-              ref="search"
-              id="search"
-              v-model="search"
-              @input="makeSearch"
-              class="search-panel-input"
-              :placeholder="$t('Type what you are looking for...')"
-              :label="$t('Type what you are looking for...')"
-              type="text"
-            >
-          </div>
+
+    <div class="product-listing">
+      <product :key="product.id" v-for="product in products" :product="product" @click.native="closeSearchpanel"/>
+      <transition name="fade">
+        <div v-if="emptyResults" class="no-results">
+          {{ $t('No results were found.') }}
         </div>
-      </div>
-      <div class="product-listing row">
-        <product-tile @click.native="closeSearchpanel" :key="product.id" v-for="product in products" :product="product"/>
-        <transition name="fade">
-          <div v-if="emptyResults" class="no-results relative center-xs h4 col-md-12">
-            {{ $t('No results were found.') }}
-          </div>
-        </transition>
-      </div>
-      <div v-show="OnlineOnly" v-if="products.length >= 18" class="buttons-set align-center py35 mt20 px40">
-        <button @click="seeMore" v-if="readMore"
-                class="no-outline brdr-none py15 px20 bg-cl-mine-shaft :bg-cl-th-secondary cl-white fs-medium-small"
-                type="button">
-          {{ $t('Load more') }}
-        </button>
-        <button @click="closeSearchpanel"
-                class="no-outline brdr-none p15 fs-medium-small close-button"
-                type="button">
-          {{ $t('Close') }}
-        </button>
-      </div>
+      </transition>
+    </div>
+
+    <div v-show="OnlineOnly" v-if="products.length >= 18" class="flex buttons-set items-center py-8">
+      <button-full
+        v-if="readMore"
+        class="btn-primary flex-grow"
+        @click.native="seeMore"
+      >
+        {{ $t('Load more') }}
+      </button-full>
+      <button-full
+        class="py-2 px-4 ml-4 flex-grow"
+        @click.native="closeSearchpanel"
+      >
+        {{ $t('Close') }}
+      </button-full>
     </div>
   </div>
 </template>
 
 <script>
 import SearchPanel from '@vue-storefront/core/compatibility/components/blocks/SearchPanel/SearchPanel'
-import ProductTile from 'theme/components/core/ProductTile'
+import Product from 'theme/components/core/blocks/Search/Product'
 import VueOfflineMixin from 'vue-offline/mixin'
+
+import BaseInput from 'theme/components/core/blocks/Form/BaseInput'
+import ButtonFull from 'theme/components/theme/ButtonFull'
 
 export default {
   components: {
-    ProductTile
+    Product,
+    BaseInput,
+    ButtonFull
   },
   mixins: [SearchPanel, VueOfflineMixin],
   mounted () {
@@ -83,131 +88,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "~theme/css/animations/transitions";
-@import "~theme/css/variables/grid";
-@import "~theme/css/variables/typography";
 
-.searchpanel {
-  height: 100vh;
-  width: 928px;
-  top: 0;
-  right: 0;
-  z-index: 3;
-  transform: translateX(100%);
-  transition: transform 300ms $motion-main;
-  overflow-y: auto;
-  overflow-x: hidden;
-
-  .close-icon-row {
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .container {
-    padding-left: 40px;
-    padding-right: 40px;
-
-    @media #{$media-xs} {
-      padding-left: 30px;
-      padding-right: 30px;
-    }
-  }
-
-  .row {
-    margin-left: - map-get($grid-gutter-widths, lg) / 2;
-    margin-right: - map-get($grid-gutter-widths, lg) / 2;
-
-    @media #{$media-xs} {
-      margin-right: - map-get($grid-gutter-widths, xs) / 2;
-      margin-left: - map-get($grid-gutter-widths, xs) / 2;
-    }
-  }
-
-  .col-md-12 {
-    padding-left: map-get($grid-gutter-widths, lg) / 2;
-    padding-right: map-get($grid-gutter-widths, lg) / 2;
-
-    @media #{$media-xs} {
-      padding-left: map-get($grid-gutter-widths, xs) / 2;
-      padding-right: map-get($grid-gutter-widths, xs) / 2;
-    }
-  }
-
-  .product-listing {
-    padding-top: 30px;
-  }
-
-  .product {
-    box-sizing: border-box;
-    width: 33.33%;
-    padding-left: map-get($grid-gutter-widths, lg) / 2;
-    padding-right: map-get($grid-gutter-widths, lg) / 2;
-
-    @media #{$media-xs} {
-      width: 50%;
-      padding-left: map-get($grid-gutter-widths, xs) / 2;
-      padding-right: map-get($grid-gutter-widths, xs) / 2;
-    }
-  }
-
-  &.active {
-    transform: translateX(0);
-  }
-
-  .close-icon {
-    padding: 18px 8px;
-  }
-
-  .search-input-group {
-    display: flex;
-    border-bottom: 1px solid #bdbdbd;
-  }
-
-  .search-icon {
-    width: 60px;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .search-panel-input {
-    width: 100%;
-    height: 60px;
-    padding-bottom: 0;
-    padding-top: 0;
-    border: none;
-    outline: 0;
-    font-size: 18px;
-    font-family: map-get($font-families, secondary);
-
-    @media #{$media-xs} {
-      font-size: 16px;
-    }
-  }
-
-  .no-results {
-    top: 80px;
-    width: 100%;
-  }
-
-  i {
-    opacity: 0.6;
-  }
-
-  i:hover {
-    opacity: 1;
-  }
-
-  .close-button {
-    background: #fff;
-  }
-
-  button {
-    @media #{$media-xs} {
-      width: 100%;
-      margin-bottom: 15px;
-    }
-  }
-}
 </style>

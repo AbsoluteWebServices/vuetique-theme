@@ -4,7 +4,7 @@
        @click.self="goToAccount">
     <button
       type="button"
-      class="bg-cl-transparent brdr-none p0"
+      class="bg-transparent border-0 p-0"
       :aria-label="$t('Open my account')"
     >
       <svg viewBox="0 0 25 25" class="vt-icon">
@@ -12,7 +12,7 @@
       </svg>
     </button>
     <div v-if="currentUser" class="dropdown-content px-2 py-2 bg-cl-primary align-left sans-serif lh20 weight-400">
-      <div class="py5">
+      <div>
         <div v-for="(page, index) in navigation" :key="index" @click="notify(page.title)">
           <router-link class="no-underline block dropdown-item-link" :to="localizedRoute(page.link)">
             {{ page.title }}

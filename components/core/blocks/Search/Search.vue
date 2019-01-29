@@ -14,7 +14,9 @@
         @input="makeSearch"
         @focus="searchFocus = true"
         @blur="searchFocus = false"/>
-      <i class="material-icons absolute pin-r mr-2 w-6 h-6 text-grey">search</i>
+      <svg viewBox="0 0 25 25" class="vt-icon--sm absolute pin-r mr-2 w-6 h-6 text-grey-dark">
+        <use xlink:href="#search"/>
+      </svg>
     </div>
     <div class="absolute z-20 w-full" @mouseenter="resultsHover = true" @mouseleave="resultsHover = false">
       <div v-show="showDrop" class="bg-white border border-grey border-t-0">

@@ -5,7 +5,7 @@
       v-observe-visibility="visibilityChanged"
     >
       <router-link
-        class="row items-center border-t border-grey-lighter relative px-3 py-2 pr-4"
+        class="row items-center border-t border-grey-lighter relative sm:px-3 py-2 sm:pr-4"
         :to="localizedRoute({
           name: product.type_id + '-product',
           params: {
@@ -16,7 +16,7 @@
         })"
         data-testid="productLink"
       >
-        <div class="col-auto mr-4 bg-grey-lightest">
+        <div class="col-auto mr-1 sm:mr-4 bg-grey-lightest">
           <div class="product-image w-full">
             <img
               :alt="product.name"
@@ -30,9 +30,9 @@
         <div
           class="col-grow flex flex-col justify-center self-stretch relative"
           :class="[{ sale: isOnSale }, { new: isNew }]">
-          <div class="font-medium text-grey-dark">
+          <span class="font-medium text-grey-dark leading-tight">
             {{ product.name | htmlDecode }}
-          </div>
+          </span>
         </div>
         <div class="col-auto font-bold text-right">
           <span class="line-through text-grey mr-5" v-if="product.special_price && parseFloat(product.originalPriceInclTax) > 0">
@@ -91,6 +91,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.product .row {
+  flex-wrap: nowrap;
+}
+
 .image {
   mix-blend-mode: multiply;
   vertical-align: top;
@@ -100,11 +104,23 @@ export default {
 %label {
   @apply text-xs font-medium tracking-sm absolute pin-t pin-l flex justify-center items-center uppercase border border-solid;
 
-  padding: 7px 10px;
-  line-height: 8px;
+  padding: 4px 9px;
+  line-height: 9px;
+
+  @screen sm {
+    padding: 7px 10px;
+    line-height: 8px;
+  }
 }
 
 .sale {
+  @apply justify-start;
+  padding-top: 19px;
+
+  @screen sm {
+    @apply pt-0 justify-center;
+  }
+
   &::after {
     @extend %label;
     @apply text-error border-error-lighter bg-error-lightest;
@@ -113,6 +129,13 @@ export default {
 }
 
 .new {
+  @apply justify-start;
+  padding-top: 19px;
+
+  @screen sm {
+    @apply pt-0 justify-center;
+  }
+
   &::after {
     @extend %label;
     @apply text-primary border-primary-lighter bg-primary-lightest;

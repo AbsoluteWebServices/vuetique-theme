@@ -5,7 +5,7 @@
     >
       <div class="container">
         <div class="row gutter-md items-center py-2" v-if="!isCheckoutPage">
-          <div class="col-3 lg:col-auto">
+          <div class="col-auto sm:col-3 lg:col-auto">
             <div>
               <template v-if="!canGoBack">
                 <hamburger-icon class="p-3"/>
@@ -15,15 +15,15 @@
               </template>
             </div>
           </div>
-          <div class="col-grow sm:col-6 lg:col-grow flex items-center justify-center lg:justify-start sm:pt-1">
-            <logo class="hidden sm:block mr-2" width="auto" height="41px"/>
-            <a href="/" class="text-h2 uppercase text-black tracking-md">{{ 'Vuetique' }}</a>
+          <div class="col-grow sm:col-6 lg:col-grow flex items-center justify-center lg:justify-start">
+            <logo/>
           </div>
           <div class="col-6 hidden lg:block">
             <search/>
           </div>
-          <div class="col-3 lg:col-grow justify-end">
+          <div class="col-auto sm:col-3 lg:col-grow justify-end">
             <div class="right-icons flex">
+              <search-icon class="p-3 hidden md:block lg:hidden"/>
               <account-icon class="p-3 hidden sm:block"/>
               <wishlist-icon class="p-3 hidden sm:block"/>
               <microcart-icon class="p-3"/>
@@ -111,8 +111,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+header {
+  height: 70px;
+}
+
 .header-placeholder {
-  height: 68px;
+  height: 70px;
 
   @screen lg {
     height: 0;
