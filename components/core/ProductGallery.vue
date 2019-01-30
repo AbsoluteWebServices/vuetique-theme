@@ -131,12 +131,8 @@ export default {
   right: 0;
 }
 img {
-  opacity: 0.9;
   mix-blend-mode: multiply;
   vertical-align: top;
-  &:hover {
-    opacity: 1;
-  }
 }
 img[lazy=error], img[lazy=loading] {
   width: 100%;

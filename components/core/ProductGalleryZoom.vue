@@ -139,11 +139,6 @@ $z-index-gallery: map-get($z-index, overlay) + 1;
       max-width: 100%;
       width: auto;
       mix-blend-mode: multiply;
-      opacity: 0.9;
-
-      &:hover {
-        opacity: 1;
-      }
     }
   }
 

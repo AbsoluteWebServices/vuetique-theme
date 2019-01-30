@@ -123,8 +123,6 @@ export default {
 .product-image {
   @apply .bg-grey-lightest;
   overflow: hidden;
-  height: 300px;
-  display: flex;
 
   &:hover {
 
@@ -141,7 +139,15 @@ export default {
     height: auto;
     margin: auto;
     mix-blend-mode: darken;
-    opacity: 0.8;
+    transition: opacity $duration-main $motion-main;
+
+    @screen lg {
+      opacity: 0.8;
+    }
+
+    &:hover, &:focus {
+      opacity: 1;
+    }
 
     &[lazy="loaded"] {
       animation: products-loaded;
@@ -175,9 +181,15 @@ export default {
   }
 }
 
-.product-link:hover {
+.product-link {
   .product-name {
-    @apply text-primary;
+    transition: color $duration-main $motion-main;
+  }
+
+  &:hover {
+    .product-name {
+      @apply text-primary;
+    }
   }
 }
 </style>

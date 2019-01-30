@@ -105,6 +105,10 @@ export default {
 .VueCarousel {
   .VueCarousel-dot {
     line-height: 1;
+
+    &:focus {
+      outline: none;
+    }
   }
 }
 </style>
