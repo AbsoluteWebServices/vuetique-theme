@@ -156,7 +156,7 @@ export default {
 }
 
 .product-image {
-  @apply .bg-grey-lightest;
+  @apply flex bg-grey-lightest;
   overflow: hidden;
 
   .hover-image {
