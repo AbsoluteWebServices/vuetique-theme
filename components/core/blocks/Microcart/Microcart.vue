@@ -50,7 +50,7 @@
           <base-input type="text" id="couponinput" :placeholder="$t('Add discount code')" :autofocus="true" v-model.trim="couponCode" @keyup.enter="setCoupon"/>
         </div>
         <div class="col-auto">
-          <button-full :disabled="!couponCode" @click.native="setCoupon">{{ $t('Add discount code') }}</button-full>
+          <button-full :disabled="!couponCode" @click.native="setCoupon">{{ $t('Apply') }}</button-full>
         </div>
       </div>
 
@@ -69,7 +69,7 @@
       v-if="productsInCart.length && !isCheckoutMode"
     >
       <div class="col-12 md:col-auto">
-        <router-link :to="localizedRoute('/')" class="no-underline text-grey link back-to-shopping">
+        <router-link :to="localizedRoute('/')" class="no-underline text-grey link back-to-shopping font-medium">
           <span @click="closeMicrocartExtend" class="block align-middle">
             <svg viewBox="0 0 25 25" class="vt-icon--xs align-middle"><use xlink:href="#left" /></svg>
             <span class="align-middle">{{ $t('Back to shopping') }}</span>
@@ -162,12 +162,6 @@ export default {
     @media (max-width: 767px) {
       margin: 12px 0 12px 15px;
       font-size: 24px;
-    }
-  }
-
-  .back-to-shopping {
-    .vt-icon {
-
     }
   }
 </style>

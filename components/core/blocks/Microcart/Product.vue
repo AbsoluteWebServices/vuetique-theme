@@ -1,14 +1,36 @@
 <template>
   <transition name="fade" appear>
     <li class="row mb-3 pb-3 border-b border-grey-light relative">
-      <div class="col-auto mr-4 bg-grey-lightest">
+      <router-link
+        class="col-auto mr-4 bg-grey-lightest"
+        :to="localizedRoute({
+          name: product.type_id + '-product',
+          params: {
+            parentSku: product.parentSku ? product.parentSku : product.sku,
+            slug: product.slug,
+            childSku: product.sku
+          }
+        })"
+        data-testid="productLink"
+      >
         <img class="image" v-lazy="thumbnail" alt="" >
-      </div>
+      </router-link>
       <div class="col-grow flex-col justify-start sm:justify-between">
         <div>
-          <div class="font-medium leading-6 product-title">
+          <router-link
+            class="font-medium leading-6 product-title"
+            :to="localizedRoute({
+              name: product.type_id + '-product',
+              params: {
+                parentSku: product.parentSku ? product.parentSku : product.sku,
+                slug: product.slug,
+                childSku: product.sku
+              }
+            })"
+            data-testid="productLink"
+          >
             {{ product.name | htmlDecode }}
-          </div>
+          </router-link>
           <div class="text-sm text-grey leading-normal mb-2" data-testid="productSku">
             {{ product.sku }}
           </div>
