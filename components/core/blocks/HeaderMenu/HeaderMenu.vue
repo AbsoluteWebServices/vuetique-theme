@@ -128,7 +128,7 @@ export default {
     text-decoration: none;
 
     &:hover, &:focus {
-      @apply bg-grey-light;
+      @apply text-primary bg-grey-lighter;
       outline: none;
     }
 

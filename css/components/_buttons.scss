@@ -1,5 +1,4 @@
-@import '~theme/css/variables/colors';
-@import '~theme/css/helpers/functions/color';
+@import '~theme/css/animations/transitions';
 
 .ripple {
   position: relative;
@@ -57,10 +56,10 @@ button,
 
 
 .btn-primary {
-  @apply bg-primary px-4 py-2;
-  color: #fff;
+  @apply bg-primary px-4 py-2 text-white;
+  transition: background-color $duration-main $motion-main;
 
-  &:hover {
+  &:hover, &:focus {
     @apply bg-primary2;
   }
 
@@ -79,7 +78,5 @@ button,
 }
 
 .btn-link {
-  background: transparent;
-  color: color(silver);
-  font-size: 13px;
+  @apply text-sm text-grey bg-transparent;
 }

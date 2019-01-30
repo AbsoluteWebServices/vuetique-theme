@@ -4,10 +4,10 @@
     <overlay v-if="overlayActive"/>
     <loader/>
     <div id="viewport" class="w-full relative">
-      <microcart v-if="isMicrocartOpen"/>
-      <search-panel v-if="isSearchPanelOpen"/>
-      <wishlist v-if="isWishlistOpen"/>
-      <sidebar-menu v-if="isSidebarOpen"/>
+      <microcart/>
+      <search-panel/>
+      <wishlist/>
+      <sidebar-menu/>
       <announcement/>
       <main-header/>
       <header-menu/>

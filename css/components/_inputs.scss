@@ -15,7 +15,10 @@
   input[type="radio"] + label,
   input[type="checkbox"] + label {
     display: inline-flex;
-    align-items: center;
+
+    @screen sm {
+      align-items: center;
+    }
   }
 
   input[type="radio"] + label::before,

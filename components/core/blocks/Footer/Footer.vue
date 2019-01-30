@@ -11,7 +11,7 @@
               <Newsletter />
             </div>
 
-            <div class="flex social-footer mt-12">
+            <div class="flex justify-center lg:justify-start social-footer mt-12">
               <a
                 target="_blank"
                 rel="noopener"
