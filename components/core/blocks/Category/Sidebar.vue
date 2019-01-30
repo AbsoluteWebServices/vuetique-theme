@@ -59,14 +59,24 @@
       </Accordion>
     </div>
 
-    <div class="mt-8 lg:hidden">
-      <button-full
-        class="w-full"
-        @click.native="resetAllFilters"
-        :disabled="Object.keys(activeFilters).length === 0"
-      >
-        {{ $t('Clear') }}
-      </button-full>
+    <div class="mt-8 lg:hidden row gutter-md">
+      <div class="col-6">
+        <button-full
+          class="w-full"
+          @click.native="resetAllFilters"
+          :disabled="Object.keys(activeFilters).length === 0"
+        >
+          {{ $t('Clear') }}
+        </button-full>
+      </div>
+      <div class="col-6">
+        <button-full
+          class="w-full btn-primary"
+          @click.native="$emit('closeFilters')"
+        >
+          {{ $t('Apply') }}
+        </button-full>
+      </div>
     </div>
   </div>
 </template>
