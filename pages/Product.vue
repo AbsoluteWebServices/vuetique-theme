@@ -9,7 +9,7 @@
         <section class="md:flex">
           <div class="w-full md:w-3/5">
             <div class="flex">
-              <div v-if="gallery.length > 1" class="product-thumbnails w-2/12 sm:w-1/12 pr-2 sm:pr-0">
+              <div v-if="gallery.length > 1" class="product-thumbnails w-1/12 hidden md:block">
                 <ul class="list-reset">
                   <li
                     v-for="(images, key) in gallery"
@@ -27,7 +27,7 @@
                 </ul>
               </div>
 
-              <div class="w-10/12 sm:w-11/12">
+              <div class="w-full md:w-11/12">
                 <product-gallery
                   ref="gallery"
                   :gallery="gallery"
@@ -155,7 +155,7 @@
               :product="product"
             />
             <div class="row mt-6 pb-5 border-b">
-              <div v-if="product.type_id !== 'grouped' && product.type_id !== 'bundle'" class="col-auto mr-5">
+              <div v-if="product.type_id !== 'grouped' && product.type_id !== 'bundle'" class="col-auto mb-3 lg:mb-0 mr-5">
                 <label class="pb-2 hidden" for="quantity">{{ $t('Quantity') }}</label>
                 <div class="flex">
                   <input
@@ -304,6 +304,7 @@ import ProductCustomOptions from 'theme/components/core/ProductCustomOptions.vue
 import ProductBundleOptions from 'theme/components/core/ProductBundleOptions.vue'
 import ProductGallery from 'theme/components/core/ProductGallery'
 import PromotedOffers from 'theme/components/theme/blocks/PromotedOffers/PromotedOffers'
+import RecentlyViewed from 'theme/components/core/blocks/MyAccount/RecentlyViewed'
 import focusClean from 'theme/components/theme/directives/focusClean'
 
 export default {
@@ -322,7 +323,8 @@ export default {
     PromotedOffers,
     RelatedProducts,
     Reviews,
-    SizeSelector
+    SizeSelector,
+    RecentlyViewed
   },
   mixins: [Product, VueOfflineMixin],
   data () {
