@@ -28,8 +28,12 @@
     <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 18.667" id="sandwich">
       <path d="M0 2.667h32V0H0zm0 8h32V8H0zm0 8h32V16H0z"/>
     </symbol>
-    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.333 9.333" id="success">
-      <path d="M8.668 0L0 8.38l1 .953 7.668-7.43 7.666 7.43.999-.952z"/>
+    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.311199 11.971187" id="success">
+      <g transform="matrix(1.3333333,0,0,-1.3333333,0,11.971187)">
+        <g transform="translate(12.1842,8.9784)">
+          <path d="m 0,0 -7.388,-7.381 -3.997,3.993 -0.799,-0.799 4.796,-4.791 8.187,8.179 z"/>
+        </g>
+      </g>
     </symbol>
     <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17.333 9.333" id="up">
       <path d="M8.668 0L0 8.38l1 .953 7.668-7.43 7.666 7.43.999-.952z"/>

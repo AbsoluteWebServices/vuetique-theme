@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="w-full md:w-11/12">
-        <div class="flex items-center mb-3 md:mb-0" :class="{ 'cl-bg-tertiary' : !isFilled && !isActive }">
+        <div class="flex items-center mb-3 md:mb-0" :class="{ 'bg-cl-tertiary' : !isFilled && !isActive }">
           <div
             class="number-circle cl-white brdr-circle flex items-center justify-center md:hidden"
             :class="{ 'bg-cl-th-accent' : isActive || isFilled, 'bg-cl-tertiary' : !isFilled && !isActive }"
@@ -104,7 +104,6 @@
             <div class="flex w-full flex-wrap mt-4">
               <div class="px-3 w-1/2">
                 <base-input
-                  class="mb25 mt10"
                   type="password"
                   name="password"
                   ref="password"
@@ -112,16 +111,25 @@
                   v-model="password"
                   @blur="$v.password.$touch()"
                   autocomplete="new-password"
-                  :validation="{
-                    condition: $v.password.$error && !$v.password.required,
-                    text: $t('Field is required.')
-                  }"
+                  :validations="[
+                    {
+                      condition: $v.password.$error && !$v.password.required,
+                      text: $t('Field is required.')
+                    },
+                    {
+                      condition: $v.password.$error && !$v.password.minLength,
+                      text: $t('The password must have at least 8 characters.')
+                    },
+                    {
+                      condition: $v.password.$error && !$v.password.strongPassword,
+                      text: $t('The password must contain at least: 1 uppercase letter, 1 lowercase letter, 1 number, and one special character (E.g. , . _ & ? etc).')
+                    }
+                  ]"
                 />
               </div>
 
               <div class="px-3 w-1/2">
                 <base-input
-                  class="mb25"
                   type="password"
                   name="password-confirm"
                   :placeholder="$t('Repeat password *')"
@@ -181,7 +189,7 @@
             class="w-1/2"
             v-if="!currentUser"
           >
-            <p class="h4 cl-accent text-center">
+            <p class="text-h4 text-center">
               {{ $t('or') }}
               <span
                 class="text-primary cursor-pointer no-underline"
@@ -200,19 +208,19 @@
           {{ personalDetails.firstName }} {{ personalDetails.lastName }}
         </p>
         <div>
-          <span class="pr15">{{ personalDetails.emailAddress }}</span>
+          <span>{{ personalDetails.emailAddress }}</span>
           <tooltip>{{ $t('We will send you details regarding the order') }}</tooltip>
         </div>
         <template v-if="createAccount && !currentUser">
           <base-checkbox
-            class="mt25"
+            class="mt-6"
             id="createAccountCheckboxInfo"
             v-model="createAccount"
             disabled
           >
             {{ $t('Create a new account') }}
           </base-checkbox>
-          <p class="h5 cl-tertiary">
+          <p class="text-h5">
             {{ $t('The new account will be created with the purchase. You will receive details on e-mail.') }}
           </p>
         </template>
@@ -223,6 +231,7 @@
 
 <script>
 import { required, minLength, email, sameAs } from 'vuelidate/lib/validators'
+import { strongPassword } from 'theme/resource/validators'
 import { PersonalDetails } from '@vue-storefront/core/modules/checkout/components/PersonalDetails'
 
 import BaseCheckbox from 'theme/components/core/blocks/Form/BaseCheckbox'
@@ -255,7 +264,9 @@ export default {
       }
     },
     password: {
-      required
+      required,
+      minLength: minLength(8),
+      strongPassword
     },
     rPassword: {
       required,

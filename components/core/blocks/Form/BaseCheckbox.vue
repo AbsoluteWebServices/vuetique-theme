@@ -2,7 +2,7 @@
   <div>
     <div class="checkbox-wrap">
       <input
-        class="m0 no-outline"
+        class="outline-none"
         type="checkbox"
         :id="id"
         :checked="value"
@@ -53,6 +53,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-</style>

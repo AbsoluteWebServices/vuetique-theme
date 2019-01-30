@@ -28,9 +28,7 @@
     <button
       v-if="iconActive"
       type="button"
-      class="
-        icon material-icons absolute outline-none
-      "
+      class="icon material-icons absolute outline-none text-grey-dark"
       @click="togglePassType()"
       :aria-label="$t('Toggle password visibility')"
       :title="$t('Toggle password visibility')"
@@ -95,7 +93,8 @@ export default {
     },
     value: {
       type: [String, Number],
-      required: true
+      default: null,
+      required: false
     },
     name: {
       type: String,
@@ -206,7 +205,6 @@ export default {
 
     &._icon-success {
       @apply fill-primary;
-      transform: rotate(180deg);
     }
   }
 

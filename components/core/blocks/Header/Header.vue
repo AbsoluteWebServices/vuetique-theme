@@ -31,7 +31,7 @@
             </div>
           </div>
         </div>
-        <div class="row gutter-md items-center justify-between py-2" v-if="isCheckoutPage">
+        <div class="row gutter-md items-center justify-between py-4" v-if="isCheckoutPage">
           <div class="col-3 flex items-center">
             <div>
               <router-link :to="localizedRoute('/')" class="flex text-grey">
@@ -45,8 +45,7 @@
             </div>
           </div>
           <div class="col-6 flex items-center justify-center">
-            <logo class="hidden sm:block mr-2" width="auto" height="41px"/>
-            <div class="text-h2 uppercase tracking-md">{{ 'Vuetique' }}</div>
+            <logo/>
           </div>
           <div class="col-3 flex justify-end">
             <div>

@@ -98,7 +98,7 @@
             class="w-1/2 px-3"
             type="text"
             name="apartment-number"
-            :placeholder="$t('House/Apartment number *')"
+            :placeholder="$t('House/Apartment number')"
             v-model.trim="shipping.apartmentNumber"
             @blur="$v.shipping.apartmentNumber.$touch()"
             autocomplete="address-line2"
@@ -190,18 +190,16 @@
           {{ $t('Shipping method') }}
         </h4>
       </div>
-      <div class="w-full md:w-11/12">
-        <div v-for="(method, index) in shippingMethods" :key="index" class="col-md-6">
-          <label class="radioStyled"> {{ method.method_title }} | {{ method.amount | price }}
-            <input
-              type="radio"
-              :value="method.method_code"
-              name="shipping-method"
-              v-model="shipping.shippingMethod"
-              @change="$v.shipping.shippingMethod.$touch(); changeShippingMethod();"
-            >
-            <span class="checkmark"/>
-          </label>
+      <div class="w-full md:w-11/12 mb-4">
+        <div v-for="(method, index) in shippingMethods" :key="index">
+          <base-radiobutton
+            name="shipping-method"
+            :val="method.method_code"
+            :value="shipping.shippingMethod == method.method_code"
+            @change="$v.shipping.shippingMethod.$touch(); changeShippingMethod();"
+          >
+            {{ method.method_title }} | {{ method.amount | price }}
+          </base-radiobutton>
         </div>
         <span class="validation-error" v-if="$v.shipping.shippingMethod.$error && !$v.shipping.shippingMethod.required">
           {{ $t('Field is required') }}
@@ -244,7 +242,7 @@
             <span>{{ getCountryName() }}</span>
           </p>
           <div v-if="shipping.phoneNumber">
-            <span class="pr15">{{ shipping.phoneNumber }}</span>
+            <span>{{ shipping.phoneNumber }}</span>
             <tooltip>{{ $t('Phone number may be needed by carrier') }}</tooltip>
           </div>
           <div class="w-full mt-3">
@@ -253,11 +251,9 @@
             </h4>
           </div>
           <div class="v-full mt-3">
-            <label class="radioStyled">
+            <base-radiobutton :value="true" :disabled="true">
               {{ getShippingMethod().method_title }} | {{ getShippingMethod().amount | price }}
-              <input type="radio" value="" checked disabled name="chosen-shipping-method">
-              <span class="checkmark"/>
-            </label>
+            </base-radiobutton>
           </div>
         </div>
       </div>
@@ -270,6 +266,7 @@ import {required, minLength} from 'vuelidate/lib/validators'
 import {Shipping} from '@vue-storefront/core/modules/checkout/components/Shipping'
 
 import BaseCheckbox from 'theme/components/core/blocks/Form/BaseCheckbox'
+import BaseRadiobutton from 'theme/components/core/blocks/Form/BaseRadiobutton'
 import BaseInput from 'theme/components/core/blocks/Form/BaseInput'
 import BaseSelect from 'theme/components/core/blocks/Form/BaseSelect'
 import ButtonFull from 'theme/components/theme/ButtonFull'
@@ -280,6 +277,7 @@ export default {
     ButtonFull,
     Tooltip,
     BaseCheckbox,
+    BaseRadiobutton,
     BaseInput,
     BaseSelect
   },
@@ -309,9 +307,7 @@ export default {
       streetAddress: {
         required
       },
-      apartmentNumber: {
-        required
-      },
+      apartmentNumber: {},
       shippingMethod: {
         required
       },
