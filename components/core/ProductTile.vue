@@ -90,7 +90,7 @@ export default {
     hoverThumbnail () {
       if (this.product.media_gallery) {
         let images = this.product.media_gallery.filter(item => item.typ === 'image')
-        if (images.length) {
+        if (images.length > 1) {
           let thumbnail = images[images.length - 1].image
           for (let i = 0; i < images.length; i++) {
             if (images[i].lab === 'alternative') {
