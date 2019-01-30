@@ -28,14 +28,15 @@
         <div v-else>
           <no-ssr>
             <carousel
+              ref="carousel"
               :per-page="1"
               :mouse-drag="false"
               :navigation-enabled="true"
-              pagination-active-color="#828282"
-              pagination-color="transparent"
+              pagination-active-color="#222222"
+              pagination-color="#828282"
               navigation-next-label="<svg viewBox='0 0 25 25' class='vt-icon cursor-pointer'><use xlink:href='#right'/></svg>"
               navigation-prev-label="<svg viewBox='0 0 25 25' class='vt-icon cursor-pointer'><use xlink:href='#left'/></svg>"
-              ref="carousel"
+              @pageChange="onPageChange"
             >
               <slide
                 v-for="images in gallery"
@@ -81,12 +82,17 @@ export default {
   },
   data () {
     return {
-      loaded: true
+      loaded: true,
+      currentPage: null
     }
   },
   methods: {
     validateRoute () {
       this.$forceUpdate()
+    },
+
+    onPageChange (page) {
+      this.$emit('page-change', page)
     }
   }
 }
@@ -141,6 +147,10 @@ img[lazy=error], img[lazy=loading] {
 }
 </style>
 <style lang="scss">
+@import '~theme/css/variables/colors';
+@import '~theme/css/helpers/functions/color';
+$color-gray: color(gray);
+
 .media-gallery {
   .VueCarousel-pagination {
     @apply mt-2 mb-5 float-left;
@@ -161,9 +171,15 @@ img[lazy=error], img[lazy=loading] {
     }
   }
   .VueCarousel-dot {
-    padding: 8px !important;
-    button {
-      border: 2px solid #828282;
+    .VueCarousel-dot-button {
+      max-width: 6px;
+      max-height: 6px;
+      outline: none;
+
+      &:focus,
+      &:active {
+        outline: none;
+      }
     }
   }
   &:hover {

@@ -17,15 +17,25 @@
     </div>
     <div class="mb-2">
       <label class="qty-label flex" :for="quantityName">{{ $t('Quantity') }}</label>
-      <input
-        type="number"
-        min="0"
-        class="border border-solid border-grey text-sm text-grey px-3 h-10 bg-transparent outline-none focus:text-grey-dark"
-        :name="quantityName"
-        :id="quantityName"
-        focus
-        v-model="quantity"
-      >
+      <div class="flex">
+        <input
+          type="text"
+          min="0"
+          class="border border-solid border-grey text-sm text-grey px-3 h-10 bg-white outline-none focus:text-grey-dark"
+          :name="quantityName"
+          :id="quantityName"
+          focus
+          v-model="quantity"
+        >
+        <div class="input-number-controls">
+          <button class="p-5 border border-light-gray" @click.prevent="quantity++">
+            <svg viewBox="0 0 15 15" class="vt-icon"><use xlink:href="#up" /></svg>
+          </button>
+          <button class="p-5 border border-light-gray" @click.prevent="quantity > 1 ? quantity-- : null">
+            <svg viewBox="0 0 25 25" class="vt-icon"><use xlink:href="#down" /></svg>
+          </button>
+        </div>
+      </div>
     </div>
     <span class="error" v-if="errorMessage">{{ errorMessage }}</span>
   </div>
@@ -91,7 +101,6 @@ export default {
       outline: none;
       border-color: $color-black;
     }
-    background: inherit;
   }
   .qty-label {
     font-size: 12px !important;

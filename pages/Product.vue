@@ -8,12 +8,35 @@
       <div class="container">
         <section class="md:flex">
           <div class="w-full md:w-3/5">
-            <product-gallery
-              :gallery="gallery"
-              :offline="offlineImage"
-              :configuration="configuration"
-              :product="product"
-            />
+            <div class="flex">
+              <div v-if="gallery.length > 1" class="product-thumbnails w-2/12 sm:w-1/12 pr-2 sm:pr-0">
+                <ul class="list-reset">
+                  <li
+                    v-for="(images, key) in gallery"
+                    :key="images.src"
+                    class="mb-1"
+                  >
+                    <img
+                      :src="images.src"
+                      ref="images"
+                      @click="$refs.gallery.$refs.carousel.goToPage(key)"
+                      :alt="product.name"
+                      :class="'border cursor-pointer' + (currentGalleryPage === key ? ' border-black' : ' border-grey-light')">
+                  </li>
+                </ul>
+              </div>
+
+              <div class="w-10/12 sm:w-11/12">
+                <product-gallery
+                  ref="gallery"
+                  :gallery="gallery"
+                  :offline="offlineImage"
+                  :configuration="configuration"
+                  :product="product"
+                  @page-change="(page) => currentGalleryPage = page"
+                />
+              </div>
+            </div>
           </div>
           <div class="w-full md:w-2/5 md:px-10">
             <h1 data-testid="productName" itemprop="name">
@@ -136,15 +159,23 @@
             <div class="mt-4 pb-4 border-b" v-if="product.type_id !== 'grouped' && product.type_id !== 'bundle'">
               <label class="pb-2 block" for="quantity">{{ $t('Quantity') }}</label>
               <div class="flex -mx-2">
-                <div class="px-2 w-1/3">
+                <div class="px-2 w-1/3 flex">
                   <input
-                    type="number"
+                    type="text"
                     min="0"
-                    class="text-center h-full w-full qty-input py-3 px-2"
+                    class="text-center h-full qty-input py-3 px-2"
                     id="quantity"
                     focus
                     v-model="product.qty"
                   >
+                  <div class="input-number-controls">
+                    <button class="p-5 border border-light-gray" @click.prevent="product.qty++">
+                      <svg viewBox="0 0 15 15" class="vt-icon"><use xlink:href="#up" /></svg>
+                    </button>
+                    <button class="p-5 border border-light-gray" @click.prevent="product.qty > 1 ? product.qty-- : null">
+                      <svg viewBox="0 0 25 25" class="vt-icon"><use xlink:href="#down" /></svg>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -307,7 +338,8 @@ export default {
   data () {
     return {
       detailsOpen: false,
-      detailsAccordion: null
+      detailsAccordion: null,
+      currentGalleryPage: null
     }
   },
   directives: { focusClean },
@@ -435,6 +467,19 @@ $bg-secondary: color(secondary, $colors-background);
 .fade-enter,
 .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
+}
+
+.product-thumbnails {
+  ul {
+    li {
+      background-color: $bg-secondary;
+
+      img {
+        mix-blend-mode: multiply;
+        opacity: .9;
+      }
+    }
+  }
 }
 
 </style>

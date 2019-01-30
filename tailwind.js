@@ -74,6 +74,7 @@ let colors = {
 }
 
 let backgroundColors = {
+  'white': colors['white']
 }
 
 let borderColors = {
