@@ -2,7 +2,7 @@
   <div class="relative">
     <div class="relative">
       <input
-        class="w-full border border-solid border-grey w-full text-sm text-grey px-3 h-10 bg-transparent outline-none focus:text-grey-dark"
+        class="w-full border border-solid border-grey text-sm text-grey px-3 h-10 bg-transparent outline-none focus:text-grey-dark"
         :class="{'pr-7': type === 'password', empty: value === '', 'has-error' : (isValid === false)}"
         :type="type === 'password' ? passType : type"
         :name="name"

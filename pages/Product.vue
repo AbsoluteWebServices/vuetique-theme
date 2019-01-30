@@ -14,14 +14,15 @@
                   <li
                     v-for="(images, key) in gallery"
                     :key="images.src"
-                    class="mb-1"
+                    class="mb-1 bg-grey-lighter"
                   >
                     <img
                       :src="images.src"
                       ref="images"
                       @click="$refs.gallery.$refs.carousel.goToPage(key)"
                       :alt="product.name"
-                      :class="'border cursor-pointer' + (currentGalleryPage === key ? ' border-black' : ' border-grey-light')">
+                      class="block border cursor-pointer"
+                      :class="currentGalleryPage === key ? 'border-black' : 'border-grey-light'">
                   </li>
                 </ul>
               </div>
@@ -42,7 +43,7 @@
             <h1 data-testid="productName" itemprop="name">
               {{ product.name | htmlDecode }}
             </h1>
-            <div class="text-grey text-sm my-4 uppercase">
+            <div class="text-grey text-sm mb-3 uppercase">
               sku: {{ product.sku }}
             </div>
             <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
@@ -106,12 +107,9 @@
                         to="/size-guide"
                         target="_blank"
                         v-if="option.label == 'Size'"
-                        class="text-sm text-grey-dark pt-4 absolute pin-t pin-r"
+                        class="text-sm font-medium text-black pt-4 absolute pin-t pin-r"
                       >
-                        <i class="text-sm material-icons relative" style="top: 1px">accessibility</i>
-                        <span>
-                          {{ $t('Size guide') }}
-                        </span>
+                        {{ $t('Size guide') }}
                       </router-link>
                       <size-selector
                         v-for="(s, i) in options[option.attribute_code]"
@@ -156,64 +154,51 @@
               v-else-if="product.custom_options && product.custom_options.length > 0 && !loading"
               :product="product"
             />
-            <div class="mt-4 pb-4 border-b" v-if="product.type_id !== 'grouped' && product.type_id !== 'bundle'">
-              <label class="pb-2 block" for="quantity">{{ $t('Quantity') }}</label>
-              <div class="flex -mx-2">
-                <div class="px-2 w-1/3 flex">
+            <div class="row mt-6 pb-5 border-b">
+              <div v-if="product.type_id !== 'grouped' && product.type_id !== 'bundle'" class="col-auto mr-5">
+                <label class="pb-2 hidden" for="quantity">{{ $t('Quantity') }}</label>
+                <div class="flex">
                   <input
                     type="text"
                     min="0"
-                    class="text-center h-full qty-input py-3 px-2"
+                    class="qty-input"
                     id="quantity"
                     focus
                     v-model="product.qty"
                   >
                   <div class="input-number-controls">
-                    <button class="p-5 border border-light-gray" @click.prevent="product.qty++">
+                    <button @click.prevent="product.qty++">
                       <svg viewBox="0 0 15 15" class="vt-icon"><use xlink:href="#up" /></svg>
                     </button>
-                    <button class="p-5 border border-light-gray" @click.prevent="product.qty > 1 ? product.qty-- : null">
+                    <button @click.prevent="product.qty > 1 ? product.qty-- : null">
                       <svg viewBox="0 0 25 25" class="vt-icon"><use xlink:href="#down" /></svg>
                     </button>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="flex mb-3">
-              <div class="w-full">
+
+              <div class="col-grow flex">
                 <add-to-cart
                   :product="product"
-                  class="bg-primary py-3 text-sm"
+                  class="bg-primary py-3 text-sm "
                 />
               </div>
             </div>
-            <div class="flex text-sm md:py-5 text-center add-to-buttons">
-              <div class="w-1/2 px-2">
-                <button
-                  @click="isOnWishlist ? removeFromWishlist(product) : addToWishlist(product)"
-                  class="inline-flex items-center"
-                  type="button"
-                  data-testid="addToWishlist"
-                >
-                  <svg viewBox="0 0 25 25" class="vt-icon pr-1">
-                    <use xlink:href="#wishlist"/>
-                  </svg>
-                  <template v-if="!isOnWishlist">
-                    {{ $t('Add to favorite') }}
-                  </template>
-                  <template v-else>
-                    {{ $t('Remove') }}
-                  </template>
-                </button>
+
+            <div class="row text-sm md:py-5 text-center add-to-buttons">
+              <div class="col-6">
+                <wishlist-button :product="product" />
               </div>
-              <div class="w-1/2 px-2">
+              <div class="col-6">
                 <button
                   @click="isOnCompare ? removeFromList('compare') : addToList('compare')"
-                  class="inline-flex items-center"
+                  class="inline-flex items-center text-grey-dark"
                   type="button"
                   data-testid="addToCompare"
                 >
-                  <i class="pr-1 material-icons">bar_chart</i>
+                  <svg viewBox="0 0 25 25" class="vt-icon pr-1">
+                    <use xlink:href="#compare"/>
+                  </svg>
                   <template v-if="!isOnCompare">
                     {{ $t('Add to compare') }}
                   </template>
@@ -305,7 +290,6 @@
 <script>
 import Product from '@vue-storefront/core/pages/Product'
 import VueOfflineMixin from 'vue-offline/mixin'
-
 import RelatedProducts from 'theme/components/core/blocks/Product/Related.vue'
 import Reviews from 'theme/components/core/blocks/Reviews/Reviews.vue'
 import AddToCart from 'theme/components/core/AddToCart.vue'
@@ -321,10 +305,10 @@ import ProductBundleOptions from 'theme/components/core/ProductBundleOptions.vue
 import ProductGallery from 'theme/components/core/ProductGallery'
 import PromotedOffers from 'theme/components/theme/blocks/PromotedOffers/PromotedOffers'
 import focusClean from 'theme/components/theme/directives/focusClean'
-import RecentlyViewed from 'theme/components/core/blocks/MyAccount/RecentlyViewed'
 
 export default {
   components: {
+    'WishlistButton': () => import(/* webpackChunkName: "wishlist" */'theme/components/core/blocks/Wishlist/AddToWishlist'),
     AddToCart,
     Breadcrumbs,
     ColorSelector,
@@ -338,8 +322,7 @@ export default {
     PromotedOffers,
     RelatedProducts,
     Reviews,
-    SizeSelector,
-    RecentlyViewed
+    SizeSelector
   },
   mixins: [Product, VueOfflineMixin],
   data () {
@@ -350,18 +333,6 @@ export default {
     }
   },
   directives: { focusClean },
-  computed: {
-    favoriteIcon () {
-      return this.isOnWishlist ? 'favorite' : 'favorite_border'
-    },
-
-    isOnWishlist () {
-      return (
-        this.$store.state.wishlist.items &&
-        !!this.$store.state.wishlist.items.find(p => p.sku === this.product.sku)
-      )
-    }
-  },
   methods: {
     showDetails (event) {
       this.detailsOpen = true
@@ -385,23 +356,55 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-@import '~theme/css/variables/colors';
-@import '~theme/css/helpers/functions/color';
-$color-primary: color(primary);
-$color-tertiary: color(tertiary);
-$color-secondary: color(secondary);
-$color-white: color(white);
-$bg-secondary: color(secondary, $colors-background);
+<style lang="scss">
+%qty-input {
+  @apply border border-grey text-center py-3 px-2 text-sm text-grey outline-none bg-white;
 
+  &:focus {
+    @apply text-grey-dark;
+  }
+}
+
+.qty-input {
+  @extend %qty-input;
+  width: 50px;
+  height: 50px;
+}
+
+.qty-input-sm {
+  @extend %qty-input;
+  height: 40px;
+  width: 90px;
+}
+
+.input-number-controls {
+  display: inline-block;
+
+  button {
+    @apply block border border-grey border-l-0 bg-white;
+
+    width: 30px;
+    height: 50%;
+
+    &:last-of-type {
+      border-top: none;
+    }
+
+    .vt-icon {
+      width: 8px;
+      height: 8px;
+    }
+  }
+}
+</style>
+
+<style lang="scss" scoped>
 .error {
-  color: red;
-  font-weight: bold;
-  padding-bottom: 15px;
+  @apply text-error font-bold pb-4;
 }
 
 .price {
-  @apply .border-solid .border-b;
+  @apply border-solid border-b;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -419,10 +422,6 @@ $bg-secondary: color(secondary, $colors-background);
       margin-left: 0;
     }
   }
-}
-
-.qty-input {
-  @apply .border .border-grey;
 }
 
 .add-to-buttons {
@@ -455,7 +454,7 @@ $bg-secondary: color(secondary, $colors-background);
     width: 100%;
     margin: 0;
     cursor: pointer;
-    background: linear-gradient(rgba($color-white, 0), rgba($color-white, 1));
+    background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
     &.hidden {
       display: none;
     }
@@ -479,8 +478,6 @@ $bg-secondary: color(secondary, $colors-background);
 .product-thumbnails {
   ul {
     li {
-      background-color: $bg-secondary;
-
       img {
         mix-blend-mode: multiply;
         opacity: .9;

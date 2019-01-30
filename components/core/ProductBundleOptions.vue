@@ -1,5 +1,5 @@
 <template>
-  <form class="custom-options">
+  <form class="custom-options mt-5">
     <div v-for="option in product.bundle_options" :key="('bundleOption_' + option.option_id)">
       <product-bundle-option :option="option" @optionChanged="optionChanged" :error-messages="errorMessages"/>
     </div>
@@ -17,5 +17,3 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
-</style>

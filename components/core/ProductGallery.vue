@@ -37,6 +37,7 @@
               navigation-next-label="<svg viewBox='0 0 25 25' class='vt-icon cursor-pointer'><use xlink:href='#right'/></svg>"
               navigation-prev-label="<svg viewBox='0 0 25 25' class='vt-icon cursor-pointer'><use xlink:href='#left'/></svg>"
               @pageChange="onPageChange"
+              :speed="carouselTransitionSpeed"
             >
               <slide
                 v-for="images in gallery"
@@ -56,7 +57,7 @@
             </carousel>
           </no-ssr>
           <i
-            class="zoom-in material-icons p15 cl-bgs-tertiary cursor-pointer"
+            class="zoom-in material-icons p-4 cursor-pointer"
             @click="toggleZoom"
           >zoom_in</i>
         </div>
@@ -83,7 +84,8 @@ export default {
   data () {
     return {
       loaded: true,
-      currentPage: null
+      currentPage: null,
+      carouselTransitionSpeed: 0
     }
   },
   methods: {
@@ -147,10 +149,6 @@ img[lazy=error], img[lazy=loading] {
 }
 </style>
 <style lang="scss">
-@import '~theme/css/variables/colors';
-@import '~theme/css/helpers/functions/color';
-$color-gray: color(gray);
-
 .media-gallery {
   .VueCarousel-pagination {
     @apply mt-2 mb-5 float-left;
@@ -162,7 +160,6 @@ $color-gray: color(gray);
   .VueCarousel-slide {
     @apply bg-grey-lightest;
     backface-visibility: unset;
-    max-height: 725px; // tmp until we can fix the image layout recompile on slider init
   }
   .VueCarousel-navigation {
     opacity: 0;
