@@ -294,6 +294,11 @@
     />
     <promoted-offers single-banner />
     <related-products type="related" />
+
+    <div class="container my-4">
+      <recently-viewed />
+    </div>
+
   </div>
 </template>
 
@@ -316,6 +321,7 @@ import ProductBundleOptions from 'theme/components/core/ProductBundleOptions.vue
 import ProductGallery from 'theme/components/core/ProductGallery'
 import PromotedOffers from 'theme/components/theme/blocks/PromotedOffers/PromotedOffers'
 import focusClean from 'theme/components/theme/directives/focusClean'
+import RecentlyViewed from 'theme/components/core/blocks/MyAccount/RecentlyViewed'
 
 export default {
   components: {
@@ -332,7 +338,8 @@ export default {
     PromotedOffers,
     RelatedProducts,
     Reviews,
-    SizeSelector
+    SizeSelector,
+    RecentlyViewed
   },
   mixins: [Product, VueOfflineMixin],
   data () {
