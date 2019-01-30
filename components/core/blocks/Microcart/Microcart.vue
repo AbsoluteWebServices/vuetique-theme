@@ -37,9 +37,7 @@
         <div class="col-auto">
           {{ segment.title }}
           <button v-if="appliedCoupon && segment.code === 'discount'" type="button" class="close delete-button" @click="clearCoupon">
-            <i class="material-icons">
-              close
-            </i>
+            <i class="material-icons">close</i>
           </button>
         </div>
         <div v-if="segment.value != null" class="col-auto" :class="{'text-primary': segment.code === 'discount'}">
@@ -52,7 +50,7 @@
           <base-input type="text" id="couponinput" :placeholder="$t('Add discount code')" :autofocus="true" v-model.trim="couponCode" @keyup.enter="setCoupon"/>
         </div>
         <div class="col-auto">
-          <button-full :disabled="!couponCode" @click.native="setCoupon">{{ $t('Apply') }}</button-full>
+          <button-full :disabled="!couponCode" @click.native="setCoupon">{{ $t('Add discount code') }}</button-full>
         </div>
       </div>
 
@@ -71,9 +69,10 @@
       v-if="productsInCart.length && !isCheckoutMode"
     >
       <div class="col-12 md:col-auto">
-        <router-link :to="localizedRoute('/')" class="no-underline text-grey link">
-          <span @click="closeMicrocartExtend">
-            &lt;&nbsp;{{ $t('Return to shopping') }}
+        <router-link :to="localizedRoute('/')" class="no-underline text-grey link back-to-shopping">
+          <span @click="closeMicrocartExtend" class="block align-middle">
+            <svg viewBox="0 0 25 25" class="vt-icon--xs align-middle"><use xlink:href="#left" /></svg>
+            <span class="align-middle">{{ $t('Back to shopping') }}</span>
           </span>
         </router-link>
       </div>
@@ -163,6 +162,12 @@ export default {
     @media (max-width: 767px) {
       margin: 12px 0 12px 15px;
       font-size: 24px;
+    }
+  }
+
+  .back-to-shopping {
+    .vt-icon {
+
     }
   }
 </style>
