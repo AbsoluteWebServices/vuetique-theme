@@ -25,9 +25,10 @@
           height="300"
           width="310"
           data-testid="productImage"
-          class="default-image"
+          :class="{ 'default-image': hoverThumbnail !== null }"
         >
         <img
+          v-if="hoverThumbnail !== null"
           :alt="product.name"
           :src="hoverThumbnailObj.loading"
           v-lazy="hoverThumbnailObj"
@@ -87,26 +88,26 @@ export default {
   },
   computed: {
     hoverThumbnail () {
-      let thumbnail = this.product.image
       if (this.product.media_gallery) {
         let images = this.product.media_gallery.filter(item => item.typ === 'image')
         if (images.length) {
-          thumbnail = images[images.length - 1].image
+          let thumbnail = images[images.length - 1].image
           for (let i = 0; i < images.length; i++) {
             if (images[i].lab === 'alternative') {
               thumbnail = images[i].image
               break
             }
           }
+          return this.getThumbnail(thumbnail, 310, 300)
         }
       }
-      return this.getThumbnail(thumbnail, 310, 300)
+      return null
     },
     hoverThumbnailObj () {
       return {
         src: this.hoverThumbnail,
-        loading: this.placeholder,
-        error: this.placeholder
+        loading: this.thumbnail,
+        error: this.thumbnail
       }
     }
   },
@@ -159,12 +160,14 @@ export default {
   overflow: hidden;
 
   .hover-image {
+    visibility: hidden;
     opacity: 0;
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
+    transition: visibility $duration-main $motion-main, opacity $duration-main $motion-main;
   }
 
   &:hover {
@@ -174,6 +177,7 @@ export default {
     }
 
     .hover-image {
+      visibility: visible;
       opacity: 1;
     }
 
@@ -192,14 +196,6 @@ export default {
     mix-blend-mode: darken;
     transition: opacity $duration-main $motion-main;
 
-    @screen lg {
-      opacity: 0.8;
-    }
-
-    &:hover, &:focus {
-      opacity: 1;
-    }
-
     &[lazy="loaded"] {
       animation: products-loaded;
       animation-duration: 0.3s;
@@ -210,7 +206,7 @@ export default {
         opacity: 0;
       }
       to {
-        opacity: 0.8;
+        opacity: 1;
       }
     }
   }
