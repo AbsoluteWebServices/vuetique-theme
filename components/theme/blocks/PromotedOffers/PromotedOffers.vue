@@ -1,45 +1,26 @@
 <template>
-  <section v-if="!singleBanner" class="offers container mx-auto my-2 sm:my-8 row w-100">
-    <div
-      class="offer-container md:p-5 col-6"
-      v-for="(banner, index) in banners.smallBanners"
-      :key="index"
-    >
-      <router-link :to="localizedRoute(banner.link)">
-        <div
-          class="offer offer-small border-box p-1 flex justify-center items-center text-white bg-white relative"
+  <section class="container">
+    <div class="row gutter-sm md:gutter-md">
+      <div
+        v-for="(banner, index) in collectionBanners"
+        :key="index"
+        class="mb-5"
+        :class="columnClass"
+      >
+        <router-link
+          :to="localizedRoute(banner.link)"
+          class="offer p-1 flex justify-center items-center text-white relative"
+          :class="columns > 1 ? 'offer-small' : 'offer-single'"
           v-lazy:background-image="banner.image"
         >
-          <h2 class="md:text-h1 text-center">{{ banner.title }}</h2>
+          <h2 class="md:text-h1 text-center leading-tight">{{ banner.title }}</h2>
           <div class="w-24 absolute pin-b mx-auto mb-5 md:mb-10">
-            <button-full class="btn-primary" :link="{ path: banner.link }">{{ $t('Shop') }}</button-full>
-          </div>
-        </div>
-      </router-link>
-    </div>
-  </section>
-  <section v-else class="container mx-auto my-8 px-4">
-    <div class="flex">
-      <div
-        class="w-full"
-        v-for="(banner, index) in banners.productBanners"
-        :key="index"
-      >
-        <router-link :to="localizedRoute(banner.link)">
-          <div
-            class="offer offer-product border-box p-1 flex justify-center items-center text-white bg-white relative"
-            v-lazy:background-image="banner.image"
-          >
-            <h2 class="md:text-h1 text-center">
-              {{ banner.title }}
-            </h2>
-            <div class="w-24 absolute pin-b mx-auto mb-5 md:mb-10">
-              <button-full class="btn-primary" :link="{ path: banner.link }">{{ $t('Shop') }}</button-full>
-            </div>
+            <button-full class="btn-primary w-full">{{ $t('Shop') }}</button-full>
           </div>
         </router-link>
       </div>
     </div>
+
   </section>
 </template>
 
@@ -52,10 +33,24 @@ import ButtonFull from 'theme/components/theme/ButtonFull'
 export default {
   name: 'PromotedOffers',
   props: {
-    singleBanner: {
-      type: Boolean,
+    collection: {
+      type: String,
+      required: true
+    },
+    limit: {
+      type: Number,
       required: false,
-      default: false
+      default: 1
+    },
+    offset: {
+      type: Number,
+      required: false,
+      default: 0
+    },
+    columns: {
+      type: Number,
+      required: false,
+      default: 1
     }
   },
   components: {
@@ -64,7 +59,17 @@ export default {
   computed: {
     ...mapGetters({
       banners: 'promoted/getPromotedOffers'
-    })
+    }),
+    collectionBanners () {
+      return this.banners[this.collection].slice(this.offset, this.offset + this.limit)
+    },
+    columnClass () {
+      if (this.columns < 2 || this.columns > 4) {
+        return 'col-12'
+      } else {
+        return 'col-6 md:col-' + (12 / this.columns) % 10
+      }
+    }
   },
   created () {
     this.updatePromotedOffers(promotedOffers)
@@ -78,11 +83,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .offer-container {
-    &:last-child {
-      padding-bottom: 0;
-    }
-  }
   .offer {
     height: 780px;
     flex-direction: column;
@@ -107,7 +107,7 @@ export default {
       height: 200px;
     }
   }
-  .offer-product {
+  .offer-single {
     height: 330px;
     background-position: 50% 20%;
 

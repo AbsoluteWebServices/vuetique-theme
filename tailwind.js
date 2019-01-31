@@ -945,7 +945,7 @@ module.exports = {
     }),
     require('./tailwind/flexboxgrid')({
       gutters: {
-        xs: '0.15625',
+        xs: '0.15625rem',
         sm: '0.3125rem',
         md: '0.625rem',
         lg: '0.9375rem'

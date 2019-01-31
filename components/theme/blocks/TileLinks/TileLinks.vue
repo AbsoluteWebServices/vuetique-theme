@@ -1,7 +1,7 @@
 <template>
-  <div class="row -mx-3">
+  <div class="row gutter-md">
     <div
-      class="sm:col-4 px-3 pb-5"
+      class="col-6 sm:col-4 pb-5"
       v-for="(tile, index) in social_tiles"
       :key="index"
     >

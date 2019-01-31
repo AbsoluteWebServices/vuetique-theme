@@ -277,7 +277,7 @@
       type="upsell"
       :heading="$t('We found other products you might like')"
     />
-    <promoted-offers single-banner />
+    <promoted-offers collection="productBanners" class="my-8 px-6" />
     <related-products type="related" />
 
     <div class="container my-4">
