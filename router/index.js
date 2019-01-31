@@ -32,7 +32,7 @@ let routes = [
   { name: 'contact', path: '/contact', component: Static, props: {page: 'contact', title: 'Contact'} },
   { name: 'compare', path: '/compare', component: Compare, props: {title: 'Compare Products'} },
   { name: 'page-not-found', path: '/page-not-found', component: PageNotFound },
-  { name: 'error', path: '/error', component: ErrorPage, meta: { layout: 'minimal' } },
+  { name: 'error', path: '/error', component: ErrorPage },
   { name: 'custom-cms-page', path: '/custom-cms-page', component: CustomCmsPage },
   { name: 'cms-block-demo-page-ssr', path: '/cms-block-demo-page-ssr', component: CmsBlockDemoPageSsr },
   { name: 'cms-page-sync', path: '/cms-page-sync', component: CmsData, props: {identifier: 'about-us', type: 'Page', sync: true} }
