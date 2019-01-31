@@ -1,5 +1,12 @@
 @import "~theme/css/animations/transitions";
 
+@screen lg {
+  .header-fixed .right-sidebar {
+    top: 70px;
+    max-height: calc(100vh - 70px);
+  }
+}
+
 .right-sidebar {
   background: #fff;
   top: 70px;

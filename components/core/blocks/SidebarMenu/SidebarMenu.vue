@@ -208,6 +208,13 @@ export default {
 <style lang="scss">
 @import "~theme/css/animations/transitions";
 
+@screen lg {
+  .header-fixed .sidebar-menu {
+    top: 70px;
+    max-height: calc(100vh - 70px);
+  }
+}
+
 .sidebar-menu {
   width: 100vh;
   top: 70px;
