@@ -59,9 +59,9 @@
       <div class="container" v-else>
         <div class="row">
           <div class="col-12">
-            <h4 class="cl-accent ml-6">
+            <h3 class="my-8 md:mb-16">
               {{ $t('You have no items to compare.') }}
-            </h4>
+            </h3>
           </div>
         </div>
       </div>
