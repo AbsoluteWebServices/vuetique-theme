@@ -56,5 +56,10 @@
     <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 13 3" id="more">
       <path d="M11.5,3A1.5,1.5,0,1,1,13,1.5,1.5,1.5,0,0,1,11.5,3Zm-5,0A1.5,1.5,0,1,1,8,1.5,1.5,1.5,0,0,1,6.5,3Zm-5,0A1.5,1.5,0,1,1,3,1.5,1.5,1.5,0,0,1,1.5,3Z" fill-rule="evenodd"/>
     </symbol>
+    <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 29.333332 29.333332" id="compare_header">
+      <g transform="matrix(1.3333333,0,0,-1.3333333,0,29.333333)">
+        <path d="M 0,0 H 6 V 22 H 0 Z M 1.687,20.312 H 4.312 V 1.687 H 1.687 Z M 16,0 h 5.999 V 18 H 16 Z m 1.688,16.312 h 2.624 V 1.687 H 17.688 Z M 8,0 h 6 V 14 H 8 Z m 1.688,12.313 h 2.625 V 1.688 H 9.688 Z" />
+      </g>
+    </symbol>
   </svg>
 </template>
