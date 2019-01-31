@@ -155,32 +155,16 @@
               :product="product"
             />
             <div class="row mt-6 pb-5 border-b">
-              <div v-if="product.type_id !== 'grouped' && product.type_id !== 'bundle'" class="col-auto mb-3 lg:mb-0 mr-5">
-                <label class="pb-2 hidden" for="quantity">{{ $t('Quantity') }}</label>
-                <div class="flex">
-                  <input
-                    type="text"
-                    min="0"
-                    class="qty-input"
-                    id="quantity"
-                    focus
-                    v-model="product.qty"
-                  >
-                  <div class="input-number-controls">
-                    <button @click.prevent="product.qty++">
-                      <svg viewBox="0 0 15 15" class="vt-icon"><use xlink:href="#up" /></svg>
-                    </button>
-                    <button @click.prevent="product.qty > 1 ? product.qty-- : null">
-                      <svg viewBox="0 0 25 25" class="vt-icon"><use xlink:href="#down" /></svg>
-                    </button>
-                  </div>
-                </div>
-              </div>
+              <qty-input
+                v-if="product.type_id !== 'grouped' && product.type_id !== 'bundle'"
+                v-model="product.qty"
+                class="col-auto mr-5"
+                size="lg"/>
 
               <div class="col-grow flex">
                 <add-to-cart
                   :product="product"
-                  class="bg-primary py-3 text-sm "
+                  class="py-3 text-sm"
                 />
               </div>
             </div>
@@ -303,9 +287,11 @@ import ProductLinks from 'theme/components/core/ProductLinks.vue'
 import ProductCustomOptions from 'theme/components/core/ProductCustomOptions.vue'
 import ProductBundleOptions from 'theme/components/core/ProductBundleOptions.vue'
 import ProductGallery from 'theme/components/core/ProductGallery'
-import PromotedOffers from 'theme/components/theme/blocks/PromotedOffers/PromotedOffers'
 import RecentlyViewed from 'theme/components/core/blocks/MyAccount/RecentlyViewed'
+
 import focusClean from 'theme/components/theme/directives/focusClean'
+import PromotedOffers from 'theme/components/theme/blocks/PromotedOffers/PromotedOffers'
+import QtyInput from 'theme/components/theme/QtyInput'
 
 export default {
   components: {
@@ -324,7 +310,8 @@ export default {
     RelatedProducts,
     Reviews,
     SizeSelector,
-    RecentlyViewed
+    RecentlyViewed,
+    QtyInput
   },
   mixins: [Product, VueOfflineMixin],
   data () {
@@ -357,48 +344,6 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-%qty-input {
-  @apply border border-grey text-center py-3 px-2 text-sm text-grey outline-none bg-white;
-
-  &:focus {
-    @apply text-grey-dark;
-  }
-}
-
-.qty-input {
-  @extend %qty-input;
-  width: 50px;
-  height: 50px;
-}
-
-.qty-input-sm {
-  @extend %qty-input;
-  height: 40px;
-  width: 90px;
-}
-
-.input-number-controls {
-  display: inline-block;
-
-  button {
-    @apply block border border-grey border-l-0 bg-white;
-
-    width: 30px;
-    height: 50%;
-
-    &:last-of-type {
-      border-top: none;
-    }
-
-    .vt-icon {
-      width: 8px;
-      height: 8px;
-    }
-  }
-}
-</style>
 
 <style lang="scss" scoped>
 .error {

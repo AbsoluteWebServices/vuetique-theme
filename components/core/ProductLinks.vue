@@ -15,38 +15,24 @@
           </div>
         </div>
 
-        <div v-if="productLink.product">
-          <label class="hidden">{{ $t('Quantity') }}</label>
-          <div class="flex">
-            <input
-              type="text"
-              class="qty-input-sm"
-              min="1"
-              autofocus
-              v-model.number="productLink.product.qty"
-            >
-            <div class="input-number-controls">
-              <button @click.prevent="productLink.product.qty++">
-                <svg viewBox="0 0 15 15" class="vt-icon"><use xlink:href="#up" /></svg>
-              </button>
-              <button @click.prevent="productLink.product.qty > 1 ? productLink.product.qty-- : null">
-                <svg viewBox="0 0 25 25" class="vt-icon"><use xlink:href="#down" /></svg>
-              </button>
-            </div>
-          </div>
-        </div>
+        <qty-input v-if="productLink.product" v-model="productLink.product.qty"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import QtyInput from 'theme/components/theme/QtyInput'
+
 export default {
   props: {
     products: {
       type: Array,
       required: true
     }
+  },
+  components: {
+    QtyInput
   }
 }
 </script>
