@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" :class="{ 'header-fixed': navFixed, 'header-visible': navVisible }">
     <icons/>
     <overlay v-if="overlayActive"/>
     <loader/>
@@ -59,7 +59,14 @@ export default {
   data () {
     return {
       loadOrderConfirmation: false,
-      ordersData: []
+      ordersData: [],
+      navFixed: false,
+      navVisible: false,
+      isScrolling: false,
+      scrollTop: 0,
+      lastScrollTop: 0,
+      headerHeight: 165,
+      navbarHeight: 70
     }
   },
   computed: {
@@ -76,6 +83,21 @@ export default {
       this.loadOrderConfirmation = true
       this.ordersData = payload
       EventBus.$emit('modal-show', 'modal-order-confirmation')
+    },
+    hasScrolled () {
+      this.scrollTop = window.scrollY
+      if (this.scrollTop > this.headerHeight) {
+        this.navFixed = true
+        if (this.scrollTop < this.lastScrollTop && this.scrollTop > this.headerHeight + this.navbarHeight * 2) {
+          this.navVisible = true
+        } else {
+          this.navVisible = false
+        }
+      } else {
+        this.navFixed = false
+        this.navVisible = false
+      }
+      this.lastScrollTop = this.scrollTop
     }
   },
   beforeMount () {
@@ -89,6 +111,17 @@ export default {
       this.$Progress.finish()
     })
     EventBus.$on('offline-order-confirmation', this.onOrderConfirmation)
+
+    window.addEventListener('scroll', () => {
+      this.isScrolling = true
+    }, {passive: true})
+
+    setInterval(() => {
+      if (this.isScrolling) {
+        this.hasScrolled()
+        this.isScrolling = false
+      }
+    }, 250)
   },
   beforeDestroy () {
     EventBus.$off('offline-order-confirmation', this.onOrderConfirmation)

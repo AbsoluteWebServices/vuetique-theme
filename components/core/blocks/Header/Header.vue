@@ -113,6 +113,10 @@ export default {
 <style lang="scss" scoped>
 header {
   height: 70px;
+
+  @screen lg {
+    top: -70px;
+  }
 }
 
 .header-placeholder {
@@ -126,5 +130,25 @@ header {
 .right-icons {
   //for edge
   float: right;
+}
+
+@screen lg {
+  .header-fixed {
+    header {
+      position: fixed;
+      top: -70px;
+      left: 0;
+      right: 0;
+      transition: top 0.2s ease-in-out;
+    }
+
+    .header-placeholder {
+      height: 70px;
+    }
+
+    &.header-visible header {
+      top: 0;
+    }
+  }
 }
 </style>
