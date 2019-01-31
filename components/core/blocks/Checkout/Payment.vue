@@ -294,6 +294,7 @@
           <div class="w-full mb-4">
             <div v-for="(method, index) in paymentMethods" :key="index" class="col-md-6">
               <base-radiobutton
+                :id="'payment-' + method.code"
                 name="payment-method"
                 :val="method.code"
                 :value="payment.paymentMethod == method.code"
@@ -352,7 +353,7 @@
           <h4>{{ $t('Payment method') }}</h4>
         </div>
         <div class="col-md-6 mb-4">
-          <base-radiobutton :value="true" :disabled="true">
+          <base-radiobutton id="payment-selected" :value="true" :disabled="true">
             {{ getPaymentMethod().title }}
           </base-radiobutton>
         </div>

@@ -5,7 +5,7 @@
         class="outline-none"
         type="radio"
         :id="id"
-        :name="id"
+        :name="name"
         :value="val"
         :checked="value"
         @keyup.enter="$emit('click')"
@@ -14,7 +14,7 @@
         @change="$emit('change')"
         :disabled="disabled"
       >
-      <label :for="id">
+      <label :for="id" :class="{'cursor-pointer': !disabled }">
         <slot/>
       </label>
     </div>
@@ -36,8 +36,7 @@ export default {
   props: {
     id: {
       type: String,
-      required: false,
-      default: null
+      required: true
     },
     name: {
       type: String,

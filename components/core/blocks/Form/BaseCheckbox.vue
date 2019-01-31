@@ -12,7 +12,7 @@
         @change="$emit('change')"
         :disabled="disabled"
       >
-      <label :for="id">
+      <label :for="id" :class="{'cursor-pointer': !disabled }">
         <slot/>
       </label>
     </div>

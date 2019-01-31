@@ -193,6 +193,7 @@
       <div class="w-full md:w-11/12 mb-4">
         <div v-for="(method, index) in shippingMethods" :key="index">
           <base-radiobutton
+            :id="'shipping-' + method.method_code"
             name="shipping-method"
             :val="method.method_code"
             :value="shipping.shippingMethod == method.method_code"
@@ -251,7 +252,7 @@
             </h4>
           </div>
           <div class="v-full mt-3">
-            <base-radiobutton :value="true" :disabled="true">
+            <base-radiobutton id="shipping-selected" :value="true" :disabled="true">
               {{ getShippingMethod().method_title }} | {{ getShippingMethod().amount | price }}
             </base-radiobutton>
           </div>
