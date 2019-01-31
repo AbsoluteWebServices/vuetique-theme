@@ -134,9 +134,6 @@ img {
   mix-blend-mode: multiply;
   vertical-align: top;
 }
-img[lazy=error], img[lazy=loading] {
-  width: 100%;
-}
 
 .thumbnails {
   div {
