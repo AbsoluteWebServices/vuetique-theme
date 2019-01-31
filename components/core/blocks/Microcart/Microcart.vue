@@ -1,7 +1,7 @@
 <template>
   <div
     class="right-sidebar microcart max-w-full fixed p-8 pt-10"
-    :class="{ active: isMicrocartOpen }"
+    :class="{ active: showMicrocart }"
     data-testid="microcart"
   >
     <button
@@ -115,7 +115,8 @@ export default {
   data () {
     return {
       addCouponPressed: false,
-      couponCode: ''
+      couponCode: '',
+      componentLoaded: false
     }
   },
   props: {
@@ -124,6 +125,16 @@ export default {
       required: false,
       default: () => false
     }
+  },
+  computed: {
+    showMicrocart () {
+      return this.isMicrocartOpen && this.componentLoaded
+    }
+  },
+  mounted () {
+    this.$nextTick(() => {
+      this.componentLoaded = true
+    })
   },
   methods: {
     addDiscountCoupon () {
