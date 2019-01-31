@@ -47,7 +47,12 @@ export default {
   components: {
     Product
   },
-  mixins: [Wishlist]
+  mixins: [Wishlist],
+  methods: {
+    closeWishlist () {
+      this.$store.dispatch('ui/closeWishlist')
+    }
+  }
 }
 </script>
 
