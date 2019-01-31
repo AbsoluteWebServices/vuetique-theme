@@ -1,3 +1,16 @@
+@media screen and (max-width: config('screens.md')) {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="search"],
+  input[type="url"],
+  textarea {
+    font-size: 1rem;
+  }
+}
+
 .checkbox-wrap {
   input[type="radio"],
   input[type="checkbox"] {
