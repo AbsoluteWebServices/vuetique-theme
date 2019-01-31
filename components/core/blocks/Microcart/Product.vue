@@ -60,6 +60,7 @@
           <div v-show="isEditing" class="inline-flex">
             <qty-input
               v-model="qty"
+              :id="'qty-' + product.sku"
               data-testid="productQtyInput"
               size="sm" />
             <apply-button @click.native="updateQuantity" class="ml-1" />
