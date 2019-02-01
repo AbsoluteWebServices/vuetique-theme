@@ -393,6 +393,9 @@ export default {
     transition: all 0.3s ease;
     font-size: 14px;
   }
+  p {
+    @apply mb-3 text-error;
+  }
 
   &--open {
     max-height: none;
