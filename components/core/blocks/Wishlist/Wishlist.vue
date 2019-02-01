@@ -2,6 +2,7 @@
   <div class="wishlist right-sidebar max-w-full fixed p-8 pt-10" :class="{ active: isWishlistOpen }">
     <button
       type="button"
+      :aria-label="$t('Close')"
       class="absolute pin-t pin-r m-4 h-4"
       @click="closeWishlist"
       data-testid="closeWishlist"
