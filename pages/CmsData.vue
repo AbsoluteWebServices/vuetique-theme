@@ -60,7 +60,10 @@ export default {
 <style lang="scss">
 .static-content {
   a {
-    @apply text-primary no-underline;
+    @apply text-primary2 no-underline;
+  }
+  p {
+    @apply mb-3;
   }
 }
 </style>
