@@ -25,7 +25,6 @@
         ref="search"
         type="text"
         id="search_panel_input"
-        :aria-label="$t('Type what you are looking for...')"
         :placeholder="$t('Type what you are looking for...')"
         class="w-full"
         v-model="search"
