@@ -2,7 +2,7 @@
   <div>
     <div class="checkbox-wrap">
       <input
-        class="m0 no-outline"
+        class="outline-none"
         type="checkbox"
         :id="id"
         :checked="value"
@@ -12,7 +12,7 @@
         @change="$emit('change')"
         :disabled="disabled"
       >
-      <label :for="id">
+      <label :for="id" :class="{'cursor-pointer': !disabled }">
         <slot/>
       </label>
     </div>
@@ -53,6 +53,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-</style>

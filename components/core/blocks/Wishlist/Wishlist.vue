@@ -1,14 +1,15 @@
 <template>
-  <div class="wishlist right-sidebar max-w-full fixed p-8" :class="{ active: isWishlistOpen }">
+  <div class="wishlist right-sidebar max-w-full fixed p-8 pt-10" :class="{ active: isWishlistOpen }">
     <button
       type="button"
-      class="absolute pin-t pin-r m-3"
+      :aria-label="$t('Close')"
+      class="absolute pin-t pin-r m-4 h-4"
       @click="closeWishlist"
       data-testid="closeWishlist"
     >
-      <i class="material-icons text-h4 text-grey-dark">
-        close
-      </i>
+      <svg viewBox="0 0 25 25" class="vt-icon--sm">
+        <use xlink:href="#close"/>
+      </svg>
     </button>
 
     <h2 v-if="productsInWishlist.length" class="mb-8">
@@ -47,7 +48,12 @@ export default {
   components: {
     Product
   },
-  mixins: [Wishlist]
+  mixins: [Wishlist],
+  methods: {
+    closeWishlist () {
+      this.$store.dispatch('ui/closeWishlist')
+    }
+  }
 }
 </script>
 

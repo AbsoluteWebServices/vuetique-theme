@@ -1,15 +1,15 @@
 <template>
   <div>
-    <header class="modal-header py25 px65 h1 serif weight-700 bg-cl-secondary">
+    <header class="modal-header">
       <svg viewBox="0 0 25 25" class="vt-icon modal-close p-1 m-2" slot="close" @click="close">
         <use xlink:href="#close"/>
       </svg>
       <h2>{{ $t('Login') }}</h2>
     </header>
-    <div class="modal-content pt30 pb60 px65 cl-secondary">
+    <div class="modal-content">
       <form @submit.prevent="login" novalidate>
         <base-input
-          class="mb-3"
+          class="mb-5"
           type="email"
           name="email"
           focus
@@ -28,7 +28,7 @@
           ]"
         />
         <base-input
-          class="mb-3"
+          class="mb-5"
           type="password"
           name="password"
           v-model="password"
@@ -39,18 +39,18 @@
             text: $t('Field is required.')
           }"
         />
-        <div class="row">
+        <div class="row mt-5 mb-5 lg:mb-10">
           <base-checkbox
-            class="md:w-1/2 text-black my-3"
+            class="col-12 sm:col-6 text-black"
             id="remember"
             v-model="remember"
             @click="remember = !remember"
           >
             {{ $t('Remember me') }}
           </base-checkbox>
-          <div class="md:w-1/2 xs:text-center sm:text-right my-3">
+          <div class="col-12 sm:col-6 mt-2 sm:mt-0 sm:text-right">
             <a href="#" @click.prevent="remindPassword">
-              {{ $t('Forgot the password?') }}
+              {{ $t('Forgot your password?') }}
             </a>
           </div>
         </div>

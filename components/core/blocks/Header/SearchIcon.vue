@@ -2,11 +2,13 @@
   <button
     type="button"
     :aria-label="$t('Open search panel')"
-    class="bg-cl-transparent brdr-none inline-flex"
+    class="bg-transparent border-0"
     @click="toggleSearchpanel"
     data-testid="openSearchPanel"
   >
-    <i class="material-icons">search</i>
+    <svg viewBox="0 0 25 25" class="vt-icon">
+      <use xlink:href="#search"/>
+    </svg>
   </button>
 </template>
 

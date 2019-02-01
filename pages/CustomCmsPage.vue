@@ -46,19 +46,5 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~theme/css/variables/colors';
-@import '~theme/css/helpers/functions/color';
-$color-secondary: color(secondary);
 
-.cms-content {
-  & * {
-    font-size: 18px;
-  }
-
-  a {
-    color: $color-secondary;
-    text-decoration: underline;
-  }
-
-}
 </style>

@@ -1,15 +1,12 @@
 <template>
   <div class="border-top border-grey">
-    <section class="container px-15 pb-10">
+    <section class="container pb-10 px-0">
       <div class="md:flex">
-        <div class="md:w-1/2 md:px-4 md:-ml-4 pt-10">
-          <h2 class="text-h3 m-0 mb-10">
-            {{ $t('Reviews') }}
-          </h2>
+        <div class="md:w-1/2 pt-2">
           <reviews-list :per-page="4" :items="reviews ? reviews : []" />
         </div>
-        <div class="md:w-1/2 md:px-4 md:-mr-4 pt-50">
-          <h2 class="text-h3 m-0 mb-10 mt-10">
+        <div class="md:w-1/2 md:px-4 md:-mr-4">
+          <h2 class="text-h3">
             {{ $t('Add review') }}
           </h2>
           <form action="#" @submit.prevent="outOfScope()">

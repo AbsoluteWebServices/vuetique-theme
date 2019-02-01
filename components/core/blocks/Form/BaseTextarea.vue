@@ -2,7 +2,7 @@
   <div class="relative">
     <div class="relative">
       <textarea
-        class="w-full border border-solid border-grey w-full text-sm text-grey px-3 py-3 h-10 bg-transparent outline-none focus:text-grey-dark"
+        class="w-full border border-solid border-grey w-full text-grey px-3 py-3 h-10 bg-transparent outline-none focus:text-grey-dark"
         :class="{empty: value === ''}"
         :type="type"
         :name="name"

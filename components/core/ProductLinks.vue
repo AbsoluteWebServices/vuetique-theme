@@ -1,13 +1,13 @@
 <template>
-  <div class="links py10">
+  <div class="links py-3">
     <div class="between-md" v-for="(productLink, index) in products" :key="index">
-      <div class="py10" v-if="productLink.product">
-        <div class="row middle-xs h4 mb10">
-          <p class="col-xs-7 serif m0">{{ productLink.product.name | htmlDecode }}</p>
-          <div class="col-xs-4 cl-bg-tertiary">
+      <div class="py-2" v-if="productLink.product">
+        <div class="row mb-1">
+          <h4 class="col-8">{{ productLink.product.name | htmlDecode }}</h4>
+          <div class="col-4 text-right text-grey-dark font-medium">
             <div v-if="productLink.product.special_price && productLink.product.priceInclTax && productLink.product.originalPriceInclTax">
-              <span class="price-special">{{ productLink.product.priceInclTax | price }}</span>&nbsp;
-              <span class="price-original" >{{ productLink.product.originalPriceInclTax | price }}</span>
+              <span class="text-primary mr-2">{{ productLink.product.priceInclTax | price }}</span>&nbsp;
+              <span class="line-through" >{{ productLink.product.originalPriceInclTax | price }}</span>
             </div>
             <div v-if="!productLink.product.special_price && productLink.product.priceInclTax">
               {{ productLink.product.priceInclTax | price }}
@@ -15,38 +15,24 @@
           </div>
         </div>
 
-        <div v-if="productLink.product" class="py5">
-          <p class="h6 cl-bg-tertiary m0">
-            {{ $t('Quantity') }}
-          </p>
-          <input
-            type="number"
-            class="product-qty py10 brdr-cl-primary bg-cl-transparent h4"
-            min="1"
-            autofocus
-            v-model.number="productLink.product.qty"
-          >
-        </div>
+        <qty-input v-if="productLink.product" v-model.number="productLink.product.qty"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import QtyInput from 'theme/components/theme/QtyInput'
+
 export default {
   props: {
     products: {
       type: Array,
       required: true
     }
+  },
+  components: {
+    QtyInput
   }
 }
 </script>
-
-<style scoped>
-.product-qty {
-  border-style: solid;
-  border-width: 0 0 1px 0;
-  width: 90px;
-}
-</style>

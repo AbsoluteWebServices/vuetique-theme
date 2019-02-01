@@ -1,3 +1,6 @@
+@import '~theme/css/variables/colors';
+@import '~theme/css/helpers/functions/color';
+
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
   color: color(silver);
 }
@@ -9,4 +12,27 @@
 }
 :-moz-placeholder { /* Firefox 18- */
   color: color(silver);
+}
+
+.input-number-controls {
+  display: inline-block;
+
+  button {
+    display: block;
+    background-color: #fff;
+    width: 30px;
+    height: 50%;
+    padding: 0;
+    border: 1px solid color(silver);
+    border-left: none;
+
+    &:last-of-type {
+      border-top: none;
+    }
+
+    .vt-icon {
+      width: 8px;
+      height: 8px;
+    }
+  }
 }

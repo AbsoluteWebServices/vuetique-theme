@@ -1,11 +1,11 @@
 <template>
   <button
-    class="middle-xs brdr-none bg-cl-transparent p0 inline-flex cl-secondary"
+    class="border-0 bg-transparent p-0 inline-flex"
     data-testid="editButton"
   >
-    <span class="hidden-xs h6">
+    <span class="hidden">
       {{ $t('Edit') }}
     </span>
-    <i class="material-icons h4 p5 pr0">mode_edit</i>
+    <i class="material-icons text-h4 text-grey-dark">mode_edit</i>
   </button>
 </template>

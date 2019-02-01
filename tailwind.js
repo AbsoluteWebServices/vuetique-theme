@@ -66,7 +66,7 @@ let colors = {
   'success': '#43c265',
   'warning': '#755',
 
-  'error': '#c24343',
+  'error': '#eb415c',
   'error-lighter': '#f0d0d0',
   'error-lightest': '#fcf5f5',
 
@@ -74,6 +74,7 @@ let colors = {
 }
 
 let backgroundColors = {
+  'white': colors['white']
 }
 
 let borderColors = {
@@ -413,9 +414,6 @@ module.exports = {
 
   borderRadius: {
     'none': '0',
-    'sm': '.125rem',
-    default: '.25rem',
-    'lg': '.5rem',
     'full': '9999px',
   },
 
@@ -444,18 +442,8 @@ module.exports = {
   width: {
     'auto': 'auto',
     'px': '1px',
-    '1': '0.25rem',
-    '2': '0.5rem',
-    '3': '0.75rem',
-    '4': '1rem',
-    '5': '1.25rem',
     '6': '1.5rem',
-    '8': '2rem',
-    '10': '2.5rem',
-    '12': '3rem',
-    '16': '4rem',
     '24': '6rem',
-    '32': '8rem',
     '48': '12rem',
     '64': '16rem',
     '1/2': '50%',
@@ -467,8 +455,6 @@ module.exports = {
     '2/5': '40%',
     '3/5': '60%',
     '4/5': '80%',
-    '1/6': '16.66667%',
-    '5/6': '83.33333%',
     '1/12': '8.33333%',
     '5/12': '41.66667%',
     '7/12': '58.33333%',
@@ -497,20 +483,9 @@ module.exports = {
   height: {
     'auto': 'auto',
     'px': '1px',
-    '1': '0.25rem',
-    '2': '0.5rem',
-    '3': '0.75rem',
     '4': '1rem',
-    '5': '1.25rem',
     '6': '1.5rem',
-    '8': '2rem',
     '10': '2.5rem',
-    '12': '3rem',
-    '16': '4rem',
-    '24': '6rem',
-    '32': '8rem',
-    '48': '12rem',
-    '64': '16rem',
     'full': '100%',
     'screen': '100vh',
   },
@@ -580,11 +555,6 @@ module.exports = {
     'sm': '30rem',
     'md': '40rem',
     'lg': '50rem',
-    'xl': '60rem',
-    '2xl': '70rem',
-    '3xl': '80rem',
-    '4xl': '90rem',
-    '5xl': '100rem',
     'full': '100%',
   },
 
@@ -870,8 +840,8 @@ module.exports = {
   */
 
   modules: {
-    appearance: ['responsive'],
-    backgroundAttachment: ['responsive'],
+    appearance: false,
+    backgroundAttachment: false,
     backgroundColors: ['responsive', 'hover', 'focus'],
     backgroundPosition: ['responsive'],
     backgroundRepeat: ['responsive'],
@@ -898,13 +868,13 @@ module.exports = {
     negativeMargin: ['responsive'],
     objectFit: false,
     objectPosition: false,
-    opacity: ['responsive', 'hover'],
+    opacity: ['hover'],
     outline: ['focus'],
     overflow: ['responsive'],
     padding: ['responsive'],
     pointerEvents: ['responsive'],
     position: ['responsive'],
-    resize: ['responsive'],
+    resize: false,
     shadows: ['responsive', 'hover', 'focus'],
     svgFill: [],
     svgStroke: [],
@@ -944,7 +914,7 @@ module.exports = {
     }),
     require('./tailwind/flexboxgrid')({
       gutters: {
-        xs: '0.15625',
+        xs: '0.15625rem',
         sm: '0.3125rem',
         md: '0.625rem',
         lg: '0.9375rem'

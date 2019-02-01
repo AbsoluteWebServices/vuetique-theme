@@ -28,14 +28,16 @@
         <div v-else>
           <no-ssr>
             <carousel
+              ref="carousel"
               :per-page="1"
               :mouse-drag="false"
               :navigation-enabled="true"
-              pagination-active-color="#828282"
-              pagination-color="transparent"
+              pagination-active-color="#222222"
+              pagination-color="#828282"
               navigation-next-label="<svg viewBox='0 0 25 25' class='vt-icon cursor-pointer'><use xlink:href='#right'/></svg>"
               navigation-prev-label="<svg viewBox='0 0 25 25' class='vt-icon cursor-pointer'><use xlink:href='#left'/></svg>"
-              ref="carousel"
+              @pageChange="onPageChange"
+              :speed="carouselTransitionSpeed"
             >
               <slide
                 v-for="images in gallery"
@@ -55,7 +57,7 @@
             </carousel>
           </no-ssr>
           <i
-            class="zoom-in material-icons p15 cl-bgs-tertiary cursor-pointer"
+            class="zoom-in material-icons p-4 cursor-pointer"
             @click="toggleZoom"
           >zoom_in</i>
         </div>
@@ -81,12 +83,18 @@ export default {
   },
   data () {
     return {
-      loaded: true
+      loaded: true,
+      currentPage: null,
+      carouselTransitionSpeed: 0
     }
   },
   methods: {
     validateRoute () {
       this.$forceUpdate()
+    },
+
+    onPageChange (page) {
+      this.$emit('page-change', page)
     }
   }
 }
@@ -123,15 +131,8 @@ export default {
   right: 0;
 }
 img {
-  opacity: 0.9;
   mix-blend-mode: multiply;
   vertical-align: top;
-  &:hover {
-    opacity: 1;
-  }
-}
-img[lazy=error], img[lazy=loading] {
-  width: 100%;
 }
 
 .thumbnails {
@@ -152,7 +153,6 @@ img[lazy=error], img[lazy=loading] {
   .VueCarousel-slide {
     @apply bg-grey-lightest;
     backface-visibility: unset;
-    max-height: 725px; // tmp until we can fix the image layout recompile on slider init
   }
   .VueCarousel-navigation {
     opacity: 0;
@@ -161,9 +161,15 @@ img[lazy=error], img[lazy=loading] {
     }
   }
   .VueCarousel-dot {
-    padding: 8px !important;
-    button {
-      border: 2px solid #828282;
+    .VueCarousel-dot-button {
+      max-width: 6px;
+      max-height: 6px;
+      outline: none;
+
+      &:focus,
+      &:active {
+        outline: none;
+      }
     }
   }
   &:hover {

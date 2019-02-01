@@ -2,7 +2,7 @@
   <div id="home">
     <main-slider />
 
-    <promoted-offers class="mb-16" />
+    <promoted-offers collection="smallBanners" :limit="2" :columns="2" class="mt-2 mb-16 sm:my-8" />
 
     <section class="new-collection container mb-16">
       <div>
@@ -15,7 +15,7 @@
       </div>
     </section>
 
-    <promoted-offers class="mb-16" />
+    <promoted-offers collection="smallBanners" :limit="2" :offset="2" :columns="2" class="mt-2 mb-16 sm:my-8" />
 
     <products-slider class="mb-16" :title="$t('Sale and discount')" :products="salesCollection" :config="sliderConfig" />
 

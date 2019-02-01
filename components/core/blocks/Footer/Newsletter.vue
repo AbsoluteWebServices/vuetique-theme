@@ -1,6 +1,6 @@
 <template>
   <div class="newsletter">
-    <h3 class="mb-4">
+    <h3 class="mb-4 text-center lg:text-left">
       {{ $t('Subscribe to the newsletter and receive a coupon for 10% off') }}
     </h3>
     <div class="newsletter-button">

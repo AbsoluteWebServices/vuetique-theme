@@ -1,8 +1,15 @@
 @import "~theme/css/animations/transitions";
 
+@screen lg {
+  .header-fixed .right-sidebar {
+    top: 70px;
+    max-height: calc(100vh - 70px);
+  }
+}
+
 .right-sidebar {
   background: #fff;
-  top: 0;
+  top: 70px;
   right: 0;
   z-index: 3;
   height: 100%;
@@ -12,48 +19,28 @@
   transition: transform 300ms $motion-main;
   overflow-y: auto;
   overflow-x: hidden;
+  max-height: calc(100vh - 70px);
+
+  @screen lg {
+    top: 0;
+    max-height: 100vh;
+  }
 
   &.active {
     transform: translateX(0)
   }
 
-  .products {
-    @media (max-width: 767px) {
-      padding: 30px 15px;
-    }
-
-    .product-title {
-      color: #222;
-    }
-  }
-
   .actions {
-    @media (max-width: 767px) {
-      padding: 0 15px;
-    }
     .link {
       @media (max-width: 767px) {
         display: flex;
         justify-content: center;
-        padding: 20px 70px;
+        padding: 20px 60px;
         &.checkout {
           margin-top: 55px;
           padding: 0;
         }
       }
-    }
-  }
-
-  .summary {
-    @media (max-width: 767px) {
-      padding:  0 15px;
-      font-size: 12px;
-    }
-  }
-
-  .summary-heading {
-    @media (max-width: 767px) {
-      font-size: 18px;
     }
   }
 
@@ -69,16 +56,15 @@
     }
   }
 
-  .delete-button {
-    vertical-align: middle;
-  }
-
   .image {
     mix-blend-mode: multiply;
     vertical-align: top;
     width: 80px;
     @media (max-width: 767px) {
       width: 60px;
+    }
+    @media (max-width: 575px) {
+      width: 45px;
     }
   }
 }

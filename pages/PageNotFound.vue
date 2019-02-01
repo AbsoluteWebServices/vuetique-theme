@@ -13,7 +13,7 @@
             {{ $t("Unfortunately we can't find the page you are looking for.") }}
           </p>
           <p>
-            {{ $t('If you need an assistance you can drop us write to us through') }}
+            {{ $t('If you need an assistance you can write to us through') }}
             <router-link :to="localizedRoute('/contact')" class="cl-secondary no-underline">
               {{ $t('a contact page') }}
             </router-link>.
@@ -64,7 +64,7 @@
 
 <script>
 import PageNotFound from '@vue-storefront/core/pages/PageNotFound'
-import ProductTile from '../components/core/ProductTile.vue'
+import ProductTile from 'theme/components/core/ProductTile.vue'
 import { Carousel, Slide } from 'vue-carousel'
 import NoSSR from 'vue-no-ssr'
 

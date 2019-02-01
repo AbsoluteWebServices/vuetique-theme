@@ -41,6 +41,10 @@ const mutations = {
 
 const actions = {
   addItem ({ commit, dispatch, state }, { productToAdd, forceServerSilence = false }) {
+    // NOTE: @AbsoluteWeb {
+    Vue.prototype.$bus.$emit('cart-before-add', { product: productToAdd })
+    // NOTE: } @AbsoluteWeb
+
     let productsToAdd = []
     if (productToAdd.type_id === 'grouped') { // TODO: add bundle support
       productsToAdd = productToAdd.product_links.filter((pl) => { return pl.link_type === 'associated' }).map((pl) => { return pl.product })
@@ -136,10 +140,14 @@ const actions = {
         Logger.warn('Removing product from cart', 'cart', originalCartItem)()
         rootStore.commit('cart/' + types.CART_DEL_NON_CONFIRMED_ITEM, { product: originalCartItem }, {root: true})
       }
+      // NOTE: @AbsoluteWeb {
+      Vue.prototype.$bus.$emit('cart-after-add', { type: 'error' })
+      // NOTE: } @AbsoluteWeb
     } else {
       // NOTE: @AbsoluteWeb {
       let notificationData = getAddToCartNotificationData(context.dispatch)
       rootStore.dispatch('notification/spawnNotification', notificationData)
+      Vue.prototype.$bus.$emit('cart-after-add', { type: 'success' })
       // NOTE: } @AbsoluteWeb
     }
   }

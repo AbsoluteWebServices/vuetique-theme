@@ -18,7 +18,7 @@
             {{ $t('Your purchase') }}
           </h3>
           <p v-if="OnlineOnly" v-html="this.$t('You have successfuly placed the order. You can check status of your order by using our <b>delivery status</b> feature. You will receive an order confirmation e-mail with details of your order and a link to track its progress.')" />
-          <div class="bg-grey-lighter my-5 text-black px-5 text-h2 py-3 inline-block font-serif font-medium" v-if="OnlineOnly && lastOrderConfirmation" v-html="this.$t('The server order id has been set to: ') + lastOrderConfirmation.backendOrderId"/>
+          <div class="bg-grey-lighter my-5 text-black px-5 text-h2 py-3 inline-block font-serif font-medium" v-if="OnlineOnly && lastOrderConfirmation" v-html="this.$t('Thank you for your Order #') + lastOrderConfirmation.backendOrderId"/>
           <p v-if="OnlineOnly" v-html="this.$t('E-mail us at <b>demo@vuestorefront.io</b> with any questions, suggestions how we could improve products or shopping experience')"/>
           <h4 v-if="OfflineOnly" class="my-2">
             {{ $t('You are offline') }}
@@ -34,7 +34,7 @@
           </p>
           <p v-if="!isPermissionGranted && isNotificationSupported">
             <button class="btn-grey-dark mt-5" @click.native="requestNotificationPermission()" >
-              {{ $t('Allow notification about the order') }}
+              {{ $t('Keep me notified about this order') }}
             </button>
           </p>
           <div id="thank-you-extensions"/>

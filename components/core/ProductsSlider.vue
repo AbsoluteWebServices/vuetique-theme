@@ -1,38 +1,24 @@
 <template>
-  <div class="collection">
-    <div class="container">
-      <div class="flex justify-center">
-        <header class="w-full mb-6">
-          <h2 class="text-center">
-            {{ title }}
-          </h2>
-        </header>
-      </div>
-    </div>
-    <div class="collection-slider">
-      <div class="container">
-        <div class="flex">
-          <div class="w-full">
-            <div class="justify-center cool-stuff-collection">
-              <no-ssr>
-                <carousel v-bind="config" @pageChange="setMuted">
-                  <slide
-                    v-for="product in products"
-                    :key="product.id"
-                  >
-                    <product-tile
-                      class="collection-product"
-                      :product="product"
-                      :labels-active="false"
-                    />
-                  </slide>
-                </carousel>
-              </no-ssr>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div class="collection container">
+    <header class="mb-6">
+      <h2 class="text-center">
+        {{ title }}
+      </h2>
+    </header>
+    <no-ssr>
+      <carousel v-bind="config" @pageChange="setMuted">
+        <slide
+          v-for="product in products"
+          :key="product.id"
+        >
+          <product-tile
+            class="collection-product"
+            :product="product"
+            :labels-active="false"
+          />
+        </slide>
+      </carousel>
+    </no-ssr>
   </div>
 </template>
 
@@ -105,6 +91,10 @@ export default {
 .VueCarousel {
   .VueCarousel-dot {
     line-height: 1;
+
+    &:focus {
+      outline: none;
+    }
   }
 }
 </style>

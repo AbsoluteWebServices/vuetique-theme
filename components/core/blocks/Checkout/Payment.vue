@@ -119,7 +119,7 @@
             class="w-1/2 px-3"
             type="text"
             name="apartment-number"
-            :placeholder="$t('House/Apartment number *')"
+            :placeholder="$t('House/Apartment number')"
             v-model.trim="payment.apartmentNumber"
             @blur="$v.payment.apartmentNumber.$touch()"
             autocomplete="address-line2"
@@ -287,22 +287,21 @@
     <div class="flex flex-wrap justify-end">
       <div class="w-full md:w-11/12">
         <div class="flex flex-wrap w-full" v-if="isActive">
-          <h4 class="my-3 mb-5">
+          <h4 class="my-3">
             {{ $t('Payment method') }}
           </h4>
 
-          <div class="w-full">
+          <div class="w-full mb-4">
             <div v-for="(method, index) in paymentMethods" :key="index" class="col-md-6">
-              <label class="radioStyled"> {{ method.title ? method.title : method.name }}
-                <input
-                  type="radio"
-                  :value="method.code"
-                  name="payment-method"
-                  v-model="payment.paymentMethod"
-                  @change="$v.payment.paymentMethod.$touch(); changePaymentMethod();"
-                >
-                <span class="checkmark"/>
-              </label>
+              <base-radiobutton
+                :id="'payment-' + method.code"
+                name="payment-method"
+                :val="method.code"
+                :value="payment.paymentMethod == method.code"
+                @change="$v.payment.paymentMethod.$touch(); changePaymentMethod();"
+              >
+                {{ method.title ? method.title : method.name }}
+              </base-radiobutton>
             </div>
             <span class="validation-error" v-if="!$v.payment.paymentMethod.required">{{ $t('Field is required') }}</span>
           </div>
@@ -344,7 +343,7 @@
           <span>{{ getCountryName() }}</span>
         </p>
         <div v-if="payment.phoneNumber">
-          <span class="pr15">{{ payment.phoneNumber }}</span>
+          <span>{{ payment.phoneNumber }}</span>
           <tooltip>{{ $t('Phone number may be needed by carrier') }}</tooltip>
         </div>
         <p v-if="generateInvoice">
@@ -353,11 +352,10 @@
         <div class="w-full my-3">
           <h4>{{ $t('Payment method') }}</h4>
         </div>
-        <div class="col-md-6 mb15">
-          <label class="radioStyled"> {{ getPaymentMethod().title }}
-            <input type="radio" value="" checked disabled name="chosen-payment-method">
-            <span class="checkmark"/>
-          </label>
+        <div class="col-md-6 mb-4">
+          <base-radiobutton id="payment-selected" :value="true" :disabled="true">
+            {{ getPaymentMethod().title }}
+          </base-radiobutton>
         </div>
       </div>
     </div>
@@ -370,6 +368,7 @@ import { required, minLength } from 'vuelidate/lib/validators'
 import { Payment } from '@vue-storefront/core/modules/checkout/components/Payment'
 
 import BaseCheckbox from 'theme/components/core/blocks/Form/BaseCheckbox'
+import BaseRadiobutton from 'theme/components/core/blocks/Form/BaseRadiobutton'
 import BaseInput from 'theme/components/core/blocks/Form/BaseInput'
 import BaseSelect from 'theme/components/core/blocks/Form/BaseSelect'
 import ButtonFull from 'theme/components/theme/ButtonFull'
@@ -378,6 +377,7 @@ import Tooltip from 'theme/components/core/Tooltip'
 export default {
   components: {
     BaseCheckbox,
+    BaseRadiobutton,
     BaseInput,
     BaseSelect,
     ButtonFull,
@@ -411,9 +411,7 @@ export default {
           streetAddress: {
             required
           },
-          apartmentNumber: {
-            required
-          },
+          apartmentNumber: {},
           zipCode: {
             required,
             minLength: minLength(3)
@@ -449,9 +447,7 @@ export default {
           streetAddress: {
             required
           },
-          apartmentNumber: {
-            required
-          },
+          apartmentNumber: {},
           zipCode: {
             required,
             minLength: minLength(4)

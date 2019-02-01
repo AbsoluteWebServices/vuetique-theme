@@ -1,14 +1,16 @@
 <template>
   <div class="compare">
     <breadcrumbs :routes="[{name: 'Homepage', route_link: '/'}]" active-route="Compare"/>
-    <div class="bg-cl-secondary py35 pl20">
+    <header class="pb-16 row bg-grey-lightest mb-6">
       <div class="container">
-        <h2>{{ title }}</h2>
+        <div class="row items-center mt-2">
+          <h1 class="col-12"> {{ title }} </h1>
+        </div>
       </div>
-    </div>
-    <div class="py35">
+    </header>
+    <div class="-mt-6 -mb-5">
       <div class="row" v-if="items.length">
-        <div class="col-xs-12">
+        <div class="col-12">
           <div class="compare__products-table">
             <div class="compare__features">
               <div class="compare__top-info">
@@ -26,7 +28,7 @@
                 <li v-for="(product, index) in items" :key="index" class="compare__product" data-testid="comparedProduct">
                   <div class="compare__top-info">
                     <div class="check"/>
-                    <product-tile class="col-md-12 collection-product" :product="product"/>
+                    <product-tile class="col-12 collection-product" :product="product"/>
                     <span class="compare__remove" @click="removeFromCompare(product)">
                       <remove-button/>
                     </span>
@@ -56,10 +58,10 @@
       </div>
       <div class="container" v-else>
         <div class="row">
-          <div class="col-xs-12">
-            <h4 class="cl-accent ml30">
+          <div class="col-12">
+            <h3 class="my-8 md:mb-16">
               {{ $t('You have no items to compare.') }}
-            </h4>
+            </h3>
           </div>
         </div>
       </div>
@@ -111,8 +113,6 @@ $products-column-width: 280px;
 $features-column-width-mobile: 110px;
 $features-column-width: 210px;
 
-$screen-l: 1170px;
-
 *,
 *::after,
 *::before {
@@ -122,86 +122,62 @@ $screen-l: 1170px;
 .compare {
 
   &__products-wrapper {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    border-style: solid;
-    border-color: $border;
-    border-width: 1px 0 1px 0;
+    @apply border-t border-b overflow-x-auto scrolling-touch;
   }
 
   &__products-columns {
-    margin: 0 0 0 $features-column-width-mobile;
-    padding: 0;
-    display: flex;
+    @apply flex p-0;
 
-    @media (min-width: $screen-l) {
+    margin: 0 0 0 $features-column-width-mobile;
+
+    @screen lg {
       margin-left: $features-column-width;
     }
   }
 
   &__products-table {
-    position: relative;
-    overflow: hidden;
+    @apply relative overflow-hidden;
   }
 
   &__features {
-    position: absolute;
+    @apply border-t border-b absolute pin-t pin-l;
+
     z-index: 1;
-    top: 0;
-    left: 0;
     width: $features-column-width-mobile;
-    border-style: solid;
-    border-color: $border;
-    border-width: 1px 0 1px 0;
-    background-color: mix(#000, $color-white, 2%);
     opacity: .95;
 
-    @media (min-width: $screen-l) {
+    @screen lg {
       width: $features-column-width;
     }
   }
 
   &__product {
-    list-style: none;
-    position: relative;
-    float: left;
+    @apply list-reset relative text-center float-left;
+
     width: $products-column-width-mobile;
-    text-align: center;
     transition: opacity .3s, visibility .3s, transform .3s;
 
-    @media (min-width: $screen-l) {
+    @screen lg {
       width: $products-column-width;
     }
   }
 
   &__attributes {
-    font-weight: bold;
-    font-size: 0.6rem;
-    line-height: 14px;
-    padding: 15px 5px;
-    text-align: left;
+    @apply text-xs font-medium leading-tight text-left px-1 py-4;
 
-    @media (min-width: $screen-l) {
-      padding: 25px 10px;
-      line-height: 16px;
-      font-size: 0.7rem;
+    @screen lg {
+      @apply text-sm px-2 py-6;
     }
   }
 
   &__top-info {
-    position: relative;
+    @apply border-r bg-grey-lightest text-center relative overflow-hidden cursor-pointer;
+
     height: 250px;
     width: $products-column-width-mobile;
-    text-align: center;
-    border-color: $border;
-    border-style: solid;
-    border-width: 0 1px 0 0;
     transition: height .3s;
-    cursor: pointer;
-    background: $color-product-bg;
-    overflow: hidden;
 
-    @media (min-width: $screen-l) {
+    @screen lg {
       height: 385px;
       width: $products-column-width;
     }
@@ -210,40 +186,31 @@ $screen-l: 1170px;
       @extend .compare__attributes;
       width: $features-column-width-mobile;
       cursor: auto;
-      background: mix(#000, $color-white, 2%);
 
-      @media (min-width: $screen-l) {
+      @screen lg {
         width: $features-column-width;
       }
     }
   }
 
   &__features-list {
-    margin: 0;
-    padding: 0;
+    @apply m-0 p-0;
   }
 
   &__features-item {
     @extend .compare__attributes;
-    @apply text-base;
-    border-color: $border;
-    border-style: solid;
-    border-width: 1px 1px 0 0;
+    @apply text-base border-t border-r overflow-hidden whitespace-no-wrap;
+
     list-style: none;
-    white-space: nowrap;
     text-overflow: ellipsis;
-    overflow: hidden;
 
     .compare__products-columns & {
-      font-weight: normal;
-      text-align: center;
+      @apply font-normal text-center;
     }
   }
 
   &__remove {
-    position: absolute;
-    top: 0;
-    right: 0;
+    @apply absolute pin-t pin-r;
   }
 }
 </style>

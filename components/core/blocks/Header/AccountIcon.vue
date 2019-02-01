@@ -4,27 +4,25 @@
        @click.self="goToAccount">
     <button
       type="button"
-      class="bg-cl-transparent brdr-none p0"
+      class="bg-transparent border-0 p-0"
       :aria-label="$t('Open my account')"
     >
       <svg viewBox="0 0 25 25" class="vt-icon">
         <use xlink:href="#user"/>
       </svg>
     </button>
-    <div v-if="currentUser" class="dropdown-content px-2 py-2 bg-cl-primary align-left sans-serif lh20 weight-400">
-      <div class="py5">
-        <div v-for="(page, index) in navigation" :key="index" @click="notify(page.title)">
-          <router-link class="no-underline block dropdown-item-link" :to="localizedRoute(page.link)">
-            {{ page.title }}
-          </router-link>
-        </div>
-      </div>
-      <div class="border-t mt-1 pt-1">
-        <a href="#" class="no-underline block dropdown-item-link" @click.prevent="logout">
+    <ul v-if="currentUser" class="dropdown-content">
+      <li v-for="(page, index) in navigation" :key="index" @click="notify(page.title)">
+        <router-link class="dropdown-item-link" :to="localizedRoute(page.link)">
+          {{ page.title }}
+        </router-link>
+      </li>
+      <li>
+        <a href="#" class="dropdown-item-link" @click.prevent="logout">
           {{ $t('Logout') }}
         </a>
-      </div>
-    </div>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -73,45 +71,36 @@ $color-icon-hover: color(secondary, $colors-background);
   }
 
   .dropdown-content {
-    display: none;
-    position: absolute;
-    right: 0;
+    @apply hidden p-0 m-0 absolute bg-grey-lighter shadow z-10 pin-r list-reset;
+    min-width: 200px;
     top: 100%;
-    width: 200px;
-    z-index: 1;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    background: #fff;
-    border: solid 1px #eff0ef;
-
-    .dropdown-item-link {
-      color: #000;
-      padding: 3px 5px;
-      font-weight: 500;
-    }
 
     &:before {
+      @apply block border-solid;
       content: "";
       display: block;
       position: absolute;
       bottom: 100%;
       right: 15px;
-      border-top: 8px solid transparent;
-      border-bottom: 8px solid #eff0ef;
-      border-left: 8px solid #b94b4b00;
-      border-right: 8px solid transparent;
+      border-width: 8px;
+      border-color: transparent transparent config('colors.grey-light') transparent;
     }
 
-  }
-
-  a {
-    opacity: .6;
-
-    &:hover,
-    &:focus {
-      background-color: $color-icon-hover;
-      opacity: 1;
+    li + li {
+      @apply border-t border-solid border-white;
     }
 
+    .dropdown-item-link {
+      @apply block w-full text-sm text-grey-dark text-left font-medium;
+      padding: 10px 15px;
+      text-decoration: none;
+
+      &:hover, &:focus, &.router-link-active {
+        @apply text-primary;
+        outline: none;
+      }
+    }
   }
 
   @media (min-width: 768px) {

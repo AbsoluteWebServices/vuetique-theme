@@ -2,7 +2,7 @@
   <div class="relative">
     <div class="relative">
       <input
-        class="w-full border border-solid border-grey w-full text-sm text-grey px-3 h-10 bg-transparent outline-none focus:text-grey-dark"
+        class="w-full border border-solid border-grey text-sm text-grey px-3 h-10 bg-transparent outline-none focus:text-grey-dark"
         :class="{'pr-7': type === 'password', empty: value === '', 'has-error' : (isValid === false)}"
         :type="type === 'password' ? passType : type"
         :name="name"
@@ -17,20 +17,18 @@
         @keyup.enter="keyupEnter"
         @keyup="keyup"
       >
-      <svg viewBox="0 0 17.313 17.311" class="vt-icon--sm _icon-error" v-if="isValid === false && hasValidator === true">
+      <svg viewBox="0 0 17.313 17.311" class="vt-icon--sm _icon-error" :class="{'mr-6': iconActive}" v-if="isValid === false && hasValidator === true">
         <use xlink:href="#error"/>
       </svg>
 
-      <svg viewBox="0 0 17.333 9.333" class="vt-icon--sm _icon-success" v-if="isValid && isDirty === true && hasValidator === true">
+      <svg viewBox="0 0 17.333 9.333" class="vt-icon--sm _icon-success" :class="{'mr-6': iconActive}" v-if="isValid && isDirty === true && hasValidator === true">
         <use xlink:href="#success"/>
       </svg>
     </div>
     <button
       v-if="iconActive"
       type="button"
-      class="
-        icon material-icons absolute outline-none
-      "
+      class="icon material-icons absolute outline-none text-grey-dark"
       @click="togglePassType()"
       :aria-label="$t('Toggle password visibility')"
       :title="$t('Toggle password visibility')"
@@ -95,7 +93,8 @@ export default {
     },
     value: {
       type: [String, Number],
-      required: true
+      default: null,
+      required: false
     },
     name: {
       type: String,
@@ -206,12 +205,11 @@ export default {
 
     &._icon-success {
       @apply fill-primary;
-      transform: rotate(180deg);
     }
   }
 
   .icon {
     right: 6px;
-    top: 10px;
+    top: 8px;
   }
 </style>

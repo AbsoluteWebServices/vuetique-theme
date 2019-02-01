@@ -8,18 +8,42 @@
       <div class="container">
         <section class="md:flex">
           <div class="w-full md:w-3/5">
-            <product-gallery
-              :gallery="gallery"
-              :offline="offlineImage"
-              :configuration="configuration"
-              :product="product"
-            />
+            <div class="flex">
+              <div v-if="gallery.length > 1" class="product-thumbnails w-1/12 hidden md:block">
+                <ul class="list-reset">
+                  <li
+                    v-for="(images, key) in gallery"
+                    :key="images.src"
+                    class="mb-1 bg-grey-lighter"
+                  >
+                    <img
+                      :src="images.src"
+                      ref="images"
+                      @click="$refs.gallery.$refs.carousel.goToPage(key)"
+                      :alt="product.name"
+                      class="block border cursor-pointer"
+                      :class="currentGalleryPage === key ? 'border-black' : 'border-grey-light'">
+                  </li>
+                </ul>
+              </div>
+
+              <div class="w-full md:w-11/12">
+                <product-gallery
+                  ref="gallery"
+                  :gallery="gallery"
+                  :offline="offlineImage"
+                  :configuration="configuration"
+                  :product="product"
+                  @page-change="(page) => currentGalleryPage = page"
+                />
+              </div>
+            </div>
           </div>
           <div class="w-full md:w-2/5 md:px-10">
             <h1 data-testid="productName" itemprop="name">
               {{ product.name | htmlDecode }}
             </h1>
-            <div class="text-grey text-sm my-4 uppercase">
+            <div class="text-grey text-sm mb-3 uppercase">
               sku: {{ product.sku }}
             </div>
             <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
@@ -62,7 +86,7 @@
                   <div class="pt-4 pb-2" data-testid="variantsLabel">
                     <span class="font-bold">{{ option.label }}</span>:
                     <span>
-                      {{ configuration[option.attribute_code ? option.attribute_code : option.label.toLowerCase()].label }}
+                      {{ configuration[option.attribute_code ? option.attribute_code : option.label.toLowerCase()] ? configuration[option.attribute_code ? option.attribute_code : option.label.toLowerCase()].label : null }}
                     </span>
                   </div>
                   <div class="variants-wrapper">
@@ -83,12 +107,9 @@
                         to="/size-guide"
                         target="_blank"
                         v-if="option.label == 'Size'"
-                        class="text-sm text-grey-dark pt-4 absolute pin-t pin-r"
+                        class="text-sm font-medium text-black pt-4 absolute pin-t pin-r"
                       >
-                        <i class="text-sm material-icons relative" style="top: 1px">accessibility</i>
-                        <span>
-                          {{ $t('Size guide') }}
-                        </span>
+                        {{ $t('Size guide') }}
                       </router-link>
                       <size-selector
                         v-for="(s, i) in options[option.attribute_code]"
@@ -133,56 +154,35 @@
               v-else-if="product.custom_options && product.custom_options.length > 0 && !loading"
               :product="product"
             />
-            <div class="mt-4 pb-4 border-b" v-if="product.type_id !== 'grouped' && product.type_id !== 'bundle'">
-              <label class="pb-2 block" for="quantity">{{ $t('Quantity') }}</label>
-              <div class="flex -mx-2">
-                <div class="px-2 w-1/3">
-                  <input
-                    type="number"
-                    min="0"
-                    class="text-center h-full w-full qty-input py-3 px-2"
-                    id="quantity"
-                    focus
-                    v-model="product.qty"
-                  >
-                </div>
-              </div>
-            </div>
-            <div class="flex mb-3">
-              <div class="w-full">
+            <div class="flex mt-6 pb-5 border-b">
+              <qty-input
+                v-if="product.type_id !== 'grouped' && product.type_id !== 'bundle'"
+                v-model.number="product.qty"
+                class="mr-5"
+                size="lg"/>
+
+              <div class="flex-grow flex">
                 <add-to-cart
                   :product="product"
-                  class="bg-primary py-3 text-sm"
+                  class="py-3 text-sm"
                 />
               </div>
             </div>
-            <div class="flex text-sm md:py-5 text-center add-to-buttons">
-              <div class="w-1/2 px-2">
-                <button
-                  @click="isOnWishlist ? removeFromWishlist(product) : addToWishlist(product)"
-                  class="inline-flex items-center"
-                  type="button"
-                  data-testid="addToWishlist"
-                >
-                  <svg viewBox="0 0 25 25" class="vt-icon pr-1">
-                    <use xlink:href="#wishlist"/>
-                  </svg>
-                  <template v-if="!isOnWishlist">
-                    {{ $t('Add to favorite') }}
-                  </template>
-                  <template v-else>
-                    {{ $t('Remove') }}
-                  </template>
-                </button>
+
+            <div class="row text-sm md:py-5 text-center add-to-buttons">
+              <div class="col-6">
+                <wishlist-button :product="product" />
               </div>
-              <div class="w-1/2 px-2">
+              <div class="col-6">
                 <button
                   @click="isOnCompare ? removeFromList('compare') : addToList('compare')"
-                  class="inline-flex items-center"
+                  class="inline-flex items-center text-grey-dark"
                   type="button"
                   data-testid="addToCompare"
                 >
-                  <i class="pr-1 material-icons">bar_chart</i>
+                  <svg viewBox="0 0 25 25" class="vt-icon pr-1">
+                    <use xlink:href="#compare"/>
+                  </svg>
                   <template v-if="!isOnCompare">
                     {{ $t('Add to compare') }}
                   </template>
@@ -196,23 +196,47 @@
         </section>
       </div>
     </section>
-    <section class="container details">
-      <h2 class="py-4 details-title">
-        {{ $t('Product details') }}
-      </h2>
-      <div
-        class="details-wrapper"
-        :class="{'details-wrapper--open': detailsOpen}"
-      >
-        <div class="md:flex">
-          <div class="md:w-2/3">
+
+    <div class="container my-4">
+      <div class="border-b border-grey-light mt-5 pb-5" />
+
+      <div class="border-b border-grey-light mt-5 pb-5">
+        <h3 @click.prevent="detailsAccordion != 'details' ? detailsAccordion = 'details' : detailsAccordion = null" class="flex justify-between cursor-pointer font-normal">
+          <span>{{ $t('Product details') }}</span>
+          <svg viewBox="0 0 25 25" class="vt-icon">
+            <use v-if="detailsAccordion != 'details'" xlink:href="#down" />
+            <use v-else xlink:href="#up" />
+          </svg>
+        </h3>
+        <transition name="fade">
+          <section v-show="detailsAccordion == 'details'" class="details mt-10">
             <div
-              class="text-h5 leading-normal"
-              itemprop="description"
-              v-html="product.description"
-            />
-          </div>
-          <div class="md:px-5 md:w-1/3">
+              class="details-wrapper"
+              :class="{'details-wrapper--open': detailsOpen}"
+            >
+              <div
+                class="text-h5 leading-loose"
+                itemprop="description"
+                v-html="product.description"
+              />
+              <div
+                class="details-overlay"
+                @click="showDetails"
+              />
+            </div>
+          </section>
+        </transition>
+      </div>
+      <div class="border-b border-grey-light mt-5 pb-5">
+        <h3 @click.prevent="detailsAccordion != 'specs' ? detailsAccordion = 'specs' : detailsAccordion = null" class="flex justify-between cursor-pointer font-normal">
+          <span>{{ $t('Specifications') }}</span>
+          <svg viewBox="0 0 25 25" class="vt-icon">
+            <use v-if="detailsAccordion != 'specs'" xlink:href="#down" />
+            <use v-else xlink:href="#up" />
+          </svg>
+        </h3>
+        <transition name="fade">
+          <section v-show="detailsAccordion == 'specs'" class="specs mt-10">
             <ul class="p-0 m-0 my-2 md:my-0 leading-normal attributes">
               <product-attribute
                 :key="attr.attribute_code"
@@ -222,21 +246,35 @@
                 empty-placeholder="N/A"
               />
             </ul>
-          </div>
-          <div
-            class="details-overlay"
-            @click="showDetails"
-          />
-        </div>
+          </section>
+        </transition>
       </div>
-    </section>
-    <reviews v-show="OnlineOnly"/>
+
+      <div class="border-b border-grey-light mt-5 pb-5">
+        <h3 @click.prevent="detailsAccordion != 'reviews' ? detailsAccordion = 'reviews' : detailsAccordion = null" class="flex justify-between cursor-pointer font-normal">
+          <span>{{ $t('Reviews') }}</span>
+          <svg viewBox="0 0 25 25" class="vt-icon">
+            <use v-if="detailsAccordion != 'reviews'" xlink:href="#down" />
+            <use v-else xlink:href="#up" />
+          </svg>
+        </h3>
+        <transition name="fade">
+          <section v-show="detailsAccordion == 'reviews'" class="mt-10"><reviews v-show="OnlineOnly" /></section>
+        </transition>
+      </div>
+    </div>
+
     <related-products
       type="upsell"
       :heading="$t('We found other products you might like')"
     />
-    <promoted-offers single-banner />
+    <promoted-offers collection="productBanners" class="my-8 px-6" />
     <related-products type="related" />
+
+    <div class="container my-4">
+      <recently-viewed />
+    </div>
+
   </div>
 </template>
 
@@ -256,11 +294,15 @@ import ProductLinks from 'theme/components/core/ProductLinks.vue'
 import ProductCustomOptions from 'theme/components/core/ProductCustomOptions.vue'
 import ProductBundleOptions from 'theme/components/core/ProductBundleOptions.vue'
 import ProductGallery from 'theme/components/core/ProductGallery'
-import PromotedOffers from 'theme/components/theme/blocks/PromotedOffers/PromotedOffers'
+import RecentlyViewed from 'theme/components/core/blocks/MyAccount/RecentlyViewed'
+
 import focusClean from 'theme/components/theme/directives/focusClean'
+import PromotedOffers from 'theme/components/theme/blocks/PromotedOffers/PromotedOffers'
+import QtyInput from 'theme/components/theme/QtyInput'
 
 export default {
   components: {
+    'WishlistButton': () => import(/* webpackChunkName: "wishlist" */'theme/components/core/blocks/Wishlist/AddToWishlist'),
     AddToCart,
     Breadcrumbs,
     ColorSelector,
@@ -274,24 +316,19 @@ export default {
     PromotedOffers,
     RelatedProducts,
     Reviews,
-    SizeSelector
+    SizeSelector,
+    RecentlyViewed,
+    QtyInput
   },
   mixins: [Product, VueOfflineMixin],
   data () {
     return {
-      detailsOpen: false
+      detailsOpen: false,
+      detailsAccordion: null,
+      currentGalleryPage: 0
     }
   },
   directives: { focusClean },
-  computed: {
-    favoriteIcon () {
-      return this.isOnWishlist ? 'favorite' : 'favorite_border'
-    },
-
-    isOnWishlist () {
-      return !!this.$store.state.wishlist.items.find(p => p.sku === this.product.sku) || false
-    }
-  },
   methods: {
     showDetails (event) {
       this.detailsOpen = true
@@ -316,22 +353,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~theme/css/variables/colors';
-@import '~theme/css/helpers/functions/color';
-$color-primary: color(primary);
-$color-tertiary: color(tertiary);
-$color-secondary: color(secondary);
-$color-white: color(white);
-$bg-secondary: color(secondary, $colors-background);
-
 .error {
-  color: red;
-  font-weight: bold;
-  padding-bottom: 15px;
+  @apply text-error font-bold pb-4;
 }
 
 .price {
-  @apply .border-solid .border-b;
+  @apply border-solid border-b;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -351,10 +378,6 @@ $bg-secondary: color(secondary, $colors-background);
   }
 }
 
-.qty-input {
-  @apply .border .border-grey;
-}
-
 .add-to-buttons {
   @media (max-width: 767px) {
     padding-top: 30px;
@@ -369,6 +392,9 @@ $bg-secondary: color(secondary, $colors-background);
     overflow: hidden;
     transition: all 0.3s ease;
     font-size: 14px;
+  }
+  p {
+    @apply mb-3 text-error;
   }
 
   &--open {
@@ -385,7 +411,7 @@ $bg-secondary: color(secondary, $colors-background);
     width: 100%;
     margin: 0;
     cursor: pointer;
-    background: linear-gradient(rgba($color-white, 0), rgba($color-white, 1));
+    background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
     &.hidden {
       display: none;
     }
@@ -404,6 +430,17 @@ $bg-secondary: color(secondary, $colors-background);
 .fade-enter,
 .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
+}
+
+.product-thumbnails {
+  ul {
+    li {
+      img {
+        mix-blend-mode: multiply;
+        opacity: .9;
+      }
+    }
+  }
 }
 
 </style>

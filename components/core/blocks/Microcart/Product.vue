@@ -1,14 +1,36 @@
 <template>
   <transition name="fade" appear>
-    <li class="row mb-3 pb-3 border-b border-grey-light relative">
-      <div class="col-auto mr-4 bg-grey-lightest">
+    <li class="flex mb-3 pb-3 border-b border-grey-light relative">
+      <router-link
+        class="mr-4 bg-grey-lightest self-start"
+        :to="localizedRoute({
+          name: product.type_id + '-product',
+          params: {
+            parentSku: product.parentSku ? product.parentSku : product.sku,
+            slug: product.slug,
+            childSku: product.sku
+          }
+        })"
+        data-testid="productLink"
+      >
         <img class="image" v-lazy="thumbnail" alt="" >
-      </div>
-      <div class="col-grow flex-col justify-start sm:justify-between">
+      </router-link>
+      <div class="flex-grow flex-col justify-start sm:justify-between">
         <div>
-          <div class="font-medium leading-6 product-title">
+          <router-link
+            class="font-medium leading-6 product-title text-black"
+            :to="localizedRoute({
+              name: product.type_id + '-product',
+              params: {
+                parentSku: product.parentSku ? product.parentSku : product.sku,
+                slug: product.slug,
+                childSku: product.sku
+              }
+            })"
+            data-testid="productLink"
+          >
             {{ product.name | htmlDecode }}
-          </div>
+          </router-link>
           <div class="text-sm text-grey leading-normal mb-2" data-testid="productSku">
             {{ product.sku }}
           </div>
@@ -35,16 +57,15 @@
           <span class="text-grey-dark font-medium" :class="{ hidden: isEditing }" data-testid="productQty">
             {{ product.qty }}
           </span>
-          <span :class="{ hidden: !isEditing }">
-            <input
-              class=""
-              type="number"
-              autofocus
+          <div v-show="isEditing" class="inline-flex">
+            <qty-input
               v-model.number="qty"
-              @change="updateQuantity"
+              :id="'qty-' + product.sku"
               data-testid="productQtyInput"
-            >
-          </span>
+              size="sm" />
+            <apply-button @click.native="updateQuantity" class="ml-1" />
+          </div>
+          <edit-button v-show="!isEditing" @click.native="switchEdit" class="align-text-bottom ml-1" />
         </div>
       </div>
       <div class="col-auto font-bold text-right leading-6">
@@ -72,9 +93,6 @@
         </div>
       </div>
       <div class="absolute pin-b pin-r mb-3">
-        <div v-if="false" @click="switchEdit">
-          <edit-button />
-        </div>
         <div @click="removeItem">
           <remove-button />
         </div>
@@ -88,11 +106,16 @@ import Product from '@vue-storefront/core/compatibility/components/blocks/Microc
 
 import EditButton from './EditButton'
 import RemoveButton from './RemoveButton'
+import ApplyButton from './ApplyButton'
+
+import QtyInput from 'theme/components/theme/QtyInput'
 
 export default {
   components: {
     EditButton,
-    RemoveButton
+    RemoveButton,
+    ApplyButton,
+    QtyInput
   },
   mixins: [Product]
 }

@@ -16,7 +16,7 @@ $z-index-modal: map-get($z-index, modal);
   pointer-events: auto;
 
   @media (max-width: 600px) {
-    top: 68px
+    top: 70px
   }
 
   .modal-wrapper {
@@ -60,22 +60,21 @@ $z-index-modal: map-get($z-index, modal);
       display: inline-block;
       height: 80px;
       line-height: 80px;
-      margin: 0 50px;
-    }
+      margin: 0 20px;
 
-    @media (max-width: 600px) {
-      padding: 25px 20px;
+      @screen sm {
+        margin: 0 50px;
+      }
     }
   }
 
   .modal-content {
-    padding: 50px;
+    padding: 50px 20px;
     font-size: 15px;
     color: #666;
 
-    @media (max-width: 400px) {
-      padding-left: 20px;
-      padding-right: 20px;
+    @screen sm {
+      padding: 50px;
     }
 
     a {

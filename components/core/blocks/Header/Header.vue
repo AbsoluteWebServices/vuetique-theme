@@ -5,7 +5,7 @@
     >
       <div class="container">
         <div class="row gutter-md items-center py-2" v-if="!isCheckoutPage">
-          <div class="col-3 lg:col-auto">
+          <div class="col-auto sm:col-4 lg:col-auto">
             <div>
               <template v-if="!canGoBack">
                 <hamburger-icon class="p-3"/>
@@ -15,22 +15,23 @@
               </template>
             </div>
           </div>
-          <div class="col-grow sm:col-6 lg:col-grow flex items-center justify-center lg:justify-start sm:pt-1">
-            <logo class="hidden sm:block mr-2" width="auto" height="41px"/>
-            <a href="/" class="text-h2 uppercase text-black tracking-md">{{ 'Vuetique' }}</a>
+          <div class="col-grow sm:col-4 lg:col-grow flex items-center justify-center lg:justify-start">
+            <logo/>
           </div>
           <div class="col-6 hidden lg:block">
             <search/>
           </div>
-          <div class="col-3 lg:col-grow justify-end">
+          <div class="col-auto sm:col-4 lg:col-grow justify-end">
             <div class="right-icons flex">
+              <search-icon class="p-3 hidden md:block lg:hidden"/>
               <account-icon class="p-3 hidden sm:block"/>
+              <compare-icon class="p-3 hidden sm:block"/>
               <wishlist-icon class="p-3 hidden sm:block"/>
               <microcart-icon class="p-3"/>
             </div>
           </div>
         </div>
-        <div class="row gutter-md items-center justify-between py-2" v-if="isCheckoutPage">
+        <div class="row gutter-md items-center justify-between py-4" v-if="isCheckoutPage">
           <div class="col-3 flex items-center">
             <div>
               <router-link :to="localizedRoute('/')" class="flex text-grey">
@@ -44,8 +45,7 @@
             </div>
           </div>
           <div class="col-6 flex items-center justify-center">
-            <logo class="hidden sm:block mr-2" width="auto" height="41px"/>
-            <div class="text-h2 uppercase tracking-md">{{ 'Vuetique' }}</div>
+            <logo/>
           </div>
           <div class="col-3 flex justify-end">
             <div>
@@ -111,8 +111,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+header {
+  height: 70px;
+
+  @screen lg {
+    top: -70px;
+  }
+}
+
 .header-placeholder {
-  height: 68px;
+  height: 70px;
 
   @screen lg {
     height: 0;
@@ -122,5 +130,25 @@ export default {
 .right-icons {
   //for edge
   float: right;
+}
+
+@screen lg {
+  .header-fixed {
+    header {
+      position: fixed;
+      top: -70px;
+      left: 0;
+      right: 0;
+      transition: top 0.2s ease-in-out;
+    }
+
+    .header-placeholder {
+      height: 70px;
+    }
+
+    &.header-visible header {
+      top: 0;
+    }
+  }
 }
 </style>

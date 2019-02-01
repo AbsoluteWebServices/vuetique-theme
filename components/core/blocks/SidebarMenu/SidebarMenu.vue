@@ -61,7 +61,16 @@
           {{ $t('Magazine') }}
         </router-link>
       </li>
-      <li @click="closeMenu" v-if="compareIsActive&& isCurrentMenuShowed" class="border-b">
+      <li @click="closeMenu" v-if="isCurrentMenuShowed" class="border-b md:hidden">
+        <button
+          class="menu-link text-left"
+          type="button"
+          @click="toggleSearchpanel"
+        >
+          {{ $t('Search') }}
+        </button>
+      </li>
+      <li @click="closeMenu" v-if="compareIsActive && isCurrentMenuShowed" class="border-b">
         <router-link
           class="menu-link"
           :to="localizedRoute('/compare')"
@@ -188,6 +197,9 @@ export default {
       this.$nextTick(() => {
         this.goToAccount()
       })
+    },
+    toggleSearchpanel () {
+      this.$store.commit('ui/setSearchpanel', true)
     }
   }
 }
@@ -195,6 +207,13 @@ export default {
 
 <style lang="scss">
 @import "~theme/css/animations/transitions";
+
+@screen lg {
+  .header-fixed .sidebar-menu {
+    top: 70px;
+    max-height: calc(100vh - 70px);
+  }
+}
 
 .sidebar-menu {
   width: 100vh;
@@ -205,6 +224,7 @@ export default {
   transform: translateX(-100%);
   z-index: 3;
   transition: transform $duration-main $motion-main;
+  max-height: calc(100vh - 70px);
 
   @screen md {
     width: 350px;
@@ -212,6 +232,7 @@ export default {
 
   @screen lg {
     top: 0;
+    max-height: 100vh;
   }
 
   &.active {

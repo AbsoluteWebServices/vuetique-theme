@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="['cms-content', { 'container': sync }]"
+    :class="['cms-content py-10', { 'container': sync }]"
     v-if="data"
     v-html="data.content"
   />

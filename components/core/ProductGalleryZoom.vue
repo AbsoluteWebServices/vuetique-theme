@@ -14,8 +14,15 @@
       <div class="media-zoom__gallery">
         <no-ssr>
           <carousel
+            ref="carousel"
             class="media-zoom__carousel"
-            :per-page="1" :mouse-drag="false" :navigation-enabled="true" pagination-active-color="#828282" pagination-color="transparent" navigation-next-label="<svg viewBox='0 0 25 25' class='vt-icon--lg p-3 pointer'><use xlink:href='#right'/></svg>" navigation-prev-label="<svg viewBox='0 0 25 25' class='vt-icon--lg p-3 pointer'><use xlink:href='#left'/></svg>" ref="carousel">
+            :per-page="1"
+            :mouse-drag="false"
+            :navigation-enabled="true"
+            pagination-active-color="#222222"
+            pagination-color="#828282"
+            navigation-next-label="<svg viewBox='0 0 25 25' class='vt-icon--lg p-3 pointer'><use xlink:href='#right'/></svg>"
+            navigation-prev-label="<svg viewBox='0 0 25 25' class='vt-icon--lg p-3 pointer'><use xlink:href='#left'/></svg>">
             <slide v-for="images in gallery" :key="images.src">
               <div class="media-zoom__slide bg-cl-secondary">
                 <img class="product-image pointer mw-100" :src="images.src" ref="images" :alt="title | htmlDecode" data-testid="productGalleryImage" itemprop="image">
@@ -54,9 +61,9 @@ export default {
   },
   mounted () {
     this.$store.commit('ui/setOverlay', true)
-    this.$nextTick(() => {
+    setTimeout(() => {
       this.$refs.carousel.goToPage(this.current)
-    })
+    }, 100)
   },
   destroyed () {
     this.$store.commit('ui/setOverlay', false)
@@ -132,11 +139,6 @@ $z-index-gallery: map-get($z-index, overlay) + 1;
       max-width: 100%;
       width: auto;
       mix-blend-mode: multiply;
-      opacity: 0.9;
-
-      &:hover {
-        opacity: 1;
-      }
     }
   }
 
@@ -154,6 +156,17 @@ $z-index-gallery: map-get($z-index, overlay) + 1;
   .VueCarousel-inner,
   .VueCarousel-slide {
     height: 100%;
+  }
+
+  .VueCarousel-dot {
+    max-width: 6px;
+    max-height: 6px;
+    outline: none;
+
+    &:focus,
+    &:active {
+      outline: none;
+    }
   }
 
   &__slide {
