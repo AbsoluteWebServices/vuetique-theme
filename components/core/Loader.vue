@@ -2,7 +2,7 @@
   <div class="loader-container fixed" v-if="isVisible">
     <div class="loader-inner-container fixed">
       <div
-        class="loader-message-container p-3 text-h6 text-white"
+        class="loader-message-container py-3 px-5 text-h6 text-white"
         v-if="message"
       >
         {{ message }}
@@ -68,7 +68,7 @@ $z-index-loader: map-get($z-index, loader);
 }
 
 .loader-message-container {
-  background-color: rgba($color-message-bg, 0.75);
+  @apply bg-primary;
   border-radius: 50px;
   letter-spacing: 0.5px;
 }
