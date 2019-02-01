@@ -325,7 +325,7 @@ export default {
     return {
       detailsOpen: false,
       detailsAccordion: null,
-      currentGalleryPage: null
+      currentGalleryPage: 0
     }
   },
   directives: { focusClean },
