@@ -59,16 +59,32 @@ export default {
       this.$emit('keyup', $event)
     },
     keyupEnter ($event) {
-      this.$emit('keyup.enter', parseInt($event.target.value))
+      let value = parseInt($event.target.value)
+      if (isNaN(value)) {
+        value = 0
+      }
+      this.$emit('keyup.enter', value)
     },
     inputEvent ($event) {
-      this.$emit('input', parseInt($event.target.value))
+      let value = parseInt($event.target.value)
+      if (isNaN(value)) {
+        value = 0
+      }
+      this.$emit('input', value)
     },
     incrementEvent ($event) {
-      this.$emit('input', parseInt(this.value) + 1)
+      let value = parseInt(this.value)
+      if (isNaN(value)) {
+        value = 0
+      }
+      this.$emit('input', value + 1)
     },
     decrementEvent ($event) {
-      this.$emit('input', parseInt(this.value) > 1 ? parseInt(this.value) - 1 : 1)
+      let value = parseInt(this.value)
+      if (isNaN(value)) {
+        value = 0
+      }
+      this.$emit('input', value > 1 ? value - 1 : 1)
     }
   }
 }
