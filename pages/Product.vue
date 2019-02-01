@@ -231,7 +231,7 @@
         <h3 @click.prevent="detailsAccordion != 'specs' ? detailsAccordion = 'specs' : detailsAccordion = null" class="flex justify-between cursor-pointer font-normal">
           <span>{{ $t('Specifications') }}</span>
           <svg viewBox="0 0 25 25" class="vt-icon">
-            <use v-if="detailsAccordion != 'details'" xlink:href="#down" />
+            <use v-if="detailsAccordion != 'specs'" xlink:href="#down" />
             <use v-else xlink:href="#up" />
           </svg>
         </h3>
