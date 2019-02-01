@@ -1,8 +1,8 @@
 <template>
   <transition name="fade" appear>
-    <li class="row mb-3 pb-3 border-b border-grey-light relative">
+    <li class="flex mb-3 pb-3 border-b border-grey-light relative">
       <router-link
-        class="col-auto mr-4 bg-grey-lightest"
+        class="mr-4 bg-grey-lightest self-start"
         :to="localizedRoute({
           name: product.type_id + '-product',
           params: {
@@ -15,10 +15,10 @@
       >
         <img class="image" v-lazy="thumbnail" alt="" >
       </router-link>
-      <div class="col-grow flex-col justify-start sm:justify-between">
+      <div class="flex-grow flex-col justify-start sm:justify-between">
         <div>
           <router-link
-            class="font-medium leading-6 product-title"
+            class="font-medium leading-6 product-title text-black"
             :to="localizedRoute({
               name: product.type_id + '-product',
               params: {
@@ -59,7 +59,7 @@
           </span>
           <div v-show="isEditing" class="inline-flex">
             <qty-input
-              v-model="qty"
+              v-model.number="qty"
               :id="'qty-' + product.sku"
               data-testid="productQtyInput"
               size="sm" />

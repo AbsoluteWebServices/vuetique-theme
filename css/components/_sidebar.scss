@@ -30,43 +30,17 @@
     transform: translateX(0)
   }
 
-  .products {
-    @media (max-width: 767px) {
-      padding: 30px 15px;
-    }
-
-    .product-title {
-      color: #222;
-    }
-  }
-
   .actions {
-    @media (max-width: 767px) {
-      padding: 0 15px;
-    }
     .link {
       @media (max-width: 767px) {
         display: flex;
         justify-content: center;
-        padding: 20px 70px;
+        padding: 20px 60px;
         &.checkout {
           margin-top: 55px;
           padding: 0;
         }
       }
-    }
-  }
-
-  .summary {
-    @media (max-width: 767px) {
-      padding:  0 15px;
-      font-size: 12px;
-    }
-  }
-
-  .summary-heading {
-    @media (max-width: 767px) {
-      font-size: 18px;
     }
   }
 
@@ -80,10 +54,6 @@
     @media (max-width: 767px) {
       font-size: 24px;
     }
-  }
-
-  .delete-button {
-    vertical-align: middle;
   }
 
   .image {
