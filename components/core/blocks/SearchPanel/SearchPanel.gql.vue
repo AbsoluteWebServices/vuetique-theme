@@ -14,6 +14,7 @@
         id="search_panel_input"
         v-model="query"
         class="mr20 py10 brdr-none brdr-bottom-1 brdr-cl-primary no-outline h4"
+        :aria-label="$t('Type what you are looking for...')"
         :placeholder="$t('Type what you are looking for...')"
         type="text"
       >
