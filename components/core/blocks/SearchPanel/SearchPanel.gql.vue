@@ -11,7 +11,7 @@
       </label>
       <input
         ref="search"
-        id="search"
+        id="search_panel_input"
         v-model="query"
         class="mr20 py10 brdr-none brdr-bottom-1 brdr-cl-primary no-outline h4"
         :placeholder="$t('Type what you are looking for...')"

@@ -7,7 +7,7 @@
       <base-input
         ref="search"
         type="text"
-        id="search"
+        id="search_input"
         :placeholder="$t('Type what you are looking for...')"
         class="w-full"
         v-model="search"
