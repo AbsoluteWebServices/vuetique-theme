@@ -4,7 +4,7 @@
     <header class="container mt-2">
       <h1> {{ cmsPageContent.title }}</h1>
     </header>
-    <div class="container pt-10 pb-16" v-html="cmsPageContent.content" />
+    <div class="container pt-10 pb-16 leading-loose static-content" v-html="cmsPageContent.content" />
   </div>
 </template>
 

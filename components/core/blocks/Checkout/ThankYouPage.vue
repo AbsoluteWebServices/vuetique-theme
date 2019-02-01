@@ -34,7 +34,7 @@
           </p>
           <p v-if="!isPermissionGranted && isNotificationSupported">
             <button class="btn-grey-dark mt-5" @click.native="requestNotificationPermission()" >
-              {{ $t('Allow notification about the order') }}
+              {{ $t('Keep me notified about this order') }}
             </button>
           </p>
           <div id="thank-you-extensions"/>

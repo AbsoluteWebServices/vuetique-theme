@@ -50,7 +50,7 @@
           </base-checkbox>
           <div class="col-12 sm:col-6 mt-2 sm:mt-0 sm:text-right">
             <a href="#" @click.prevent="remindPassword">
-              {{ $t('Forgot the password?') }}
+              {{ $t('Forgot your password?') }}
             </a>
           </div>
         </div>

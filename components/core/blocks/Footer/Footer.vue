@@ -184,8 +184,8 @@
                 {{ $t('About us') }}
               </h3>
               <div class="my-6">
-                <router-link class="menu-link" :to="localizedRoute('/i/about-us')" exact>
-                  {{ $t('About us (Magento CMS)') }}
+                <router-link class="menu-link" :to="localizedRoute('/about-us')" exact>
+                  {{ $t('About us') }}
                 </router-link>
               </div>
               <div class="my-6">
@@ -196,8 +196,8 @@
             </div>
             <Accordion class="md:hidden" :title="$t('About us')">
               <div class="my-3">
-                <router-link class="menu-link" :to="localizedRoute('/i/about-us')" exact>
-                  {{ $t('About us (Magento CMS)') }}
+                <router-link class="menu-link" :to="localizedRoute('/about-us')" exact>
+                  {{ $t('About us') }}
                 </router-link>
               </div>
               <div class="my-3">

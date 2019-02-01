@@ -210,6 +210,6 @@ export default {
 
   .icon {
     right: 6px;
-    top: 10px;
+    top: 8px;
   }
 </style>

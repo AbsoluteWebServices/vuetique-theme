@@ -214,31 +214,38 @@
               class="details-wrapper"
               :class="{'details-wrapper--open': detailsOpen}"
             >
-              <div class="md:flex">
-                <div class="md:w-2/3">
-                  <div
-                    class="text-h5 leading-normal"
-                    itemprop="description"
-                    v-html="product.description"
-                  />
-                </div>
-                <div class="md:px-5 md:w-1/3">
-                  <ul class="p-0 m-0 my-2 md:my-0 leading-normal attributes">
-                    <product-attribute
-                      :key="attr.attribute_code"
-                      v-for="attr in customAttributes"
-                      :product="product"
-                      :attribute="attr"
-                      empty-placeholder="N/A"
-                    />
-                  </ul>
-                </div>
-                <div
-                  class="details-overlay"
-                  @click="showDetails"
-                />
-              </div>
+              <div
+                class="text-h5 leading-normal"
+                itemprop="description"
+                v-html="product.description"
+              />
+              <div
+                class="details-overlay"
+                @click="showDetails"
+              />
             </div>
+          </section>
+        </transition>
+      </div>
+      <div class="border-b border-grey-light mt-5 pb-5">
+        <h3 @click.prevent="detailsAccordion != 'specs' ? detailsAccordion = 'specs' : detailsAccordion = null" class="flex justify-between cursor-pointer font-normal">
+          <span>{{ $t('Specifications') }}</span>
+          <svg viewBox="0 0 25 25" class="vt-icon">
+            <use v-if="detailsAccordion != 'details'" xlink:href="#down" />
+            <use v-else xlink:href="#up" />
+          </svg>
+        </h3>
+        <transition name="fade">
+          <section v-show="detailsAccordion == 'specs'" class="specs mt-10">
+            <ul class="p-0 m-0 my-2 md:my-0 leading-normal attributes">
+              <product-attribute
+                :key="attr.attribute_code"
+                v-for="attr in customAttributes"
+                :product="product"
+                :attribute="attr"
+                empty-placeholder="N/A"
+              />
+            </ul>
           </section>
         </transition>
       </div>

@@ -66,7 +66,7 @@ let colors = {
   'success': '#43c265',
   'warning': '#755',
 
-  'error': '#c24343',
+  'error': '#eb415c',
   'error-lighter': '#f0d0d0',
   'error-lightest': '#fcf5f5',
 
