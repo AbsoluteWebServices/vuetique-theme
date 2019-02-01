@@ -14,11 +14,13 @@
       <div>
         <div class="font-medium leading-6">
           <div @click="closeWishlist">
-            <router-link :to="localizedRoute({
-              name: product.type_id + '-product',
-              params: { parentSku: product.parentSku ? product.parentSku : product.sku, slug: product.slug, childSku: product.sku }
+            <router-link
+              class="text-black product-title"
+              :to="localizedRoute({
+                name: product.type_id + '-product',
+                params: { parentSku: product.parentSku ? product.parentSku : product.sku, slug: product.slug, childSku: product.sku }
             })">
-              <div class="product-title">{{ product.name | htmlDecode }}</div>
+              {{ product.name | htmlDecode }}
             </router-link>
           </div>
         </div>

@@ -22,7 +22,7 @@
 
     <div v-if="!productsInWishlist.length" class="mb-2">
       {{ $t("Don't hesitate and") }}
-      <router-link :to="localizedRoute('/')">
+      <router-link class="text-primary" :to="localizedRoute('/')">
         {{ $t('browse our catalog') }}
       </router-link>
       {{ $t('to find something beautiful for You!') }}
