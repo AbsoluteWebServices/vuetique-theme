@@ -34,23 +34,23 @@
       <product v-for="product in productsInCart" :key="product.sku" :product="product" />
     </ul>
     <div v-if="productsInCart.length" class="summary pt-8">
-      <div v-for="(segment, index) in totals" :key="index" class="row justify-between py-2 text-grey-dark font-medium" v-if="segment.code !== 'grand_total'">
-        <div class="col-auto">
+      <div v-for="(segment, index) in totals" :key="index" class="flex justify-between py-2 text-grey-dark font-medium" v-if="segment.code !== 'grand_total'">
+        <div class="flex-grow mr-2">
           {{ segment.title }}
           <button v-if="appliedCoupon && segment.code === 'discount'" type="button" class="close delete-button" @click="clearCoupon">
             <i class="material-icons">close</i>
           </button>
         </div>
-        <div v-if="segment.value != null" class="col-auto" :class="{'text-primary': segment.code === 'discount'}">
+        <div v-if="segment.value != null" class="" :class="{'text-primary': segment.code === 'discount'}">
           {{ segment.value | price }}
         </div>
       </div>
 
-      <div v-if="OnlineOnly" class="py-3 row">
-        <div class="mr-3 col-grow">
+      <div v-if="OnlineOnly" class="py-3 flex">
+        <div class="mr-3 flex-grow">
           <base-input type="text" id="couponinput" :placeholder="$t('Add discount code')" :autofocus="true" v-model.trim="couponCode" @keyup.enter="setCoupon"/>
         </div>
-        <div class="col-auto">
+        <div class="flex-auto">
           <button-full :disabled="!couponCode" @click.native="setCoupon">{{ $t('Apply') }}</button-full>
         </div>
       </div>

@@ -175,8 +175,8 @@
     </div>
     <div class="flex flex-wrap justify-end pb-3 md:pb-8" v-show="isActive">
       <div class="w-full md:w-11/12">
-        <div class="mt-6 flex -mx-3 justify-between items-center">
-          <div class="w-full lg:w-1/2 px-3 button-container">
+        <div class="mt-6 flex justify-between items-center">
+          <div class="mr-2 button-container">
             <button-full
               data-testid="personalDetailsSubmit"
               @click.native="sendDataToCheckout"
@@ -186,10 +186,10 @@
             </button-full>
           </div>
           <div
-            class="w-1/2"
+            class="w-auto lg:w-1/2"
             v-if="!currentUser"
           >
-            <p class="text-h4 text-center">
+            <p class="text-h5 md:text-h4 text-center">
               {{ $t('or') }}
               <span
                 class="text-primary cursor-pointer no-underline"

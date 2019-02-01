@@ -15,7 +15,7 @@
           </div>
         </div>
 
-        <qty-input v-if="productLink.product" v-model="productLink.product.qty"/>
+        <qty-input v-if="productLink.product" v-model.number="productLink.product.qty"/>
       </div>
     </div>
   </div>

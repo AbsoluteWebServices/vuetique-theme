@@ -17,7 +17,7 @@
     <qty-input
       :id="quantityName"
       :name="quantityName"
-      v-model="quantity"
+      v-model.number="quantity"
       class="mb-2"/>
     <span class="error" v-if="errorMessage">{{ errorMessage }}</span>
   </div>

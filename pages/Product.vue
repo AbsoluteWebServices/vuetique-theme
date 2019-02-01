@@ -154,14 +154,14 @@
               v-else-if="product.custom_options && product.custom_options.length > 0 && !loading"
               :product="product"
             />
-            <div class="row mt-6 pb-5 border-b">
+            <div class="flex mt-6 pb-5 border-b">
               <qty-input
                 v-if="product.type_id !== 'grouped' && product.type_id !== 'bundle'"
-                v-model="product.qty"
-                class="col-auto mr-5"
+                v-model.number="product.qty"
+                class="mr-5"
                 size="lg"/>
 
-              <div class="col-grow flex">
+              <div class="flex-grow flex">
                 <add-to-cart
                   :product="product"
                   class="py-3 text-sm"
