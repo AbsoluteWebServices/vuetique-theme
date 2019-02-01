@@ -1,6 +1,6 @@
 <template>
-  <li class="">
-    <span class="font-bold">{{ label|htmlDecode }}</span>:
+  <li class="font-thin">
+    <span class="font-normal">{{ label|htmlDecode }}</span>:
     <span>{{ value|htmlDecode }}</span>
   </li>
 </template>

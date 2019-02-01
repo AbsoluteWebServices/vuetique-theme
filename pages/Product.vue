@@ -215,7 +215,7 @@
               :class="{'details-wrapper--open': detailsOpen}"
             >
               <div
-                class="text-h5 leading-normal"
+                class="text-h5 leading-loose"
                 itemprop="description"
                 v-html="product.description"
               />
