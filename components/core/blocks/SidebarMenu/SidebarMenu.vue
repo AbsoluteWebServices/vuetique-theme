@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar-menu h-screen fixed max-w-full bg-white pt-12" :class="{ active: showMenu }">
+  <div class="sidebar-menu h-screen fixed max-w-full bg-white pt-12">
     <button
       type="button"
       :aria-label="$t('Close')"
@@ -182,9 +182,6 @@ export default {
     },
     isCurrentMenuShowed () {
       return !this.getSubmenu || !this.getSubmenu.depth
-    },
-    showMenu () {
-      return this.isOpen && this.componentLoaded
     }
   },
   mounted () {
@@ -221,9 +218,7 @@ export default {
   left: 0;
   overflow: hidden;
   overflow-y: auto;
-  transform: translateX(-100%);
   z-index: 3;
-  transition: transform $duration-main $motion-main;
   max-height: calc(100vh - 70px);
 
   @screen md {
@@ -233,10 +228,6 @@ export default {
   @screen lg {
     top: 0;
     max-height: 100vh;
-  }
-
-  &.active {
-    transform: translateX(0);
   }
 
   &__list {

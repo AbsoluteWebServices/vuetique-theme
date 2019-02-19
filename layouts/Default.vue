@@ -1,17 +1,21 @@
 <template>
-  <div id="app" :class="{ 'header-fixed': navFixed, 'header-visible': navVisible }">
+  <div class="default-layout" :class="{ 'header-fixed': navFixed, 'header-visible': navVisible }">
     <icons/>
     <overlay v-if="overlayActive"/>
     <loader/>
     <div id="viewport" class="w-full relative">
-      <microcart/>
-      <search-panel/>
-      <wishlist/>
-      <sidebar-menu/>
       <announcement/>
       <main-header/>
       <header-menu/>
-      <router-view/>
+      <transition name="slide-right">
+        <sidebar-menu v-if="isSidebarOpen"/>
+      </transition>
+      <transition name="slide-left">
+        <microcart v-if="isMicrocartOpen"/>
+        <search-panel v-if="isSearchPanelOpen"/>
+        <wishlist v-if="isWishlistOpen"/>
+      </transition>
+      <slot/>
       <main-footer/>
       <notification/>
       <sign-up/>
@@ -47,7 +51,7 @@ import ModalSwitcher from 'theme/components/core/blocks/Switcher/Language.vue'
 import Announcement from 'theme/components/theme/blocks/Header/Announcement.vue'
 import Icons from 'theme/components/theme/Icons.vue'
 
-import Head from 'theme/resource/head'
+import Head from 'theme/head'
 
 const SearchPanel = () => import(/* webpackChunkName: "vsf-search-panel" */ 'theme/components/core/blocks/SearchPanel/SearchPanel.vue')
 const SidebarMenu = () => import(/* webpackChunkName: "vsf-sidebar-menu" */ 'theme/components/core/blocks/SidebarMenu/SidebarMenu.vue')
@@ -151,6 +155,22 @@ export default {
 }
 </script>
 
-<style lang="scss" src="theme/css/main.scss">
+<style lang="scss" src="theme/css/main.scss"></style>
+<style lang="scss" scoped>
+  .slide-left-enter-active,
+  .slide-left-leave-active,
+  .slide-right-enter-active,
+  .slide-right-leave-active {
+    transition: transform .25s;
+  }
 
+  .slide-left-enter,
+  .slide-left-leave-to {
+    transform: translateX(100%);
+  }
+
+  .slide-right-enter,
+  .slide-right-leave-to {
+    transform: translateX(-100%);
+  }
 </style>
