@@ -54,3 +54,12 @@ const postcssConfig =  {
   }
 };
 ```
+
+## Image hover support
+
+To make image hover function, you need to make a few changes to your Vue Storefront local.json file.
+
+The following arrays need the "media_gallery" field added:
+
+- productList.includeFields
+- productListWithChildren.includeFields

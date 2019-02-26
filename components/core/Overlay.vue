@@ -7,11 +7,6 @@ import Overlay from '@vue-storefront/core/compatibility/components/Overlay'
 
 export default {
   mixins: [Overlay],
-  watch: {
-    isVisible (oldVar, newVar) {
-      console.log(oldVar, newVar)
-    }
-  },
   beforeCreate () {
     document.documentElement.classList.add('no-scroll')
   },

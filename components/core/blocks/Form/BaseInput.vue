@@ -11,6 +11,7 @@
         :autofocus="autofocus"
         :ref="name"
         :placeholder="placeholder"
+        :aria-label="placeholder"
         @input="inputEvent"
         @focus="$emit('focus')"
         @blur="$emit('blur')"

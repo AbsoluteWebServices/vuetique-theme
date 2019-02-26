@@ -1,7 +1,6 @@
 <template>
   <div
     class="right-sidebar searchpanel max-w-full fixed p-8"
-    :class="{ active: isOpen }"
     data-testid="searchPanel"
   >
     <button
@@ -25,7 +24,6 @@
         ref="search"
         type="text"
         id="search_panel_input"
-        :aria-label="$t('Type what you are looking for...')"
         :placeholder="$t('Type what you are looking for...')"
         class="w-full"
         v-model="search"
@@ -37,8 +35,12 @@
       </svg>
     </div>
 
+    <div v-if="visibleProducts.length && categories.length > 1" class="categories mb-4">
+      <category-panel :categories="categories" v-model="selectedCategoryIds"/>
+    </div>
+
     <div class="product-listing">
-      <product :key="product.id" v-for="product in products" :product="product" @click.native="closeSearchpanel"/>
+      <product :key="product.id" v-for="product in visibleProducts" :product="product" @click.native="closeSearchpanel"/>
       <transition name="fade">
         <div v-if="emptyResults" class="no-results">
           {{ $t('No results were found.') }}
@@ -46,7 +48,7 @@
       </transition>
     </div>
 
-    <div v-show="OnlineOnly" v-if="products.length >= 18" class="flex buttons-set items-center py-8">
+    <div v-show="OnlineOnly" v-if="visibleProducts.length >= 18" class="flex buttons-set items-center py-8">
       <button-full
         v-if="readMore"
         class="btn-primary flex-grow"
@@ -68,6 +70,7 @@
 import SearchPanel from '@vue-storefront/core/compatibility/components/blocks/SearchPanel/SearchPanel'
 import Product from 'theme/components/core/blocks/Search/Product'
 import VueOfflineMixin from 'vue-offline/mixin'
+import CategoryPanel from 'theme/components/core/blocks/Category/CategoryPanel'
 
 import BaseInput from 'theme/components/core/blocks/Form/BaseInput'
 import ButtonFull from 'theme/components/theme/ButtonFull'
@@ -76,9 +79,41 @@ export default {
   components: {
     Product,
     BaseInput,
-    ButtonFull
+    ButtonFull,
+    CategoryPanel
   },
   mixins: [SearchPanel, VueOfflineMixin],
+  data () {
+    return {
+      selectedCategoryIds: []
+    }
+  },
+  computed: {
+    visibleProducts () {
+      const productList = this.products || []
+      if (this.selectedCategoryIds.length) {
+        return productList.filter(product => product.category_ids.some(categoryId => {
+          const catId = parseInt(categoryId)
+          return this.selectedCategoryIds.includes(catId)
+        }))
+      }
+      return productList
+    },
+    categories () {
+      const categoriesMap = {}
+      this.products.forEach(product => {
+        [...product.category].forEach(category => {
+          categoriesMap[category.category_id] = category
+        })
+      })
+      return Object.keys(categoriesMap).map(categoryId => categoriesMap[categoryId])
+    }
+  },
+  watch: {
+    categories () {
+      this.selectedCategoryIds = []
+    }
+  },
   mounted () {
     this.$bus.$on('focusSearchInput', () => {
       if (!this.$store.state.ui.searchpanel) {
@@ -88,7 +123,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-
-</style>

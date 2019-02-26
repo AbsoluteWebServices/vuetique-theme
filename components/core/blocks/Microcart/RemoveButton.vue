@@ -1,5 +1,5 @@
 <template>
-  <button class="text-grey hover:text-grey-dark">
+  <button class="border-0 bg-transparent text-grey hover:text-grey-dark">
     <span class="hidden">
       {{ $t('Remove') }}
     </span>
