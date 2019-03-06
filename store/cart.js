@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import rootStore from '@vue-storefront/store'
+import rootStore from '@vue-storefront/core/store'
 import i18n from '@vue-storefront/i18n'
 import * as types from '@vue-storefront/core/modules/cart/store/mutation-types'
 import omit from 'lodash-es/omit'

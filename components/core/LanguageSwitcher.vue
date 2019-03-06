@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import { currentStoreView } from '@vue-storefront/store/lib/multistore'
+import { currentStoreView } from '@vue-storefront/core/store/lib/multistore'
 
 export default {
   data () {

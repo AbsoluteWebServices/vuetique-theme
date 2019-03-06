@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import store from '@vue-storefront/store'
+import store from '@vue-storefront/core/store'
 import CmsData from 'src/modules/magento-2-cms/components/CmsData'
 import Breadcrumbs from 'theme/components/core/Breadcrumbs'
 
