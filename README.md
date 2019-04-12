@@ -1,6 +1,6 @@
 # vuetique-theme
 
-A [Vue Storefront](https://www.vuestorefront.io) Theme for Passionate Develeopers with larger catalogs in mind, based on the
+A [Vue Storefront](https://www.vuestorefront.io) Theme for Passionate Developers with larger catalogs in mind, based on the
 wonderful [Tailwind](https://tailwindcss.com) CSS framework
 
 ## Installing
