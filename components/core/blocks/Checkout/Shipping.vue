@@ -197,7 +197,7 @@
             name="shipping-method"
             :val="method.method_code"
             :value="shipping.shippingMethod == method.method_code"
-            @change="$v.shipping.shippingMethod.$touch(); changeShippingMethod();"
+            @change="selectShippingMethod(method.method_code)"
           >
             {{ method.method_title }} | {{ method.amount | price }}
           </base-radiobutton>
@@ -291,6 +291,13 @@ export default {
           label: item.name
         }
       })
+    }
+  },
+  methods: {
+    selectShippingMethod (method) {
+      this.$set(this.shipping, 'shippingMethod', method)
+      this.$v.shipping.shippingMethod.$touch()
+      this.changeShippingMethod()
     }
   },
   validations: {
