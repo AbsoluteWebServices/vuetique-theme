@@ -2,11 +2,11 @@
   <transition name="fade" appear>
     <div class="cookie fixed w-100 bg-primary cl-tertiary" v-if="isOpen">
       <div class="container">
-        <div class="p-2">
+        <div class="p-2 pr-10 md:pr-2">
           <b>
             {{ message }}
           </b>
-          <router-link :to="localizedRoute('detailsLink')" :title="detailsLinkText" class="ml-1 align-middle">
+          <router-link :to="localizedRoute('detailsLink')" :title="detailsLinkText" class="ml-1 align-middle whitespace-no-wrap">
             {{ detailsLinkText }}
             <i
               class="material-icons icon cursor-pointer align-middle"
@@ -19,7 +19,7 @@
         </div>
 
         <i
-          class="material-icons icon p15 cursor-pointer close-cookie-button"
+          class="material-icons icon cursor-pointer close-cookie-button"
           @click="accept"
           data-testid="closeCookieButton"
         >
