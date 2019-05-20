@@ -3,8 +3,8 @@
     <header
       class="fixed lg:static pin-t z-header w-full bg-white border-b border-solid"
     >
-      <div class="container">
-        <div class="row gutter-md items-center py-2" v-if="!isCheckoutPage">
+      <div class="container h-full">
+        <div class="row gutter-md items-center h-full" v-if="!isCheckoutPage">
           <div class="col-auto sm:col-4 lg:col-auto">
             <div>
               <template v-if="!canGoBack">
@@ -31,7 +31,7 @@
             </div>
           </div>
         </div>
-        <div class="row gutter-md items-center justify-between py-4" v-if="isCheckoutPage">
+        <div class="row gutter-md items-center justify-between h-full" v-if="isCheckoutPage">
           <div class="col-3 flex items-center">
             <div>
               <router-link :to="localizedRoute('/')" class="flex text-grey">
