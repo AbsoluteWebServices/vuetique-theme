@@ -19,7 +19,7 @@
                     <img
                       :src="images.src"
                       ref="images"
-                      @click="$refs.gallery.$refs.carousel.goToPage(key)"
+                      @click="$refs.gallery.$refs.carousel.navigate(key)"
                       :alt="product.name"
                       class="block border cursor-pointer"
                       :class="currentGalleryPage === key ? 'border-black' : 'border-grey-light'">
