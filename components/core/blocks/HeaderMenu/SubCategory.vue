@@ -83,9 +83,6 @@ export default {
         return this.$store.state.category.list.filter(c => { return c.parent_id === this.id }) // return my child categories
       }
     }
-  },
-  created () {
-    if (this.$store.state.config.entities.category.categoriesDynamicPrefetch) this.$store.dispatch('category/list', { parent: this.id })
   }
 }
 </script>

@@ -74,13 +74,14 @@ export default {
   mixins: [CurrentPage, onEscapePress],
   data () {
     return {
+      allCategories: [],
       activeSubMenu: null
     }
   },
   computed: {
     ...mapGetters('category', ['getCategories']),
     categories () {
-      return this.getCategories.filter((op) => {
+      return this.allCategories.filter((op) => {
         return op.level === (this.$store.state.config.entities.category.categoriesDynamicPrefetchLevel ? this.$store.state.config.entities.category.categoriesDynamicPrefetchLevel : 2) // display only the root level (level =1 => Default Category), categoriesDynamicPrefetchLevel = 2 by default
       })
     },
@@ -92,6 +93,14 @@ export default {
         return category.product_count > 0 || category.children_count > 0
       })
     }
+  },
+  created () {
+    this.allCategories = this.getCategories
+  },
+  async mounted () {
+    let categories = await this.$store.dispatch('category/list', { skipCache: true, includeFields: this.$store.state.config.entities.optimize ? this.$store.state.config.entities.category.includeFields : null })
+
+    this.allCategories = categories.items
   },
   methods: {
     onEscapePress () {
