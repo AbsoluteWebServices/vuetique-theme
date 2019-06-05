@@ -1,7 +1,7 @@
 <template>
   <footer :class="{ 'border-top border-secondary': isCheckoutPage }">
     <div
-      class="flex pt-8 pb-auto sm:pb-8 lg:pb-16 bg-grey-lighter mt-5"
+      class="flex pt-8 pb-auto sm:pb-8 lg:pb-10 bg-grey-lighter mt-5"
       v-if="!isCheckoutPage"
     >
       <div class="container">
@@ -56,22 +56,22 @@
               <h3>
                 {{ $t('Shop') }}
               </h3>
-              <div class="my-6">
+              <div class="my-3">
                 <router-link class="menu-link" :to="localizedRoute('/c/women')" exact>
                   {{ $t('Women fashion') }}
                 </router-link>
               </div>
-              <div class="my-6">
+              <div class="my-3">
                 <router-link class="menu-link" :to="localizedRoute('/c/men')" exact>
                   {{ $t("Men's fashion") }}
                 </router-link>
               </div>
-              <div class="my-6">
+              <div class="my-3">
                 <router-link class="menu-link" :to="localizedRoute('/')" exact>
                   {{ $t('Kidswear') }}
                 </router-link>
               </div>
-              <div class="my-6">
+              <div class="my-3">
                 <router-link class="menu-link" :to="localizedRoute('/')" exact>
                   {{ $t('Home') }}
                 </router-link>
@@ -103,20 +103,20 @@
               <h3>
                 {{ $t('Orders') }}
               </h3>
-              <div class="my-6">
+              <div class="my-3">
                 <router-link class="menu-link" :to="localizedRoute('/order-tracking')" exact>
                   {{ $t('Track my order') }}
                 </router-link>
               </div>
-              <div class="my-6">
+              <div class="my-3">
                 <a href="#" class="menu-link" @click.prevent="goToAccount">{{ $t('My account') }}</a>
               </div>
-              <div class="my-6">
+              <div class="my-3">
                 <router-link class="menu-link" :to="localizedRoute('/delivery')" exact>
                   {{ $t('Delivery') }}
                 </router-link>
               </div>
-              <div class="my-6">
+              <div class="my-3">
                 <router-link class="menu-link" :to="localizedRoute('/returns')" exact>
                   {{ $t('Return policy') }}
                 </router-link>
@@ -146,17 +146,17 @@
               <h3>
                 {{ $t('Help') }}
               </h3>
-              <div class="my-6">
+              <div class="my-3">
                 <router-link class="menu-link" :to="localizedRoute('/customer-service')" exact>
                   {{ $t('Customer service') }}
                 </router-link>
               </div>
-              <div class="my-6">
+              <div class="my-3">
                 <router-link class="menu-link" :to="localizedRoute('/size-guide')" exact>
                   {{ $t('Size guide') }}
                 </router-link>
               </div>
-              <div class="my-6">
+              <div class="my-3">
                 <router-link class="menu-link" :to="localizedRoute('/contact')" exact>
                   {{ $t('Contact us') }}
                 </router-link>
@@ -183,12 +183,12 @@
               <h3>
                 {{ $t('About us') }}
               </h3>
-              <div class="my-6">
+              <div class="my-3">
                 <router-link class="menu-link" :to="localizedRoute('/about-us')" exact>
                   {{ $t('About us') }}
                 </router-link>
               </div>
-              <div class="my-6">
+              <div class="my-3">
                 <router-link class="menu-link" :to="localizedRoute('/store-locator')" exact>
                   {{ $t('Store locator') }}
                 </router-link>
