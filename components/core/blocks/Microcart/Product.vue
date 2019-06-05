@@ -59,7 +59,7 @@
           </span>
           <div v-show="isEditing" class="inline-flex">
             <qty-input
-              v-model.number="qty"
+              v-model.number="product.qty"
               :id="'qty-' + product.sku"
               data-testid="productQtyInput"
               size="sm" />
