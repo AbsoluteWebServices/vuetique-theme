@@ -10,7 +10,7 @@
           <div class="w-full md:w-3/5">
             <div class="flex">
               <div v-if="gallery.length > 1" class="product-thumbnails w-1/12 hidden md:block">
-                <ul class="list-reset">
+                <ul>
                   <li
                     v-for="(images, key) in gallery"
                     :key="images.src"
@@ -107,7 +107,7 @@
                         to="/size-guide"
                         target="_blank"
                         v-if="option.label == 'Size'"
-                        class="text-sm font-medium text-black pt-4 absolute pin-t pin-r"
+                        class="text-sm font-medium text-black pt-4 absolute top-0 right-0"
                       >
                         {{ $t('Size guide') }}
                       </router-link>

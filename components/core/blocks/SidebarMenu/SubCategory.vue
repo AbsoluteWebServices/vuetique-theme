@@ -2,7 +2,7 @@
   <div>
     <ul
       v-if="children"
-      class="sidebar-submenu list-reset absolute w-full bg-white border-t"
+      class="sidebar-submenu absolute w-full bg-white border-t"
       :style="styles"
     >
       <li
@@ -46,7 +46,7 @@
     </ul>
     <ul
       v-if="myAccountLinks"
-      class="sidebar-submenu list-reset fixed w-full"
+      class="sidebar-submenu fixed w-full"
       :style="styles"
     >
       <li

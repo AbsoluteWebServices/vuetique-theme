@@ -93,7 +93,7 @@
           </div>
         </div>
       </div>
-      <div class="absolute pin-b pin-r mb-3">
+      <div class="absolute bottom-0 right-0 mb-3">
         <div @click="removeItem">
           <remove-button />
         </div>

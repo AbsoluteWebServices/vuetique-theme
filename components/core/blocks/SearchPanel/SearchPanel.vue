@@ -6,7 +6,7 @@
     <button
       type="button"
       :aria-label="$t('Close')"
-      class="absolute pin-t pin-r m-4 h-4"
+      class="absolute top-0 right-0 m-4 h-4"
       @click="closeSearchpanel"
       data-testid="closeSearchPanel"
     >
@@ -30,7 +30,7 @@
         @input="makeSearch"
         @focus="searchFocus = true"
         @blur="searchFocus = false"/>
-      <svg viewBox="0 0 25 25" class="vt-icon--sm absolute pin-r mr-2 w-6 h-6 text-grey">
+      <svg viewBox="0 0 25 25" class="vt-icon--sm absolute right-0 mr-2 w-6 h-6 text-grey">
         <use xlink:href="#search"/>
       </svg>
     </div>

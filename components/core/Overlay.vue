@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed z-overlay w-full h-screen pin-t pin-l bg-black opacity-75" @click="close" v-if="isVisible" />
+  <div class="fixed z-overlay w-full h-screen top-0 left-0 bg-black opacity-75" @click="close" v-if="isVisible" />
 </template>
 
 <script>

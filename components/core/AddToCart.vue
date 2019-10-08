@@ -72,7 +72,7 @@ export default {
 .loader {
   display: inline-block;
   border: 3px solid #fff;
-  border-top: 3px solid config('colors.primary');
+  border-top: 3px solid theme('colors.primary');
   border-radius: 50%;
   width: 16px;
   height: 16px;

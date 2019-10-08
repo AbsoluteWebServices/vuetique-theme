@@ -14,7 +14,7 @@
           v-lazy:background-image="banner.image"
         >
           <h2 class="md:text-h1 text-center leading-tight">{{ banner.title }}</h2>
-          <div class="w-24 absolute pin-b mx-auto mb-5 md:mb-10">
+          <div class="w-24 absolute bottom-0 mx-auto mb-5 md:mb-10">
             <button-full class="btn-primary w-full">{{ $t('Shop') }}</button-full>
           </div>
         </router-link>

@@ -1,4 +1,4 @@
-@media screen and (max-width: config('screens.md')) {
+@media screen and (max-width: theme('screens.md')) {
   input[type="color"],
   input[type="date"],
   input[type="datetime"],

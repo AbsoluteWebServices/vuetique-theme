@@ -34,7 +34,7 @@ You may need to run `yarn` from the vuetique theme directory.
 Add the following line to `core/build/webpack.base.config.js` in `postcssConfig` var
 
 ```js
-require('tailwindcss')(path.join(themeRoot, 'tailwind.js')),
+require('tailwindcss')(path.join(themeRoot, 'tailwind.config.js')),
 ```
 
 The result should look something like this:
@@ -45,7 +45,7 @@ const postcssConfig =  {
   options: {
     ident: 'postcss',
     plugins: (loader) => [
-      require('tailwindcss')(path.join(themeRoot, 'tailwind.js')),
+      require('tailwindcss')(path.join(themeRoot, 'tailwind.config.js')),
       require('postcss-flexbugs-fixes'),
       require('autoprefixer')({
         flexbox: 'no-2009',

@@ -140,7 +140,7 @@ $features-column-width: 210px;
   }
 
   &__features {
-    @apply border-t border-b absolute pin-t pin-l;
+    @apply border-t border-b absolute top-0 left-0;
 
     z-index: 1;
     width: $features-column-width-mobile;
@@ -152,7 +152,7 @@ $features-column-width: 210px;
   }
 
   &__product {
-    @apply list-reset relative text-center float-left;
+    @apply relative text-center float-left;
 
     width: $products-column-width-mobile;
     transition: opacity .3s, visibility .3s, transform .3s;
@@ -210,7 +210,7 @@ $features-column-width: 210px;
   }
 
   &__remove {
-    @apply absolute pin-t pin-r;
+    @apply absolute top-0 right-0;
   }
 }
 </style>

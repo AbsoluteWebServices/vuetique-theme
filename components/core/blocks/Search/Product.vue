@@ -102,7 +102,7 @@ export default {
 }
 
 %label {
-  @apply text-xs font-medium tracking-sm absolute pin-t pin-l flex justify-center items-center uppercase border border-solid;
+  @apply text-xs font-medium tracking-sm absolute top-0 left-0 flex justify-center items-center uppercase border border-solid;
 
   padding: 4px 9px;
   line-height: 9px;

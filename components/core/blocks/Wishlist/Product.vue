@@ -40,7 +40,7 @@
         {{ product.priceInclTax | price }}
       </div>
     </div>
-    <div class="absolute pin-b pin-r mb-3">
+    <div class="absolute bottom-0 right-0 mb-3">
       <span @click="removeFromWishlist(product)"><remove-button class="cl-accent" /></span>
     </div>
   </li>

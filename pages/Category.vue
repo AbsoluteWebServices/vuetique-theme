@@ -21,7 +21,7 @@
       <button
         type="button"
         :aria-label="$t('Close')"
-        class="absolute pin-t pin-r m-4 h-4"
+        class="absolute top-0 right-0 m-4 h-4"
         @click="closeFilters"
       >
         <svg viewBox="0 0 25 25" class="vt-icon--sm">
@@ -100,7 +100,7 @@ export default {
 
 <style lang="scss" scoped>
 .mobile-filters {
-  @apply fixed overflow-auto bg-white z-modal pin-l w-screen p-4;
+  @apply fixed overflow-auto bg-white z-modal left-0 w-screen p-4;
 
   padding-top: 52px;
   top: 70px;

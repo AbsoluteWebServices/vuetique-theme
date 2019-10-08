@@ -71,7 +71,7 @@ $color-icon-hover: color(secondary, $colors-background);
   }
 
   .dropdown-content {
-    @apply hidden p-0 m-0 absolute bg-grey-lighter shadow z-10 pin-r list-reset;
+    @apply hidden p-0 m-0 absolute bg-grey-lighter shadow z-10 right-0;
     min-width: 200px;
     top: 100%;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -84,7 +84,7 @@ $color-icon-hover: color(secondary, $colors-background);
       bottom: 100%;
       right: 15px;
       border-width: 8px;
-      border-color: transparent transparent config('colors.grey-light') transparent;
+      border-color: transparent transparent theme('colors.grey-light') transparent;
     }
 
     li + li {

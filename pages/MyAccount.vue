@@ -12,7 +12,7 @@
       <div class="row gutter-md justify-between">
         <div class="md:col-3 lg:col-2 mb-8">
           <nav class="static-menu serif h4 mb35">
-            <ul class="list-reset border-t">
+            <ul class="border-t">
               <li class="border-b py-2" v-for="(page, index) in navigation" :key="index" @click="notify(page.title)">
                 <router-link :to="localizedRoute(page.link)" class="nav-link">{{ page.title }}</router-link>
               </li>

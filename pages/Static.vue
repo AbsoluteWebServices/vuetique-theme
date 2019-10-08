@@ -9,7 +9,7 @@
       <div class="row gutter-md justify-between">
         <div class="md:col-3 lg:col-2 mb-8">
           <nav class="static-menu">
-            <ul class="list-reset border-t">
+            <ul class="border-t">
               <li class="border-b py-2" v-for="page in navigation" :key="page.id">
                 <router-link :to="localizedRoute(page.link)" @click.native="setContent(page.component)" class="nav-link">{{ page.title }}</router-link>
               </li>

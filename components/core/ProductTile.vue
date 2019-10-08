@@ -149,7 +149,7 @@ export default {
 @import '~theme/css/animations/transitions';
 
 %label {
-  @apply text-xs font-medium tracking-sm absolute pin-t pin-l flex justify-center items-center uppercase border border-solid;
+  @apply text-xs font-medium tracking-sm absolute top-0 left-0 flex justify-center items-center uppercase border border-solid;
 
   padding: 7px 10px;
   line-height: 8px;

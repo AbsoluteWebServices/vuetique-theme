@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <header
-      class="fixed lg:static pin-t z-header w-full bg-white border-b border-solid"
+      class="fixed lg:static top-0 z-header w-full bg-white border-b border-solid"
     >
       <div class="container h-full">
         <div class="row gutter-md items-center h-full" v-if="!isCheckoutPage">

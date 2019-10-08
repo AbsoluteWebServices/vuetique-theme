@@ -15,7 +15,7 @@
         @input="makeSearch"
         @focus="searchFocus = true"
         @blur="searchFocus = false"/>
-      <svg viewBox="0 0 25 25" class="vt-icon--sm absolute pin-r mr-2 w-6 h-6 text-grey">
+      <svg viewBox="0 0 25 25" class="vt-icon--sm absolute right-0 mr-2 w-6 h-6 text-grey">
         <use xlink:href="#search"/>
       </svg>
     </div>

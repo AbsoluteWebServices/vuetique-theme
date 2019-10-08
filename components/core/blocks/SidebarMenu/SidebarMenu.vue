@@ -3,7 +3,7 @@
     <button
       type="button"
       :aria-label="$t('Close')"
-      class="absolute pin-t pin-r m-4 h-4"
+      class="absolute top-0 right-0 m-4 h-4"
       @click="closeMenu"
     >
       <svg viewBox="0 0 25 25" class="vt-icon--sm">
@@ -11,11 +11,11 @@
       </svg>
     </button>
 
-    <div v-if="submenu.depth" class="absolute pin-l pin-t">
+    <div v-if="submenu.depth" class="absolute left-0 top-0">
       <sub-btn type="back" />
     </div>
 
-    <ul class="list-reset relative border-t sidebar-menu__list" :style="mainListStyles">
+    <ul class="relative border-t sidebar-menu__list" :style="mainListStyles">
       <li
         class="border-b flex"
         :key="category.slug"

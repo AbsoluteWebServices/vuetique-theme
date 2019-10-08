@@ -7,7 +7,7 @@
     <button
       type="button"
       :aria-label="$t('Close')"
-      class="absolute pin-t pin-r m-4 h-4"
+      class="absolute top-0 right-0 m-4 h-4"
       @click="closeMicrocartExtend"
       data-testid="closeMicrocart"
     >

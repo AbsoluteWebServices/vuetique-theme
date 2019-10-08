@@ -46,7 +46,7 @@
         :id="link.id"
         v-if="link.children_count > 0"
         :parent-slug="link.slug"
-        class="pin-t left-100"
+        class="top-0 left-100"
       />
     </li>
   </ul>

@@ -34,7 +34,7 @@
             :category-links="category.children_data"
             :id="category.id"
             :parent-slug="category.slug"
-            class="pin-l"
+            class="left-0"
           />
         </li>
         <li>
