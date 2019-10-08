@@ -59,11 +59,12 @@
           </span>
           <div v-show="isEditing" class="inline-flex">
             <qty-input
-              v-model.number="product.qty"
+              :value="product.qty"
+              @input="val => product.qty = val"
               :id="'qty-' + product.sku"
               data-testid="productQtyInput"
               size="sm" />
-            <apply-button @click.native="updateQuantity" class="ml-1" />
+            <apply-button @click.native="applyQuantity" class="ml-1" />
           </div>
           <edit-button v-show="!isEditing" @click.native="switchEdit" class="align-text-bottom ml-1" />
         </div>
@@ -117,6 +118,20 @@ export default {
     ApplyButton,
     QtyInput
   },
-  mixins: [Product]
+  mixins: [Product],
+  data () {
+    return {
+      isEditing: false
+    }
+  },
+  methods: {
+    switchEdit () {
+      this.isEditing = !this.isEditing
+    },
+    applyQuantity () {
+      this.updateQuantity(this.product.qty)
+      this.isEditing = false
+    }
+  }
 }
 </script>

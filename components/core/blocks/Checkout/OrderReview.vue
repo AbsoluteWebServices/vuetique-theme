@@ -27,6 +27,10 @@
 
     <div class="flex flex-wrap justify-end" v-show="isActive">
       <div class="w-full md:w-11/12">
+        <div id="checkout-order-review-additional-container">
+          <div id="checkout-order-review-additional">&nbsp;</div>
+        </div>
+
         <div class="flex flex-wrap">
           <div class="w-full">
             <p class="text-h4 mb-2">

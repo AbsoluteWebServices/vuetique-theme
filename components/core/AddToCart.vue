@@ -1,8 +1,8 @@
 <template>
-  <button-full @click.native="addToCart(product)" :disabled="canBeAdded(product)" data-testid="addToCart" class="w-full" :class="{'bg-primary': !canBeAdded(product) || added}">
+  <button-full @click.native="addToCartWrapper(product)" :disabled="isProductDisabled" data-testid="addToCart" class="w-full" :class="{'bg-primary': isProductDisabled || added}">
     <div class="flex items-center justify-center">
       <span>{{ failed ? $t('Error while adding') : added ? $t('Added to cart') : $t('Add to cart') }}</span>
-      <div v-show="loading" class="loader ml-1"/>
+      <div v-show="isAddingToCart" class="loader ml-1"/>
       <svg v-show="added" viewBox="0 0 17.333 9.333" class="vt-icon--sm ml-1">
         <use xlink:href="#success"/>
       </svg>
@@ -26,31 +26,25 @@ export default {
   components: { ButtonFull },
   data () {
     return {
-      loading: false,
       added: false,
       failed: false
+    }
+  },
+  computed: {
+    isProductDisabled () {
+      return this.disabled || formatProductMessages(this.product.errors) !== '' || this.isAddingToCart
     }
   },
   methods: {
     onAfterRemovedVariant () {
       this.$forceUpdate()
     },
-    canBeAdded (product) {
-      return this.loading || this.failed || formatProductMessages(product.errors) !== ''
-    },
-    onBeforeAdd (product) {
-      this.loading = true
-      this.added = false
-      this.failed = false
-    },
-    onAfterAdd ({type}) {
-      this.loading = false
+    notifyUser (notificationData) {
+      this.$store.dispatch('notification/spawnNotification', notificationData, { root: true })
 
-      if (type === 'success') {
+      if (notificationData.type === 'success') {
         this.added = true
-        this.failed = false
       } else {
-        this.added = false
         this.failed = true
       }
 
@@ -58,17 +52,18 @@ export default {
         this.added = false
         this.failed = false
       }, 2000)
+    },
+    addToCartWrapper (product) {
+      this.added = false
+      this.failed = false
+      this.addToCart(product)
     }
   },
   beforeMount () {
     this.$bus.$on('product-after-removevariant', this.onAfterRemovedVariant)
-    this.$bus.$on('cart-before-add', this.onBeforeAdd)
-    this.$bus.$on('cart-after-add', this.onAfterAdd)
   },
   beforeDestroy () {
     this.$bus.$off('product-after-removevariant')
-    this.$bus.$off('cart-before-add')
-    this.$bus.$off('cart-after-add')
   }
 }
 </script>

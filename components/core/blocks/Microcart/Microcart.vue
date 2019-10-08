@@ -50,7 +50,7 @@
         <div class="mr-3 flex-grow">
           <base-input type="text" id="couponinput" :placeholder="$t('Add discount code')" :autofocus="true" v-model.trim="couponCode" @keyup.enter="setCoupon"/>
         </div>
-        <div class="flex-auto">
+        <div>
           <button-full :disabled="!couponCode" @click.native="setCoupon">{{ $t('Apply') }}</button-full>
         </div>
       </div>

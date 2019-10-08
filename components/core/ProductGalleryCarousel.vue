@@ -20,7 +20,7 @@
             v-show="placeholderImagesMap[index]"
             key="placeholderImage"
             class="product-image inline-flex cursor-pointer mw-full"
-            src="/assets/placeholder.svg"
+            src="/assets/placeholder.jpg"
             ref="images"
             :alt="productName | htmlDecode"
           >

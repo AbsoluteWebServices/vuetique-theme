@@ -57,7 +57,7 @@
 </template>
 
 <script>
-import MyNewsletter from '@vue-storefront/core/compatibility/components/blocks/MyAccount/MyNewsletter'
+import { Newsletter } from '@vue-storefront/core/modules/newsletter/components/Newsletter'
 import ButtonFull from 'theme/components/theme/ButtonFull.vue'
 import BaseCheckbox from '../Form/BaseCheckbox.vue'
 
@@ -77,8 +77,15 @@ export default {
     },
     edit () {
       this.isEdited = true
+    },
+    updateNewsletter () {
+      if (this.user.isSubscribed) {
+        this.subscribe()
+      } else {
+        this.unsubscribe()
+      }
     }
   },
-  mixins: [MyNewsletter]
+  mixins: [Newsletter]
 }
 </script>

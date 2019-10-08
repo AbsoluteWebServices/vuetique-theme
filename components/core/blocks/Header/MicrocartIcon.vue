@@ -12,7 +12,7 @@
     <span
       class="minicart-count absolute flex justify-center items-center text-xs font-bold text-white bg-primary"
       v-cloak
-      v-if="totalQuantity"
+      v-show="totalQuantity"
       data-testid="minicartCount"
     >
       {{ totalQuantity }}

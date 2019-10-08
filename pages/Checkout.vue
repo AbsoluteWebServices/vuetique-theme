@@ -1,7 +1,7 @@
 <template>
   <div id="checkout">
     <div class="container mx-auto">
-      <div class="flex flex-wrap justify-between w-full" v-show="!orderPlaced">
+      <div class="flex flex-wrap justify-between w-full" v-show="!isThankYouPage">
         <div class="w-full md:w-3/5 lg:w-1/2 md:px-3">
           <div class="checkout-title mt-5 md:mt-0 pb-5">
             <h1>
@@ -23,7 +23,7 @@
         </div>
       </div>
     </div>
-    <thank-you-page v-show="orderPlaced" />
+    <thank-you-page v-show="isThankYouPage" />
   </div>
 </template>
 

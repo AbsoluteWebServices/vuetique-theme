@@ -272,13 +272,16 @@
     <related-products type="related" />
 
     <div class="container my-4">
-      <recently-viewed />
+      <no-ssr>
+        <recently-viewed />
+      </no-ssr>
     </div>
 
   </div>
 </template>
 
 <script>
+import NoSSR from 'vue-no-ssr'
 import Product from '@vue-storefront/core/pages/Product'
 import VueOfflineMixin from 'vue-offline/mixin'
 import RelatedProducts from 'theme/components/core/blocks/Product/Related.vue'
@@ -302,6 +305,7 @@ import QtyInput from 'theme/components/theme/QtyInput'
 
 export default {
   components: {
+    'no-ssr': NoSSR,
     'WishlistButton': () => import(/* webpackChunkName: "wishlist" */'theme/components/core/blocks/Wishlist/AddToWishlist'),
     AddToCart,
     Breadcrumbs,
