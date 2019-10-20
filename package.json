@@ -1,6 +1,6 @@
 {
   "name": "vuetique",
-  "version": "1.3",
+  "version": "1.3.0",
   "description": "Vuetique Theme for Vue Storefront",
   "main": "index.js",
   "scripts": {
