@@ -24,8 +24,6 @@
 
 <script>
 import NoSSR from 'vue-no-ssr'
-import { Carousel, Slide } from 'vue-carousel'
-
 import ProductTile from 'theme/components/core/ProductTile'
 
 export default {
@@ -45,9 +43,9 @@ export default {
     }
   },
   components: {
-    Slide,
-    Carousel,
     ProductTile,
+    'Carousel': () => import('vue-carousel').then(Slider => Slider.Carousel),
+    'Slide': () => import('vue-carousel').then(Slider => Slider.Slide),
     'no-ssr': NoSSR
   },
   data () {

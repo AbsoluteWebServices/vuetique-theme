@@ -1,19 +1,28 @@
 <template>
   <div id="category">
-    <breadcrumbs :routes="breadcrumbs.routes" :active-route="category.name" />
+    <breadcrumbs />
     <header class="pb-16 row bg-grey-lightest mb-6">
       <div class="container">
         <div class="row items-center mt-2">
-          <h1 class="col-10"> {{ category.name }} </h1>
+          <h1 class="col-10">
+            {{ getCurrentCategory.name }}
+          </h1>
           <div class="col-2 hidden lg:block"><sort-by /></div>
         </div>
       </div>
       <div class="container lg:hidden">
         <div class="row gutter-md mt-6">
           <div class="col-6">
-            <button-full class="w-full" @click.native="openFilters">{{ $t('Filters') }}</button-full>
+            <button-full class="w-full" @click.native="openFilters">
+              {{ $t('Filters') }}
+            </button-full>
           </div>
-          <div class="col-6"><sort-by /></div>
+          <div class="col-6">
+            <sort-by
+              @change="changeFilter"
+              :value="getCurrentSearchQuery.sort"
+            />
+          </div>
         </div>
       </div>
     </header>
@@ -28,19 +37,26 @@
           <use xlink:href="#close"/>
         </svg>
       </button>
-      <sidebar :filters="filters.available" @closeFilters="closeFilters"/>
+      <sidebar
+        :filters="getAvailableFilters"
+        @changeFilter="changeFilter"
+        @closeFilters="closeFilters"
+      />
     </div>
     <div class="container pb-16">
       <div class="row gutter-md">
         <div class="col-3 hidden lg:block">
-          <sidebar :filters="filters.available"/>
+          <sidebar :filters="getAvailableFilters" />
         </div>
         <div class="col-12 lg:col-9">
           <div v-if="isCategoryEmpty" class="hidden-xs">
             <h3 data-testid="noProductsInfo" class="mb-2">{{ $t('No products found!') }}</h3>
             <p class="text-grey-dark">{{ $t('Please change Your search criteria and try again. If you still can\'t find what you\'re looking for, try visiting our homepage to check out our bestsellers!') }}</p>
           </div>
-          <product-listing columns="3" :products="products" />
+          <lazy-hydrate :trigger-hydration="!loading" v-if="isLazyHydrateEnabled">
+            <product-listing :columns="defaultColumn" :products="getCategoryProducts" />
+          </lazy-hydrate>
+          <product-listing v-else :columns="defaultColumn" :products="getCategoryProducts" />
         </div>
       </div>
     </div>
@@ -48,14 +64,39 @@
 </template>
 
 <script>
-import Category from '@vue-storefront/core/pages/Category'
+import LazyHydrate from 'vue-lazy-hydration'
 import Sidebar from '../components/core/blocks/Category/Sidebar.vue'
 import ProductListing from '../components/core/ProductListing.vue'
 import Breadcrumbs from '../components/core/Breadcrumbs.vue'
 import SortBy from '../components/core/SortBy.vue'
-// import builder from 'bodybuilder'
+import { isServer } from '@vue-storefront/core/helpers'
+import { getSearchOptionsFromRouteParams } from '@vue-storefront/core/modules/catalog-next/helpers/categoryHelpers'
+import config from 'config'
+import ButtonFull from 'theme/components/theme/ButtonFull.vue'
+import { mapGetters } from 'vuex'
+import onBottomScroll from '@vue-storefront/core/mixins/onBottomScroll'
+import { catalogHooksExecutors } from '@vue-storefront/core/modules/catalog-next/hooks'
+import { localizedRoute, currentStoreView } from '@vue-storefront/core/lib/multistore'
+import { htmlDecode } from '@vue-storefront/core/filters'
 
-import ButtonFull from '../components/theme/ButtonFull.vue'
+const THEME_PAGE_SIZE = 50
+
+const composeInitialPageState = async (store, route, forceLoad = false) => {
+  try {
+    const filters = getSearchOptionsFromRouteParams(route.params)
+    const cachedCategory = store.getters['category-next/getCategoryFrom'](route.path)
+    const currentCategory = cachedCategory && !forceLoad ? cachedCategory : await store.dispatch('category-next/loadCategory', { filters })
+    if (!store.getters['url/isBackRoute']) {
+      await store.dispatch('category-next/loadCategoryProducts', {route, category: currentCategory, pageSize: THEME_PAGE_SIZE})
+    }
+    const breadCrumbsLoader = store.dispatch('category-next/loadCategoryBreadcrumbs', { category: currentCategory, currentRouteName: currentCategory.name, omitCurrent: true })
+
+    if (isServer) await breadCrumbsLoader
+    catalogHooksExecutors.categoryPageVisited(currentCategory)
+  } catch (e) {
+    console.error('Problem with setting Category initial data!', e)
+  }
+}
 
 export default {
   components: {
@@ -63,21 +104,52 @@ export default {
     Breadcrumbs,
     Sidebar,
     SortBy,
-    ButtonFull
+    ButtonFull,
+    LazyHydrate
   },
+  mixins: [onBottomScroll],
   data () {
     return {
-      mobileFilters: false
+      mobileFilters: false,
+      defaultColumn: 3,
+      loadingProducts: false,
+      loading: true
     }
   },
-  asyncData ({ store, route }) { // this is for SSR purposes to prefetch data - and it's always executed before parent component methods
-    return new Promise((resolve, reject) => {
-      store.dispatch('category/mergeSearchOptions', { // this is just an example how can you modify the search criteria in child components
-        sort: 'updated_at:desc'
-        // searchProductQuery: builder().query('range', 'price', { 'gt': 0 }).andFilter('range', 'visibility', { 'gte': 2, 'lte': 4 }) // this is an example on how to modify the ES query, please take a look at the @vue-storefront/core/helpers for refernce on how to build valid query
+  computed: {
+    ...mapGetters({
+      getCurrentSearchQuery: 'category-next/getCurrentSearchQuery',
+      getCategoryProducts: 'category-next/getCategoryProducts',
+      getCurrentCategory: 'category-next/getCurrentCategory',
+      getCategoryProductsTotal: 'category-next/getCategoryProductsTotal',
+      getAvailableFilters: 'category-next/getAvailableFilters'
+    }),
+    isLazyHydrateEnabled () {
+      return config.ssr.lazyHydrateFor.includes('category-next.products')
+    },
+    isCategoryEmpty () {
+      return this.getCategoryProductsTotal === 0
+    }
+  },
+  async asyncData ({ store, route }) { // this is for SSR purposes to prefetch data - and it's always executed before parent component methods
+    await composeInitialPageState(store, route)
+  },
+  async beforeRouteEnter (to, from, next) {
+    if (isServer) next() // SSR no need to invoke SW caching here
+    else if (!from.name) { // SSR but client side invocation, we need to cache products and invoke requests from asyncData for offline support
+      next(async vm => {
+        vm.loading = true
+        await composeInitialPageState(vm.$store, to, true)
+        await vm.$store.dispatch('category-next/cacheProducts', { route: to }) // await here is because we must wait for the hydration
+        vm.loading = false
       })
-      resolve()
-    })
+    } else { // Pure CSR, with no initial category state
+      next(async vm => {
+        vm.loading = true
+        vm.$store.dispatch('category-next/cacheProducts', { route: to })
+        vm.loading = false
+      })
+    }
   },
   methods: {
     openFilters () {
@@ -86,15 +158,42 @@ export default {
     closeFilters () {
       this.mobileFilters = false
     },
-    notify () {
-      this.$store.dispatch('notification/spawnNotification', {
-        type: 'error',
-        message: this.$t('Please select the field which You like to sort by'),
-        action1: { label: this.$t('OK') }
-      })
+    async changeFilter (filterVariant) {
+      this.$store.dispatch('category-next/switchSearchFilters', [filterVariant])
+    },
+    columnChange (column) {
+      this.defaultColumn = column
+    },
+    async onBottomScroll () {
+      if (this.loadingProducts) return
+      this.loadingProducts = true
+      try {
+        await this.$store.dispatch('category-next/loadMoreCategoryProducts')
+      } catch (e) {
+        console.error('Problem with fetching more products', e)
+      } finally {
+        this.loadingProducts = false
+      }
     }
   },
-  mixins: [Category]
+  metaInfo () {
+    const storeView = currentStoreView()
+    const { meta_title, meta_description, name, slug } = this.getCurrentCategory
+    const meta = meta_description ? [
+      { vmid: 'description', name: 'description', content: htmlDecode(meta_description) }
+    ] : []
+    const categoryLocaliedLink = localizedRoute({
+      name: 'category-amp',
+      params: { slug }
+    }, storeView.storeCode)
+    const ampCategoryLink = this.$router.resolve(categoryLocaliedLink).href
+
+    return {
+      link: [ { rel: 'amphtml', href: ampCategoryLink } ],
+      title: htmlDecode(meta_title || name),
+      meta
+    }
+  }
 }
 </script>
 

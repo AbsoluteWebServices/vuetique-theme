@@ -6,7 +6,7 @@
           <b>
             {{ message }}
           </b>
-          <router-link :to="localizedRoute('detailsLink')" :title="detailsLinkText" class="ml-1 align-middle whitespace-no-wrap">
+          <router-link :to="localizedRoute(detailsLink)" :title="detailsLinkText" class="ml-1 align-middle whitespace-no-wrap">
             {{ detailsLinkText }}
             <i
               class="material-icons icon cursor-pointer align-middle"
@@ -61,7 +61,7 @@ export default {
       this.$store.dispatch('claims/set', {claimCode: 'cookiesAccepted', value: true})
     }
   },
-  created () {
+  mounted () {
     this.$store.dispatch('claims/check', {claimCode: 'cookiesAccepted'}).then((cookieClaim) => {
       if (!cookieClaim) {
         this.isOpen = true
@@ -75,8 +75,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~theme/css/variables/colors';
-@import '~theme/css/helpers/functions/color';
 $color-icon: color(black);
 $bg-icon: color(suva-gray);
 

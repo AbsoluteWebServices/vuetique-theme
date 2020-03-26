@@ -3,7 +3,7 @@
 A [Vue Storefront](https://www.vuestorefront.io) Theme for Passionate Developers with larger catalogs in mind, based on the
 wonderful [Tailwind](https://tailwindcss.com) CSS framework.
 
-Latest tested Vue Storefront version - [1.10.3](https://github.com/DivanteLtd/vue-storefront/tree/v1.10.3)
+Latest tested Vue Storefront version - [1.11.2](https://github.com/DivanteLtd/vue-storefront/tree/v1.11.2)
 
 ## Installing
 

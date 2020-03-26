@@ -68,16 +68,15 @@
 
 <script>
 import store from '@vue-storefront/core/store'
-import { Carousel, Slide } from 'vue-carousel'
 import ProductVideo from './ProductVideo'
 import { onlineHelper } from '@vue-storefront/core/helpers'
 
 export default {
   name: 'ProductGalleryCarousel',
   components: {
-    Carousel,
-    Slide,
-    ProductVideo
+    ProductVideo,
+    'Carousel': () => import('vue-carousel').then(Slider => Slider.Carousel),
+    'Slide': () => import('vue-carousel').then(Slider => Slider.Slide)
   },
   props: {
     gallery: {

@@ -14,14 +14,12 @@
 
 <script>
 import store from '@vue-storefront/core/store'
-import CmsData from 'src/modules/magento-2-cms/components/CmsData'
 import Breadcrumbs from 'theme/components/core/Breadcrumbs'
 
 export default {
   components: {
     Breadcrumbs
   },
-  mixins: [CmsData],
   computed: {
     data () {
       if (this.id) {

@@ -1,6 +1,8 @@
 <template>
   <div id="home">
-    <main-slider />
+    <no-ssr>
+      <main-slider />
+    </no-ssr>
 
     <promoted-offers collection="smallBanners" :limit="2" :columns="2" class="mt-2 mb-16 sm:my-8" />
 
@@ -17,7 +19,9 @@
 
     <promoted-offers collection="smallBanners" :limit="2" :offset="2" :columns="2" class="mt-2 mb-16 sm:my-8" />
 
-    <products-slider class="mb-16" :title="$t('Sale and discount')" :products="salesCollection" :config="sliderConfig" />
+    <no-ssr>
+      <products-slider class="mb-16" :title="$t('Sale and discount')" :products="salesCollection" :config="sliderConfig" />
+    </no-ssr>
 
     <section class="container mb-16">
       <div class="justify-center">
@@ -49,6 +53,9 @@ import Onboard from 'theme/components/theme/blocks/Home/Onboard'
 import PromotedOffers from 'theme/components/theme/blocks/PromotedOffers/PromotedOffers'
 import TileLinks from 'theme/components/theme/blocks/TileLinks/TileLinks'
 import { Logger } from '@vue-storefront/core/lib/logger'
+
+import NoSSR from 'vue-no-ssr'
+
 export default {
   mixins: [Home],
   components: {
@@ -57,7 +64,8 @@ export default {
     ProductListing,
     ProductsSlider,
     PromotedOffers,
-    TileLinks
+    TileLinks,
+    'no-ssr': NoSSR
   },
   data () {
     return {

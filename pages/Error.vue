@@ -3,7 +3,7 @@
     <section class="bg-grey-lighter py-12 px-12">
       <div class="container">
         <div class="text-center mb-20">
-          <img src="/assets/icons/500.svg" alt="500">
+          <img class="mx-auto" src="/assets/icons/500.svg" alt="500">
         </div>
         <h2 class="text-center">
           {{ $t("Something went wrong ...") }}
@@ -59,7 +59,6 @@
 import Error from '@vue-storefront/core/pages/Error'
 import EventBus from '@vue-storefront/core/compatibility/plugins/event-bus'
 import { prepareQuery } from '@vue-storefront/core/modules/catalog/queries/common'
-import { Carousel, Slide } from 'vue-carousel'
 import NoSSR from 'vue-no-ssr'
 
 import ProductTile from 'theme/components/core/ProductTile.vue'
@@ -82,9 +81,9 @@ export default {
     }
   },
   components: {
-    Slide,
-    Carousel,
     ProductTile,
+    'Carousel': () => import('vue-carousel').then(Slider => Slider.Carousel),
+    'Slide': () => import('vue-carousel').then(Slider => Slider.Slide),
     'no-ssr': NoSSR
   },
   methods: {
