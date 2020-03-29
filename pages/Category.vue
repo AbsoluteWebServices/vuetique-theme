@@ -7,7 +7,12 @@
           <h1 class="col-10">
             {{ getCurrentCategory.name }}
           </h1>
-          <div class="col-2 hidden lg:block"><sort-by /></div>
+          <div class="col-2 hidden lg:block">
+            <sort-by
+              @change="changeFilter"
+              :value="getCurrentSearchQuery.sort"
+            />
+          </div>
         </div>
       </div>
       <div class="container lg:hidden">
@@ -46,7 +51,10 @@
     <div class="container pb-16">
       <div class="row gutter-md">
         <div class="col-3 hidden lg:block">
-          <sidebar :filters="getAvailableFilters" />
+          <sidebar
+            :filters="getAvailableFilters"
+            @changeFilter="changeFilter"
+          />
         </div>
         <div class="col-12 lg:col-9">
           <div v-if="isCategoryEmpty" class="hidden-xs">

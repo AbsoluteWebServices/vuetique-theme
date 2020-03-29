@@ -13,7 +13,7 @@
         </header>
       </div>
       <div class="row center-xs">
-        <product-listing columns="4" :products="newCollection" />
+        <product-listing :columns="defaultColumn" :products="getEverythingNewCollection" />
       </div>
     </section>
 
@@ -55,6 +55,8 @@ import TileLinks from 'theme/components/theme/blocks/TileLinks/TileLinks'
 import { Logger } from '@vue-storefront/core/lib/logger'
 
 import NoSSR from 'vue-no-ssr'
+import {mapGetters} from 'vuex'
+import {isServer} from '@vue-storefront/core/helpers'
 
 export default {
   mixins: [Home],
@@ -75,10 +77,12 @@ export default {
         paginationEnabled: true,
         loop: false,
         paginationSize: 6
-      }
+      },
+      defaultColumn: 4
     }
   },
   computed: {
+    ...mapGetters('homepage', ['getEverythingNewCollection']),
     categories () {
       return this.$store.state.category.list
     },
@@ -87,6 +91,17 @@ export default {
     },
     salesCollection () {
       return this.$store.state.homepage.sales_collection
+    }
+  },
+  beforeRouteEnter (to, from, next) {
+    if (!isServer && !from.name) { // Loading products to cache on SSR render
+      next(vm =>
+        vm.$store.dispatch('homepage/fetchNewCollection').then(res => {
+          vm.loading = false
+        })
+      )
+    } else {
+      next()
     }
   },
   created () {
@@ -110,6 +125,8 @@ export default {
 
       let newProductsQuery = prepareQuery({ queryConfig: 'newProducts' })
       let salesQuery = prepareQuery({ queryConfig: 'inspirations' })
+
+      store.dispatch('homepage/fetchNewCollection')
 
       store.dispatch('category/list', { includeFields: config.entities.optimize ? config.entities.category.includeFields : null }).then((categories) => {
         store.dispatch('product/list', {

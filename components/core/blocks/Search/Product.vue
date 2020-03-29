@@ -36,13 +36,13 @@
         </div>
         <div class="col-auto font-bold text-right">
           <span class="line-through text-grey mr-5" v-if="product.special_price && parseFloat(product.originalPriceInclTax) > 0">
-            {{ product.originalPriceInclTax | price }}
+            {{ product.originalPriceInclTax | price(storeView) }}
           </span>
           <span class="text-error" v-if="product.special_price && parseFloat(product.special_price) > 0">
-            {{ product.priceInclTax | price }}
+            {{ product.priceInclTax | price(storeView) }}
           </span>
           <span class="text-grey-dark" v-if="!product.special_price && parseFloat(product.priceInclTax) > 0" data-testid="productPrice">
-            {{ product.priceInclTax | price }}
+            {{ product.priceInclTax | price(storeView) }}
           </span>
         </div>
       </router-link>
@@ -53,9 +53,16 @@
 <script>
 import rootStore from '@vue-storefront/core/store'
 import { ProductTile } from '@vue-storefront/core/modules/catalog/components/ProductTile.ts'
+import config from 'config'
+import { currentStoreView } from '@vue-storefront/core/lib/multistore'
 
 export default {
   mixins: [ProductTile],
+  computed: {
+    storeView () {
+      return currentStoreView()
+    }
+  },
   methods: {
     onProductPriceUpdate (product) {
       if (product.sku === this.product.sku) {
@@ -63,20 +70,23 @@ export default {
       }
     },
     visibilityChanged (isVisible, entry) {
-      if (isVisible) {
-        if (rootStore.state.config.products.configurableChildrenStockPrefetchDynamic && rootStore.products.filterUnavailableVariants) {
-          const skus = [this.product.sku]
-          if (this.product.type_id === 'configurable' && this.product.configurable_children && this.product.configurable_children.length > 0) {
-            for (const confChild of this.product.configurable_children) {
-              const cachedItem = rootStore.state.stock.cache[confChild.id]
-              if (typeof cachedItem === 'undefined' || cachedItem === null) {
-                skus.push(confChild.sku)
-              }
-            }
-            if (skus.length > 0) {
-              rootStore.dispatch('stock/list', { skus: skus }) // store it in the cache
-            }
+      if (
+        isVisible &&
+        config.products.configurableChildrenStockPrefetchDynamic &&
+        config.products.filterUnavailableVariants &&
+        this.product.type_id === 'configurable' &&
+        this.product.configurable_children &&
+        this.product.configurable_children.length > 0
+      ) {
+        const skus = [this.product.sku]
+        for (const confChild of this.product.configurable_children) {
+          const cachedItem = rootStore.state.stock.cache[confChild.id]
+          if (typeof cachedItem === 'undefined' || cachedItem === null) {
+            skus.push(confChild.sku)
           }
+        }
+        if (skus.length > 0) {
+          rootStore.dispatch('stock/list', { skus: skus }) // store it in the cache
         }
       }
     }

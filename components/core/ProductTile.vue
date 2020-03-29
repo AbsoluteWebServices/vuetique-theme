@@ -19,7 +19,7 @@
         class="product-image w-full relative"
         :class="[{ sale: labelsActive && isOnSale }, { new: labelsActive && isNew }]">
         <img
-          :alt="product.name"
+          :alt="product.name | htmlDecode"
           :src="thumbnailObj.loading"
           v-lazy="thumbnailObj"
           height="300"
@@ -29,7 +29,7 @@
         >
         <img
           v-if="hoverThumbnail !== null"
-          :alt="product.name"
+          :alt="product.name | htmlDecode"
           :src="hoverThumbnailObj.loading"
           v-lazy="hoverThumbnailObj"
           height="300"
@@ -48,20 +48,20 @@
           class="text-primary mr-2"
           v-if="product.special_price && parseFloat(product.special_price) > 0 && !onlyImage"
         >
-          {{ product.priceInclTax | price }}
+          {{ product.priceInclTax | price(storeView) }}
         </span>
 
         <span
           class="line-through"
-          v-if="product.special_price && parseFloat(product.originalPriceInclTax) > 0 && !onlyImage"
+          v-if="product.special_price && parseFloat(product.original_price_incl_tax) > 0 && !onlyImage"
         >
-          {{ product.originalPriceInclTax | price }}
+          {{ product.original_price_incl_tax | price(storeView) }}
         </span>
 
         <span
-          v-if="!product.special_price && parseFloat(product.priceInclTax) > 0 && !onlyImage"
+          v-if="!product.special_price && parseFloat(product.price_incl_tax) > 0 && !onlyImage"
         >
-          {{ product.priceInclTax | price }}
+          {{ product.price_incl_tax | price(storeView) }}
         </span>
       </div>
     </router-link>
@@ -72,6 +72,7 @@
 import rootStore from '@vue-storefront/core/store'
 import { ProductTile } from '@vue-storefront/core/modules/catalog/components/ProductTile.ts'
 import config from 'config'
+import { currentStoreView } from '@vue-storefront/core/lib/multistore'
 
 export default {
   mixins: [ProductTile],
@@ -110,6 +111,9 @@ export default {
         loading: this.thumbnail,
         error: this.thumbnail
       }
+    },
+    storeView () {
+      return currentStoreView()
     }
   },
   methods: {

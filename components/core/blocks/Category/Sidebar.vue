@@ -1,5 +1,13 @@
 <template>
   <div class="sidebar">
+    <span
+      class="sidebar__header__clear pointer sans-serif hidden lg:flex mb-3"
+      @click="resetAllFilters"
+      v-show="hasActiveFilters"
+    >
+      <i class="material-icons cl-accent mr-5">cancel</i>
+      {{ $t('Clear filters') }}
+    </span>
     <div>
       <Accordion
         v-for="(filter, filterIndex) in availableFilters"
@@ -14,7 +22,6 @@
             v-for="(color, index) in filter"
             :key="index"
             :variant="color"
-            :label="color.label"
             :selected-filters="getCurrentFilters"
             @change="$emit('changeFilter', $event)"
           />
@@ -66,7 +73,7 @@
         <button-full
           class="w-full"
           @click.native="resetAllFilters"
-          :disabled="Object.keys(activeFilters).length === 0"
+          :disabled="!hasActiveFilters"
         >
           {{ $t('Clear') }}
         </button-full>
@@ -84,7 +91,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import ColorSelector from 'theme/components/core/ColorSelector'
 import SizeSelector from 'theme/components/core/SizeSelector'
 import PriceSelector from 'theme/components/core/PriceSelector'
@@ -109,10 +115,6 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('category', ['getActiveCategoryFilters']),
-    activeFilters () {
-      return this.getActiveCategoryFilters
-    },
     hasActiveFilters () {
       return this.$store.getters['category-next/hasActiveFilters']
     },

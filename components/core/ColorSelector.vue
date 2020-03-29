@@ -1,6 +1,6 @@
 <template>
   <button
-    :class="['border border-transparent opacity-50 hover:opacity-100 rounded-full relative inline-flex pointer color mr-3 mb-3', active ? 'active' : '']"
+    :class="['border border-transparent opacity-50 hover:opacity-100 rounded-full relative inline-flex pointer color mr-3 mb-3', isActive ? 'active' : '']"
     @click="$emit('change', variant)"
     :aria-label="$t('Select color ') + variant.label"
   >
