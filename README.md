@@ -28,35 +28,6 @@ The result should look something like this:
   // ...
 ```
 
-
-## Tailwind Prerequisites
-
-You may need to run `yarn` from the vuetique theme directory.
-
-Add the following line to `core/build/webpack.base.config.js` in `postcssConfig` var
-
-```js
-require('tailwindcss')(path.join(themeRoot, 'tailwind.config.js')),
-```
-
-The result should look something like this:
-
-```js
-const postcssConfig =  {
-  loader: 'postcss-loader',
-  options: {
-    ident: 'postcss',
-    plugins: (loader) => [
-      require('tailwindcss')(path.join(themeRoot, 'tailwind.config.js')),
-      require('postcss-flexbugs-fixes'),
-      require('autoprefixer')({
-        flexbox: 'no-2009',
-      }),
-    ]
-  }
-};
-```
-
 ## Image hover support
 
 To make image hover function, you need to make a few changes to your Vue Storefront local.json file.

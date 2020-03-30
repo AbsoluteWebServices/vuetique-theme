@@ -1,4 +1,43 @@
-// You can extend default webpack build here. Read more on docs: https://github.com/DivanteLtd/vue-storefront/blob/master/doc/Working%20with%20webpack.md
+const themeRoot = require('@vue-storefront/core/build/theme-path');
+
+/**
+* @param {object} loader
+*/
+function addPlugins (loader) {
+  if(!loader) return
+
+  let options ={
+    ident: 'postcss',
+    plugins: (loader) => [
+      require('tailwindcss')(`${themeRoot}/tailwind.config.js`),
+      require('postcss-flexbugs-fixes'),
+      require('autoprefixer')({
+        flexbox: 'no-2009'
+      })
+    ]
+  };
+
+  loader.options = options;
+}
+
+/**
+ * @param {object} rules
+ */
+function addPostCSSPlugins (rules) {
+  const processedLoaders = [];
+
+  rules.forEach(rule => {
+    const loader = rule.use ? rule.use.find(item => item.loader === 'postcss-loader') : null;
+
+    if (!loader && processedLoaders.includes(loader)) return
+
+    addPlugins(loader);
+    processedLoaders.push(loader);
+  });
+}
+
 module.exports = function (config, { isClient, isDev }) {
-  return config
+  addPostCSSPlugins(config.module.rules);
+
+  return config;
 }
