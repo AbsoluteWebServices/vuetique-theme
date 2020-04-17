@@ -13,7 +13,9 @@
         </header>
       </div>
       <div class="row center-xs">
-        <product-listing :columns="defaultColumn" :products="getEverythingNewCollection" />
+        <div class="col-12">
+          <product-listing :columns="defaultColumn" :products="getEverythingNewCollection" />
+        </div>
       </div>
     </section>
 
