@@ -6,6 +6,7 @@ import VueProgressBar from 'vue-progressbar'
 import '@vue-storefront/core/lib/passive-listeners'
 import { RouterManager } from '@vue-storefront/core/lib/router-manager'
 import { once } from '@vue-storefront/core/helpers'
+import { module as cartModule } from './store/cart'
 
 import { claimsStore } from 'theme/store/claims'
 import { homepageStore } from 'theme/store/homepage'
@@ -18,6 +19,7 @@ once('__VUE_EXTEND_DROPPOINT_VPB__', () => {
 
 const themeEntry = App
 function initTheme (app, router, store, config, ssrContext) {
+  store.registerModule('themeCart', cartModule)
   // if youre' runing multistore setup this is copying the routed above adding the 'storeCode' prefix to the urls and the names of the routes
   // You can do it on your own and then be able to customize the components used for example for German storeView checkout
   // To do so please execlude the desired storeView from the config.storeViews.mapStoreUrlsFor and map the urls by Your own like:
