@@ -20,7 +20,9 @@
           </nav>
         </div>
         <div class="col-12 md:col-9">
-          <component :is="this.$props.activeBlock" />
+          <no-ssr>
+            <component :is="this.$props.activeBlock" />
+          </no-ssr>
         </div>
       </div>
     </div>
@@ -36,6 +38,9 @@ import MyNewsletter from '../components/core/blocks/MyAccount/MyNewsletter'
 import MyOrders from '../components/core/blocks/MyAccount/MyOrders'
 import MyOrder from '../components/core/blocks/MyAccount/MyOrder'
 import MyRecentlyViewed from '../components/core/blocks/MyAccount/MyRecentlyViewed'
+import NoSSR from 'vue-no-ssr'
+import {RecentlyViewedModule} from '@vue-storefront/core/modules/recently-viewed'
+import {registerModule} from '@vue-storefront/core/lib/modules'
 
 export default {
   data () {
@@ -58,9 +63,13 @@ export default {
     MyNewsletter,
     MyOrders,
     MyOrder,
-    MyRecentlyViewed
+    MyRecentlyViewed,
+    'no-ssr': NoSSR
   },
   mixins: [MyAccount],
+  beforeCreate () {
+    registerModule(RecentlyViewedModule)
+  },
   methods: {
     notify (title) {
       if (title === 'My loyalty card' || title === 'My product reviews') {

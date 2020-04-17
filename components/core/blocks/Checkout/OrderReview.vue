@@ -119,6 +119,9 @@ import Modal from 'theme/components/core/Modal'
 import { OrderReview } from '@vue-storefront/core/modules/checkout/components/OrderReview'
 import ValidationError from 'theme/components/core/ValidationError'
 
+import { OrderModule } from '@vue-storefront/core/modules/order'
+import { registerModule } from '@vue-storefront/core/lib/modules'
+
 export default {
   components: {
     BaseCheckbox,
@@ -134,6 +137,9 @@ export default {
         required
       }
     }
+  },
+  beforeCreate () {
+    registerModule(OrderModule)
   },
   methods: {
     onSuccess () {

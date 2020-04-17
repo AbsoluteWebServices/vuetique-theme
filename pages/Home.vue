@@ -60,6 +60,9 @@ import NoSSR from 'vue-no-ssr'
 import {mapGetters} from 'vuex'
 import {isServer} from '@vue-storefront/core/helpers'
 
+import {registerModule} from '@vue-storefront/core/lib/modules'
+import {RecentlyViewedModule} from '@vue-storefront/core/modules/recently-viewed'
+
 export default {
   mixins: [Home],
   components: {
@@ -94,6 +97,9 @@ export default {
     salesCollection () {
       return this.$store.state.homepage.sales_collection
     }
+  },
+  beforeCreate () {
+    registerModule(RecentlyViewedModule)
   },
   beforeRouteEnter (to, from, next) {
     if (!isServer && !from.name) { // Loading products to cache on SSR render

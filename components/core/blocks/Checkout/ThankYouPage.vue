@@ -81,6 +81,8 @@ import BaseTextarea from 'theme/components/core/blocks/Form/BaseTextarea'
 import ButtonOutline from 'theme/components/theme/ButtonOutline'
 import VueOfflineMixin from 'vue-offline/mixin'
 import { EmailForm } from '@vue-storefront/core/modules/mailer/components/EmailForm'
+import { registerModule } from '@vue-storefront/core/lib/modules'
+import { MailerModule } from '@vue-storefront/core/modules/mailer'
 
 export default {
   name: 'ThankYouPage',
@@ -89,6 +91,9 @@ export default {
     return {
       feedback: ''
     }
+  },
+  beforeCreate () {
+    registerModule(MailerModule)
   },
   computed: {
     lastOrderConfirmation () {
