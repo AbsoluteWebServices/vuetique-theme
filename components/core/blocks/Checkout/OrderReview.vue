@@ -40,7 +40,6 @@
               <base-checkbox
                 class="w-full"
                 id="acceptTermsCheckbox"
-                @click="orderReview.terms = !orderReview.terms"
                 @blur="$v.orderReview.terms.$touch()"
                 v-model="orderReview.terms"
                 :validation="{
@@ -80,7 +79,7 @@
       </div>
     </div>
 
-    <modal name="modal-terms" >
+    <modal name="modal-terms">
       <p slot="header">
         {{ $t('Terms and conditions') }}
       </p>
@@ -114,11 +113,8 @@ import Composite from '@vue-storefront/core/mixins/composite'
 
 import BaseCheckbox from 'theme/components/core/blocks/Form/BaseCheckbox'
 import ButtonFull from 'theme/components/theme/ButtonFull'
-import CartSummary from 'theme/components/core/blocks/Checkout/CartSummary'
 import Modal from 'theme/components/core/Modal'
 import { OrderReview } from '@vue-storefront/core/modules/checkout/components/OrderReview'
-import ValidationError from 'theme/components/core/ValidationError'
-
 import { OrderModule } from '@vue-storefront/core/modules/order'
 import { registerModule } from '@vue-storefront/core/lib/modules'
 
@@ -126,9 +122,7 @@ export default {
   components: {
     BaseCheckbox,
     ButtonFull,
-    CartSummary,
-    Modal,
-    ValidationError
+    Modal
   },
   mixins: [OrderReview, Composite],
   validations: {

@@ -13,10 +13,10 @@
             :is-active="activeSection.personalDetails"
             :focused-field="focusedField"
           />
-          <shipping class="line relative" :is-active="activeSection.shipping"/>
-          <payment class="line relative" :is-active="activeSection.payment"/>
-          <order-review class="line relative" :is-active="activeSection.orderReview"/>
-          <div id="custom-steps"/>
+          <shipping class="line relative" :is-active="activeSection.shipping" />
+          <payment class="line relative" :is-active="activeSection.payment" />
+          <order-review class="line relative" :is-active="activeSection.orderReview" />
+          <div id="custom-steps" />
         </div>
         <div class="w-full md:w-2/5 mt-10 md:mt-0 px-4 py-4 lg:px-8 lg:py-8 bg-grey-lighter">
           <cart-summary />

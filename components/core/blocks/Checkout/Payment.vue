@@ -39,7 +39,7 @@
           class="w-full"
           id="sendToShippingAddressCheckbox"
           v-model="sendToShippingAddress"
-          @click="useShippingAddress"
+          v-if="!isVirtualCart"
         >
           {{ $t('Copy address data from shipping') }}
         </base-checkbox>
@@ -52,7 +52,6 @@
         class="w-full mb-3"
         id="sendToBillingAddressCheckbox"
         v-model="sendToBillingAddress"
-        @click="useBillingAddress"
       >
         {{ $t('Use my billing data') }}
       </base-checkbox>
@@ -298,12 +297,12 @@
                 name="payment-method"
                 :val="method.code"
                 :value="payment.paymentMethod == method.code"
-                @change="$v.payment.paymentMethod.$touch(); changePaymentMethod();"
+                @change="selectPaymentMethod(method.code)"
               >
                 {{ method.title ? method.title : method.name }}
               </base-radiobutton>
             </div>
-            <span class="validation-error" v-if="!$v.payment.paymentMethod.required">{{ $t('Field is required') }}</span>
+            <span class="text-error" v-if="!$v.payment.paymentMethod.required">{{ $t('Field is required') }}</span>
           </div>
         </div>
       </div>
@@ -359,12 +358,12 @@
         </div>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
 import { required, minLength } from 'vuelidate/lib/validators'
+import { unicodeAlpha, unicodeAlphaNum } from '@vue-storefront/core/helpers/validators'
 import { Payment } from '@vue-storefront/core/modules/checkout/components/Payment'
 
 import BaseCheckbox from 'theme/components/core/blocks/Form/BaseCheckbox'
@@ -394,30 +393,44 @@ export default {
       })
     }
   },
+  methods: {
+    selectPaymentMethod (method) {
+      this.$set(this.payment, 'paymentMethod', method)
+      this.$v.payment.paymentMethod.$touch()
+      this.changePaymentMethod()
+    }
+  },
   validations () {
     if (!this.generateInvoice) {
       return {
         payment: {
           firstName: {
             required,
-            minLength: minLength(3)
+            minLength: minLength(2),
+            unicodeAlpha
           },
           lastName: {
-            required
+            required,
+            unicodeAlpha
           },
           country: {
             required
           },
           streetAddress: {
-            required
+            required,
+            unicodeAlphaNum
           },
-          apartmentNumber: {},
+          apartmentNumber: {
+            unicodeAlphaNum
+          },
           zipCode: {
             required,
-            minLength: minLength(3)
+            minLength: minLength(3),
+            unicodeAlphaNum
           },
           city: {
-            required
+            required,
+            unicodeAlpha
           },
           paymentMethod: {
             required
@@ -429,13 +442,16 @@ export default {
         payment: {
           firstName: {
             required,
-            minLength: minLength(3)
+            minLength: minLength(2),
+            unicodeAlpha
           },
           lastName: {
-            required
+            required,
+            unicodeAlpha
           },
           company: {
-            required
+            required,
+            unicodeAlphaNum
           },
           taxId: {
             required,
@@ -445,15 +461,20 @@ export default {
             required
           },
           streetAddress: {
-            required
+            required,
+            unicodeAlphaNum
           },
-          apartmentNumber: {},
+          apartmentNumber: {
+            unicodeAlphaNum
+          },
           zipCode: {
             required,
-            minLength: minLength(4)
+            minLength: minLength(3),
+            unicodeAlphaNum
           },
           city: {
-            required
+            required,
+            unicodeAlpha
           },
           paymentMethod: {
             required

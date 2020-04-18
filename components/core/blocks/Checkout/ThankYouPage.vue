@@ -23,21 +23,21 @@
           <h4 v-if="OfflineOnly" class="my-2">
             {{ $t('You are offline') }}
           </h4>
-          <p v-if="OfflineOnly && !isNotificationSupported" >
+          <p v-if="OfflineOnly && !isNotificationSupported">
             {{ $t('To finish the order just come back to our store while online. Your order will be sent to the server as soon as you come back here while online and then confirmed regarding the stock quantities of selected items') }}
           </p>
-          <p v-if="OfflineOnly && isNotificationSupported && !isPermissionGranted" >
+          <p v-if="OfflineOnly && isNotificationSupported && !isPermissionGranted">
             {{ $t("You can allow us to remind you about the order via push notification after coming back online. You'll only need to click on it to confirm.") }}
           </p>
-          <p v-if="OfflineOnly && isNotificationSupported && isPermissionGranted" >
+          <p v-if="OfflineOnly && isNotificationSupported && isPermissionGranted">
             <strong>{{ $t('You will receive Push notification after coming back online. You can confirm the order by clicking on it') }}</strong>
           </p>
           <p v-if="!isPermissionGranted && isNotificationSupported">
-            <button class="btn-grey-dark mt-5" @click.native="requestNotificationPermission()" >
+            <button class="btn-grey-dark mt-5" @click="requestNotificationPermission()">
               {{ $t('Keep me notified about this order') }}
             </button>
           </p>
-          <div id="thank-you-extensions"/>
+          <div id="thank-you-extensions" />
 
           <h3 class="border-t mt-10 pt-10 mb-5">
             {{ $t('What we can improve?') }}
@@ -58,7 +58,6 @@
               {{ $t('Give a feedback') }}
             </button>
           </form>
-
         </div>
         <div class="w-1/3">
           <div class="p-10 bg-grey-lighter">
