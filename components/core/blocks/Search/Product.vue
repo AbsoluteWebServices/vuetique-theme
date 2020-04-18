@@ -18,13 +18,13 @@
       >
         <div class="col-auto mr-1 sm:mr-4 bg-grey-lightest">
           <div class="product-image w-full">
-            <img
-              :alt="product.name"
-              :src="thumbnailObj.loading"
-              v-lazy="thumbnailObj"
+            <product-image
               class="image"
+              :image="thumbnailObj"
+              :alt="product.name | htmlDecode"
+              :calc-ratio="false"
               data-testid="productImage"
-            >
+            />
           </div>
         </div>
         <div
@@ -55,9 +55,13 @@ import rootStore from '@vue-storefront/core/store'
 import { ProductTile } from '@vue-storefront/core/modules/catalog/components/ProductTile.ts'
 import config from 'config'
 import { currentStoreView } from '@vue-storefront/core/lib/multistore'
+import ProductImage from 'theme/components/core/ProductImage'
 
 export default {
   mixins: [ProductTile],
+  components: {
+    ProductImage
+  },
   computed: {
     storeView () {
       return currentStoreView()
@@ -109,6 +113,7 @@ export default {
   mix-blend-mode: multiply;
   vertical-align: top;
   width: 60px;
+  height: 75px;
 }
 
 %label {
