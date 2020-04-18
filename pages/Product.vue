@@ -83,14 +83,13 @@
                       />
                     </div>
                     <div class="sizes" v-else-if="option.label == 'Size'">
-                      <router-link
-                        to="/size-guide"
-                        target="_blank"
+                      <span
                         v-if="option.label == 'Size'"
-                        class="text-sm font-medium text-black pt-4 absolute top-0 right-0"
+                        @click="openSizeGuide"
+                        class="text-sm font-medium text-black pt-4 absolute top-0 right-0 cursor-pointer"
                       >
                         {{ $t('Size guide') }}
-                      </router-link>
+                      </span>
                       <size-selector
                         v-for="filter in getAvailableFilters[option.attribute_code]"
                         :key="filter.id"
@@ -244,6 +243,7 @@
         <recently-viewed />
       </lazy-hydrate>
     </div>
+    <SizeGuide />
   </div>
 </template>
 
@@ -281,6 +281,7 @@ import ProductPrice from 'theme/components/core/ProductPrice'
 import AddToWishlist from 'theme/components/core/blocks/Wishlist/AddToWishlist'
 import AddToCompare from 'theme/components/core/blocks/Compare/AddToCompare'
 import ProductQuantity from 'theme/components/core/ProductQuantity.vue'
+import SizeGuide from 'theme/components/core/blocks/Product/SizeGuide'
 
 import focusClean from 'theme/components/theme/directives/focusClean'
 import PromotedOffers from 'theme/components/theme/blocks/PromotedOffers/PromotedOffers'
@@ -305,7 +306,8 @@ export default {
     ProductPrice,
     AddToWishlist,
     AddToCompare,
-    ProductQuantity
+    ProductQuantity,
+    SizeGuide
   },
   mixins: [ProductOption, VueOfflineMixin],
   directives: { focusClean },
