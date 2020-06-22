@@ -18,13 +18,13 @@
       >
         <div class="col-auto mr-1 sm:mr-4 bg-grey-lightest">
           <div class="product-image w-full">
-            <img
-              :alt="product.name"
-              :src="thumbnailObj.loading"
-              v-lazy="thumbnailObj"
+            <product-image
               class="image"
+              :image="thumbnailObj"
+              :alt="product.name | htmlDecode"
+              :calc-ratio="false"
               data-testid="productImage"
-            >
+            />
           </div>
         </div>
         <div
@@ -36,13 +36,13 @@
         </div>
         <div class="col-auto font-bold text-right">
           <span class="line-through text-grey mr-5" v-if="product.special_price && parseFloat(product.originalPriceInclTax) > 0">
-            {{ product.originalPriceInclTax | price }}
+            {{ product.originalPriceInclTax | price(storeView) }}
           </span>
           <span class="text-error" v-if="product.special_price && parseFloat(product.special_price) > 0">
-            {{ product.priceInclTax | price }}
+            {{ product.priceInclTax | price(storeView) }}
           </span>
           <span class="text-grey-dark" v-if="!product.special_price && parseFloat(product.priceInclTax) > 0" data-testid="productPrice">
-            {{ product.priceInclTax | price }}
+            {{ product.priceInclTax | price(storeView) }}
           </span>
         </div>
       </router-link>
@@ -53,9 +53,20 @@
 <script>
 import rootStore from '@vue-storefront/core/store'
 import { ProductTile } from '@vue-storefront/core/modules/catalog/components/ProductTile.ts'
+import config from 'config'
+import { currentStoreView } from '@vue-storefront/core/lib/multistore'
+import ProductImage from 'theme/components/core/ProductImage'
 
 export default {
   mixins: [ProductTile],
+  components: {
+    ProductImage
+  },
+  computed: {
+    storeView () {
+      return currentStoreView()
+    }
+  },
   methods: {
     onProductPriceUpdate (product) {
       if (product.sku === this.product.sku) {
@@ -63,20 +74,23 @@ export default {
       }
     },
     visibilityChanged (isVisible, entry) {
-      if (isVisible) {
-        if (rootStore.state.config.products.configurableChildrenStockPrefetchDynamic && rootStore.products.filterUnavailableVariants) {
-          const skus = [this.product.sku]
-          if (this.product.type_id === 'configurable' && this.product.configurable_children && this.product.configurable_children.length > 0) {
-            for (const confChild of this.product.configurable_children) {
-              const cachedItem = rootStore.state.stock.cache[confChild.id]
-              if (typeof cachedItem === 'undefined' || cachedItem === null) {
-                skus.push(confChild.sku)
-              }
-            }
-            if (skus.length > 0) {
-              rootStore.dispatch('stock/list', { skus: skus }) // store it in the cache
-            }
+      if (
+        isVisible &&
+        config.products.configurableChildrenStockPrefetchDynamic &&
+        config.products.filterUnavailableVariants &&
+        this.product.type_id === 'configurable' &&
+        this.product.configurable_children &&
+        this.product.configurable_children.length > 0
+      ) {
+        const skus = [this.product.sku]
+        for (const confChild of this.product.configurable_children) {
+          const cachedItem = rootStore.state.stock.cache[confChild.id]
+          if (typeof cachedItem === 'undefined' || cachedItem === null) {
+            skus.push(confChild.sku)
           }
+        }
+        if (skus.length > 0) {
+          rootStore.dispatch('stock/list', { skus: skus }) // store it in the cache
         }
       }
     }
@@ -99,6 +113,7 @@ export default {
   mix-blend-mode: multiply;
   vertical-align: top;
   width: 60px;
+  height: 75px;
 }
 
 %label {

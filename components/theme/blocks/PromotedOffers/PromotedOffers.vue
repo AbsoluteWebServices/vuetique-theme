@@ -26,7 +26,6 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import promotedOffers from 'theme/resource/promoted_offers.json'
 
 import ButtonFull from 'theme/components/theme/ButtonFull'
 
@@ -71,8 +70,8 @@ export default {
       }
     }
   },
-  created () {
-    this.updatePromotedOffers(promotedOffers)
+  async created () {
+    await this.updatePromotedOffers()
   },
   methods: {
     ...mapActions({

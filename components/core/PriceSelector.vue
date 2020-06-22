@@ -1,21 +1,22 @@
 <template>
-  <div @click="switchFilter(id, from, to)" class="price-select flex items-center cursor-pointer">
+  <div @click="$emit('change', variant)"
+       class="price-select flex items-center cursor-pointer">
     <button
       class="relative border-grey border mr-3 pointer price-selector"
-      :class="{ active: active }"
-      :aria-label="$t('Price ') + content"
+      :class="{ active: isActive }"
+      :aria-label="$t('Price {variant}', { variant: variant.label })"
     >
       <div class="absolute block square"/>
     </button>
-    <span>{{ content }}</span>
+    <span>{{ variant.label }}</span>
   </div>
 </template>
 
 <script>
-import PriceSelector from '@vue-storefront/core/compatibility/components/PriceSelector'
+import filterMixin from 'theme/mixins/filterMixin.ts'
 
 export default {
-  mixins: [PriceSelector]
+  mixins: [filterMixin]
 }
 </script>
 

@@ -10,7 +10,6 @@ const Checkout = () => import(/* webpackChunkName: "vsf-checkout" */ 'theme/page
 const Compare = () => import(/* webpackChunkName: "vsf-compare" */ 'theme/pages/Compare.vue')
 const MyAccount = () => import(/* webpackChunkName: "vsf-my-account" */ 'theme/pages/MyAccount.vue')
 const Static = () => import(/* webpackChunkName: "vsf-static" */ 'theme/pages/Static.vue')
-const CustomCmsPage = () => import(/* webpackChunkName: "vsf-custom-cms" */ 'theme/pages/CustomCmsPage.vue')
 const CmsData = () => import(/* webpackChunkName: "vsf-data" */ 'theme/pages/CmsData')
 
 let routes = [
@@ -38,7 +37,6 @@ let routes = [
   { name: 'compare', path: '/compare', component: Compare, props: {title: 'Compare Products'} },
   { name: 'page-not-found', path: '/page-not-found', component: PageNotFound },
   { name: 'error', path: '/error', component: ErrorPage },
-  { name: 'custom-cms-page', path: '/custom-cms-page', component: CustomCmsPage },
   { name: 'cms-block-demo-page-ssr', path: '/cms-block-demo-page-ssr', component: CmsBlockDemoPageSsr },
   { name: 'about-us', path: '/about-us', component: CmsData, props: {identifier: 'about-us', type: 'Page', sync: true} }
 ]

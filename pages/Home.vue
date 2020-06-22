@@ -1,6 +1,8 @@
 <template>
   <div id="home">
-    <main-slider />
+    <no-ssr>
+      <main-slider />
+    </no-ssr>
 
     <promoted-offers collection="smallBanners" :limit="2" :columns="2" class="mt-2 mb-16 sm:my-8" />
 
@@ -11,13 +13,17 @@
         </header>
       </div>
       <div class="row center-xs">
-        <product-listing columns="4" :products="newCollection" />
+        <div class="col-12">
+          <product-listing :columns="defaultColumn" :products="getEverythingNewCollection" />
+        </div>
       </div>
     </section>
 
     <promoted-offers collection="smallBanners" :limit="2" :offset="2" :columns="2" class="mt-2 mb-16 sm:my-8" />
 
-    <products-slider class="mb-16" :title="$t('Sale and discount')" :products="salesCollection" :config="sliderConfig" />
+    <no-ssr>
+      <products-slider class="mb-16" :title="$t('Sale and discount')" :products="salesCollection" :config="sliderConfig" />
+    </no-ssr>
 
     <section class="container mb-16">
       <div class="justify-center">
@@ -49,6 +55,14 @@ import Onboard from 'theme/components/theme/blocks/Home/Onboard'
 import PromotedOffers from 'theme/components/theme/blocks/PromotedOffers/PromotedOffers'
 import TileLinks from 'theme/components/theme/blocks/TileLinks/TileLinks'
 import { Logger } from '@vue-storefront/core/lib/logger'
+
+import NoSSR from 'vue-no-ssr'
+import {mapGetters} from 'vuex'
+import {isServer} from '@vue-storefront/core/helpers'
+
+import {registerModule} from '@vue-storefront/core/lib/modules'
+import {RecentlyViewedModule} from '@vue-storefront/core/modules/recently-viewed'
+
 export default {
   mixins: [Home],
   components: {
@@ -57,7 +71,8 @@ export default {
     ProductListing,
     ProductsSlider,
     PromotedOffers,
-    TileLinks
+    TileLinks,
+    'no-ssr': NoSSR
   },
   data () {
     return {
@@ -67,10 +82,12 @@ export default {
         paginationEnabled: true,
         loop: false,
         paginationSize: 6
-      }
+      },
+      defaultColumn: 4
     }
   },
   computed: {
+    ...mapGetters('homepage', ['getEverythingNewCollection']),
     categories () {
       return this.$store.state.category.list
     },
@@ -79,6 +96,20 @@ export default {
     },
     salesCollection () {
       return this.$store.state.homepage.sales_collection
+    }
+  },
+  beforeCreate () {
+    registerModule(RecentlyViewedModule)
+  },
+  beforeRouteEnter (to, from, next) {
+    if (!isServer && !from.name) { // Loading products to cache on SSR render
+      next(vm =>
+        vm.$store.dispatch('homepage/fetchNewCollection').then(res => {
+          vm.loading = false
+        })
+      )
+    } else {
+      next()
     }
   },
   created () {
@@ -102,6 +133,8 @@ export default {
 
       let newProductsQuery = prepareQuery({ queryConfig: 'newProducts' })
       let salesQuery = prepareQuery({ queryConfig: 'inspirations' })
+
+      store.dispatch('homepage/fetchNewCollection')
 
       store.dispatch('category/list', { includeFields: config.entities.optimize ? config.entities.category.includeFields : null }).then((categories) => {
         store.dispatch('product/list', {
