@@ -44,8 +44,8 @@ export default {
   },
   components: {
     ProductTile,
-    'Carousel': () => import('vue-carousel').then(Slider => Slider.Carousel),
-    'Slide': () => import('vue-carousel').then(Slider => Slider.Slide),
+    'Carousel': () => import(/* webpackChunkName: "vue-carousel" */ 'vue-carousel/src/Carousel'),
+    'Slide': () => import(/* webpackChunkName: "vue-carousel" */ 'vue-carousel/src/Slide'),
     'no-ssr': NoSSR
   },
   data () {
