@@ -1,19 +1,17 @@
 <template>
   <div>
-    <div class="brdr-bottom-1 brdr-cl-primary pb60">
-      <h3 class="cl-accent mb-6 summary-title">
+    <div>
+      <h3 class="mb-6 summary-title">
         {{ $t('Order Summary') }}
       </h3>
-      <product v-for="product in productsInCart" :key="product.sku" :product="product"/>
-
+      <product v-for="product in productsInCart" :key="product.server_item_id || product.id" :product="product"/>
       <div v-if="productsInCart && productsInCart.length" class="checkout mt-8">
-
         <div v-for="(segment, index) in totals" :key="index" class="flex flex-wrap justify-between mb-3 text-grey-dark" v-if="segment.code !== 'grand_total'">
           <div class="w-3/4">
             {{ segment.title }}:
           </div>
           <div v-if="segment.value != null" class="w-1/4 text-right" :class="({ 'text-primary': (segment.code == 'discount') })">
-            {{ segment.value | price }}
+            {{ segment.value | price(storeView) }}
           </div>
         </div>
 
@@ -22,7 +20,7 @@
             {{ segment.title }}:
           </div>
           <div class="w-1/4 text-right text-h2 font-serif font-medium">
-            {{ segment.value | price }}
+            {{ segment.value | price(storeView) }}
           </div>
         </div>
       </div>
@@ -56,11 +54,17 @@
 
 <script>
 import { CartSummary } from '@vue-storefront/core/modules/checkout/components/CartSummary'
+import { currentStoreView } from '@vue-storefront/core/lib/multistore'
 import Product from './Product'
 
 export default {
   components: {
     Product
+  },
+  computed: {
+    storeView () {
+      return currentStoreView()
+    }
   },
   mixins: [CartSummary]
 }

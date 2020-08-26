@@ -50,7 +50,6 @@
 </template>
 
 <script>
-import { Carousel, Slide } from 'vue-carousel'
 import ProductVideo from './ProductVideo'
 
 export default {
@@ -78,9 +77,9 @@ export default {
     }
   },
   components: {
-    Carousel,
-    Slide,
-    ProductVideo
+    ProductVideo,
+    'Carousel': () => import('vue-carousel').then(Slider => Slider.Carousel),
+    'Slide': () => import('vue-carousel').then(Slider => Slider.Slide)
   },
   mounted () {
     this.navigate(this.currentSlide)

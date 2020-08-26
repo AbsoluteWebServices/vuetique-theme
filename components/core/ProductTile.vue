@@ -19,7 +19,7 @@
         class="product-image w-full relative"
         :class="[{ sale: labelsActive && isOnSale }, { new: labelsActive && isNew }]">
         <img
-          :alt="product.name"
+          :alt="product.name | htmlDecode"
           :src="thumbnailObj.loading"
           v-lazy="thumbnailObj"
           height="300"
@@ -29,7 +29,7 @@
         >
         <img
           v-if="hoverThumbnail !== null"
-          :alt="product.name"
+          :alt="product.name | htmlDecode"
           :src="hoverThumbnailObj.loading"
           v-lazy="hoverThumbnailObj"
           height="300"
@@ -48,20 +48,20 @@
           class="text-primary mr-2"
           v-if="product.special_price && parseFloat(product.special_price) > 0 && !onlyImage"
         >
-          {{ product.priceInclTax | price }}
+          {{ product.priceInclTax | price(storeView) }}
         </span>
 
         <span
           class="line-through"
-          v-if="product.special_price && parseFloat(product.originalPriceInclTax) > 0 && !onlyImage"
+          v-if="product.special_price && parseFloat(product.original_price_incl_tax) > 0 && !onlyImage"
         >
-          {{ product.originalPriceInclTax | price }}
+          {{ product.original_price_incl_tax | price(storeView) }}
         </span>
 
         <span
-          v-if="!product.special_price && parseFloat(product.priceInclTax) > 0 && !onlyImage"
+          v-if="!product.special_price && parseFloat(product.price_incl_tax) > 0 && !onlyImage"
         >
-          {{ product.priceInclTax | price }}
+          {{ product.price_incl_tax | price(storeView) }}
         </span>
       </div>
     </router-link>
@@ -71,6 +71,8 @@
 <script>
 import rootStore from '@vue-storefront/core/store'
 import { ProductTile } from '@vue-storefront/core/modules/catalog/components/ProductTile.ts'
+import config from 'config'
+import { currentStoreView } from '@vue-storefront/core/lib/multistore'
 
 export default {
   mixins: [ProductTile],
@@ -109,6 +111,9 @@ export default {
         loading: this.thumbnail,
         error: this.thumbnail
       }
+    },
+    storeView () {
+      return currentStoreView()
     }
   },
   methods: {
@@ -118,20 +123,23 @@ export default {
       }
     },
     visibilityChanged (isVisible, entry) {
-      if (isVisible) {
-        if (rootStore.state.config.products.configurableChildrenStockPrefetchDynamic && rootStore.products.filterUnavailableVariants) {
-          const skus = [this.product.sku]
-          if (this.product.type_id === 'configurable' && this.product.configurable_children && this.product.configurable_children.length > 0) {
-            for (const confChild of this.product.configurable_children) {
-              const cachedItem = rootStore.state.stock.cache[confChild.id]
-              if (typeof cachedItem === 'undefined' || cachedItem === null) {
-                skus.push(confChild.sku)
-              }
-            }
-            if (skus.length > 0) {
-              rootStore.dispatch('stock/list', { skus: skus }) // store it in the cache
-            }
+      if (
+        isVisible &&
+        config.products.configurableChildrenStockPrefetchDynamic &&
+        config.products.filterUnavailableVariants &&
+        this.product.type_id === 'configurable' &&
+        this.product.configurable_children &&
+        this.product.configurable_children.length > 0
+      ) {
+        const skus = [this.product.sku]
+        for (const confChild of this.product.configurable_children) {
+          const cachedItem = rootStore.state.stock.cache[confChild.id]
+          if (typeof cachedItem === 'undefined' || cachedItem === null) {
+            skus.push(confChild.sku)
           }
+        }
+        if (skus.length > 0) {
+          rootStore.dispatch('stock/list', { skus: skus }) // store it in the cache
         }
       }
     }

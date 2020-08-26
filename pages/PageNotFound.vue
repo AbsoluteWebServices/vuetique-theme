@@ -3,7 +3,7 @@
     <section class="bg-grey-lighter py-12 px-12">
       <div class="container">
         <div class="text-center mb-20">
-          <img src="/assets/icons/404.svg" alt="404">
+          <img class="mx-auto" src="/assets/icons/404.svg" alt="404">
         </div>
         <h2 class="text-center">
           {{ $t("We can't find the page") }}
@@ -65,7 +65,6 @@
 <script>
 import PageNotFound from '@vue-storefront/core/pages/PageNotFound'
 import ProductTile from 'theme/components/core/ProductTile.vue'
-import { Carousel, Slide } from 'vue-carousel'
 import NoSSR from 'vue-no-ssr'
 
 export default {
@@ -86,9 +85,9 @@ export default {
     }
   },
   components: {
-    Slide,
-    Carousel,
     ProductTile,
+    'Carousel': () => import('vue-carousel').then(Slider => Slider.Carousel),
+    'Slide': () => import('vue-carousel').then(Slider => Slider.Slide),
     'no-ssr': NoSSR
   },
   methods: {

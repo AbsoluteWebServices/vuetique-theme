@@ -25,9 +25,7 @@
 
 <script>
 import NoSSR from 'vue-no-ssr'
-import { Carousel, Slide } from 'vue-carousel'
 import sliderData from 'theme/resource/slider.json'
-
 import ButtonFull from 'theme/components/theme/ButtonFull'
 
 export default {
@@ -40,8 +38,8 @@ export default {
   },
   components: {
     ButtonFull,
-    Carousel,
-    Slide,
+    'Carousel': () => import('vue-carousel').then(Slider => Slider.Carousel),
+    'Slide': () => import('vue-carousel').then(Slider => Slider.Slide),
     'no-ssr': NoSSR
   },
   methods: {

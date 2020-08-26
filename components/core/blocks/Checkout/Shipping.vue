@@ -182,7 +182,6 @@
             autocomplete="tel"
           />
         </div>
-
       </div>
 
       <div class="w-full md:w-11/12">
@@ -199,10 +198,10 @@
             :value="shipping.shippingMethod == method.method_code"
             @change="selectShippingMethod(method.method_code)"
           >
-            {{ method.method_title }} | {{ method.amount | price }}
+            {{ method.method_title }} | {{ method.amount | price(storeView) }}
           </base-radiobutton>
         </div>
-        <span class="validation-error" v-if="$v.shipping.shippingMethod.$error && !$v.shipping.shippingMethod.required">
+        <span class="text-error" v-if="$v.shipping.shippingMethod.$error && !$v.shipping.shippingMethod.required">
           {{ $t('Field is required') }}
         </span>
       </div>
@@ -253,7 +252,7 @@
           </div>
           <div class="v-full mt-3">
             <base-radiobutton id="shipping-selected" :value="true" :disabled="true">
-              {{ getShippingMethod().method_title }} | {{ getShippingMethod().amount | price }}
+              {{ getShippingMethod().method_title }} | {{ getShippingMethod().amount | price(storeView) }}
             </base-radiobutton>
           </div>
         </div>
@@ -263,8 +262,10 @@
 </template>
 
 <script>
-import {required, minLength} from 'vuelidate/lib/validators'
-import {Shipping} from '@vue-storefront/core/modules/checkout/components/Shipping'
+import { required, minLength } from 'vuelidate/lib/validators'
+import { unicodeAlpha, unicodeAlphaNum } from '@vue-storefront/core/helpers/validators'
+import { Shipping } from '@vue-storefront/core/modules/checkout/components/Shipping'
+import { currentStoreView } from '@vue-storefront/core/lib/multistore'
 
 import BaseCheckbox from 'theme/components/core/blocks/Form/BaseCheckbox'
 import BaseRadiobutton from 'theme/components/core/blocks/Form/BaseRadiobutton'
@@ -291,6 +292,9 @@ export default {
           label: item.name
         }
       })
+    },
+    storeView () {
+      return currentStoreView()
     }
   },
   methods: {
@@ -304,27 +308,34 @@ export default {
     shipping: {
       firstName: {
         required,
-        minLength: minLength(3)
+        minLength: minLength(2),
+        unicodeAlpha
       },
       lastName: {
-        required
+        required,
+        unicodeAlpha
       },
       country: {
         required
       },
       streetAddress: {
-        required
+        required,
+        unicodeAlphaNum
       },
-      apartmentNumber: {},
+      apartmentNumber: {
+        unicodeAlphaNum
+      },
       shippingMethod: {
         required
       },
       zipCode: {
         required,
-        minLength: minLength(3)
+        minLength: minLength(3),
+        unicodeAlphaNum
       },
       city: {
-        required
+        required,
+        unicodeAlpha
       }
     }
   }

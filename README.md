@@ -3,7 +3,7 @@
 A [Vue Storefront](https://www.vuestorefront.io) Theme for Passionate Developers with larger catalogs in mind, based on the
 wonderful [Tailwind](https://tailwindcss.com) CSS framework.
 
-Latest tested Vue Storefront version - [1.10.3](https://github.com/DivanteLtd/vue-storefront/tree/v1.10.3)
+Latest tested Vue Storefront version - [1.11.2](https://github.com/DivanteLtd/vue-storefront/tree/v1.11.2)
 
 ## Installing
 
@@ -26,35 +26,6 @@ The result should look something like this:
   "theme": "vuetique",
   "analytics": {
   // ...
-```
-
-
-## Tailwind Prerequisites
-
-You may need to run `yarn` from the vuetique theme directory.
-
-Add the following line to `core/build/webpack.base.config.js` in `postcssConfig` var
-
-```js
-require('tailwindcss')(path.join(themeRoot, 'tailwind.config.js')),
-```
-
-The result should look something like this:
-
-```js
-const postcssConfig =  {
-  loader: 'postcss-loader',
-  options: {
-    ident: 'postcss',
-    plugins: (loader) => [
-      require('tailwindcss')(path.join(themeRoot, 'tailwind.config.js')),
-      require('postcss-flexbugs-fixes'),
-      require('autoprefixer')({
-        flexbox: 'no-2009',
-      }),
-    ]
-  }
-};
 ```
 
 ## Image hover support

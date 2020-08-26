@@ -19,10 +19,10 @@
       >
       <div class="input-number-controls">
         <button @click.prevent="incrementEvent">
-          <svg viewBox="0 0 15 15" class="vt-icon"><use xlink:href="#up"/></svg>
+          <svg viewBox="0 0 15 15" class="vt-icon mx-auto"><use xlink:href="#up"/></svg>
         </button>
         <button @click.prevent="decrementEvent">
-          <svg viewBox="0 0 25 25" class="vt-icon"><use xlink:href="#down"/></svg>
+          <svg viewBox="0 0 25 25" class="vt-icon mx-auto"><use xlink:href="#down"/></svg>
         </button>
       </div>
     </div>
