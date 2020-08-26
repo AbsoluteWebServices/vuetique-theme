@@ -897,5 +897,9 @@ module.exports = {
         lg: '0.9375rem'
       }
     })
-  ]
+  ],
+
+  future: {
+    removeDeprecatedGapUtilities: true
+  }
 }
