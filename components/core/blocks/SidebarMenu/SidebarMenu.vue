@@ -88,16 +88,18 @@
           {{ $t('Track my order') }}
         </router-link>
       </li>
-      <li @click="closeMenu" class="flex border-b">
+      <li class="flex border-b">
         <sub-btn
           v-if="currentUser"
           :name="$t('My account')"
           class=""
+          @click.native="closeMenu"
         />
         <sub-category
           v-if="currentUser"
           :my-account-links="myAccountLinks"
           :id="'foo'"
+          @click.native="closeMenu"
         />
         <a
           v-if="!currentUser && isCurrentMenuShowed"
@@ -191,6 +193,7 @@ export default {
   },
   methods: {
     login () {
+      this.closeMenu()
       this.$nextTick(() => {
         this.goToAccount()
       })
