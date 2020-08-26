@@ -11,7 +11,7 @@
       data-testid="closeSearchPanel"
     >
       <svg viewBox="0 0 25 25" class="vt-icon--sm">
-        <use xlink:href="#close"/>
+        <use xlink:href="#close" />
       </svg>
     </button>
 
@@ -29,18 +29,19 @@
         v-model="search"
         @input="makeSearch"
         @focus="searchFocus = true"
-        @blur="searchFocus = false"/>
+        @blur="searchFocus = false"
+      />
       <svg viewBox="0 0 25 25" class="vt-icon--sm absolute right-0 mr-2 w-6 h-6 text-grey">
-        <use xlink:href="#search"/>
+        <use xlink:href="#search" />
       </svg>
     </div>
 
     <div v-if="visibleProducts.length && categories.length > 1" class="categories mb-4">
-      <category-panel :categories="categories" v-model="selectedCategoryIds"/>
+      <category-panel :categories="categories" v-model="selectedCategoryIds" />
     </div>
 
     <div class="product-listing">
-      <product :key="product.id" v-for="product in visibleProducts" :product="product" @click.native="closeSearchpanel"/>
+      <product :key="product.id" v-for="product in visibleProducts" :product="product" @click.native="closeSearchpanel" />
       <transition name="fade">
         <div v-if="emptyResults" class="no-results">
           {{ $t('No results were found.') }}
@@ -71,7 +72,7 @@ import SearchPanel from '@vue-storefront/core/compatibility/components/blocks/Se
 import Product from 'theme/components/core/blocks/Search/Product'
 import VueOfflineMixin from 'vue-offline/mixin'
 import CategoryPanel from 'theme/components/core/blocks/Category/CategoryPanel'
-
+import { minLength } from 'vuelidate/lib/validators'
 import BaseInput from 'theme/components/core/blocks/Form/BaseInput'
 import ButtonFull from 'theme/components/theme/ButtonFull'
 
@@ -83,6 +84,11 @@ export default {
     CategoryPanel
   },
   mixins: [SearchPanel, VueOfflineMixin],
+  validations: {
+    search: {
+      minLength: minLength(3)
+    }
+  },
   data () {
     return {
       selectedCategoryIds: []
@@ -93,21 +99,23 @@ export default {
       const productList = this.products || []
       if (this.selectedCategoryIds.length) {
         return productList.filter(product => product.category_ids.some(categoryId => {
-          const catId = parseInt(categoryId)
-          return this.selectedCategoryIds.includes(catId)
+          return this.selectedCategoryIds.includes(categoryId)
         }))
       }
       return productList
     },
     categories () {
-      const categoriesMap = {}
-      this.products.forEach(product => {
-        [...product.category].forEach(category => {
-          categoriesMap[category.category_id] = category
-        })
-      })
-      return Object.keys(categoriesMap).map(categoryId => categoriesMap[categoryId])
-    }
+      const categories = this.products
+        .filter(p => p.category)
+        .map(p => p.category)
+        .flat()
+
+      const distinctCategories = Array.from(
+        new Set(categories.map(c => c.category_id))
+      ).map(catId => categories.find(c => c.category_id === catId))
+
+      return distinctCategories
+    },
   },
   watch: {
     categories () {

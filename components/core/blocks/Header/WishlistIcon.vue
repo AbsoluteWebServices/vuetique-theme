@@ -2,19 +2,21 @@
   <button
     type="button"
     class="bg-transparent border-0"
-    @click="toggleWishlistPanel"
+    @click="toggleWishlist"
+    data-testid="wishlist-icon"
     :aria-label="$t('Open wishlist')"
   >
     <svg viewBox="0 0 25 25" class="vt-icon">
-      <use xlink:href="#wishlist"/>
+      <use xlink:href="#wishlist" />
     </svg>
   </button>
 </template>
 
 <script>
-import WishlistIcon from '@vue-storefront/core/compatibility/components/blocks/Header/WishlistIcon'
+import { WishlistButton } from '@vue-storefront/core/modules/wishlist/components/WishlistButton'
 
 export default {
-  mixins: [WishlistIcon]
+  name: 'WishlistIcon',
+  mixins: [ WishlistButton ]
 }
 </script>

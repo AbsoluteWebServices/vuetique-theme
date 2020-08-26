@@ -52,6 +52,11 @@ export default {
   beforeCreate () {
     registerModule(OrderModule)
   },
+  mounted () {
+    this.$store.commit('ui/setMicrocart', false)
+    this.$store.commit('ui/setSidebar', false)
+    this.$store.commit('ui/setWishlist', false)
+  },
   methods: {
     notifyEmptyCart () {
       this.$store.dispatch('notification/spawnNotification', {

@@ -5,14 +5,14 @@
       "subtitle": "",
       "button_text": "Find your purpose",
       "image": "/assets/vuetique-homepage-slider-1.jpg",
-      "link": "/c/gear"
+      "link": "/c/gear-3"
     },
     {
       "title": "Unique Experience",
       "subtitle": "Collection",
       "button_text": "Fitness with style",
       "image": "/assets/vuetique-homepage-slider-2.jpg",
-      "link": "/c/training"
+      "link": "/c/training-9"
     }
   ],
   "total": "2"

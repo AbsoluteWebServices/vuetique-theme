@@ -14,7 +14,9 @@
           <nav class="static-menu serif h4 mb35">
             <ul class="border-t">
               <li class="border-b py-2" v-for="(page, index) in navigation" :key="index" @click="notify(page.title)">
-                <router-link :to="localizedRoute(page.link)" class="nav-link">{{ page.title }}</router-link>
+                <router-link :to="localizedRoute(page.link)" class="nav-link">
+                  {{ page.title }}
+                </router-link>
               </li>
             </ul>
           </nav>
@@ -39,8 +41,8 @@ import MyOrders from '../components/core/blocks/MyAccount/MyOrders'
 import MyOrder from '../components/core/blocks/MyAccount/MyOrder'
 import MyRecentlyViewed from '../components/core/blocks/MyAccount/MyRecentlyViewed'
 import NoSSR from 'vue-no-ssr'
-import {RecentlyViewedModule} from '@vue-storefront/core/modules/recently-viewed'
-import {registerModule} from '@vue-storefront/core/lib/modules'
+import { RecentlyViewedModule } from '@vue-storefront/core/modules/recently-viewed'
+import { registerModule } from '@vue-storefront/core/lib/modules'
 
 export default {
   data () {

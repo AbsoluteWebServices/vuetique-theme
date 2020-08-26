@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import store from '@vue-storefront/core/store'
+import config from 'config'
 import Breadcrumbs from 'theme/components/core/Breadcrumbs'
 
 export default {
@@ -35,16 +35,16 @@ export default {
     getEndpointPath () {
       let url
       if (this.id) {
-        url = (store.state.config.cms.endpoint)
+        url = (config.cms.endpoint)
           .replace('{{type}}', this.type)
           .replace('{{cmsId}}', this.id)
       } else if (this.identifier) {
-        url = (store.state.config.cms.endpointIdentifier)
+        url = (config.cms.endpointIdentifier)
           .replace('{{type}}', this.type)
           .replace('{{cmsIdentifier}}', this.identifier)
           .replace('{{storeId}}', this.storeView)
       } else if (this.$route.params.slug) {
-        url = (store.state.config.cms.endpointIdentifier)
+        url = (config.cms.endpointIdentifier)
           .replace('{{type}}', this.type)
           .replace('{{cmsIdentifier}}', this.$route.params.slug)
           .replace('{{storeId}}', this.storeView)

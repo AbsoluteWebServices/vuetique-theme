@@ -28,7 +28,7 @@
         </div>
       </div>
     </section>
-    <section class="mb-20">
+    <section class="mb-20" v-if="ourBestsellersCollection.length">
       <div class="container">
         <section class="container">
           <header class="col-md-12 py-4 mt-12 mb-6">

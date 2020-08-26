@@ -2,7 +2,7 @@
   <div>
     <header class="modal-header py25 px65 h1 serif weight-700 bg-cl-secondary">
       <svg viewBox="0 0 25 25" class="vt-icon modal-close p-1 m-2" slot="close" @click="close">
-        <use xlink:href="#close"/>
+        <use xlink:href="#close" />
       </svg>
       <h2>{{ $t('Reset password') }}</h2>
     </header>
@@ -62,6 +62,7 @@
 import ButtonFull from 'theme/components/theme/ButtonFull.vue'
 import BaseInput from '../Form/BaseInput.vue'
 import { required, email } from 'vuelidate/lib/validators'
+import { Logger } from '@vue-storefront/core/lib/logger'
 import i18n from '@vue-storefront/i18n'
 
 export default {
@@ -101,7 +102,7 @@ export default {
           })
         }
       }).catch((err) => {
-        console.error(err)
+        Logger.error(err)()
         this.$bus.$emit('notification-progress-stop')
       })
     },

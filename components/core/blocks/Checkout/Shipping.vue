@@ -177,9 +177,16 @@
             class="w-full mt-3 px-3"
             type="text"
             name="phone-number"
-            :placeholder="$t('Phone Number')"
+            :placeholder="`${$t('Phone Number')} *`"
             v-model.trim="shipping.phoneNumber"
+            :validations="[
+              {
+                condition: $v.shipping.phoneNumber.$error && !$v.shipping.phoneNumber.required,
+                text: $t('Field is required')
+              }
+            ]"
             autocomplete="tel"
+            @blur="$v.shipping.phoneNumber.$touch()"
           />
         </div>
       </div>
@@ -316,6 +323,9 @@ export default {
         unicodeAlpha
       },
       country: {
+        required
+      },
+      phoneNumber: {
         required
       },
       streetAddress: {

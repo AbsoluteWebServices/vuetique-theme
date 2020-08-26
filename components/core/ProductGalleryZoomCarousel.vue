@@ -21,12 +21,13 @@
           class="media-zoom-carousel__carousel"
           :speed="carouselTransitionSpeed"
           @pageChange="pageChange"
+          :navigate-to="currentPage"
         >
           <slide
             v-for="(images, index) in gallery"
-            :key="images.src">
-            <div class="media-zoom-carousel__slide"
-                 :class="{'video-container h-full flex relative': images.video}">
+            :key="images.src"
+          >
+            <div class="media-zoom-carousel__slide" :class="{'video-container h-full flex relative': images.video}">
               <img
                 v-show="hideImageAtIndex !== index"
                 class="product-image inline-flex pointer mw-full"
@@ -40,7 +41,8 @@
                 v-if="images.video && (index === currentPage)"
                 v-bind="images.video"
                 :index="index"
-                @video-started="onVideoStarted"/>
+                @video-started="onVideoStarted"
+              />
             </div>
           </slide>
         </carousel>
@@ -95,14 +97,13 @@ export default {
     }
   },
   methods: {
-    navigate (key) {
-      this.$refs.zoomCarousel.goToPage(key)
+    navigate (index) {
+      this.currentPage = index
     },
     increaseCarouselTransitionSpeed () {
       this.carouselTransitionSpeed = 500
     },
     pageChange (index) {
-      this.currentPage = index
       this.hideImageAtIndex = null
     },
     onVideoStarted (index) {

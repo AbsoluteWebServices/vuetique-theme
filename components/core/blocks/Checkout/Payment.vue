@@ -211,9 +211,16 @@
             class="w-1/2 px-3"
             type="text"
             name="phone-number"
-            :placeholder="$t('Phone Number')"
+            :placeholder="`${$t('Phone Number')} *`"
             v-model.trim="payment.phoneNumber"
+            :validations="[
+              {
+                condition: $v.payment.phoneNumber.$error && !$v.payment.phoneNumber.required,
+                text: $t('Field is required')
+              }
+            ]"
             autocomplete="tel"
+            @blur="$v.payment.phoneNumber.$touch()"
           />
         </div>
       </div>
@@ -416,6 +423,9 @@ export default {
           country: {
             required
           },
+          phoneNumber: {
+            required
+          },
           streetAddress: {
             required,
             unicodeAlphaNum
@@ -458,6 +468,9 @@ export default {
             minLength: minLength(3)
           },
           country: {
+            required
+          },
+          phoneNumber: {
             required
           },
           streetAddress: {

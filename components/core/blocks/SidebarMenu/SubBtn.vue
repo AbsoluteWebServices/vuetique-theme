@@ -9,7 +9,7 @@
   >
     {{ name }}
     <svg viewBox="0 0 25 25" class="vt-icon--sm">
-      <use xlink:href="#right"/>
+      <use xlink:href="#right" />
     </svg>
   </button>
   <button
@@ -20,13 +20,15 @@
     :aria-label="$t('Back')"
   >
     <svg viewBox="0 0 25 25" class="vt-icon--sm">
-      <use xlink:href="#left"/>
+      <use xlink:href="#left" />
     </svg>
     {{ name }}
   </button>
 </template>
 <script>
 import { mapState } from 'vuex'
+import config from 'config'
+
 export default {
   name: 'SubBtn',
   props: {
@@ -50,7 +52,6 @@ export default {
   },
   methods: {
     next () {
-      if (this.$store.state.config.entities.category.categoriesDynamicPrefetch) this.$store.dispatch('category/list', { parent: this.id })
       this.$store.commit('ui/setSubmenu', {
         id: this.id,
         depth: ++this.submenu.depth

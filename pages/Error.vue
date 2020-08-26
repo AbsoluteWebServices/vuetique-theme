@@ -96,7 +96,7 @@ export default {
     return new Promise((resolve, reject) => {
       let ourBestsellersQuery = prepareQuery({ queryConfig: 'bestSellers' })
       store.dispatch('category/list', {}).then(categories => {
-        store.dispatch('product/list', {
+        store.dispatch('product/findProducts', {
           query: ourBestsellersQuery,
           size: 8,
           sort: 'created_at:desc'

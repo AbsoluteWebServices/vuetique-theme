@@ -47,7 +47,7 @@ export default {
     },
     customOptionsPriceDelta () {
       const priceDelta = getCustomOptionPriceDelta(
-        getCustomOptionValues(Object.values(this.customOptions), this.product.custom_options),
+        getCustomOptionValues(Object.values(this.customOptions), this.product.custom_options || []),
         this.product
       )
 

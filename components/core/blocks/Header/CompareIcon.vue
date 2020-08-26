@@ -1,7 +1,7 @@
 <template>
-  <router-link :to="localizedRoute('/compare')" class="compare-icon no-underline text-black" v-if="isActive">
+  <router-link :to="localizedRoute('/compare')" class="compare-icon no-underline text-black" v-if="isActive" data-testid="compare-list-icon">
     <svg viewBox="0 0 25 25" class="vt-icon">
-      <use xlink:href="#compare_header"/>
+      <use xlink:href="#compare_header" />
     </svg>
   </router-link>
 </template>

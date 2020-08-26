@@ -18,7 +18,7 @@
       <div class="container lg:hidden">
         <div class="row gutter-md mt-6">
           <div class="col-6">
-            <button-full class="w-full" @click.native="openFilters">
+            <button-full class="w-full h-full" @click.native="openFilters">
               {{ $t('Filters') }}
             </button-full>
           </div>
@@ -78,6 +78,7 @@ import ProductListing from '../components/core/ProductListing.vue'
 import Breadcrumbs from '../components/core/Breadcrumbs.vue'
 import SortBy from '../components/core/SortBy.vue'
 import { isServer } from '@vue-storefront/core/helpers'
+import { Logger } from '@vue-storefront/core/lib/logger'
 import { getSearchOptionsFromRouteParams } from '@vue-storefront/core/modules/catalog-next/helpers/categoryHelpers'
 import config from 'config'
 import ButtonFull from 'theme/components/theme/ButtonFull.vue'
@@ -94,15 +95,14 @@ const composeInitialPageState = async (store, route, forceLoad = false) => {
     const filters = getSearchOptionsFromRouteParams(route.params)
     const cachedCategory = store.getters['category-next/getCategoryFrom'](route.path)
     const currentCategory = cachedCategory && !forceLoad ? cachedCategory : await store.dispatch('category-next/loadCategory', { filters })
-    if (!store.getters['url/isBackRoute']) {
-      await store.dispatch('category-next/loadCategoryProducts', {route, category: currentCategory, pageSize: THEME_PAGE_SIZE})
-    }
+    const pageSize = store.getters['url/isBackRoute'] ? store.getters['url/getCurrentRoute'].categoryPageSize : THEME_PAGE_SIZE
+    await store.dispatch('category-next/loadCategoryProducts', { route, category: currentCategory, pageSize })
     const breadCrumbsLoader = store.dispatch('category-next/loadCategoryBreadcrumbs', { category: currentCategory, currentRouteName: currentCategory.name, omitCurrent: true })
 
     if (isServer) await breadCrumbsLoader
     catalogHooksExecutors.categoryPageVisited(currentCategory)
   } catch (e) {
-    console.error('Problem with setting Category initial data!', e)
+    Logger.error('Problem with setting Category initial data!', 'category', e)()
   }
 }
 
@@ -139,7 +139,8 @@ export default {
       return this.getCategoryProductsTotal === 0
     }
   },
-  async asyncData ({ store, route }) { // this is for SSR purposes to prefetch data - and it's always executed before parent component methods
+  async asyncData ({ store, route, context }) { // this is for SSR purposes to prefetch data - and it's always executed before parent component methods
+    if (context) context.output.cacheTags.add('category')
     await composeInitialPageState(store, route)
   },
   async beforeRouteEnter (to, from, next) {
@@ -178,7 +179,7 @@ export default {
       try {
         await this.$store.dispatch('category-next/loadMoreCategoryProducts')
       } catch (e) {
-        console.error('Problem with fetching more products', e)
+        Logger.error('Problem with fetching more products', 'category', e)()
       } finally {
         this.loadingProducts = false
       }

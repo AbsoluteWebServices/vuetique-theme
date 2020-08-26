@@ -41,6 +41,8 @@ export default {
 
 <style lang="scss" scoped>
   .disabled {
-    @apply text-grey bg-grey-light cursor-default;
+    &, &:hover, &:focus {
+      @apply text-grey bg-grey-light cursor-default;
+    }
   }
 </style>

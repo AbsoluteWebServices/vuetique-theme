@@ -72,6 +72,7 @@
 </template>
 <script>
 import { mapState } from 'vuex'
+import config from 'config'
 import SubBtn from './SubBtn.vue'
 import i18n from '@vue-storefront/i18n'
 
@@ -103,10 +104,10 @@ export default {
   },
   computed: {
     children () {
-      if (!this.$store.state.config.entities.category.categoriesDynamicPrefetch && (this.categoryLinks && this.categoryLinks.length > 0 && this.categoryLinks[0].name)) { // we're using dynamic prefetching and getting just category.children_data.id from 1.7
+      if (!config.entities.category.categoriesDynamicPrefetch && (this.categoryLinks && this.categoryLinks.length > 0 && this.categoryLinks[0].name)) { // we're using dynamic prefetching and getting just category.children_data.id from 1.7
         return this.categoryLinks
       } else {
-        return this.$store.state.category.list.filter(c => { return c.parent_id === this.id }) // return my child categories
+        return this.$store.getters['category-next/getMenuCategories'].filter(c => { return c.parent_id === this.id }) // return my child categories
       }
     },
     ...mapState({

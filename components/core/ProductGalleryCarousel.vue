@@ -11,10 +11,12 @@
       ref="carousel"
       :speed="carouselTransitionSpeed"
       @pageChange="pageChange"
+      :navigate-to="currentPage"
     >
       <slide
         v-for="(images, index) in gallery"
-        :key="images.src">
+        :key="images.src"
+      >
         <div class="product-image-container" :class="{'video-container w-full h-full flex relative': images.video}">
           <img
             v-show="placeholderImagesMap[index]"
@@ -55,7 +57,8 @@
             v-if="images.video && (index === currentPage)"
             v-bind="images.video"
             :index="index"
-            @video-started="onVideoStarted"/>
+            @video-started="onVideoStarted"
+          />
         </div>
       </slide>
     </carousel>
@@ -67,9 +70,11 @@
 </template>
 
 <script>
-import store from '@vue-storefront/core/store'
+import config from 'config'
 import ProductVideo from './ProductVideo'
 import { onlineHelper } from '@vue-storefront/core/helpers'
+import reduce from 'lodash-es/reduce'
+import map from 'lodash-es/map'
 
 export default {
   name: 'ProductGalleryCarousel',
@@ -130,7 +135,7 @@ export default {
     }
   },
   beforeMount () {
-    this.$bus.$on('filter-changed-product', this.selectVariant)
+    this.$bus.$on('product-after-configure', this.selectVariant)
     this.$bus.$on('product-after-load', this.selectVariant)
   },
   mounted () {
@@ -148,23 +153,29 @@ export default {
     this.$emit('loaded')
   },
   beforeDestroy () {
-    this.$bus.$off('filter-changed-product', this.selectVariant)
+    this.$bus.$off('product-after-configure', this.selectVariant)
     this.$bus.$off('product-after-load', this.selectVariant)
   },
   methods: {
     navigate (index) {
-      if (this.$refs.carousel) {
-        this.$refs.carousel.goToPage(index)
-      }
+      this.currentPage = index
     },
-    selectVariant () {
-      if (store.state.config.products.gallery.mergeConfigurableChildren) {
-        let option = this.configuration[store.state.config.products.gallery.variantsGroupAttribute]
-        if (typeof option !== 'undefined' && option !== null) {
-          let index = this.gallery.findIndex(obj => obj.id && Number(obj.id) === Number(option.id))
+    async selectVariant (configuration) {
+      await this.$nextTick()
+      if (config.products.gallery.mergeConfigurableChildren) {
+        const option = reduce(map(this.configuration, 'attribute_code'), (result, attribute) => {
+          result[attribute] = this.configuration[attribute].id
+          return result
+        }, {})
+        if (option) {
+          let index = this.gallery.findIndex(
+            obj => obj.id && Object.entries(obj.id).toString() === Object.entries(option).toString(), option)
+          if (index < 0) index = this.gallery.findIndex(obj => obj.id && obj.id.color === option.color)
+          if (index < 0) index = this.gallery.findIndex(obj => String(obj.id && obj.id.color) === String(option.color))
           this.navigate(index)
         }
       }
+      this.$emit('close')
     },
     openOverlay () {
       const currentSlide = this.$refs.carousel.currentPage
@@ -174,7 +185,6 @@ export default {
       this.carouselTransitionSpeed = 500
     },
     pageChange (index) {
-      this.currentPage = index
       this.hideImageAtIndex = null
       this.$emit('pageChange', index)
     },

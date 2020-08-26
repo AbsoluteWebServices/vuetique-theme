@@ -3,36 +3,36 @@
 	  {
 	    "title": "Luma Performance",
 	    "image": "/assets/slide_02.jpg",
-	    "link": "/c/women"
+	    "link": "/c/women-20"
 	  }
   ],
   "smallBanners": [
     {
       "title": "Eco-friendly",
       "image": "/assets/vuetique-small-banners-1.jpg",
-      "link": "/c/hoodies-and-sweatshirts-women"
+      "link": "/c/hoodies-and-sweatshirts-24"
     },
     {
       "title": "Women's Wear",
       "image": "/assets/vuetique-small-banners-2.jpg",
-      "link": "/c/women"
+      "link": "/c/women-20"
     },
     {
       "title": "New yoga collection",
       "image": "/assets/vuetique-small-banners-3.jpg",
-      "link": "/c/pants-women"
+      "link": "/c/pants-27"
     },
     {
       "title": "Coats + Jackets",
       "image": "/assets/vuetique-small-banners-4.jpg",
-      "link": "/c/jackets-women"
+      "link": "/c/jackets-23"
     }
   ],
   "productBanners": [
 	  {
 	    "title": "Find your passion",
 	    "image": "/assets/passion.jpg",
-	    "link": "/c/men"
+	    "link": "/c/men-11"
 	  }
   ]
 }

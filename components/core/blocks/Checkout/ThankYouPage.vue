@@ -74,6 +74,7 @@
 
 <script>
 import Vue from 'vue'
+import config from 'config'
 import Composite from '@vue-storefront/core/mixins/composite'
 import Breadcrumbs from 'theme/components/core/Breadcrumbs'
 import BaseTextarea from 'theme/components/core/blocks/Form/BaseTextarea'
@@ -110,7 +111,7 @@ export default {
       return this.$store.state.checkout.personalDetails.emailAddress
     },
     mailerElements () {
-      return this.$store.state.config.mailer.contactAddress
+      return config.mailer.contactAddress
     }
   },
   methods: {

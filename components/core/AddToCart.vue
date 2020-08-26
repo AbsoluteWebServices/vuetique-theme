@@ -1,5 +1,5 @@
 <template>
-  <button-full @click.native="addToCartWrapper(product)" :disabled="isProductDisabled" data-testid="addToCart" class="w-full" :class="{'bg-primary': isProductDisabled || added}">
+  <button-full @click.native="addToCartWrapper(product)" :disabled="isProductDisabled" data-testid="addToCart" class="w-full btn-primary" :class="{'bg-primary': isProductDisabled || added}">
     <div class="flex items-center justify-center">
       <span>{{ failed ? $t('Error while adding') : added ? $t('Added to cart') : $t('Add to cart') }}</span>
       <div v-show="isAddingToCart" class="loader ml-1"/>

@@ -179,6 +179,7 @@
 </template>
 
 <script>
+import config from 'config'
 import { AccountButton } from '@vue-storefront/core/modules/user/components/AccountButton'
 import CurrentPage from 'theme/mixins/currentPage'
 
@@ -186,7 +187,7 @@ export default {
   name: 'MainFooter',
   computed: {
     multistoreEnabled () {
-      return this.$store.state.config.storeViews.multistore
+      return config.storeViews.multistore
     }
   },
   mixins: [CurrentPage, AccountButton]

@@ -45,18 +45,21 @@ export default {
       }
     }
   },
-  beforeMount () {
-    let inspirationsQuery = prepareQuery({queryConfig: 'inspirations'})
+  async beforeMount () {
+    let inspirationsQuery = prepareQuery({ queryConfig: 'inspirations' })
 
-    this.$store.dispatch('product/list', {
+    const { items } = await this.$store.dispatch('product/findProducts', {
       query: inspirationsQuery,
       size: 12,
-      sort: 'created_at:desc'
-    }).then(res => {
-      if (res) {
-        this.products = res.items
+      sort: 'created_at:desc',
+      options: {
+        populateRequestCacheTags: false,
+        prefetchGroupProducts: false
       }
     })
+    if (items.length) {
+      this.products = items
+    }
   },
   components: {
     ProductsSlider

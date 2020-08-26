@@ -7,7 +7,7 @@
       @click="closeMenu"
     >
       <svg viewBox="0 0 25 25" class="vt-icon--sm">
-        <use xlink:href="#close"/>
+        <use xlink:href="#close" />
       </svg>
     </button>
 

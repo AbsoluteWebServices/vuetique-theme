@@ -2,7 +2,7 @@
   <div>
     <header class="modal-header py25 px65 h1 serif weight-700 bg-cl-secondary">
       <svg viewBox="0 0 25 25" class="vt-icon modal-close p-1 m-2" slot="close" @click="close">
-        <use xlink:href="#close"/>
+        <use xlink:href="#close" />
       </svg>
       <h2>{{ $t('Register') }}</h2>
     </header>
@@ -38,10 +38,20 @@
             v-model="firstName"
             @blur="$v.firstName.$touch()"
             :placeholder="$t('First name *')"
-            :validation="{
-              condition: !$v.firstName.required && $v.firstName.$error,
-              text: $t('Field is required.')
-            }"
+            :validations="[
+              {
+                condition: !$v.firstName.required && $v.firstName.$error,
+                text: $t('Field is required.')
+              },
+              {
+                condition: !$v.firstName.minLength,
+                text: $t('Name must have at least 2 letters.')
+              },
+              {
+                condition: !$v.firstName.alpha && $v.firstName.$error,
+                text: $t('Accepts only alphabet characters.')
+              }
+            ]"
           />
 
           <div class="w-full sm:hidden md:hidden lg:hidden mb-5" />
@@ -54,10 +64,16 @@
             v-model="lastName"
             @blur="$v.lastName.$touch()"
             :placeholder="$t('Last name *')"
-            :validation="{
-              condition: !$v.lastName.required && $v.lastName.$error,
-              text: $t('Field is required.')
-            }"
+            :validations="[
+              {
+                condition: !$v.lastName.required && $v.lastName.$error,
+                text: $t('Field is required.')
+              },
+              {
+                condition: !$v.lastName.alpha && $v.lastName.$error,
+                text: $t('Accepts only alphabet characters.')
+              }
+            ]"
           />
         </div>
         <base-input
@@ -106,15 +122,15 @@
           @click="conditions = !conditions"
           @blur="$v.conditions.$reset()"
           @change="$v.conditions.$touch()"
-          :validation="{
-            condition: !$v.conditions.required && $v.conditions.$error,
+          :validations="[{
+            condition: !$v.conditions.sameAs && $v.conditions.$error,
             text: $t('You must accept the terms and conditions.')
-          }"
+          }]"
         >
           {{ $t('I accept terms and conditions') }} *
         </base-checkbox>
 
-        <button-full class="mb-2 w-full" type="submit">
+        <button-full :disabled="$v.$invalid" class="mb-2 w-full" type="submit">
           {{ $t('Register an account') }}
         </button-full>
 
@@ -135,7 +151,7 @@ import Register from '@vue-storefront/core/compatibility/components/blocks/Auth/
 import ButtonFull from 'theme/components/theme/ButtonFull.vue'
 import BaseCheckbox from 'theme/components/core/blocks/Form/BaseCheckbox.vue'
 import BaseInput from 'theme/components/core/blocks/Form/BaseInput.vue'
-import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
+import { required, email, minLength, sameAs, alpha } from 'vuelidate/lib/validators'
 
 export default {
   validations: {
@@ -144,10 +160,13 @@ export default {
       email
     },
     firstName: {
-      required
+      minLength: minLength(2),
+      required,
+      alpha
     },
     lastName: {
-      required
+      required,
+      alpha
     },
     password: {
       minLength: minLength(8),
@@ -158,7 +177,7 @@ export default {
       sameAsPassword: sameAs('password')
     },
     conditions: {
-      required
+      sameAs: sameAs(() => true)
     }
   },
   mixins: [Register],

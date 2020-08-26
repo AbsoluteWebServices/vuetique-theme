@@ -220,7 +220,16 @@
           </svg>
         </h3>
         <transition name="fade">
-          <section v-show="detailsAccordion == 'reviews'" class="mt-10"><reviews v-show="OnlineOnly" /></section>
+          <section v-show="detailsAccordion == 'reviews'" class="mt-10">
+            <lazy-hydrate when-idle>
+              <reviews
+                v-show="OnlineOnly"
+                :product-name="getCurrentProduct.name"
+                :product-id="getCurrentProduct.id"
+                :product="getCurrentProduct"
+              />
+            </lazy-hydrate>
+          </section>
         </transition>
       </div>
     </div>
@@ -244,6 +253,7 @@
       </lazy-hydrate>
     </div>
     <SizeGuide />
+    <script v-html="getJsonLd" type="application/ld+json" />
   </div>
 </template>
 
@@ -256,13 +266,14 @@ import LazyHydrate from 'vue-lazy-hydration'
 import { registerModule } from '@vue-storefront/core/lib/modules'
 import { ReviewModule } from '@vue-storefront/core/modules/review'
 import { RecentlyViewedModule } from '@vue-storefront/core/modules/recently-viewed'
-import { onlineHelper, isServer } from '@vue-storefront/core/helpers'
+import { onlineHelper, isServer, productJsonLd } from '@vue-storefront/core/helpers'
 import { ProductOption } from '@vue-storefront/core/modules/catalog/components/ProductOption.ts'
 import { catalogHooksExecutors } from '@vue-storefront/core/modules/catalog-next/hooks'
 import { htmlDecode } from '@vue-storefront/core/filters'
-import { isOptionAvailableAsync } from '@vue-storefront/core/modules/catalog/helpers/index'
+import { isOptionAvailableAsync, doPlatformPricesSync } from '@vue-storefront/core/modules/catalog/helpers'
 import { getAvailableFiltersByProduct, getSelectedFiltersByProduct } from '@vue-storefront/core/modules/catalog/helpers/filters'
 import { localizedRoute, currentStoreView } from '@vue-storefront/core/lib/multistore'
+import { filterChangedProduct } from '@vue-storefront/core/modules/catalog/events'
 
 import RelatedProducts from 'theme/components/core/blocks/Product/Related.vue'
 import Reviews from 'theme/components/core/blocks/Reviews/Reviews.vue'
@@ -333,7 +344,6 @@ export default {
       getCurrentProduct: 'product/getCurrentProduct',
       getProductGallery: 'product/getProductGallery',
       getCurrentProductConfiguration: 'product/getCurrentProductConfiguration',
-      getOriginalProduct: 'product/getOriginalProduct',
       attributesByCode: 'attribute/attributeListByCode',
       getCurrentCustomOptions: 'product/getCurrentCustomOptions'
     }),
@@ -388,12 +398,16 @@ export default {
       }
 
       return this.isOnline && !this.maxQuantity && this.manageQuantity && this.isSimpleOrConfigurable
+    },
+    getJsonLd () {
+      return productJsonLd(this.getCurrentProduct, this.getCurrentProductConfiguration.color && this.getCurrentProductConfiguration.color.label, this.$store.state.storeView.i18n.currencyCode, this.getCustomAttributes)
     }
   },
   async mounted () {
     await this.$store.dispatch('recently-viewed/addItem', this.getCurrentProduct)
   },
-  async asyncData ({ store, route }) {
+  async asyncData ({ store, route, context }) {
+    if (context) context.output.cacheTags.add('product')
     const product = await store.dispatch('product/loadProduct', { parentSku: route.params.parentSku, childSku: route && route.params && route.params.childSku ? route.params.childSku : null })
     const loadBreadcrumbsPromise = store.dispatch('product/loadProductBreadcrumbs', { product })
     if (isServer) await loadBreadcrumbsPromise
@@ -436,11 +450,9 @@ export default {
         action1: { label: this.$t('OK') }
       })
     },
-    changeFilter (variant) {
-      this.$bus.$emit(
-        'filter-changed-product',
-        Object.assign({ attribute_code: variant.type }, variant)
-      )
+    async changeFilter (variant) {
+      const selectedConfiguration = Object.assign({ attribute_code: variant.type }, variant)
+      await filterChangedProduct(selectedConfiguration, this.$store, this.$router)
       this.getQuantity()
     },
     openSizeGuide () {
@@ -455,6 +467,9 @@ export default {
       if (this.isStockInfoLoading) return // stock info is already loading
       this.isStockInfoLoading = true
       try {
+        if (config.products.alwaysSyncPricesClientSide) {
+          doPlatformPricesSync([this.getCurrentProduct]);
+        }
         const res = await this.$store.dispatch('stock/check', {
           product: this.getCurrentProduct,
           qty: this.getCurrentProduct.qty
@@ -473,18 +488,18 @@ export default {
   metaInfo () {
     const storeView = currentStoreView()
     return {
-      link: [
-        { rel: 'amphtml',
-          href: this.$router.resolve(localizedRoute({
-            name: this.getCurrentProduct.type_id + '-product-amp',
-            params: {
-              parentSku: this.getCurrentProduct.parentSku ? this.getCurrentProduct.parentSku : this.getCurrentProduct.sku,
-              slug: this.getCurrentProduct.slug,
-              childSku: this.getCurrentProduct.sku
-            }
-          }, storeView.storeCode)).href
-        }
-      ],
+      // link: [
+      //   { rel: 'amphtml',
+      //     href: this.$router.resolve(localizedRoute({
+      //       name: this.getCurrentProduct.type_id + '-product-amp',
+      //       params: {
+      //         parentSku: this.getCurrentProduct.parentSku ? this.getCurrentProduct.parentSku : this.getCurrentProduct.sku,
+      //         slug: this.getCurrentProduct.slug,
+      //         childSku: this.getCurrentProduct.sku
+      //       }
+      //     }, storeView.storeCode)).href
+      //   }
+      // ],
       title: htmlDecode(this.getCurrentProduct.meta_title || this.getCurrentProduct.name),
       meta: this.getCurrentProduct.meta_description ? [{ vmid: 'description', name: 'description', content: htmlDecode(this.getCurrentProduct.meta_description) }] : []
     }

@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import config from 'config'
 import { onlineHelper } from '@vue-storefront/core/helpers'
 
 export default {
@@ -81,11 +82,11 @@ export default {
       return this.highQualityImage
     },
     imageRatio () {
-      const {width, height} = this.$store.state.config.products.gallery
+      const { width, height } = config.products.gallery
       return `${height / (width / 100)}%`
     },
     style () {
-      return this.calcRatio ? {paddingBottom: this.imageRatio} : {}
+      return this.calcRatio ? { paddingBottom: this.imageRatio } : {}
     },
     isOnline (value) {
       return onlineHelper.isOnline

@@ -69,7 +69,7 @@
       <div class="col-12 text-h4 mb-2">
         <h4>{{ $t('Order informations') }}</h4>
         <div class="row">
-          <div class="sm:col-6 md:col-3 mb-3">
+          <div class="sm:col-6 md:col-3 mb-3" v-if="shippingAddress">
             <h5>{{ $t('Shipping address') }}</h5>
             <address>
               <p>{{ shippingAddress.firstname }} {{ shippingAddress.lastname }}</p>
@@ -78,7 +78,7 @@
               <p>{{ shippingAddress.country }}</p>
             </address>
           </div>
-          <div class="sm:col-6 md:col-3 mb-3">
+          <div class="sm:col-6 md:col-3 mb-3" v-if="order.shipping_description">
             <h5>{{ $t('Shipping method') }}</h5>
             <p>{{ order.shipping_description }}</p>
           </div>
@@ -102,10 +102,11 @@
 </template>
 
 <script>
-import MyOrder from '@vue-storefront/core/compatibility/components/blocks/MyAccount/MyOrder'
+import { UserSingleOrder } from '@vue-storefront/core/modules/order/components/UserSingleOrder'
 
 export default {
-  mixins: [MyOrder]
+  name: 'MyOrder',
+  mixins: [UserSingleOrder]
 }
 </script>
 

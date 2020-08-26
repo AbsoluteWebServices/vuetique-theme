@@ -22,34 +22,32 @@
 
     <div v-if="!productsInWishlist.length" class="mb-2">
       {{ $t("Don't hesitate and") }}
-      <router-link class="text-primary" :to="localizedRoute('/')">
+      <router-link class="text-primary" :to="localizedRoute('/')" @click.native="closeWishlist">
         {{ $t('browse our catalog') }}
       </router-link>
       {{ $t('to find something beautiful for You!') }}
     </div>
     <ul class="products p-0 m-0">
-      <product v-for="product in productsInWishlist" :key="product.id" :product="product" />
+      <product v-for="wishlistProduct in productsInWishlist" :key="wishlistProduct.id" :product="wishlistProduct" />
     </ul>
   </div>
 </template>
 
 <script>
-import Wishlist from '@vue-storefront/core/compatibility/components/blocks/Wishlist/Wishlist'
+import { Wishlist } from '@vue-storefront/core/modules/wishlist/components/Wishlist'
 import Product from 'theme/components/core/blocks/Wishlist/Product'
+import onEscapePress from '@vue-storefront/core/mixins/onEscapePress'
 
 export default {
-  props: {
-    product: {
-      type: Object,
-      required: false,
-      default: () => { }
-    }
-  },
+  name: 'Wishlist',
   components: {
     Product
   },
-  mixins: [Wishlist],
+  mixins: [ Wishlist, onEscapePress ],
   methods: {
+    onEscapePress () {
+      this.closeWishlist()
+    },
     closeWishlist () {
       this.$store.dispatch('ui/closeWishlist')
     }

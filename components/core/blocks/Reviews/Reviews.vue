@@ -3,7 +3,12 @@
     <section class="container pb-10 px-0">
       <div class="md:flex">
         <div class="md:w-1/2 pt-2">
-          <reviews-list :per-page="4" :items="reviews ? reviews : []" />
+          <reviews-list
+            :per-page="4"
+            :items="reviews"
+            :product-name="productName"
+            :product="product"
+          />
         </div>
         <div class="md:w-1/2 md:px-4 md:-mr-4">
           <h2 class="text-h3">
@@ -86,14 +91,15 @@
 </template>
 
 <script>
-import { required, email } from 'vuelidate/lib/validators'
+import { required, email, minLength } from 'vuelidate/lib/validators'
 
 import BaseInput from 'theme/components/core/blocks/Form/BaseInput'
 import BaseTextarea from 'theme/components/core/blocks/Form/BaseTextarea'
 import ButtonFull from 'theme/components/theme/ButtonFull'
 import ReviewsList from 'theme/components/theme/blocks/Reviews/ReviewsList'
 import { Reviews } from '@vue-storefront/core/modules/review/components/Reviews'
-import { AddReview } from '@vue-storefront/core/modules/review/components/AddReview'
+import i18n from '@vue-storefront/i18n'
+
 export default {
   name: 'Reviews',
   data () {
@@ -106,10 +112,21 @@ export default {
       }
     }
   },
-  computed: {
-    product () {
-      return this.$store.state.product
+  props: {
+    productId: {
+      type: [String, Number],
+      required: true
     },
+    productName: {
+      type: String,
+      default: ''
+    },
+    product: {
+      type: Object,
+      required: true
+    }
+  },
+  computed: {
     currentUser () {
       return this.$store.state.user.current
     }
@@ -122,17 +139,33 @@ export default {
       }
     },
     refreshList () {
-      this.$store.dispatch('review/list', { productId: this.product.current.id })
+      this.$store.dispatch('review/list', { productId: this.productId })
     },
-    submit () {
-      this.addReview({
-        'product_id': this.product.current.id,
+    async submit () {
+      const isReviewCreated = await this.$store.dispatch('review/add', {
+        'product_id': this.productId,
         'title': this.formData.summary,
         'detail': this.formData.review,
         'nickname': this.formData.name,
         'review_entity': 'product',
         'review_status': 2,
         'customer_id': this.currentUser ? this.currentUser.id : null
+      })
+
+      if (isReviewCreated) {
+        this.$store.dispatch('notification/spawnNotification', {
+          type: 'success',
+          message: i18n.t('You submitted your review for moderation.'),
+          action1: { label: i18n.t('OK') }
+        })
+
+        return
+      }
+
+      this.$store.dispatch('notification/spawnNotification', {
+        type: 'error',
+        message: i18n.t('Something went wrong. Try again in a few seconds.'),
+        action1: { label: i18n.t('OK') }
       })
     },
     clearReviewForm () {
@@ -166,10 +199,11 @@ export default {
     this.refreshList()
     this.fillInUserData()
   },
-  mixins: [ Reviews, AddReview ],
+  mixins: [ Reviews ],
   validations: {
     formData: {
       name: {
+        minLength: minLength(2),
         required
       },
       email: {

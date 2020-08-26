@@ -7,7 +7,7 @@
     :aria-label="$t('Open microcart')"
   >
     <svg viewBox="0 0 25 25" class="vt-icon">
-      <use xlink:href="#cart"/>
+      <use xlink:href="#cart" />
     </svg>
     <span
       class="minicart-count absolute flex justify-center items-center text-xs font-bold text-white bg-primary"
@@ -21,10 +21,26 @@
 </template>
 
 <script>
-import MicrocartIcon from '@vue-storefront/core/compatibility/components/blocks/Header/MicrocartIcon'
+import { mapGetters, mapActions } from 'vuex'
+import { syncCartWhenLocalStorageChange } from '@vue-storefront/core/modules/cart/helpers'
 
 export default {
-  mixins: [MicrocartIcon]
+  mounted () {
+    syncCartWhenLocalStorageChange.addEventListener()
+    this.$once('hook:beforeDestroy', () => {
+      syncCartWhenLocalStorageChange.removeEventListener()
+    })
+  },
+  computed: {
+    ...mapGetters({
+      totalQuantity: 'cart/getItemsTotalQuantity'
+    })
+  },
+  methods: {
+    ...mapActions({
+      openMicrocart: 'ui/toggleMicrocart'
+    })
+  }
 }
 </script>
 

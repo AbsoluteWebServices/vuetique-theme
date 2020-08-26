@@ -1,7 +1,7 @@
 <template>
   <div class="custom-option mb-5">
     <h4 class="mb-2"> {{ option.title }} </h4>
-    <div class="relative" v-for="opval in option.product_links" :key="opval.id">
+    <div class="relative" v-for="opval in option.product_links" :key="opval.id" data-testid="bundle-single-option">
       <div class="checkbox-wrap">
         <input
           type="radio"

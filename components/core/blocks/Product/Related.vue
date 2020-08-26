@@ -1,7 +1,7 @@
 <template>
   <section
     class="container py-8 px-6 new-collection"
-    v-if="product.related[type] && product.related[type].length > 0"
+    v-if="getCurrentRelatedProducts.length"
   >
     <div>
       <header>
@@ -11,17 +11,17 @@
       </header>
     </div>
     <div class="text-center">
-      <product-listing columns="4" :products="product.related[type]" />
+      <product-listing columns="4" :products="getCurrentRelatedProducts" />
     </div>
   </section>
 </template>
 
 <script>
 import ProductListing from 'theme/components/core/ProductListing'
-
+import { mapGetters } from 'vuex'
 import { prepareRelatedQuery } from '@vue-storefront/core/modules/catalog/queries/related'
 import i18n from '@vue-storefront/i18n'
-import store from '@vue-storefront/core/store'
+import config from 'config'
 
 export default {
   name: 'Related',
@@ -42,7 +42,7 @@ export default {
   beforeMount () {
     this.$bus.$on('product-after-load', this.refreshList)
 
-    if (store.state.config.usePriceTiers) {
+    if (config.usePriceTiers) {
       this.$bus.$on('user-after-loggedin', this.refreshList)
       this.$bus.$on('user-after-logout', this.refreshList)
     }
@@ -50,7 +50,7 @@ export default {
     this.refreshList()
   },
   beforeDestroy () {
-    if (store.state.config.usePriceTiers) {
+    if (config.usePriceTiers) {
       this.$bus.$off('user-after-loggedin', this.refreshList)
       this.$bus.$off('user-after-logout', this.refreshList)
     }
@@ -59,40 +59,45 @@ export default {
     this.$bus.$off('product-after-load', this.refreshList)
   },
   methods: {
-    refreshList () {
+    async refreshList () {
       let sku = this.productLinks ? this.productLinks
         .filter(pl => pl.link_type === this.type)
         .map(pl => pl.linked_product_sku) : null
 
       let key = 'sku'
       if (sku === null || (sku.length === 0)) {
-        sku = this.product.current.category.map(cat => cat.category_id)
+        sku = this.getCurrentProduct.category_ids
         key = 'category_ids'
       }
       let relatedProductsQuery = prepareRelatedQuery(key, sku)
 
-      this.$store.dispatch('product/list', {
+      const { items } = await this.$store.dispatch('product/findProducts', {
         query: relatedProductsQuery,
         size: 8,
-        prefetchGroupProducts: false,
-        updateState: false
-      }).then((response) => {
-        if (response) {
-          this.$store.dispatch('product/related', {
-            key: this.type,
-            items: response.items
-          })
-          this.$forceUpdate()
+        options: {
+          populateRequestCacheTags: false,
+          prefetchGroupProducts: false
         }
       })
+      if (items.length) {
+        this.$store.dispatch('product/related', {
+          key: this.type,
+          items: items
+        })
+        this.$forceUpdate()
+      }
     }
   },
   computed: {
-    product () {
-      return this.$store.state.product
+    ...mapGetters({
+      getProductRelated: 'product/getProductRelated',
+      getCurrentProduct: 'product/getCurrentProduct'
+    }),
+    getCurrentRelatedProducts () {
+      return this.getProductRelated[this.type] || []
     },
     productLinks () {
-      return this.product.current.product_links
+      return this.getCurrentProduct.product_links
     }
   }
 }

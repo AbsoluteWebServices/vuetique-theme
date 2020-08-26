@@ -1,49 +1,51 @@
 <template>
   <div id="home">
-    <no-ssr>
-      <main-slider />
-    </no-ssr>
+    <main-slider />
 
     <promoted-offers collection="smallBanners" :limit="2" :columns="2" class="mt-2 mb-16 sm:my-8" />
 
     <section class="new-collection container mb-16">
       <div>
         <header class="mb-6">
-          <h2 class="text-h1 leading-h1 text-center">{{ $t('Shop new arrivals') }}</h2>
+          <h2 class="text-h1 leading-h1 text-center">
+            {{ $t('Shop new arrivals') }}
+          </h2>
         </header>
       </div>
       <div class="row center-xs">
         <div class="col-12">
-          <product-listing :columns="defaultColumn" :products="getEverythingNewCollection" />
+          <lazy-hydrate :trigger-hydration="!loading" v-if="isLazyHydrateEnabled">
+            <product-listing :columns="defaultColumn" :products="getEverythingNewCollection" />
+          </lazy-hydrate>
+          <product-listing v-else :columns="defaultColumn" :products="getEverythingNewCollection" />
         </div>
       </div>
     </section>
 
     <promoted-offers collection="smallBanners" :limit="2" :offset="2" :columns="2" class="mt-2 mb-16 sm:my-8" />
 
-    <no-ssr>
-      <products-slider class="mb-16" :title="$t('Sale and discount')" :products="salesCollection" :config="sliderConfig" />
-    </no-ssr>
+    <lazy-hydrate :trigger-hydration="!loading" v-if="isLazyHydrateEnabled">
+      <products-slider class="mb-16" :title="$t('Sale and discount')" :products="getSalesCollection" :config="sliderConfig" />
+    </lazy-hydrate>
+    <products-slider v-else class="mb-16" :title="$t('Sale and discount')" :products="getSalesCollection" :config="sliderConfig" />
 
     <section class="container mb-16">
       <div class="justify-center">
         <header class="mb-6">
-          <h2 class="text-h1 leading-h1 text-center">{{ $t('Get inspired') }}</h2>
+          <h2 class="text-h1 leading-h1 text-center">
+            {{ $t('Get inspired') }}
+          </h2>
         </header>
       </div>
       <tile-links />
     </section>
-    <Onboard/>
-
+    <Onboard />
   </div>
 </template>
 
 <script>
-// 3rd party dependecies
-import { prepareQuery } from '@vue-storefront/core/modules/catalog/queries/common'
-
-// Core pages
-import Home from '@vue-storefront/core/pages/Home'
+import config from 'config'
+import LazyHydrate from 'vue-lazy-hydration'
 
 // Theme core components
 import ProductListing from 'theme/components/core/ProductListing'
@@ -56,15 +58,14 @@ import PromotedOffers from 'theme/components/theme/blocks/PromotedOffers/Promote
 import TileLinks from 'theme/components/theme/blocks/TileLinks/TileLinks'
 import { Logger } from '@vue-storefront/core/lib/logger'
 
-import NoSSR from 'vue-no-ssr'
-import {mapGetters} from 'vuex'
-import {isServer} from '@vue-storefront/core/helpers'
+import { mapGetters } from 'vuex'
+import { isServer } from '@vue-storefront/core/helpers'
 
-import {registerModule} from '@vue-storefront/core/lib/modules'
-import {RecentlyViewedModule} from '@vue-storefront/core/modules/recently-viewed'
+import { registerModule } from '@vue-storefront/core/lib/modules'
+import { RecentlyViewedModule } from '@vue-storefront/core/modules/recently-viewed'
 
 export default {
-  mixins: [Home],
+  name: 'Home',
   components: {
     MainSlider,
     Onboard,
@@ -72,10 +73,11 @@ export default {
     ProductsSlider,
     PromotedOffers,
     TileLinks,
-    'no-ssr': NoSSR
+    LazyHydrate
   },
   data () {
     return {
+      loading: true,
       sliderConfig: {
         perPage: 1,
         perPageCustom: [[0, 2], [1024, 4]],
@@ -87,24 +89,51 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('homepage', ['getEverythingNewCollection']),
-    categories () {
-      return this.$store.state.category.list
-    },
-    newCollection () {
-      return this.$store.state.homepage.new_collection
-    },
-    salesCollection () {
-      return this.$store.state.homepage.sales_collection
+    ...mapGetters('homepage', ['getEverythingNewCollection', 'getSalesCollection']),
+    isLazyHydrateEnabled () {
+      return config.ssr.lazyHydrateFor.some(
+        field => ['homepage', 'homepage.new_collection', 'homepage.sales_collection'].includes(field)
+      )
     }
   },
   beforeCreate () {
     registerModule(RecentlyViewedModule)
   },
+  async beforeMount () {
+    if (this.$store.state.__DEMO_MODE__) {
+      const onboardingClaim = await this.$store.dispatch('claims/check', { claimCode: 'onboardingAccepted' })
+      if (!onboardingClaim) { // show onboarding info
+        this.$bus.$emit('modal-toggle', 'modal-onboard')
+        this.$store.dispatch('claims/set', { claimCode: 'onboardingAccepted', value: true })
+      }
+    }
+  },
+  mounted () {
+    if (!this.isLoggedIn && localStorage.getItem('redirect')) this.$bus.$emit('modal-show', 'modal-signup')
+  },
+  watch: {
+    isLoggedIn () {
+      const redirectObj = localStorage.getItem('redirect')
+      if (redirectObj) this.$router.push(redirectObj)
+      localStorage.removeItem('redirect')
+    }
+  },
+  async asyncData ({ store, route, context }) { // this is for SSR purposes to prefetch data
+    if (context) context.output.cacheTags.add(`home`)
+    Logger.info('Calling asyncData in Home Page (core)')()
+
+    await Promise.all([
+      store.dispatch('homepage/fetchNewCollection'),
+      store.dispatch('homepage/fetchSalesCollection')
+    ])
+  },
   beforeRouteEnter (to, from, next) {
     if (!isServer && !from.name) { // Loading products to cache on SSR render
       next(vm =>
-        vm.$store.dispatch('homepage/fetchNewCollection').then(res => {
+        Promise.all([
+          vm.$store.dispatch('homepage/fetchNewCollection'),
+          vm.$store.dispatch('homepage/fetchSalesCollection')
+        ]).then(res => {
           vm.loading = false
         })
       )
@@ -112,63 +141,11 @@ export default {
       next()
     }
   },
-  created () {
-    // Load personal and shipping details for Checkout page from IndexedDB
-    this.$store.dispatch('checkout/load')
-  },
-  beforeMount () {
-    if (this.$store.state.__DEMO_MODE__) {
-      this.$store.dispatch('claims/check', { claimCode: 'onboardingAccepted' }).then((onboardingClaim) => {
-        if (!onboardingClaim) { // show onboarding info
-          this.$bus.$emit('modal-toggle', 'modal-onboard')
-          this.$store.dispatch('claims/set', { claimCode: 'onboardingAccepted', value: true })
-        }
-      })
+  metaInfo () {
+    return {
+      title: this.$route.meta.title || this.$i18n.t('Home Page'),
+      meta: this.$route.meta.description ? [{ vmid: 'description', name: 'description', content: this.$route.meta.description }] : []
     }
-  },
-  asyncData ({ store, route }) { // this is for SSR purposes to prefetch data
-    const config = store.state.config
-    return new Promise((resolve, reject) => {
-      Logger.info('Calling asyncData in Home (theme)')()
-
-      let newProductsQuery = prepareQuery({ queryConfig: 'newProducts' })
-      let salesQuery = prepareQuery({ queryConfig: 'inspirations' })
-
-      store.dispatch('homepage/fetchNewCollection')
-
-      store.dispatch('category/list', { includeFields: config.entities.optimize ? config.entities.category.includeFields : null }).then((categories) => {
-        store.dispatch('product/list', {
-          query: newProductsQuery,
-          size: 8,
-          sort: 'created_at:desc',
-          includeFields: config.entities.optimize ? (config.products.setFirstVarianAsDefaultInURL ? config.entities.productListWithChildren.includeFields : config.entities.productList.includeFields) : []
-        }).catch(err => {
-          reject(err)
-        }).then((res) => {
-          if (res) {
-            store.state.homepage.new_collection = res.items
-          }
-
-          store.dispatch('product/list', {
-            query: salesQuery,
-            size: 12,
-            sort: 'created_at:desc',
-            includeFields: config.entities.optimize ? (config.products.setFirstVarianAsDefaultInURL ? config.entities.productListWithChildren.includeFields : config.entities.productList.includeFields) : []
-          }).then((res) => {
-            if (res) {
-              store.state.homepage.sales_collection = res.items
-            }
-            return resolve()
-          }).catch(err => {
-            reject(err)
-          })
-        }).catch(err => {
-          reject(err)
-        })
-      }).catch(err => {
-        reject(err)
-      })
-    })
   }
 }
 </script>

@@ -31,7 +31,9 @@
 
 <script>
 import { mapState } from 'vuex'
-import EventBus from '@vue-storefront/core/compatibility/plugins/event-bus'
+import config from 'config'
+
+import { isServer } from '@vue-storefront/core/helpers'
 
 import MainHeader from 'theme/components/core/blocks/Header/Header.vue'
 import MainFooter from 'theme/components/core/blocks/Footer/Footer.vue'
@@ -40,7 +42,6 @@ import HeaderMenu from 'theme/components/core/blocks/HeaderMenu/HeaderMenu.vue'
 
 import Overlay from 'theme/components/core/Overlay.vue'
 import Loader from 'theme/components/core/Loader.vue'
-import Modal from 'theme/components/core/Modal.vue'
 import Notification from 'theme/components/core/Notification.vue'
 import SignUp from 'theme/components/core/blocks/Auth/SignUp.vue'
 import NewsletterPopup from 'theme/components/core/NewsletterPopup.vue'
@@ -60,6 +61,26 @@ const Wishlist = () => import(/* webpackChunkName: "vsf-wishlist" */ 'theme/comp
 const OrderConfirmation = () => import(/* webpackChunkName: "vsf-order-confirmation" */ 'theme/components/core/blocks/Checkout/OrderConfirmation.vue')
 
 export default {
+  components: {
+    MainHeader,
+    MainFooter,
+    HeaderMenu,
+    Microcart,
+    Wishlist,
+    SearchPanel,
+    SidebarMenu,
+    Overlay,
+    Loader,
+    Notification,
+    SignUp,
+    NewsletterPopup,
+    CookieNotification,
+    OfflineBadge,
+    ModalSwitcher,
+    OrderConfirmation,
+    Announcement,
+    Icons
+  },
   data () {
     return {
       loadOrderConfirmation: false,
@@ -82,11 +103,37 @@ export default {
       isWishlistOpen: state => state.ui.wishlist
     })
   },
+  beforeMount () {
+    // Progress bar on top of the page
+    this.$router.beforeEach((to, from, next) => {
+      this.$Progress.start()
+      this.$Progress.increase(40)
+      next()
+    })
+    this.$router.afterEach((to, from) => {
+      this.$Progress.finish()
+    })
+    this.$bus.$on('offline-order-confirmation', this.onOrderConfirmation)
+
+    window.addEventListener('scroll', () => {
+      this.isScrolling = true
+    }, { passive: true })
+
+    setInterval(() => {
+      if (this.isScrolling) {
+        this.hasScrolled()
+        this.isScrolling = false
+      }
+    }, 250)
+  },
+  beforeDestroy () {
+    this.$bus.$off('offline-order-confirmation', this.onOrderConfirmation)
+  },
   methods: {
     onOrderConfirmation (payload) {
       this.loadOrderConfirmation = true
       this.ordersData = payload
-      EventBus.$emit('modal-show', 'modal-order-confirmation')
+      this.$bus.$emit('modal-show', 'modal-order-confirmation')
     },
     hasScrolled () {
       this.scrollTop = window.scrollY
@@ -102,56 +149,21 @@ export default {
         this.navVisible = false
       }
       this.lastScrollTop = this.scrollTop
+    },
+    fetchMenuData () {
+      return this.$store.dispatch('category-next/fetchMenuCategories', {
+        level: null,
+        skipCache: isServer
+      })
     }
   },
-  beforeMount () {
-    // Progress bar on top of the page
-    this.$router.beforeEach((to, from, next) => {
-      this.$Progress.start()
-      this.$Progress.increase(40)
-      next()
-    })
-    this.$router.afterEach((to, from) => {
-      this.$Progress.finish()
-    })
-    EventBus.$on('offline-order-confirmation', this.onOrderConfirmation)
-
-    window.addEventListener('scroll', () => {
-      this.isScrolling = true
-    }, {passive: true})
-
-    setInterval(() => {
-      if (this.isScrolling) {
-        this.hasScrolled()
-        this.isScrolling = false
-      }
-    }, 250)
+  serverPrefetch () {
+    return Promise.all([
+      this.$store.dispatch('promoted/updatePromotedOffers'),
+      this.fetchMenuData()
+    ]);
   },
-  beforeDestroy () {
-    EventBus.$off('offline-order-confirmation', this.onOrderConfirmation)
-  },
-  metaInfo: Head,
-  components: {
-    MainHeader,
-    MainFooter,
-    HeaderMenu,
-    Microcart,
-    Wishlist,
-    SearchPanel,
-    SidebarMenu,
-    Overlay,
-    Loader,
-    Notification,
-    Modal,
-    SignUp,
-    NewsletterPopup,
-    CookieNotification,
-    OfflineBadge,
-    ModalSwitcher,
-    OrderConfirmation,
-    Announcement,
-    Icons
-  }
+  metaInfo: Head
 }
 </script>
 

@@ -65,6 +65,7 @@ import { mapGetters, mapState } from 'vuex'
 import onEscapePress from '@vue-storefront/core/mixins/onEscapePress'
 import SubCategory from 'theme/components/core/blocks/HeaderMenu/SubCategory'
 import CurrentPage from 'theme/mixins/currentPage'
+import { getTopLevelCategories } from 'theme/helpers'
 
 export default {
   name: 'HeaderMenu',
@@ -79,11 +80,12 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('category', ['getCategories']),
+    ...mapGetters('category-next', ['getMenuCategories']),
+    getCategories () {
+      return this.getMenuCategories
+    },
     categories () {
-      return this.allCategories.filter((op) => {
-        return op.level === (this.$store.state.config.entities.category.categoriesDynamicPrefetchLevel ? this.$store.state.config.entities.category.categoriesDynamicPrefetchLevel : 2) // display only the root level (level =1 => Default Category), categoriesDynamicPrefetchLevel = 2 by default
-      })
+      return getTopLevelCategories(this.getCategories)
     },
     ...mapState({
       currentUser: state => state.user.current
@@ -94,25 +96,15 @@ export default {
       })
     }
   },
-  created () {
-    this.allCategories = this.getCategories
-  },
-  async mounted () {
-    let categories = await this.$store.dispatch('category/list', { skipCache: true, includeFields: this.$store.state.config.entities.optimize ? this.$store.state.config.entities.category.includeFields : null })
-
-    this.allCategories = categories.items
-  },
   methods: {
     onEscapePress () {
       this.closeMenu()
     },
     openMenu (id) {
       this.activeSubMenu = id
-      // this.$store.commit('ui/setOverlay', true)
     },
     closeMenu () {
       this.activeSubMenu = null
-      // this.$store.commit('ui/setOverlay', false)
     },
     toggleSubMenu (id) {
       if (this.activeSubMenu === id) {

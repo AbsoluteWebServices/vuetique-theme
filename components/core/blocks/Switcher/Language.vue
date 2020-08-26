@@ -6,12 +6,12 @@
     <div slot="content">
       <div :class="{ 'columns': enableColumns }">
         <div class="country country-current">
-          <h3>{{ $t(config.i18n.fullCountryName) }}</h3>
+          <h3>{{ $t(fullCountryName) }}</h3>
           <ul>
-            <li><a href="/">{{ $t(config.i18n.fullLanguageName) }}</a></li>
+            <li><a href="/">{{ $t(fullLanguageName) }}</a></li>
           </ul>
         </div>
-        <div class="country country-available" v-for="(storeView, storeCode) in storeViews" :key="storeCode" v-if="!storeView.disabled && typeof storeView === 'object' && storeView.i18n">
+        <div class="country country-available" v-for="(storeView, storeCode) in storeViews" :key="storeCode">
           <h3>{{ $t(storeView.i18n.fullCountryName) }}</h3>
           <ul>
             <li><a :href="storeView.url">{{ $t(storeView.i18n.fullLanguageName) }}</a></li>
@@ -22,8 +22,8 @@
   </modal>
 </template>
 <script>
+import config from 'config'
 import Modal from 'theme/components/core/Modal.vue'
-import store from '@vue-storefront/core/store'
 export default {
   components: {
     Modal
@@ -34,23 +34,32 @@ export default {
     }
   },
   computed: {
-    storeViews () {
-      return store.state.config.storeViews
+    fullCountryName () {
+      return config.i18n.fullCountryName
     },
-    config () {
-      return store.state.config
+    fullLanguageName () {
+      return config.i18n.fullLanguageName
+    },
+    storeViews () {
+      return Object.keys(config.storeViews).reduce((storeViews, storeCode) => {
+        if (this.isValidStoreCode(storeCode)) {
+          storeViews[storeCode] = config.storeViews[storeCode]
+        }
+        return storeViews
+      }, {})
     },
     enableColumns () {
-      var enableStoreViews = Object.keys(store.state.config.storeViews).filter((key) => {
-        var value = store.state.config.storeViews[key]
-        return (typeof value === 'object' && value.disabled === false)
-      })
+      const enableStoreViews = Object.keys(this.storeViews)
       return enableStoreViews.length > this.minCountryPerColumn
     }
   },
   methods: {
     close () {
       this.$bus.$emit('modal-hide', 'modal-switcher')
+    },
+    isValidStoreCode (storeCode) {
+      const storeView = config.storeViews[storeCode]
+      return !!(storeView && typeof storeView === 'object' && storeView.i18n)
     }
   }
 }
