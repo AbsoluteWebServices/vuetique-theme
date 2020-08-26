@@ -1,6 +1,6 @@
 {
   "name": "@vue-storefront/theme-vuetique",
-  "version": "1.4.0",
+  "version": "1.12.2",
   "description": "Vuetique Theme for Vue Storefront",
   "main": "index.js",
   "scripts": {
